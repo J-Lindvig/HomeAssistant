@@ -1,15 +1,15 @@
-#    ______          __           _             
+#    ______          __           _
 #   /_  __/__  _____/ /_   _   __(_)__ _      __
 #    / / / _ \/ ___/ __/  | | / / / _ \ | /| / /
-#   / / /  __(__  ) /_    | |/ / /  __/ |/ |/ / 
-#  /_/  \___/____/\__/    |___/_/\___/|__/|__/  
-#                                               
+#   / / /  __(__  ) /_    | |/ / /  __/ |/ |/ /
+#  /_/  \___/____/\__/    |___/_/\___/|__/|__/
+#
 #                                    by J-Lindvig
-#     __ __                     _ ____  __            __                          
+#     __ __                     _ ____  __            __
 #    / // /__ _______   _    __(_) / / / /  ___   ___/ /______ ____ ____  ___  ___
 #   / _  / -_) __/ -_) | |/|/ / / / / / _ \/ -_) / _  / __/ _ `/ _ `/ _ \/ _ \(_-<
 #  /_//_/\__/_/  \__/  |__,__/_/_/_/ /_.__/\__/  \_,_/_/  \_,_/\_, /\___/_//_/___/
-#                                                             /___/               
+#                                                             /___/
 
 title: System
 icon: mdi:test-tube
@@ -20,7 +20,6 @@ cards:
     column_num: 3
     column_width: 33%
     cards:
-
       - type: alarm-panel
         states:
           - arm_home
@@ -28,21 +27,21 @@ cards:
         entity: alarm_control_panel.alarmo
         name: Alarmen
 
-      - type: custom:weather-card-chart
-        title: Brobyværk
-        weather: weather.brobyvaerk
+      # - type: custom:weather-card-chart
+      #   title: Brobyværk
+      #   weather: weather.brobyvaerk
 
       - type: horizontal-stack
         cards:
           - type: grid
             title: Lys
             cards:
-            - type: button
-              entity: light.sofalamper
-            - type: button
-              entity: light.stuelamper
-            - type: button
-              entity: light.lille_sofa
+              - type: button
+                entity: light.sofalamper
+              - type: button
+                entity: light.stuelamper
+              - type: button
+                entity: light.lille_sofa
 
       - type: custom:auto-entities
         card:
@@ -101,7 +100,6 @@ cards:
             action: call-service
             service: script.reset_mailbox
 
-
       - type: custom:stack-in-card
         title: System
         cards:
@@ -153,71 +151,19 @@ cards:
               - entity: sensor.processor_temperature
                 name: Temperature
 
-      - type: custom:stack-in-card
-        title: System - Service HA
-        cards:
-          - type: custom:stack-in-card
-            mode: horizontal
-            cards:
-              - type: gauge
-                entity: sensor.service_ha_processor_use_percent
-                name: CPU
-                min: 0
-                max: 100
-                severity:
-                  green: 30
-                  yellow: 50
-                  red: 75
-              - type: gauge
-                entity: sensor.service_ha_processor_temperature
-                name: Temperature
-                min: 0
-                max: 100
-                severity:
-                  green: 30
-                  yellow: 50
-                  red: 75
-              - type: gauge
-                entity: sensor.service_ha_memory_use_percent
-                name: Memory
-                min: 0
-                max: 100
-                severity:
-                  green: 30
-                  yellow: 50
-                  red: 75
-          - type: custom:mini-graph-card
-            name: System
-            icon: mdi:raspberry-pi
-            hours_to_show: 2
-            hour24: true
-            points_per_hour: 12
-            animate: true
-            line_width: 2
-            show:
-              labels: false
-            entities:
-              - entity: sensor.service_ha_memory_use_percent
-                name: Memory
-              - entity: sensor.service_ha_processor_use_percent
-                name: CPU
-              - entity: sensor.service_ha_processor_temperature
-                name: Temperature
-                
+      # # Default view
+      # - type: entities
+      #   title: Touchscreen
+      #   show_header_toggle: false
+      #   entities:
+      #     - type: custom:fold-entity-row
+      #       head: automation.retur_til_default_view
+      #       padding: 0
+      #       entities:
+      #         - input_text.default_view_path
+      #         - type: custom:slider-entity-row
+      #           entity: input_number.default_view_timeout
 
-      # Default view
-      - type: entities
-        title: Touchscreen
-        show_header_toggle: false
-        entities:
-          - type: custom:fold-entity-row
-            head: automation.retur_til_default_view
-            padding: 0
-            entities:
-              - input_text.default_view_path
-              - type: custom:slider-entity-row
-                entity: input_number.default_view_timeout
-    
       # Computers
       - type: entities
         title: Computers
@@ -227,46 +173,46 @@ cards:
           - switch.pc_j_lindvig_windows
           - switch.pc_h_lindvig
 
-      # Postkasse
-      - type: entities
-        title: Notifikationer
-        entities:
-          - type: custom:fold-entity-row
-            head: automation.postkasse
-            padding: 0
-            entities:
-              - type: custom:slider-entity-row
-                entity: input_number.mailbox_time_open
-          - type: divider
-          - automation.flaget_skal_hejses
+      # # Postkasse
+      # - type: entities
+      #   title: Notifikationer
+      #   entities:
+      #     - type: custom:fold-entity-row
+      #       head: automation.postkasse
+      #       padding: 0
+      #       entities:
+      #         - type: custom:slider-entity-row
+      #           entity: input_number.mailbox_time_open
+      #     - type: divider
+      #     - automation.flaget_skal_hejses
 
-      # Beskeder
-      - type: entities
-        title: Beskeder
-        entities:
-          - type: custom:slider-entity-row
-            entity: input_number.announce_volume
-          - type: custom:fold-entity-row
-            head: automation.godmorgen
-            padding: 0
-            entities:
-              - type: custom:fold-entity-row
-                head: input_datetime.announce_at_time
-                padding: 0
-                entities:
-                  - type: custom:time-picker-card
-                    entity: input_datetime.announce_at_time
-                    name: Vælg klokkeslæt
-                    link_values: true
-                    layout:
-                      name: inside
-                      align_controls: right
-          - type: divider
-          - type: custom:fold-entity-row
-            head: automation.toilet_meddelse
-            padding: 0
-            entities:
-              - input_text.toilet_string
+      # # Beskeder
+      # - type: entities
+      #   title: Beskeder
+      #   entities:
+      #     - type: custom:slider-entity-row
+      #       entity: input_number.announce_volume
+      #     - type: custom:fold-entity-row
+      #       head: automation.godmorgen
+      #       padding: 0
+      #       entities:
+      #         - type: custom:fold-entity-row
+      #           head: input_datetime.announce_at_time
+      #           padding: 0
+      #           entities:
+      #             - type: custom:time-picker-card
+      #               entity: input_datetime.announce_at_time
+      #               name: Vælg klokkeslæt
+      #               link_values: true
+      #               layout:
+      #                 name: inside
+      #                 align_controls: right
+      #     - type: divider
+      #     - type: custom:fold-entity-row
+      #       head: automation.toilet_meddelse
+      #       padding: 0
+      #       entities:
+      #         - input_text.toilet_string
 
       # Windows
       - type: custom:auto-entities
@@ -281,29 +227,29 @@ cards:
                 type: custom:fold-entity-row
                 padding: 0
 
-      # Network
-      - type: custom:auto-entities
-        card:
-          type: entities
-          title: Netværk
-          show_header_toggle: false
-          show_state: false
-        # entities:
-        #   - binary_sensor.router
-        #   - binary_sensor.main_switch
-        filter:
-          include:
-            - entity_id: binary_sensor.router
-            - entity_id: binary_sensor.main_switch
-            - entity_id: "group.access_points"
-              options:
-                type: custom:fold-entity-row
-            - entity_id: "group.rf_bridges"
-              options:
-                type: custom:fold-entity-row
+      # # Network
+      # - type: custom:auto-entities
+      #   card:
+      #     type: entities
+      #     title: Netværk
+      #     show_header_toggle: false
+      #     show_state: false
+      #   # entities:
+      #   #   - binary_sensor.router
+      #   #   - binary_sensor.main_switch
+      #   filter:
+      #     include:
+      #       - entity_id: binary_sensor.router
+      #       - entity_id: binary_sensor.main_switch
+      #       - entity_id: "group.access_points"
+      #         options:
+      #           type: custom:fold-entity-row
+      #       - entity_id: "group.rf_bridges"
+      #         options:
+      #           type: custom:fold-entity-row
 
-      - type: custom:clock-card
-    
-      - !include cards/test/flag_card.yaml
-    
-      - type: custom:gui-sandbox
+      # - type: custom:clock-card
+
+      # - !include cards/test/flag_card.yaml
+
+      # - type: custom:gui-sandbox

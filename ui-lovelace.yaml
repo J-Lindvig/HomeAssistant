@@ -12,7 +12,7 @@
 views:
   - !include views/main.yaml
   - !include views/room_lights.yaml
-  - !include views/movies.yaml
+#  - !include views/movies.yaml
   - !include views/light_control.yaml
   - !include views/system.yaml
   - !include views/gauges.yaml

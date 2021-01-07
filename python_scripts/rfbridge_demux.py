@@ -1,7 +1,7 @@
 sensors = {
-  "BE8612": ["alarm/command", "DISARM", "true"],
-  "BE8614": ["alarm/command", "ARM_HOME", "true"],
-  "BE8611": ["alarm/command", "ARM_AWAY", "true"],
+  "BE8612": ["alarm/command", "DISARM", "false"],
+  "BE8614": ["alarm/command", "ARM_HOME", "false"],
+  "BE8611": ["alarm/command", "ARM_AWAY", "false"],
   "3C003A": ["Havelåge", "ON", "false"],
   "C0E3DA": ["Hoveddør", "ON", "false"],
   "5D81DA": ["Pengekasse", "ON", "false"],

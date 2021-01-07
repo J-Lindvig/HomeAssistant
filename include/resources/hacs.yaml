@@ -49,8 +49,6 @@
 # 
 - type: module
   url: /hacsfiles/lovelace-fold-entity-row/fold-entity-row.js
-- type: module
-  url: /hacsfiles/fullscreen-card/fullscreen-card.js
 
 #      ______
 #     / ____/

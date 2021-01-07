@@ -1,10 +1,10 @@
 {
   "common": {
     "modes_long": {
-      "armed_away": "Slå til Ude",
-      "armed_home": "Slå til Hjemme",
-      "armed_night": "Slå til Nat",
-      "armed_custom_bypass": "Slå til Speciel"
+      "armed_away": "Tilkoblet Ude",
+      "armed_home": "Tilkoblet Hjemme",
+      "armed_night": "Tilkoblet Nat",
+      "armed_custom_bypass": "Tilkoblet Speciel"
     },
     "modes_short": {
       "armed_away": "Ude",
@@ -21,7 +21,7 @@
       "none": "ingen"
     },
     "editor": {
-      "ui_mode": "Skift til UI",
+      "ui_mode": "Skift til GUI",
       "yaml_mode": "Skift til YAML"
     }
   },
@@ -30,19 +30,19 @@
       "cards": {
         "general": {
           "title": "Generelle indstillinger",
-          "description": "Dette panel indeholder nogle indstillinger som berører alle alarmens moduser",
+          "description": "Dette panel indeholder indstillinger til alle alarmens tilstande.",
           "fields": {
             "trigger_time": {
-              "heading": "Udløser tid",
-              "description": "Hvor lang tid skal sirenen lyde"
+              "heading": "Alarm tid",
+              "description": "Den tid som en evt. sirene skal lyde."
             },
             "disarm_after_trigger": {
-              "heading": "Frakobling efter udløser",
-              "description": "Når udløser tiden er udløbet, frakobl alarmen istedet for at returnere til tilkoblet."
+              "heading": "Frakobl efter alarm",
+              "description": "Efter alarmen har lydt i sin indstillede tid, så frakobl alarmen istedet for at returnere til tilkoblet tilstand."
             },
             "enable_mqtt": {
-              "heading": "Aktivér MQTT",
-              "description": "Tillad alarmen at blive kontrolleret gennem MQTT."
+              "heading": "Tænd MQTT",
+              "description": "Tille alarmen at blive kontrolleret gennem MQTT."
             }
           },
           "actions": {
@@ -53,7 +53,7 @@
           "fields": {
             "leave_time": {
               "heading": "Udgangsforsinkelse",
-              "description": "Når alarmen tilkobles, vil sensorerne inden for denne tidsperiode ikke udløse alarmen."
+              "description": "Når alarmen tilkobles, så udløses alarmen ikke i dette tidsrum, når sensorer m.m. bliver aktiveret."
             },
             "entry_time": {
               "heading": "Indgangsforsinkelse",
@@ -129,6 +129,32 @@
               "heading": "Name",
               "description": "Overwrite friendly name."
             },
+            "device_type": {
+              "heading": "Device Type",
+              "description": "Choose a device type to automatically apply appropriate settings.",
+              "choose": {
+                "door": {
+                  "name": "Door",
+                  "description": "A door, gate or other entrance that is used for entering/leaving the home."
+                },
+                "window": {
+                  "name": "Window",
+                  "description": "A window, or a door not used for entering the house such as balcony."
+                },
+                "motion": {
+                  "name": "Motion",
+                  "description": "Presence sensor or similar device having a delay between activations."
+                },
+                "tamper": {
+                  "name": "Tamper",
+                  "description": "Detector of sensor cover removal, glass break sensor, etc."
+                },
+                "environmental": {
+                  "name": "Environmental",
+                  "description": "Smoke/gas sensor, leak detector, etc. (not related to burglar protection)."
+                }
+              }
+            },
             "always_on": {
               "heading": "Always on",
               "description": "Sensor should always trigger the alarm."
@@ -137,18 +163,25 @@
               "heading": "Enabled modes",
               "description": "Alarm modes in which this sensor is active."
             },
+            "arm_on_close": {
+              "heading": "Arm after closing",
+              "description": "After deactivation of this sensor, the remaining exit delay will automatically be skipped."
+            },
             "immediate": {
               "heading": "Immediate",
-              "description": "Sensor should skip the delay."
+              "description": "Activating this sensor will trigger the alarm directly instead of after entry delay."
             },
             "allow_open": {
-              "heading": "Allow open",
-              "description": "Allow this sensor to remain active shortly after leaving."
+              "heading": "Allow open while arming",
+              "description": "Allow this sensor to be active shortly after leaving such that it will not block arming."
             },
             "trigger_unavailable": {
               "heading": "Trigger when unavailable",
-              "description": "Trigger the alarm when the sensor state becomes 'unavailable'."
+              "description": "When the sensor state becomes 'unavailable', this will activate the sensor."
             }
+          },
+          "actions": {
+            "toggle_advanced": "Advanced settings"
           }
         }
       }

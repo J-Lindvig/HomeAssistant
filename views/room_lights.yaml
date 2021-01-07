@@ -79,7 +79,6 @@ cards:
                         full_row: true
               - type: custom:button-card
                 color_type: blank-card
-    
 
       - type: custom:stack-in-card
         title: "Kontor"
@@ -90,18 +89,17 @@ cards:
               - type: custom:stack-in-card
                 cards:
                   - type: custom:button-card
-                    entity: light.sandbox_bulb
+                    entity: light.sandbox
                   - type: entities
                     entities:
                       - type: custom:slider-entity-row
-                        entity: light.sandbox_bulb
+                        entity: light.sandbox
                         hide_state: true
                         full_row: true
               - type: custom:button-card
                 color_type: blank-card
               - type: custom:button-card
                 color_type: blank-card
-    
 
       - type: custom:stack-in-card
         title: "Stuen"
@@ -149,21 +147,21 @@ cards:
               - type: custom:stack-in-card
                 cards:
                   - type: custom:button-card
-                    entity: light.studievarelse_gulvlampe
+                    entity: light.studievaerelse_gulvlampe
                   - type: entities
                     entities:
                       - type: custom:slider-entity-row
-                        entity: light.studievarelse_gulvlampe
+                        entity: light.studievaerelse_gulvlampe
                         hide_state: true
                         full_row: true
               - type: custom:stack-in-card
                 cards:
                   - type: custom:button-card
-                    entity: light.studievarelse_uplight
+                    entity: light.studievaerelse_uplight
                   - type: entities
                     entities:
                       - type: custom:slider-entity-row
-                        entity: light.studievarelse_uplight
+                        entity: light.studievaerelse_uplight
                         hide_state: true
                         full_row: true
               - type: custom:stack-in-card
@@ -193,7 +191,6 @@ cards:
                 color_type: blank-card
               - type: custom:button-card
                 color_type: blank-card
-    
 
       - type: custom:stack-in-card
         title: "Fælles"
@@ -260,7 +257,6 @@ cards:
                         full_row: true
               - type: custom:button-card
                 color_type: blank-card
-    
 
       - type: custom:stack-in-card
         title: "Williams værelse"
@@ -290,7 +286,6 @@ cards:
                         full_row: true
               - type: custom:button-card
                 color_type: blank-card
-    
 
       - type: custom:stack-in-card
         title: "Badeværelser"
@@ -301,26 +296,25 @@ cards:
               - type: custom:stack-in-card
                 cards:
                   - type: custom:button-card
-                    entity: light.lille_badevarelse
+                    entity: light.lille_badevaerelse
                   - type: entities
                     entities:
                       - type: custom:slider-entity-row
-                        entity: light.lille_badevarelse
+                        entity: light.lille_badevaerelse
                         hide_state: true
                         full_row: true
               - type: custom:stack-in-card
                 cards:
                   - type: custom:button-card
-                    entity: light.stort_badevarelse
+                    entity: light.stort_badevaerelse
                   - type: entities
                     entities:
                       - type: custom:slider-entity-row
-                        entity: light.stort_badevarelse
+                        entity: light.stort_badevaerelse
                         hide_state: true
                         full_row: true
               - type: custom:button-card
                 color_type: blank-card
-    
 
       - type: custom:stack-in-card
         title: "Emilios værelse"
@@ -350,7 +344,6 @@ cards:
                         full_row: true
               - type: custom:button-card
                 color_type: blank-card
-    
 
       - type: custom:stack-in-card
         title: "Colins værelse"
@@ -409,7 +402,6 @@ cards:
                 color_type: blank-card
               - type: custom:button-card
                 color_type: blank-card
-    
 
       - type: custom:stack-in-card
         title: "Cornelies værelse"
@@ -431,7 +423,6 @@ cards:
                 color_type: blank-card
               - type: custom:button-card
                 color_type: blank-card
-    
 
       - type: custom:stack-in-card
         title: "Nathalies værelse"
@@ -461,7 +452,6 @@ cards:
                         full_row: true
               - type: custom:button-card
                 color_type: blank-card
-    
 
       - type: custom:stack-in-card
         title: "Bloklys"
@@ -499,7 +489,6 @@ cards:
                         entity: light.bloklys_stuen
                         hide_state: true
                         full_row: true
-
 ################################################################################
 ####                              End of file                               ####
 ################################################################################

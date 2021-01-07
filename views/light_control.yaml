@@ -12,8 +12,6 @@ panel: false
 cards:
   - !include cards/light_control/dimming.yaml
 
-  - type: custom:fullscreen-card
-
   - type: custom:stack-in-card
     cards:
       - type: grid

@@ -5,8 +5,14 @@ systemmonitor:
       resources:
         - type: last_boot
         - type: processor_use
-        - type: processor_temperature
+#        - type: processor_temperature
         - type: memory_use_percent
         - type: disk_use_percent
           arg: /
         - type: swap_use_percent
+
+    - platform: command_line
+      name: Processor Temperature
+      command: "cat /sys/class/thermal/thermal_zone2/temp"
+      unit_of_measurement: "°C"
+      value_template: "{{ value | multiply(0.001) | round(1) }}"

@@ -7,7 +7,7 @@ cards:
       - type: custom:stack-in-card
         cards:
           - type: custom:button-card
-            entity: light.sandbox_bulb
+            entity: light.sandbox
           - type: entities
             entities:
               - type: custom:slider-entity-row

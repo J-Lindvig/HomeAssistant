@@ -29,26 +29,21 @@ playtime:
       trigger:
         - platform: state
           entity_id:
-            - light.colins_loftlampe
-            - light.emilios_loftlampe
+            - light.colins_vaerelse
+            - light.emilios_vaerelse
           to: "on"
           for:
             minutes: "{{ states('input_number.timeout_forgotten_light') | int }}"
       condition: >-
-        {%- if trigger.entity_id == "light.colins_loftlampe" %}
+        {%- if trigger.entity_id == "light.colins_vaerelse" %}
           {{ is_state('input_boolean.colin_legetid', 'off') }}
-        {% elif trigger.entity_id == "light.emilios_loftlampe" %}
+        {% elif trigger.entity_id == "light.emilios_vaerelse" %}
           {{ is_state('input_boolean.emilio_legetid', 'off') }}
         {% endif -%}
       action:
         service: light.turn_off
-        target:
-          area_id: >-
-            {%- if trigger.entity_id == "light.colins_loftlampe" %}
-              colins_vaerelse
-            {% elif trigger.entity_id == "light.emilios_loftlampe" %}
-              emilios_vaerelse
-            {% endif -%}
+        data:
+          entity_id: "{{ trigger.entity_id }}"
 
     - alias: "Legetid slut"
       id: bfff5158ee3944788410628ad5482c55
@@ -62,14 +57,14 @@ playtime:
             - input_boolean.emilio_legetid
           to: "off"
       action:
-        - service: light.turn_off
-          target:
-            area_id: >-
-              {%- if trigger.entity_id == "input_boolean.colin_legetid" %}
-                colins_vaerelse
-              {% elif trigger.entity_id == "input_boolean.emilio_legetid" %}
-                emilios_vaerelse
-              {% endif -%}
+        service: light.turn_off
+        data:
+          entity_id: >-
+            {%- if trigger.entity_id == "input_boolean.colin_legetid" %}
+              light.colins_vaerelse
+            {% elif trigger.entity_id == "input_boolean.emilio_legetid" %}
+              light.emilios_vaerelse
+            {% endif -%}
 
     - alias: "Nulstil legetid ved slukning af lys"
       id: 6cf703a042034e1f954f9ded629bd7b6
@@ -79,21 +74,15 @@ playtime:
       trigger:
         - platform: state
           entity_id:
-            - light.colins_loftlampe
-            - light.emilios_loftlampe
+            - light.colins_vaerelse
+            - light.emilios_vaerelse
           to: "off"
-      condition: >-
-        {%- if trigger.entity_id == "light.colins_loftlampe" %}
-          {{ is_state('input_boolean.colin_legetid', 'on') }}
-        {% elif trigger.entity_id == "light.emilios_loftlampe" %}
-          {{ is_state('input_boolean.emilio_legetid', 'on') }}
-        {% endif -%}
       action:
         - service: input_boolean.turn_off
           data:
             entity_id:  >-
-              {%- if trigger.entity_id == "light.colins_loftlampe" %}
+              {%- if trigger.entity_id == "light.colins_vaerelse" %}
                 input_boolean.colin_legetid
-              {% elif trigger.entity_id == "light.emilios_loftlampe" %}
+              {% elif trigger.entity_id == "light.emilios_vaerelse" %}
                 input_boolean.emilio_legetid
               {% endif -%}

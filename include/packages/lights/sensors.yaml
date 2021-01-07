@@ -20,9 +20,9 @@ gangen:
       mode: restart
       trigger:
         - platform: state
-          entity_id: binary_sensor.stort_badevarelse_sensor
+          entity_id: binary_sensor.stort_badevaerelse_sensor
           to: "on"
-      condition: "{{ is_state('light.stort_badevarelse', 'off') }}"
+      condition: "{{ is_state('light.stort_badevaerelse', 'off') }}"
       action:
         - choose:
             - conditions:
@@ -35,7 +35,7 @@ gangen:
                     entity_id: input_boolean.private_taking_bath_large
         - service: light.turn_on
           data:
-            entity_id: light.stort_badevarelse
+            entity_id: light.stort_badevaerelse
             brightness: >-
               {%- if is_state("binary_sensor.night", "on") %}
                 {{ states("input_number.dim_low") | int }}
@@ -49,9 +49,9 @@ gangen:
       mode: restart
       trigger:
         - platform: state
-          entity_id: binary_sensor.stort_badevarelse_sensor
+          entity_id: binary_sensor.stort_badevaerelse_sensor
           to: "off"
-      condition: "{{ is_state('light.stort_badevarelse', 'on') }}"
+      condition: "{{ is_state('light.stort_badevaerelse', 'on') }}"
       action:
         - choose:
             - conditions:
@@ -70,7 +70,7 @@ gangen:
 
         - service: light.turn_off
           data:
-            entity_id: light.stort_badevarelse
+            entity_id: light.stort_badevaerelse
         - service: input_boolean.turn_off
           data:
             entity_id: input_boolean.private_taking_bath_large
@@ -81,9 +81,9 @@ gangen:
       mode: restart
       trigger:
         - platform: state
-          entity_id: binary_sensor.lille_badevarelse_sensor
+          entity_id: binary_sensor.lille_badevaerelse_sensor
           to: "on"
-      condition: "{{ is_state('light.lille_badevarelse', 'off') }}"
+      condition: "{{ is_state('light.lille_badevaerelse', 'off') }}"
       action:
         - choose:
             - conditions:
@@ -96,7 +96,7 @@ gangen:
                     entity_id: input_boolean.private_taking_bath_small
         - service: light.turn_on
           data:
-            entity_id: light.lille_badevarelse
+            entity_id: light.lille_badevaerelse
             brightness: >-
               {%- if is_state("binary_sensor.night", "on") %}
                 {{ states("input_number.dim_low") | int }}
@@ -110,9 +110,9 @@ gangen:
       mode: restart
       trigger:
         - platform: state
-          entity_id: binary_sensor.lille_badevarelse_sensor
+          entity_id: binary_sensor.lille_badevaerelse_sensor
           to: "off"
-      condition: "{{ is_state('light.lille_badevarelse', 'on') }}"
+      condition: "{{ is_state('light.lille_badevaerelse', 'on') }}"
       action:
         - choose:
             - conditions:
@@ -131,7 +131,7 @@ gangen:
 
         - service: light.turn_off
           data:
-            entity_id: light.lille_badevarelse
+            entity_id: light.lille_badevaerelse
         - service: input_boolean.turn_off
           data:
             entity_id: input_boolean.private_taking_bath_small
@@ -178,31 +178,6 @@ gangen:
           data:
             entity_id: light.gangen
 
-    # - alias: "Tænd lyset ved bevægelse"
-    #   id: 20c269830c7c4b2a81b65ef5e82dbca1
-    #   initial_state: true
-    #   mode: restart
-    #   trigger:
-    #     - platform: state
-    #       entity_id:
-    #         - binary_sensor.sandbox_sensor
-    #         - binary_sensor.camera_indgang
-    #       to: "on"
-    #   action:
-    #     - service: script.turn_on
-    #       data:
-    #         entity_id: script.generic_sensor_dimmer
-    #         variables:
-    #           sensor: "{{ trigger.entity_id }}"
-    #           light: >-
-    #             {%- if trigger.entity_id == "binary_sensor.sandbox_sensor" %}
-    #               light.sandbox_bulb
-    #             {%- elif trigger.entity_id == "group.sensors_gangen" %}
-    #               light.gangen
-    #             {%- elif trigger.entity_id == "binary_sensor.camera_indgang" %}
-    #               light.indgang
-    #             {% endif %}
-
   script:
     generic_sensor_dimmer:
       alias: "Generic dimmer on sensor"
@@ -211,7 +186,7 @@ gangen:
       fields:
         sensor:
           description: "Den sensor som der skal testes på"
-          example: "binary_sensor.lille_badevarelse_sensor"
+          example: "binary_sensor.lille_badevaerelse_sensor"
         light:
           description: "Entity på det lys som skal styres"
           example: "light.gangen"

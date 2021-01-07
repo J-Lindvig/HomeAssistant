@@ -5,58 +5,28 @@ greentel:
         talk_hours_used:
           friendly_name: "Taletid"
           unique_id: 50f594f9dd804097b279c3ffe2ade5f0
-          entity_id: sensor.greentel
           value_template: "{{ state_attr('sensor.greentel', 'talk_hours_used') | default(0, true) }}"
 
         talk_hours_max:
           friendly_name: "Taletid, max"
           unique_id: 20fef93286234d39bba83bec32250b61
-          entity_id: sensor.greentel
           value_template: "{{ state_attr('sensor.greentel', 'talk_hours_max') }}"
 
         data_used:
           friendly_name: "Data"
           unique_id: 756a556bb2d241a2bd1537ce9e147806
-          entity_id: sensor.greentel
           value_template: "{{ state_attr('sensor.greentel', 'data_used') | default(0, true) }}"
 
         data_max:
           friendly_name: "Data, max"
           unique_id: 5d4ec306de9d4573a028e3050664ca07
-          entity_id: sensor.greentel
           value_template: "{{ state_attr('sensor.greentel', 'data_max') }}"
 
         modem_used_percent:
           friendly_name: "Modem"
           unique_id: 5c88f5e3fdcd493dba5f6a09c08a4ca2
-          entity_id: sensor.greentel
           value_template: "{{ state_attr('sensor.greentel', 'modem_used') | default(0, true) }}"
 
   shell_command:
     greentel_scrape: "source /config/shell/greentel.sh; greentel_scrape"
     greentel_get: "source /config/shell/greentel.sh; greentel_get"
-
-  automation:
-    - alias: "Greentel hent værdier"
-      id: f2857193eddb41b1af0f5801aacbfa3a
-      description: Udtræk taletid m.m. fra scraping af Greentel
-      initial_state: true
-      mode: single
-      trigger:
-        - platform: time_pattern
-          minutes: "/52"
-        - platform: homeassistant
-          event: start
-      action:
-        - service: shell_command.greentel_get
-
-    - alias: "Greentel scrape"
-      id: f8ece03fd7ad46ed854f944ba0bb8266
-      description: Scrape data fra Greentel
-      initial_state: true
-      mode: single
-      trigger:
-        - platform: time_pattern
-          minutes: "/42"
-      action:
-        - service: shell_command.greentel_scrape

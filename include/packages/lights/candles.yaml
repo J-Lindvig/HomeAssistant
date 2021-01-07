@@ -38,10 +38,6 @@ candles:
         - name: Bloklys stuen
           <<: *on_off_keys
 
-        - name: RGB
-          command_on: JgBYAAABOJMWERYQFhAWEBYQFhEVERU2FTUWNRY1FjUVNhU1FjUWEBYRFTUWERMTFjUVERURFhAWNRYQFjUWNRURFjUVNhU2FQAFKAABOUgWAAxrAAE4ShUADQU=
-          command_off: JgBYAAABOZMWEBYQFhEVERQSFhAWERU1FjUWNRY1FjUVNRY1FjUWEBYQFjUWEBY1FjUWEBYRFREVNRYRFDYWERURFjUVNhU1FgAFKAABOUgWAAxrAAE5SBYADQU=
-
     - platform: broadlink
       mac: !secret KØKKEN_IR_MAC
       switches:

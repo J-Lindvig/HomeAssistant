@@ -15,12 +15,6 @@ hal_9000:
       has_time: true
       initial: "09:00"
 
-  sensor:
-    - platform: scrape
-      name: Dagens navn
-      resource: https://www.navnedag.dk
-      select: "h1"
-
   automation:
     - alias: "Godmorgen"
       id: 3fefd775a54746a5864c7981f28b36ea
@@ -49,8 +43,7 @@ hal_9000:
               {{ states('var.greetings').split("|")[ran_idx] }},.
               
               Klokken er {{ states('sensor.tid_naturlig') }}, og det er i dag {{ state_attr('sensor.dato', 'ugedag') }} den {{ state_attr('sensor.dato', 'dato_ordenstal') }} {{ state_attr('sensor.dato', 'maaned') }},.
-              Dagens navn er {{ states('sensor.dagens_navn') }},.
-              
+
               Temperaturen, i {{ state_attr('weather.brobyvaerk', 'friendly_name') }}, er lige nu {{ state_attr('weather.brobyvaerk', 'temperature') | round }} grader som vil føles som mellem {{ states('sensor.brobyvaerk_realfeel_temperature_min_0d') | round }} og {{ states('sensor.brobyvaerk_realfeel_temperature_max_0d') | round }} grader,.
               {% if states('sensor.brobyvaerk_precipitation') | int > 0 %}
                 Der forventes at falde {{ states('sensor.brobyvaerk_precipitation') | round }} {{ state_attr('sensor.brobyvaerk_precipitation', 'unit_of_measurement') }} i løbet af dagen i dag,.

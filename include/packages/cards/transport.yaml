@@ -1,120 +1,119 @@
-# transport:
+transport:
+  sensor:
+    - platform: waze_travel_time
+      name: Herstedvester Fængsel
+      origin: zone.home
+      destination: zone.herstedvester_faengsel
+      region: "EU"
 
-#   sensor:
-#     - platform: waze_travel_time
-#       name: Herstedvester Fængsel
-#       origin: zone.home
-#       destination: zone.herstedvester_faengsel
-#       region: 'EU'
+    - platform: waze_travel_time
+      name: Margarita og Rolf
+      origin: zone.home
+      destination: zone.farmor_og_farfar
+      region: "EU"
 
-#     - platform: waze_travel_time
-#       name: Margarita og Rolf
-#       origin: zone.home
-#       destination: zone.farmor_og_farfar
-#       region: 'EU'
+    - platform: rejseplanen
+      name: Odense 110
+      stop_id: 430276300
+      direction:
+        - "Odense"
+      route: "Bus 110"
 
-#     - platform: rejseplanen
-#       name: Odense 110
-#       stop_id: 430276300
-#       direction:
-#         - 'Odense'
-#       route: 'Bus 110'
+    - platform: rejseplanen
+      name: Assens 110
+      stop_id: 430276300
+      direction:
+        - "Assens"
+      route: "Bus 110"
 
-#     - platform: rejseplanen
-#       name: Assens 110
-#       stop_id: 430276300
-#       direction:
-#         - 'Assens'
-#       route: 'Bus 110'
+    - platform: rejseplanen
+      name: Odense
+      stop_id: "430268500"
+      direction:
+        - "Odense"
+      route: "Bus 111"
 
-#     - platform: rejseplanen
-#       name: Odense
-#       stop_id: '430268500'
-#       direction:
-#         - 'Odense'
-#       route: 'Bus 111'
-    
-#     - platform: rejseplanen
-#       name: Faaborg
-#       stop_id: '430268500'
-#       direction:
-#         - 'Faaborg'
-#       route: 'Bus 111'
+    - platform: rejseplanen
+      name: Faaborg
+      stop_id: "430268500"
+      direction:
+        - "Faaborg"
+      route: "Bus 111"
 
-#     - platform: rejseplanen
-#       name: Glamsbjerg
-#       stop_id: '430269400'
-#       route: 'Bus 851U'
-#       direction:
-#         - 'Vestfyns Uddannelsescenter'
+    - platform: rejseplanen
+      name: Glamsbjerg
+      stop_id: "430269400"
+      route: "Bus 851U"
+      direction:
+        - "Vestfyns Uddannelsescenter"
 
-#     - platform: template
-#       sensors:
-#         #####   BIL  #####
-#         bil_mod_margarita_og_rolf:
-#           friendly_name_template: "{{ state_attr('sensor.margarita_og_rolf', 'friendly_name' ) }}:"
-#           unique_id: 28eff7df076e45c59c2a9294e931ed15
-#           value_template: >-
-#             {{ states('sensor.margarita_og_rolf') }} minutter ({{ state_attr('sensor.margarita_og_rolf', 'distance' ) | round }} km. af {{ state_attr('sensor.margarita_og_rolf', 'route') }})
-#           attribute_templates:
-#             sort_value_minutes: "{{ states('sensor.margarita_og_rolf') }}"
-#             days: >-
-#               {% set ts = as_timestamp(state_attr('calendar.farmor_og_farfar', 'start_time')) | int %}
-#               {{ ((ts - as_timestamp(now()) | int) / ( 60 * 60 * 24 )) | round(0, 'ceil') }}
+    - platform: template
+      sensors:
+        #####   BIL  #####
+        bil_mod_margarita_og_rolf:
+          friendly_name_template: "{{ state_attr('sensor.margarita_og_rolf', 'friendly_name' ) }}:"
+          unique_id: 28eff7df076e45c59c2a9294e931ed15
+          value_template: >-
+            {{ states('sensor.margarita_og_rolf') }} minutter ({{ state_attr('sensor.margarita_og_rolf', 'distance' ) | round }} km. af {{ state_attr('sensor.margarita_og_rolf', 'route') }})
+          attribute_templates:
+            sort_value_minutes: "{{ states('sensor.margarita_og_rolf') }}"
+            days: >-
+              {% set ts = as_timestamp(state_attr('calendar.farmor_og_farfar', 'start_time')) | int %}
+              {{ ((ts - as_timestamp(now()) | int) / ( 60 * 60 * 24 )) | round(0, 'ceil') }}
 
-#         bil_mod_herstedvester:
-#           friendly_name_template: "{{ state_attr('sensor.herstedvester_faengsel', 'friendly_name' ) }}:"
-#           unique_id: fe9c6f4519154bdf903d0dfeaed1a6af
-#           value_template: >-
-#             {{ states('sensor.herstedvester_faengsel') }} minutter ({{ state_attr('sensor.herstedvester_faengsel', 'distance' ) | round }} km. af {{ state_attr('sensor.herstedvester_faengsel', 'route') }})
-#           attribute_templates:
-#             sort_value_minutes: "{{ states('sensor.herstedvester_faengsel') }}"
-#             days: >-
-#               {% set ts = as_timestamp(state_attr('calendar.herstedvester', 'start_time')) | int %}
-#               {{ ((ts - as_timestamp(now()) | int) / ( 60 * 60 * 24 )) | round(0, 'ceil') }}
+        bil_mod_herstedvester:
+          friendly_name_template: "{{ state_attr('sensor.herstedvester_faengsel', 'friendly_name' ) }}:"
+          unique_id: fe9c6f4519154bdf903d0dfeaed1a6af
+          value_template: >-
+            {{ states('sensor.herstedvester_faengsel') }} minutter ({{ state_attr('sensor.herstedvester_faengsel', 'distance' ) | round }} km. af {{ state_attr('sensor.herstedvester_faengsel', 'route') }})
+          attribute_templates:
+            sort_value_minutes: "{{ states('sensor.herstedvester_faengsel') }}"
+            days: >-
+              {% set ts = as_timestamp(state_attr('calendar.herstedvester', 'start_time')) | int %}
+              {{ ((ts - as_timestamp(now()) | int) / ( 60 * 60 * 24 )) | round(0, 'ceil') }}
 
-#         ##### BUSSER #####
-#         bus_mod_glamsbjerg:
-#           friendly_name_template: >-
-#             {{ state_attr('sensor.glamsbjerg', 'route') }} mod {{ state_attr('sensor.glamsbjerg', 'direction') }} om:
-#           unique_id: a0b3c4b2c4664974ab948e3a1d3d8c09
-#           value_template: >-
-#             {{ states('sensor.glamsbjerg') }} minut{% if states('sensor.glamsbjerg') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.glamsbjerg', 'due_at').split(' ')[1] }})
-#           attribute_templates:
-#             sort_value_minutes: "{{ state_attr('sensor.glamsbjerg', 'due_in') }}"
+        ##### BUSSER #####
+        bus_mod_glamsbjerg:
+          friendly_name_template: >-
+            {{ state_attr('sensor.glamsbjerg', 'route') }} mod {{ state_attr('sensor.glamsbjerg', 'direction') }} om:
+          unique_id: a0b3c4b2c4664974ab948e3a1d3d8c09
+          value_template: >-
+            {{ states('sensor.glamsbjerg') }} minut{% if states('sensor.glamsbjerg') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.glamsbjerg', 'due_at').split(' ')[1] }})
+          attribute_templates:
+            sort_value_minutes: "{{ state_attr('sensor.glamsbjerg', 'due_in') }}"
 
-#         bus_mod_faaborg:
-#           friendly_name_template: >-
-#             {{ state_attr('sensor.faaborg', 'route') }} mod {{ state_attr('sensor.faaborg', 'direction') }} om:
-#           unique_id: 613c677d60cb48128a6f56b843358205
-#           value_template: >-
-#             {{ states('sensor.faaborg') }} minut{% if states('sensor.faaborg') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.faaborg', 'due_at').split(' ')[1] }})
-#           attribute_templates:
-#             sort_value_minutes: "{{ state_attr('sensor.faaborg', 'due_in') }}"
-    
-#         bus_mod_odense:
-#           friendly_name_template: >-
-#             {{ state_attr('sensor.odense', 'route') }} mod {{ state_attr('sensor.odense', 'direction') }} om:
-#           unique_id: 9855ea5267e148b9acc278ee97c1a927
-#           value_template: >-
-#             {{ states('sensor.odense') }} minut{% if states('sensor.odense') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.odense', 'due_at').split(' ')[1] }})
-#           attribute_templates:
-#             sort_value_minutes: "{{ state_attr('sensor.odense', 'due_in') }}"
+        bus_mod_faaborg:
+          friendly_name_template: >-
+            {{ state_attr('sensor.faaborg', 'route') }} mod {{ state_attr('sensor.faaborg', 'direction') }} om:
+          unique_id: 613c677d60cb48128a6f56b843358205
+          value_template: >-
+            {{ states('sensor.faaborg') }} minut{% if states('sensor.faaborg') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.faaborg', 'due_at').split(' ')[1] }})
+          attribute_templates:
+            sort_value_minutes: "{{ state_attr('sensor.faaborg', 'due_in') }}"
 
-#         bus_mod_odense_110:
-#           friendly_name_template: >-
-#             {{ state_attr('sensor.odense_110', 'route') }} mod {{ state_attr('sensor.odense', 'direction') }} om:
-#           unique_id: e0f1b996e5e64849a9db39fa735bbd7e
-#           value_template: >-
-#             {{ states('sensor.odense_110') }} minut{% if states('sensor.odense_110') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.odense_110', 'due_at').split(' ')[1] }})
-#           attribute_templates:
-#             sort_value_minutes: "{{ state_attr('sensor.odense_110', 'due_in') }}"
+        bus_mod_odense:
+          friendly_name_template: >-
+            {{ state_attr('sensor.odense', 'route') }} mod {{ state_attr('sensor.odense', 'direction') }} om:
+          unique_id: 9855ea5267e148b9acc278ee97c1a927
+          value_template: >-
+            {{ states('sensor.odense') }} minut{% if states('sensor.odense') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.odense', 'due_at').split(' ')[1] }})
+          attribute_templates:
+            sort_value_minutes: "{{ state_attr('sensor.odense', 'due_in') }}"
 
-#         bus_mod_assens_110:
-#           friendly_name_template: >-
-#             {{ state_attr('sensor.assens_110', 'route') }} mod {{ state_attr('sensor.assens_110', 'direction') }} om:
-#           unique_id: 4f56e330030c4b138a8e259456e5c920
-#           value_template: >-
-#             {{ states('sensor.assens_110') }} minut{% if states('sensor.assens_110') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.assens_110', 'due_at').split(' ')[1] }})
-#           attribute_templates:
-#             sort_value_minutes: "{{ state_attr('sensor.assens_110', 'due_in') }}"
+        bus_mod_odense_110:
+          friendly_name_template: >-
+            {{ state_attr('sensor.odense_110', 'route') }} mod {{ state_attr('sensor.odense', 'direction') }} om:
+          unique_id: e0f1b996e5e64849a9db39fa735bbd7e
+          value_template: >-
+            {{ states('sensor.odense_110') }} minut{% if states('sensor.odense_110') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.odense_110', 'due_at').split(' ')[1] }})
+          attribute_templates:
+            sort_value_minutes: "{{ state_attr('sensor.odense_110', 'due_in') }}"
+
+        bus_mod_assens_110:
+          friendly_name_template: >-
+            {{ state_attr('sensor.assens_110', 'route') }} mod {{ state_attr('sensor.assens_110', 'direction') }} om:
+          unique_id: 4f56e330030c4b138a8e259456e5c920
+          value_template: >-
+            {{ states('sensor.assens_110') }} minut{% if states('sensor.assens_110') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.assens_110', 'due_at').split(' ')[1] }})
+          attribute_templates:
+            sort_value_minutes: "{{ state_attr('sensor.assens_110', 'due_in') }}"

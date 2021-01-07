@@ -40,7 +40,7 @@ doorbell:
             data:
               channel: Dørklokke
               importance: high
-              image: "https://ha.skovtrolden.duckdns.org/{{ state_attr('camera.indgang_sd', 'entity_picture') }}"
+              image: "/api/camera_proxy/camera.indgang_sd"
         - service: media_player.volume_set
           data:
             entity_id:

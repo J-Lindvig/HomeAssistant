@@ -35,7 +35,7 @@ mailbox:
       mode: single
       trigger:
         - platform: state
-          entity_id: binary_sensor.mailbox
+          entity_id: binary_sensor.postkasse
           to: "on"
           for:
             seconds: "{{ states('input_number.mailbox_time_open') | int }}"
