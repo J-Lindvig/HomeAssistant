@@ -80,7 +80,6 @@ action:
 #    event: 5002
     list: "{{ state_attr(light_group, 'entity_id') }}"
     light: "{{ states(group) }}"
-    dim_step_pct: "{{ ( dim_step_pct | int ) if event == 2002 else (0 - ( dim_step_pct | int )) }}"
 
 - choose:
   # This is the initial run - fill the input_select
@@ -92,9 +91,7 @@ action:
           options: "{{ list | tojson }}"
 
 - choose:
-
-  # Cycle through the lights in the group, set the idx_holder to the new index
-  # Flash the choosen light
+  # Find the previous or next light and give it a short flash
   - conditions: "{{ event in (4002, 5002) and list | length > 1 }}"
     sequence:
       - service: "input_select.select_{{ 'previous' if event == 4002 else 'next' }}"
@@ -128,7 +125,7 @@ action:
       - service: light.turn_on
         data:
           entity_id: "{{ light }}"
-          brightness_step_pct: "{{ dim_step_pct }}"
+          brightness_step_pct: "{{ ( dim_step_pct | int ) if event == 2002 else (0 - ( dim_step_pct | int )) }}"
           transition: "{{ short_press_transition }}"
 
   # Long press dim up
