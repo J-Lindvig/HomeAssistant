@@ -1,0 +1,170 @@
+blueprint:
+  name: deCONZ - All-In-One IKEA five button remote for lights
+  description: "Lorem ipsum"
+  domain: automation
+
+  input:
+    remote:
+      name: Remote
+      description: IKEA remote to use
+      selector:
+        device:
+          integration: deconz
+          manufacturer: IKEA of Sweden
+          model: TRADFRI remote control
+
+    light:
+      name: Light(s)
+      description: The light(s) to control
+      selector:
+        entity:
+          domain: group
+
+    group:
+      name: Input_Select to store the group of lights
+      description: input_select to hold the lights
+      selector:
+        entity:
+          domain: input_select
+
+    dim_step_pct:
+      name: Step, in percent, to de- or increasebrightness
+      default: 20
+      selector:
+        number:
+          min: 5.0
+          max: 100.0
+          mode: slider
+          step: 5.0
+          unit_of_measurement: "%"
+
+    short_press_transition:
+      name: Transition time at short press
+      default: 0.5
+      selector:
+        number:
+          min: 0.0
+          max: 2.0
+          mode: slider
+          step: 0.1
+          unit_of_measurement: "seconds"
+
+    long_press_transition:
+      name: Transition time at long press (0 - 100%)
+      default: 30
+      selector:
+        number:
+          min: 5.0
+          max: 50.0
+          mode: slider
+          step: 1.0
+          unit_of_measurement: "seconds"
+
+mode: restart
+max_exceeded: silent
+variables:
+  light_group: !input light
+  group: !input group
+  dim_step_pct: !input dim_step_pct
+  short_press_transition: !input short_press_transition
+  long_press_transition: !input long_press_transition
+  deconz_data_str: "{'on': True, 'bri_inc': 254, 'transitiontime': 12345}"
+trigger:
+- platform: event
+  event_type: deconz_event
+  event_data:
+    device_id: !input remote
+action:
+- variables:
+#    event: "{{ trigger.event.data.event }}"
+    event: 5002
+    list: "{{ state_attr(light_group, 'entity_id') }}"
+    light: "{{ states(group) }}"
+    dim_step_pct: "{{ ( dim_step_pct | int ) if event == 2002 else (0 - ( dim_step_pct | int )) }}"
+
+- choose:
+  # This is the initial run - fill the input_select
+  - conditions: "{{ light == 'null' }}"
+    sequence:
+      - service: input_select.set_options
+        data:
+          entity_id: "{{ group }}"
+          options: "{{ list | tojson }}"
+
+- choose:
+
+  # Cycle through the lights in the group, set the idx_holder to the new index
+  # Flash the choosen light
+  - conditions: "{{ event in (4002, 5002) and list | length > 1 }}"
+    sequence:
+      - service: "input_select.select_{{ 'previous' if event == 4002 else 'next' }}"
+        data:
+          entity_id: "{{ group }}"
+      - variables:
+          light: "{{ states(group) }}"
+      - service: light.toggle
+        data:
+          entity_id: "{{ light }}"
+          flash: short
+
+  # Toggle the choosen light
+  - conditions: "{{ event == 1002 }}"
+    sequence:
+      - service: light.toggle
+        data:
+          entity_id: "{{ light }}"
+
+  # Long press power
+  - conditions: "{{ event == 1001 }}"
+    sequence:
+      - service: light.turn_on
+        data:
+          entity_id: "{{ light }}"
+          transition: "{{ short_press_transition }}"
+
+  # Dim the choosen light up or down
+  - conditions: "{{ event in (2002, 3002) }}"
+    sequence:
+      - service: light.turn_on
+        data:
+          entity_id: "{{ light }}"
+          brightness_step_pct: "{{ dim_step_pct }}"
+          transition: "{{ short_press_transition }}"
+
+  # Long press dim up
+  - conditions: "{{ event == 2001 }}"
+    sequence:
+      - service: deconz.configure
+        data:
+          entity: "{{ light }}"
+          field: "{{ '/action' if is_state_attr(light, 'is_deconz_group', true) else '/state' }}"
+          data: "{{deconz_data_str | replace(12345, long_press_transition) }}"
+
+  # Long press dim down
+  - conditions: "{{ event == 3001 }}"
+    sequence:
+      - service: deconz.configure
+        data:
+          entity: "{{ light }}"
+          field: "{{ '/action' if is_state_attr(light, 'is_deconz_group', true) else '/state' }}"
+          data: "{{deconz_data_str | replace(12345, long_press_transition) | replace(254, -254)  }}"
+
+  # Long press dim up/down end
+  - conditions: "{{ event in (2003, 3003) }}"
+    sequence:
+      - service: deconz.configure
+        data:
+          entity: "{{ light }}"
+          field: "{{ '/action' if is_state_attr(light, 'is_deconz_group', true) else '/state' }}"
+          data: {"bri_inc":0}
+
+# - service: persistent_notification.create
+#   data:
+#     title: TEST
+#     message: |
+#       Udenfor Choose: {{ dim_step_pct }}{{ event }}
+#       {% if event == 2002 %}
+#         A
+#       {% else %}
+#         {{ 0 - ( dim_step_pct | int ) }}
+#       {% endif %}

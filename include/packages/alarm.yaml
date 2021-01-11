@@ -1,0 +1,190 @@
+alarm:
+
+  input_number:
+    alarm_volume:
+      name: Alarm sirene volume
+      icon: mdi:volume-high
+      initial: 0.02
+      min: 0
+      max: 1
+      step: 0.05
+
+    alarm_flash_brightness:
+      name: Alarm flash lysstyrke
+      icon: mdi:brightness-percent
+      initial: 100
+      min: 0
+      max: 100
+      step: 5
+
+    alarm_flash_delay:
+      name: Alarm flash forsinkelse
+      icon: mdi:timer-sand
+      initial: 1000
+      min: 250
+      max: 10000
+      step: 250
+
+  input_text:
+    flash_entity:
+      name: Alarm flash enhed
+      initial: light.sandbox
+      icon: mdi:flashlight
+
+    siren_entity:
+      name: Alarm sirene enhed
+      initial: media_player.kontor
+      icon: mdi:speaker
+
+    siren_sound:
+      name: Lydfil til sirene
+      initial: https://ha.skovtrolden.duckdns.org/local/audio/siren.mp3
+      icon: mdi:file-music
+
+  script:
+    alarm_siren:
+      sequence:
+        - service: media_player.volume_set
+          data:
+            entity_id: >
+              {{ states('input_text.siren_entity') }}
+            volume_level: >
+              {{ states('input_number.alarm_volume') | float }}
+        - repeat:
+            while: "{{ is_state('alarm_control_panel.alarmo', 'triggered') }}"
+            sequence:
+              - service: media_player.play_media
+                data:
+                  entity_id: >
+                    {{ states('input_text.siren_entity') }}
+                  media_content_id: >
+                    {{ states('input_text.siren_sound') }}
+                  media_content_type: music
+              - delay: 5
+              - wait_template: "{{ is_state(states('input_text.siren_entity'), 'idle') }}"
+
+    alarm_flash:
+      sequence:
+        - service: light.turn_on
+          data:
+            entity_id: >
+              {{ states('input_text.flash_entity') }}
+            brightness_pct: >
+              {{ states('input_number.alarm_flash_brightness') | int }}
+
+        - repeat:
+            while: "{{ is_state('alarm_control_panel.alarmo', 'triggered') }}"
+            sequence:
+              - delay:
+                  milliseconds: >
+                    {{ states('input_number.alarm_flash_delay') | int }}
+              - service: light.toggle
+                data:
+                  entity_id: >
+                    {{ states('input_text.flash_entity') }}
+
+  automation:
+    - alias: Alarm - Lys og Lyd
+      id: 802159a9447b4829a6995a68225e66e5
+      description: Flash lys ved alarm
+      mode: single
+      initial_state: true
+      trigger:
+        - platform: state
+          entity_id: alarm_control_panel.alarmo
+          to: triggered
+        - platform: state
+          entity_id: alarm_control_panel.alarmo
+          from: triggered
+      action:
+        - choose:
+          - conditions: "{{ trigger.to_state.state == 'triggered' }}"
+            sequence:
+              - service: script.turn_on
+                entity_id:
+                  - script.alarm_siren
+                  - script.alarm_flash
+          default:
+            - service: script.turn_off
+              entity_id:
+                - script.alarm_siren
+                - script.alarm_flash
+            - service: media_player.turn_off
+              data:
+                entity_id: >
+                  {{ states('input_text.siren_entity') }}
+
+    - alias: Alarm - ABCD remote - A
+      id: b899ef301d0744789d2d7b017d48ef2e
+      description: Slå alarmen til ved tryk på A
+      initial_state: true
+      mode: single
+      trigger:
+        - platform: state
+          entity_id: binary_sensor.remote_knap_a
+          to: 'on'
+      condition: "{{ is_state('alarm_control_panel.alarmo', 'disarmed') }}"
+      action:
+        - service: alarm_control_panel.alarm_arm_away
+          data:
+            entity_id: alarm_control_panel.alarmo
+            code: !secret ALARM_REMOTE_PIN
+        - wait_template: '{{ "armed_" in states("alarm_control_panel.alarmo") }}'
+          timeout: '35'
+        - service: light.turn_off
+          data:
+            entity_id: light.sandbox
+        - repeat:
+            count: 2
+            sequence:
+              - service: light.turn_on
+                data:
+                  entity_id: light.sandbox
+                  brightness_pct: 100
+              - delay:
+                  milliseconds: 500
+              - service: light.turn_off
+                data:
+                  entity_id: light.sandbox
+
+    - alias: Alarm - ABCD remote - B
+      id: 7d7a214ffa9f4063a873e0be8a5b3033
+      description: Slå alarmen fra ved tryk på B
+      mode: single
+      initial_state: true
+      trigger:
+        - platform: state
+          entity_id: binary_sensor.remote_knap_b
+          to: 'on'
+      condition: "{{ not is_state('alarm_control_panel.alarmo', 'disarmed') }}"
+      action:
+        - service: alarm_control_panel.alarm_disarm
+          data:
+            entity_id: alarm_control_panel.alarmo
+            code: !secret ALARM_REMOTE_PIN
+        - service: light.turn_off
+          data:
+            entity_id: light.sandbox
+        - service: light.turn_on
+          data:
+            entity_id: light.sandbox
+            brightness_pct: 100
+        - delay:
+            milliseconds: 500
+        - service: light.turn_off
+          data:
+            entity_id: light.sandbox
+
+    - alias: Alarm - ABCD remote - C
+      id: 7d7a214ffa9f4063a873e0be8a5b3033TEST
+      description: TEST
+      mode: single
+      initial_state: true
+      trigger:
+        - platform: state
+          entity_id: binary_sensor.remote_knap_c
+          to: 'on'
+      action:
+        - service: alarm_control_panel.alarm_trigger
+          data:
+            entity_id: alarm_control_panel.alarmo

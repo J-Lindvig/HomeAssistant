@@ -14,6 +14,7 @@ tts_tools:
       speed: 0.7
       profiles:
         - small-bluetooth-speaker-class-device
+      text_type: ssml
 
   # Volume from GUI
   input_number:

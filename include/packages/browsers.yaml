@@ -20,14 +20,14 @@ browsers:
 
   browser_mod:
     devices:
-      527754cd-95c8b201:
+      493ab2e7-037380e5:
         name: TouchPanel
         camera: true
 
       e83df4e4-e9e551f5:
         name: Chromebook-J-Lindvig
 
-      eaced097-cc26ff5e:
+      fc32449d-8c4b3c8b:
         name: PC-J-Lindvig-Linux
 
   shell_command:

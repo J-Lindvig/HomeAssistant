@@ -50,45 +50,6 @@ media_players:
       attributes:
         is_volume_muted: input_boolean.vestel_tv_on_mute
 
-    - platform: universal
-      name: LG TV
-      children:
-        - media_player.pigernes_stue
-      state_template: "{{ states('binary_sensor.lg_tv') }}"
-      commands:
-        turn_on:
-          service: script.power_with_remote
-          data:
-            remote: remote.pigernes_ir
-            device: LG TV
-            ping_sensor: binary_sensor.lg_tv
-        turn_off:
-          service: script.power_with_remote
-          data:
-            remote: remote.pigernes_ir
-            device: LG TV
-            ping_sensor: binary_sensor.lg_tv
-        volume_up:
-          service: remote.send_command
-          data:
-            entity_id: remote.pigernes_ir
-            device: LG TV
-            command: Volume Up
-        volume_down:
-          service: remote.send_command
-          data:
-            entity_id: remote.pigernes_ir
-            device: LG TV
-            command: Volume Down
-        volume_mute:
-          service: script.mute_with_remote
-          data:
-            remote: remote.pigernes_ir
-            device: LG TV
-            boolean: input_boolean.lg_tv_on_mute
-      attributes:
-        is_volume_muted: input_boolean.lg_tv_on_mute
-
   script:
     power_with_remote:
       alias: "Power med en RM 3"
@@ -122,10 +83,6 @@ media_players:
   input_boolean:
     vestel_tv_on_mute:
       name: Vestel TV er på mute via remote
-      icon: mdi:volume-mute
-
-    lg_tv_on_mute:
-      name: LG TV er på mute via remote
       icon: mdi:volume-mute
 
   binary_sensor:

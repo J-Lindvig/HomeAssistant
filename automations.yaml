@@ -46,57 +46,6 @@
     data: {}
     entity_id: light.sandbox
   mode: single
-- id: '1609256711013'
-  alias: Alarm - Sirene
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: alarm_control_panel.alarmo
-    to: triggered
-  condition: []
-  action:
-  - service: media_player.volume_set
-    data:
-      volume_level: 0.05
-    entity_id: media_player.kontor
-  - repeat:
-      while:
-      - condition: state
-        entity_id: alarm_control_panel.alarmo
-        state: triggered
-      sequence:
-      - service: media_player.play_media
-        data:
-          media_content_id: https://ha.skovtrolden.duckdns.org/local/audio/siren.mp3
-          media_content_type: music
-        entity_id: media_player.kontor
-      - wait_template: '{{ is_state("media_player.kontor", "playing") }}'
-      - wait_template: '{{ is_state("media_player.kontor", "idle") }}'
-  mode: single
-- id: '1609274966610'
-  alias: Alarm - Lys
-  description: ''
-  trigger:
-  - platform: state
-    entity_id: alarm_control_panel.alarmo
-    to: triggered
-  condition: []
-  action:
-  - service: light.turn_on
-    data:
-      brightness_pct: 100
-    entity_id: light.sandbox
-  - repeat:
-      while:
-      - condition: state
-        entity_id: alarm_control_panel.alarmo
-        state: triggered
-      sequence:
-      - delay: '1'
-      - service: light.toggle
-        data: {}
-        entity_id: light.sandbox
-  mode: single
 - id: '1609275894067'
   alias: AP down - power cycle
   description: Hjaltes AP er gået død - genstart det med en powercycle
@@ -212,3 +161,40 @@
   - service: shell_command.greentel_scrape
     data: {}
   mode: single
+- id: '1610390673938'
+  alias: deCONZ - All-In-One IKEA five button remote for lights
+  description: ''
+  use_blueprint:
+    path: J-Lindvig/all_in_remote.yaml
+    input:
+      remote: c08819d98af8b341299ea47c702e9a37
+      light:
+        entity_id: light.sandbox
+      group:
+        entity_id: input_select.all_in_one_livingroom
+- id: '1610392205581'
+  alias: deCONZ - All-In-One IKEA five button remote for lights
+  description: Test 1
+  use_blueprint:
+    path: J-Lindvig/all_in_remote.yaml
+    input:
+      remote: c08819d98af8b341299ea47c702e9a37
+      light:
+        entity_id:
+        - light.sandbox
+        - light.bloklys_kokken
+        - light.bloklys_gangen
+      group:
+        entity_id: input_select.all_in_one_livingroom
+- id: '1610396131009'
+  alias: AAAAAAAA
+  description: ''
+  use_blueprint:
+    path: J-Lindvig/all_in_remote.yaml
+    input:
+      long_press_transition: '30'
+      remote: c08819d98af8b341299ea47c702e9a37
+      light: group.bloklys
+      group: input_select.all_in_one_livingroom
+      short_press_transition: '0.5'
+      dim_step_pct: '20'

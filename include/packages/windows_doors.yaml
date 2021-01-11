@@ -6,7 +6,7 @@
 #    /_/  /_/\___\_\/_/   /_/     /____/\___/_/ /_/____/\____/_/  /____/       #
 #                                                             by J-Lindvig     #
 ################################################################################
-# Created: 29/12/2020                                                          #
+# Created: 10/1/2021                                                           #
 ################################################################################
 windows_doors:
   group:
@@ -107,7 +107,7 @@ windows_doors:
       unique_id: 074ff90c9ede43f9a64d2dfed107e10d
       device_class: problem
       state_topic: "home/Remote knap A"
-      off_delay: 15
+      off_delay: 1
 
     - platform: mqtt
       name: "Remote knap B"
