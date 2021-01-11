@@ -76,8 +76,8 @@ trigger:
     device_id: !input remote
 action:
 - variables:
-#    event: "{{ trigger.event.data.event }}"
-    event: 5002
+    event: "{{ trigger.event.data.event }}"
+#    event: 5002
     list: "{{ state_attr(light_group, 'entity_id') }}"
     light: "{{ states(group) }}"
     dim_step_pct: "{{ ( dim_step_pct | int ) if event == 2002 else (0 - ( dim_step_pct | int )) }}"
