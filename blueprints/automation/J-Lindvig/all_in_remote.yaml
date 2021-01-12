@@ -162,6 +162,7 @@ action:
       - service: light.turn_on
         data:
           entity_id: "{{ light_group }}"
+          brigtness_pct: 100
 
   # SHORT PRESS UP OG DOWN (DIMMING IN STEPS)
   # Dim the choosen light up or down
