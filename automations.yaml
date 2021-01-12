@@ -194,7 +194,7 @@
     input:
       long_press_transition: '30'
       remote: c08819d98af8b341299ea47c702e9a37
-      light: group.bloklys
-      group: input_select.all_in_one_livingroom
+      light: group.all_in_one_group
+      group: input_select.all_in_one_test
       short_press_transition: '0.5'
       dim_step_pct: '20'

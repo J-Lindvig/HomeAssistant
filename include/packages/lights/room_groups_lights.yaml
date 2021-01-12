@@ -42,7 +42,22 @@ room_groups_lights:
       name: Nathalies sengelamper
       entity_id: switch.nathalies_sengelamper
 
+    - platform: group
+      name: All in one light
+      entities:
+        - light.kokkeno_1
+        - light.kokkeno_2
+        - light.kokkeno_3
+
   group:
+
+    all_in_one_group:
+      name: All in one group
+      entities:
+        - light.kokkeno_1
+        - light.kokkeno_2
+        - light.kokkeno_3
+
     alle_rum:
       name: Alle rum
       entities:

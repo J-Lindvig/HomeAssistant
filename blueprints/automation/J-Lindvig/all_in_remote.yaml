@@ -116,7 +116,7 @@ action:
     sequence:
       - service: light.turn_on
         data:
-          entity_id: "{{ light }}"
+          entity_id: "{{ light_group }}"
           transition: "{{ short_press_transition }}"
 
   # Dim the choosen light up or down
