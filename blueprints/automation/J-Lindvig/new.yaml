@@ -1,5 +1,5 @@
 blueprint:
-  name: deCONZ - IKEA remote All-In-One
+  name: NEW - deCONZ - IKEA remote All-In-One
   description: |
     This blueprint utilize a IKEA five button (puck) remote to control a group of lights individually.
     
@@ -29,7 +29,6 @@ blueprint:
     At the very first run, the input_select is populated with the entities stored in the group. We are using a input_select to ease the swithing between light entities.
     
     Secondly we choose the appropriate action from the given event.
-  source_url: https://github.com/J-Lindvig/HomeAssistant/blob/master/blueprints/automation/J-Lindvig/all_in_remote.yaml
   domain: automation
 
   input:
@@ -131,21 +130,20 @@ action:
         data:
           entity_id: "{{ group }}"
       - variables:
-          light: "{{ states(group) }}"
+      - service: light.turn_on
+        data:
+          entity_id: "{{ light }}"
       - repeat:
-          count: 2
+          count: 4
           sequence:
-            - delay:
-                milliseconds: 500
+            - delay: 1
             - service: light.turn_off
               data:
                 entity_id: "{{ light }}"
-            - delay:
-                milliseconds: 500
+            - delay: 1
             - service: light.turn_on
               data:
                 entity_id: "{{ light }}"
-                brightness_pct: 100
 
   # SHORT PRESS POWER
   # Toggle the choosen light
@@ -162,6 +160,7 @@ action:
       - service: light.turn_on
         data:
           entity_id: "{{ light_group }}"
+          transition: "{{ short_press_transition }}"
 
   # SHORT PRESS UP OG DOWN (DIMMING IN STEPS)
   # Dim the choosen light up or down
@@ -173,25 +172,40 @@ action:
           brightness_step_pct: "{{ ( dim_step_pct | int ) if event == 2002 else (0 - ( dim_step_pct | int )) }}"
           transition: "{{ short_press_transition }}"
 
-  # LONG PRESS UP OR DOWN (FLOW DIMMING) - HA STYLE...!!!
-  - conditions: "{{ event in (2001, 3001) }}"
+  # LONG PRESS UP (FLOW DIMMING)
+  - conditions: "{{ event == 2001 }}"
     sequence:
+      # - service: light.turn_on
+      #   data:
+      #     entity_id: "{{ light }}"
+      # - repeat:
+      #     count: "{{ ((254 - state_attr(light, 'brightness')) / (254 / long_press_transition)) | round(0, 'floor') }}"
+      #     sequence:
+      #       - service: light.turn_on
+      #         data:
+      #           entity_id: "{{ light }}"
+      #           brightness: "{{ state_attr(light, 'brightness') + (254 / long_press_transition) | round(0, 'ceil') }}"
 
-      - service: light.turn_on
+      - service: deconz.configure
         data:
-          entity_id: "{{ light }}"
+          entity: "{{ light }}"
+          field: "{{ '/action' if is_state_attr(light, 'is_deconz_group', true) else '/state' }}"
+          data: "{{deconz_data_str | replace(12345, long_press_transition) }}"
 
-      - repeat:
-          while: []
-          sequence:
-            - service: light.turn_on
-              data:
-                entity_id: "{{ light }}"
-                brightness: >-
-                  {%- set brightness = state_attr(light, 'brightness') | int %}
-                  {%- set step = (254 / (long_press_transition | int)) | round(0, 'floor') %}
-                  {% if event == 3001 %}
-                    {% set step = 0 - step %}
-                  {% endif %}
-                  {{ state_attr(light, 'brightness') | int + step }}
-            - delay: 1
+  # LONG PRESS DOWN (FLOW DIMMING)
+  - conditions: "{{ event == 3001 }}"
+    sequence:
+      - service: deconz.configure
+        data:
+          entity: "{{ light }}"
+          field: "{{ '/action' if is_state_attr(light, 'is_deconz_group', true) else '/state' }}"
+          data: "{{deconz_data_str | replace(12345, long_press_transition) | replace(254, -254)  }}"
+
+  # LONG PRESS UP OR DOWN END
+  - conditions: "{{ event in (2003, 3003) }}"
+    sequence:
+      - service: deconz.configure
+        data:
+          entity: "{{ light }}"
+          field: "{{ '/action' if is_state_attr(light, 'is_deconz_group', true) else '/state' }}"
+          data: {"bri_inc":0}

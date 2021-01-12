@@ -161,38 +161,25 @@
   - service: shell_command.greentel_scrape
     data: {}
   mode: single
-- id: '1610390673938'
-  alias: deCONZ - All-In-One IKEA five button remote for lights
+- id: '1610484916592'
+  alias: AAAAAAA
   description: ''
   use_blueprint:
-    path: J-Lindvig/all_in_remote.yaml
-    input:
-      remote: c08819d98af8b341299ea47c702e9a37
-      light:
-        entity_id: light.sandbox
-      group:
-        entity_id: input_select.all_in_one_livingroom
-- id: '1610392205581'
-  alias: deCONZ - All-In-One IKEA five button remote for lights
-  description: Test 1
-  use_blueprint:
-    path: J-Lindvig/all_in_remote.yaml
-    input:
-      remote: c08819d98af8b341299ea47c702e9a37
-      light:
-        entity_id:
-        - light.sandbox
-        - light.bloklys_kokken
-        - light.bloklys_gangen
-      group:
-        entity_id: input_select.all_in_one_livingroom
-- id: '1610455023936'
-  alias: AAAAAAAAAAAAAAA
-  description: ''
-  use_blueprint:
-    path: J-Lindvig/all_in_remote.yaml
+    path: J-Lindvig/new.yaml
     input:
       long_press_transition: '30'
       remote: c08819d98af8b341299ea47c702e9a37
       light: group.all_in_one_group
       group: input_select.all_in_one_test
+- id: '1610484999055'
+  alias: AAAAAAAAAAAA
+  description: ''
+  use_blueprint:
+    path: J-Lindvig/all_in_remote.yaml
+    input:
+      remote: c08819d98af8b341299ea47c702e9a37
+      light: group.all_in_one_group
+      group: input_select.all_in_one_test
+      long_press_transition: '30'
+      short_press_transition: '0.5'
+      dim_step_pct: '20'
