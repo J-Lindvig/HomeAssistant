@@ -50,7 +50,7 @@ blueprint:
 
     group:
       name: Control list
-      description: "The input_select to store lights. MUST HAVE A SINGLE ELEMENT WITH VALUE 'null'"
+      description: "The input_select to store lights. MUST HAVE A SINGLE ELEMENT WITH VALUE 'null', 'void' or 'empty'"
       selector:
         entity:
           domain: input_select
