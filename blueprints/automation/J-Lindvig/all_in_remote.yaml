@@ -1,12 +1,40 @@
 blueprint:
-  name: deCONZ - All-In-One IKEA five button remote for lights
-  description: "Lorem ipsum"
+  name: deCONZ - IKEA remote All-In-One
+  description: |
+    This blueprint utilize a IKEA five button (puck) remote to control a group of lights individually.
+    
+    REQUIREMENTS:
+    ------------------------------------------------------------------------------------------------------------------------------------------------------
+    Due to limitations in Blueprints and Home Assistant, you will need the following:
+    + A Group combining the lights (https://www.home-assistant.io/integrations/group/)
+    + A input_select with a single element with af value of "null", "void" or "empty".
+    
+    HOW THE REMOTE WORKS:
+    ------------------------------------------------------------------------------------------------------------------------------------------------------
+    LEFT AND RIGHT:
+    With a short press on either the left/right arrow, you will be able to switch between the light in the group. The current selected light give a short flash indicating your selection.
+    
+    DIM UP OR DOWN:
+    Short press will in/decrease brightness with the specified step in percent and short transition time.
+    Long pres will in/decrease brightness continuesly using a specified long transition time.
+    
+    POWER:
+    Short press toggles the selected light
+    Long press turns on ALL lights in the group at 100%
+    
+    HOW THE AUTOMATION WORKS:
+    ------------------------------------------------------------------------------------------------------------------------------------------------------
+    We listen on "deconz_event" and extract the numeric representation of the pressed button and duration.
+
+    At the very first run, the input_select is populated with the entities stored in the group. We are using a input_select to ease the swithing between light entities.
+    
+    Secondly we choose the appropriate action from the given event.
   domain: automation
 
   input:
     remote:
       name: Remote
-      description: IKEA remote to use
+      description: IKEA five button remote to use
       selector:
         device:
           integration: deconz
@@ -15,20 +43,21 @@ blueprint:
 
     light:
       name: Light(s)
-      description: The light(s) to control
+      description: The group (not light group) containing the lights
       selector:
         entity:
           domain: group
 
     group:
-      name: Input_Select to store the group of lights
-      description: input_select to hold the lights
+      name: Control list
+      description: "The input_select to store lights. MUST HAVE A SINGLE ELEMENT WITH VALUE 'null'"
       selector:
         entity:
           domain: input_select
 
     dim_step_pct:
-      name: Step, in percent, to de- or increase brightness
+      name: Step
+      description: Step, in percent, to de- or increase brightness
       default: 20
       selector:
         number:
@@ -39,7 +68,8 @@ blueprint:
           unit_of_measurement: "%"
 
     short_press_transition:
-      name: Transition time at short press
+      name: Transition short
+      description: Transtion time used when doing a short press
       default: 0.5
       selector:
         number:
@@ -50,7 +80,8 @@ blueprint:
           unit_of_measurement: "seconds"
 
     long_press_transition:
-      name: Transition time at long press (0 - 100%)
+      name: Transition long
+      description: Transtion time used when doing a long press (0 - 100%)
       default: 30
       selector:
         number:
@@ -84,7 +115,7 @@ action:
 - choose:
   # INIT
   # This is the initial run - fill the input_select with the entities from the group
-  - conditions: "{{ light == 'null' }}"
+  - conditions: "{{ light | lower in ('null', 'void', 'empty') }}"
     sequence:
       - service: input_select.set_options
         data:
