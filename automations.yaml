@@ -161,14 +161,13 @@
   - service: shell_command.greentel_scrape
     data: {}
   mode: single
-- id: '1610539200922'
-  alias: AAAAAAAAAAAAAAA
+- id: '1610565356272'
+  alias: AAAAAAAAAAAAAAAAA
   description: ''
   use_blueprint:
     path: J-Lindvig/all_in_remote.yaml
     input:
       long_press_transition: '30'
       remote: c08819d98af8b341299ea47c702e9a37
-      light: group.all_in_one_group
-      group: input_select.all_in_one_test
-      short_press_transition: '0.5'
+      light_group: group.all_in_one_group
+      input_select_group: input_select.all_in_one_test

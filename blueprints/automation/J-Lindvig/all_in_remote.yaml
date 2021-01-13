@@ -42,14 +42,14 @@ blueprint:
           manufacturer: IKEA of Sweden
           model: TRADFRI remote control
 
-    light:
+    light_group:
       name: Light(s)
       description: The group (not light group) containing the lights
       selector:
         entity:
           domain: group
 
-    group:
+    input_select_group:
       name: Control list
       description: "The input_select to store lights. MUST HAVE A SINGLE ELEMENT WITH VALUE 'null', 'void' or 'empty'"
       selector:
@@ -95,8 +95,8 @@ blueprint:
 mode: restart
 max_exceeded: silent
 variables:
-  light_group: !input light
-  group: !input group
+  light_group: !input light_group
+  group: !input input_select_group
   dim_step_pct: !input dim_step_pct
   dim_step: 0
   prev_state: ""
@@ -187,10 +187,11 @@ action:
   # Turn on all lights at 100%
   - conditions: "{{ event == 1001 }}"
     sequence:
+
       - service: light.turn_on
         data:
           entity_id: "{{ light_group }}"
-          brigtness_pct: 100
+          brightness_pct: 100
 
   # SHORT PRESS UP OG DOWN (DIMMING IN STEPS)
   # Dim the choosen light up or down
