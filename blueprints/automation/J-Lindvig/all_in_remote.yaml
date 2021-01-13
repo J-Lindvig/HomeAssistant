@@ -98,9 +98,11 @@ variables:
   light_group: !input light
   group: !input group
   dim_step_pct: !input dim_step_pct
+  dim_step: 0
+  prev_state: ""
+  prev_brightness: 0
   short_press_transition: !input short_press_transition
   long_press_transition: !input long_press_transition
-  deconz_data_str: "{'on': True, 'bri_inc': 254, 'transitiontime': 12345}"
 trigger:
 - platform: event
   event_type: deconz_event
@@ -111,6 +113,7 @@ action:
     event: "{{ trigger.event.data.event }}"
     list: "{{ state_attr(light_group, 'entity_id') }}"
     light: "{{ states(group) }}"
+    dim_step: "{{ (254 / (long_press_transition | int)) | round(0, 'floor') }}"
 
 - choose:
   # INIT
@@ -127,11 +130,24 @@ action:
   # Find the previous or next light and give it a short flash
   - conditions: "{{ event in (4002, 5002) }}"
     sequence:
+      # Select the choosen light in the list
       - service: "input_select.select_{{ 'previous' if event == 4002 else 'next' }}"
         data:
           entity_id: "{{ group }}"
+
+      # Update the light variable and save the state of the light
       - variables:
           light: "{{ states(group) }}"
+          prev_state: "{{ states(light) }}"
+
+      # Turn on the light and save the brightness of the light
+      - service: light.turn_on
+        data:
+          entity_id: "{{ light }}"
+      - variables:
+          prev_brightness: "{{ state_attr(light, 'brightness') | int }}"
+
+      # Flash the light - HA style
       - repeat:
           count: 2
           sequence:
@@ -147,6 +163,18 @@ action:
                 entity_id: "{{ light }}"
                 brightness_pct: 100
 
+      # Restore previous brightness
+      - service: light.turn_on
+        data:
+          entity_id: "{{ light }}"
+          brightness: "{{ prev_brightness | int }}"
+
+      # Take a second and restore previous state
+      - delay: 1
+      - service: "light.turn_{{ prev_state }}"
+        data:
+          entity_id: "{{ light }}"
+
   # SHORT PRESS POWER
   # Toggle the choosen light
   - conditions: "{{ event == 1002 }}"
@@ -156,7 +184,7 @@ action:
           entity_id: "{{ light }}"
 
   # LONG PRESS POWER
-  # Turn on all lights
+  # Turn on all lights at 100%
   - conditions: "{{ event == 1001 }}"
     sequence:
       - service: light.turn_on
@@ -178,10 +206,12 @@ action:
   - conditions: "{{ event in (2001, 3001) }}"
     sequence:
 
+      # Turn on the light
       - service: light.turn_on
         data:
           entity_id: "{{ light }}"
 
+      # While pressing the button in/decrease the brightness with the calculated dim_step
       - repeat:
           while: []
           sequence:
@@ -190,7 +220,7 @@ action:
                 entity_id: "{{ light }}"
                 brightness: >-
                   {%- set brightness = state_attr(light, 'brightness') | int %}
-                  {%- set step = (254 / (long_press_transition | int)) | round(0, 'floor') %}
+                  {%- set step = dim_step %}
                   {% if event == 3001 %}
                     {% set step = 0 - step %}
                   {% endif %}
