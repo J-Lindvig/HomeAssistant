@@ -50,7 +50,6 @@ room_groups_lights:
         - light.kokkeno_3
 
   group:
-
     all_in_one_group:
       name: All in one group
       entities:
