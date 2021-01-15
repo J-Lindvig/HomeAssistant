@@ -161,23 +161,17 @@
   - service: shell_command.greentel_scrape
     data: {}
   mode: single
-- id: '1610741922596'
-  alias: AAAAAAAAAAAAAAAAAAAAAA
-  description: Actions
+- id: '1610753414697'
+  alias: AAAAAAAAAAAAAA
+  description: BBBBBBBBBBBBBBBBBBBBB
   use_blueprint:
-    path: J-Lindvig/all_in_one_remote_with_actions.yaml
+    path: J-Lindvig/all_in_one_remote.yaml
     input:
       long_press_transition: '30'
       remote: c08819d98af8b341299ea47c702e9a37
-      light_group: group.all_in_one_group
-      input_select_group: input_select.all_in_one_test
-      button_left_long:
-      - service: light.toggle
-        data: {}
-        entity_id: light.sandbox
-      button_right_long:
-      - service: light.turn_on
-        data:
-          brightness_pct: 100
-        entity_id: light.sandbox
-      short_press_transition: '0.5'
+      counter: counter.all_in_one_test_id
+      lights:
+        entity_id:
+        - light.havegangen_2
+        - light.havegangen_3
+        - light.havegangen_4
