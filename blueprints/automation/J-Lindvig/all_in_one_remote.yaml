@@ -55,7 +55,7 @@ blueprint:
                   - light.dining_table
                   - light.kitchen_sink
                   - light.livingroom
-  source_url: https://github.com/J-Lindvig/HomeAssistant/blob/master/blueprints/automation/J-Lindvig/all_in_remote.yaml
+  source_url: https://github.com/J-Lindvig/HomeAssistant/blob/master/blueprints/automation/J-Lindvig/all_in_one_remote.yaml
   domain: automation
 
   input:
