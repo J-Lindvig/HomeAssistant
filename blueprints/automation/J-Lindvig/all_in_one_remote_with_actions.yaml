@@ -272,7 +272,10 @@ action:
                 brightness: "{{ state_attr(light, 'brightness') + (0 - dim_step if event == 3001 else dim_step) }}"
             - delay: 1
 
+  # LONG PRESS LEFT
   - conditions: "{{ event == 4001 }}"
     sequence: !input button_left_long
+
+  # LONG PRESS RIGHT
   - conditions: "{{ event == 5001 }}"
     sequence: !input button_right_long
