@@ -78,7 +78,7 @@ blueprint:
     
     counter:
       name: ID holder
-      description: ""
+      description: "The counter holding the ID of the current light"
       selector:
         entity:
           domain: counter
