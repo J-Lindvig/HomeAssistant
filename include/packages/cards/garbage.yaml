@@ -48,7 +48,7 @@ garbage:
 
       # Recycle pickup
       - name: Genbrug
-        frequency: odd-weeks
+        frequency: even-weeks
         collection_days:
           - thu
         move_country_holidays: DK

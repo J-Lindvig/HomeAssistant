@@ -20,16 +20,45 @@ cards:
     column_num: 3
     column_width: 33%
     cards:
+      - type: custom:stack-in-card
+        title: System
+        cards:
+          - type: custom:stack-in-card
+            mode: horizontal
+            cards:
+              - type: picture
+                image: /local/images/backgrounds/dc3217iye.png
+              - type: custom:stack-in-card
+                cards:
+                  - type: custom:mini-graph-card
+#                  name: System
+#                    icon: mdi:home-assistant
+                    hours_to_show: 2
+                    hour24: true
+                    points_per_hour: 12
+                    animate: true
+                    line_width: 2
+                    show:
+                      labels: false
+                    entities:
+                      - entity: sensor.memory_use_percent
+                        name: Memory
+                      - entity: sensor.processor_use_percent
+                        name: CPU
+                      - entity: sensor.processor_temperature
+                        name: Temperature
+          - type: custom:bar-card
+            entity: sensor.disk_use_percent
+
+
+
+
       - type: alarm-panel
         states:
           - arm_home
           - arm_away
         entity: alarm_control_panel.alarmo
         name: Alarmen
-
-      # - type: custom:weather-card-chart
-      #   title: Brobyværk
-      #   weather: weather.brobyvaerk
 
       - type: horizontal-stack
         cards:

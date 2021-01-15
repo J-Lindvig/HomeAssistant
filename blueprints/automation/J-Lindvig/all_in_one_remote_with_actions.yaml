@@ -1,5 +1,5 @@
 blueprint:
-  name: deCONZ - IKEA remote All-In-One
+  name: deCONZ - IKEA remote All-In-One remote with actions
   description: |
     This blueprint utilize a IKEA five button (puck) remote to control a group of lights individually.
     
@@ -126,6 +126,21 @@ blueprint:
           mode: slider
           step: 1.0
           unit_of_measurement: "seconds"
+
+    button_left_long:
+      name: Left button - long press
+      description: Action to run on long left button press
+      default: []
+      selector:
+        action: {}
+
+    button_right_long:
+      name: Right button - long press
+      description: Action to run on long right button press
+      default: []
+      selector:
+        action: {}
+
 
 mode: restart
 max_exceeded: silent
@@ -256,3 +271,8 @@ action:
                 entity_id: "{{ light }}"
                 brightness: "{{ state_attr(light, 'brightness') + (0 - dim_step if event == 3001 else dim_step) }}"
             - delay: 1
+
+  - conditions: "{{ event == 4001 }}"
+    sequence: !input button_left_long
+  - conditions: "{{ event == 5001 }}"
+    sequence: !input button_right_long

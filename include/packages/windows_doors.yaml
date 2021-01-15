@@ -6,7 +6,7 @@
 #    /_/  /_/\___\_\/_/   /_/     /____/\___/_/ /_/____/\____/_/  /____/       #
 #                                                             by J-Lindvig     #
 ################################################################################
-# Created: 10/1/2021                                                           #
+# Created: 15/1/2021                                                           #
 ################################################################################
 windows_doors:
   group:
@@ -19,10 +19,6 @@ windows_doors:
         - binary_sensor.hoveddor
         - binary_sensor.pengekasse
         - binary_sensor.alarmpanel
-        - binary_sensor.remote_knap_a
-        - binary_sensor.remote_knap_b
-        - binary_sensor.remote_knap_c
-        - binary_sensor.remote_knap_d
 
     open_close_sensors:
       name: "Vinduer og døre med åbn/luk sensor"
@@ -101,34 +97,6 @@ windows_doors:
       device_class: vibration
       state_topic: "home/Alarmpanel"
       off_delay: 30
-
-    - platform: mqtt
-      name: "Remote knap A"
-      unique_id: 074ff90c9ede43f9a64d2dfed107e10d
-      device_class: problem
-      state_topic: "home/Remote knap A"
-      off_delay: 1
-
-    - platform: mqtt
-      name: "Remote knap B"
-      unique_id: 3b061c7b9eb24898986b6ee209707354
-      device_class: problem
-      state_topic: "home/Remote knap B"
-      off_delay: 15
-
-    - platform: mqtt
-      name: "Remote knap C"
-      unique_id: a10820db6f7940ffb3b333c3488220d8
-      device_class: problem
-      state_topic: "home/Remote knap C"
-      off_delay: 15
-
-    - platform: mqtt
-      name: "Remote knap D"
-      unique_id: 080d674eabe5425a98ca8d6d7b820ce3
-      device_class: problem
-      state_topic: "home/Remote knap D"
-      off_delay: 15
 
     - platform: mqtt
       name: "Indgang vindue haven"
