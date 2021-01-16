@@ -60,8 +60,8 @@ blueprint:
 
   input:
     lights:
-      name: target
-      description: target
+      name: Light(s)
+      description: Choose the lights you wish to control
       selector:
         target:
           entity:
