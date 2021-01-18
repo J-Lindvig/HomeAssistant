@@ -184,4 +184,4 @@ QUERY="$QUERY, ${ATTR:0:-1} ] } }"
 _send_data "$QUERY" "$BASE_URL$API_STATES_PATH/sensor.flagday_dk"
 
 # Cleanup on exit
-#rm -f $TEMP_PATH/flag_tmp_file $TEMP_PATH/combined_file
+rm -f $TEMP_PATH/flag_tmp_file $TEMP_PATH/combined_file
