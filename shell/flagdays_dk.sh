@@ -49,14 +49,17 @@ DEFAULT_FLAG=$DENMARK_IMAGE
 rm -f $TEMP_PATH/flag_tmp_file $TEMP_PATH/combined_file
 
 # Fetch the HTML page
-curl https://designflag.dk/om-flag/flagdage/ -o $TEMP_PATH/flag_tmp_file
+#curl https://designflag.dk/om-flag/flagdage/ -o $TEMP_PATH/flag_tmp_file
+curl https://www.justitsministeriet.dk/temaer/flagning/flagdage/ -o $TEMP_PATH/flag_tmp_file
 
 # Extract the Year
 # Result ex: "2020"
-YEAR=$(grep "<h1>Officielle flagdage" $TEMP_PATH/flag_tmp_file | cut -d' ' -f3 | cut -d'<' -f1)
+#YEAR=$(grep "<h1>Officielle flagdage" $TEMP_PATH/flag_tmp_file | cut -d' ' -f3 | cut -d'<' -f1)
+YEAR=$(grep "<h2>Officielle flagdage" $TEMP_PATH/flag_tmp_file | cut -d' ' -f3 | cut -d'<' -f1)
 
 # Extract the data - combine the 2 columns on 1 line - store in a file
-grep '<td style="text-align: left;" valign="top" width="102">\|<td style="text-align: left;" valign="top" width="550">' $TEMP_PATH/flag_tmp_file | cut -d'>' -f2 | cut -d'<' -f1 | awk 'NF' | sed '{N; s/\n/|/}' > $TEMP_PATH/combined_file
+#grep '<td style="text-align: left;" valign="top" width="102">\|<td style="text-align: left;" valign="top" width="550">' $TEMP_PATH/flag_tmp_file | cut -d'>' -f2 | cut -d'<' -f1 | awk 'NF' | sed '{N; s/\n/|/}' > $TEMP_PATH/combined_file
+grep -o '<figure class="wp-block-table is-style-stripes"><table><tbody><tr>.*</figure>' $TEMP_PATH/flag_tmp_file | sed 's/.*<tbody>//g' | sed 's/<\/tbody>.*//g' | sed 's/<\/tr>/\n/g' | sed 's/<\/td><td>/|/g' | awk 'NF' | sed 's/<tr><td>//g' | sed 's/<\/td>//g' > $TEMP_PATH/combined_file
 
 # Prepare the placeholders
 STATE=-1
@@ -93,7 +96,7 @@ while read line; do
 
   # Extract the description of the event
   EVENT=$(echo "$line" | cut -d'|' -f2)
-
+  
   # Check events until we have found the first event in the future
   if [[ $STATE -lt 0 ]]; then
 
