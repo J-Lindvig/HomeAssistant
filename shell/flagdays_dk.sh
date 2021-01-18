@@ -45,21 +45,25 @@ GREENLAND_IMAGE="Greenland.png"
 FAROE_ISLANDS_IMAGE="Faroe_Islands.png"
 DEFAULT_FLAG=$DENMARK_IMAGE
 
+# SCRIPT CONST
+FLAG_TMP_FILE="flag_temp.html"
+FLAG_PROCESSED_FILE="flag_processed.txt"
+
 # Initial cleanup
-rm -f $TEMP_PATH/flag_tmp_file $TEMP_PATH/combined_file
+rm -f $TEMP_PATH/$FLAG_TMP_FILE $TEMP_PATH/$FLAG_PROCESSED_FILE
 
 # Fetch the HTML page
-#curl https://designflag.dk/om-flag/flagdage/ -o $TEMP_PATH/flag_tmp_file
-curl https://www.justitsministeriet.dk/temaer/flagning/flagdage/ -o $TEMP_PATH/flag_tmp_file
+#curl https://designflag.dk/om-flag/flagdage/ -o $TEMP_PATH/$FLAG_TMP_FILE
+curl https://www.justitsministeriet.dk/temaer/flagning/flagdage/ -o $TEMP_PATH/$FLAG_TMP_FILE
 
 # Extract the Year
 # Result ex: "2020"
-#YEAR=$(grep "<h1>Officielle flagdage" $TEMP_PATH/flag_tmp_file | cut -d' ' -f3 | cut -d'<' -f1)
-YEAR=$(grep "<h2>Officielle flagdage" $TEMP_PATH/flag_tmp_file | cut -d' ' -f3 | cut -d'<' -f1)
+#YEAR=$(grep "<h1>Officielle flagdage" $TEMP_PATH/$FLAG_TMP_FILE | cut -d' ' -f3 | cut -d'<' -f1)
+YEAR=$(grep "<h2>Officielle flagdage" $TEMP_PATH/$FLAG_TMP_FILE | cut -d' ' -f3 | cut -d'<' -f1)
 
 # Extract the data - combine the 2 columns on 1 line - store in a file
-#grep '<td style="text-align: left;" valign="top" width="102">\|<td style="text-align: left;" valign="top" width="550">' $TEMP_PATH/flag_tmp_file | cut -d'>' -f2 | cut -d'<' -f1 | awk 'NF' | sed '{N; s/\n/|/}' > $TEMP_PATH/combined_file
-grep -o '<figure class="wp-block-table is-style-stripes"><table><tbody><tr>.*</figure>' $TEMP_PATH/flag_tmp_file | sed 's/.*<tbody>//g' | sed 's/<\/tbody>.*//g' | sed 's/<\/tr>/\n/g' | sed 's/<\/td><td>/|/g' | awk 'NF' | sed 's/<tr><td>//g' | sed 's/<\/td>//g' > $TEMP_PATH/combined_file
+#grep '<td style="text-align: left;" valign="top" width="102">\|<td style="text-align: left;" valign="top" width="550">' $TEMP_PATH/$FLAG_TMP_FILE | cut -d'>' -f2 | cut -d'<' -f1 | awk 'NF' | sed '{N; s/\n/|/}' > $TEMP_PATH/$FLAG_PROCESSED_FILE
+grep -o '<figure class="wp-block-table is-style-stripes"><table><tbody><tr>.*</figure>' $TEMP_PATH/$FLAG_TMP_FILE | sed 's/.*<tbody>//g' | sed 's/<\/tbody>.*//g' | sed 's/<\/tr>/\n/g' | sed 's/<\/td><td>/|/g' | awk 'NF' | sed 's/<tr><td>//g' | sed 's/<\/td>//g' > $TEMP_PATH/$FLAG_PROCESSED_FILE
 
 # Prepare the placeholders
 STATE=-1
@@ -175,7 +179,7 @@ while read line; do
 
   ATTR="$ATTR },"
 
-done < $TEMP_PATH/combined_file
+done < $TEMP_PATH/$FLAG_PROCESSED_FILE
 
 # Finish the query
 QUERY="$QUERY, ${ATTR:0:-1} ] } }"
@@ -184,4 +188,4 @@ QUERY="$QUERY, ${ATTR:0:-1} ] } }"
 _send_data "$QUERY" "$BASE_URL$API_STATES_PATH/sensor.flagday_dk"
 
 # Cleanup on exit
-rm -f $TEMP_PATH/flag_tmp_file $TEMP_PATH/combined_file
+rm -f $TEMP_PATH/$FLAG_TMP_FILE $TEMP_PATH/$FLAG_PROCESSED_FILE
