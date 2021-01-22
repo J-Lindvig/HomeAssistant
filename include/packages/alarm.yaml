@@ -38,7 +38,7 @@ alarm:
 
     siren_sound:
       name: Lydfil til sirene
-      initial: https://ha.skovtrolden.duckdns.org/local/audio/siren.mp3
+      initial: "media-source://media_source/local/audio/siren.mp3"
       icon: mdi:file-music
 
   script:
@@ -113,78 +113,3 @@ alarm:
               data:
                 entity_id: >
                   {{ states('input_text.siren_entity') }}
-
-    - alias: Alarm - ABCD remote - A
-      id: b899ef301d0744789d2d7b017d48ef2e
-      description: Slå alarmen til ved tryk på A
-      initial_state: true
-      mode: single
-      trigger:
-        - platform: state
-          entity_id: binary_sensor.remote_knap_a
-          to: 'on'
-      condition: "{{ is_state('alarm_control_panel.alarmo', 'disarmed') }}"
-      action:
-        - service: alarm_control_panel.alarm_arm_away
-          data:
-            entity_id: alarm_control_panel.alarmo
-            code: !secret ALARM_REMOTE_PIN
-        - wait_template: '{{ "armed_" in states("alarm_control_panel.alarmo") }}'
-          timeout: '35'
-        - service: light.turn_off
-          data:
-            entity_id: light.sandbox
-        - repeat:
-            count: 2
-            sequence:
-              - service: light.turn_on
-                data:
-                  entity_id: light.sandbox
-                  brightness_pct: 100
-              - delay:
-                  milliseconds: 500
-              - service: light.turn_off
-                data:
-                  entity_id: light.sandbox
-
-    - alias: Alarm - ABCD remote - B
-      id: 7d7a214ffa9f4063a873e0be8a5b3033
-      description: Slå alarmen fra ved tryk på B
-      mode: single
-      initial_state: true
-      trigger:
-        - platform: state
-          entity_id: binary_sensor.remote_knap_b
-          to: 'on'
-      condition: "{{ not is_state('alarm_control_panel.alarmo', 'disarmed') }}"
-      action:
-        - service: alarm_control_panel.alarm_disarm
-          data:
-            entity_id: alarm_control_panel.alarmo
-            code: !secret ALARM_REMOTE_PIN
-        - service: light.turn_off
-          data:
-            entity_id: light.sandbox
-        - service: light.turn_on
-          data:
-            entity_id: light.sandbox
-            brightness_pct: 100
-        - delay:
-            milliseconds: 500
-        - service: light.turn_off
-          data:
-            entity_id: light.sandbox
-
-    - alias: Alarm - ABCD remote - C
-      id: 7d7a214ffa9f4063a873e0be8a5b3033TEST
-      description: TEST
-      mode: single
-      initial_state: true
-      trigger:
-        - platform: state
-          entity_id: binary_sensor.remote_knap_c
-          to: 'on'
-      action:
-        - service: alarm_control_panel.alarm_trigger
-          data:
-            entity_id: alarm_control_panel.alarmo

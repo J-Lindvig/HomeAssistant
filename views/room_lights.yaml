@@ -110,11 +110,11 @@ cards:
               - type: custom:stack-in-card
                 cards:
                   - type: custom:button-card
-                    entity: light.sofalamper
+                    entity: light.stor_sofa
                   - type: entities
                     entities:
                       - type: custom:slider-entity-row
-                        entity: light.sofalamper
+                        entity: light.stor_sofa
                         hide_state: true
                         full_row: true
               - type: custom:stack-in-card

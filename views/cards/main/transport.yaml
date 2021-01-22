@@ -29,13 +29,13 @@ filter:
         method: attribute
         numeric: true
         attribute: sort_value_minutes
-    - entity_id: "sensor.bus_mod_*"
+    - entity_id: "sensor.busser_*"
       attributes:
-        sort_value_minutes: "<240"
-      sort:
-        count: 2
-        method: attribute
-        numeric: true
-        attribute: sort_value_minutes
+        direction: "Odense"
+      # sort:
+      #   count: 2
+      #   method: attribute
+      #   numeric: true
+      #   attribute: sort_value_minutes
   exclude:
     - state: "unavailable"

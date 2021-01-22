@@ -20,6 +20,16 @@ cards:
     column_num: 3
     column_width: 33%
     cards:
+
+      - type: custom:rejseplanen-card
+        entity: sensor.busser_brobyvaerk
+        show_scheduled_time: true # Optional
+#        max_entries: 5 # Optional
+      - type: custom:rejseplanen-card
+        entity: sensor.busser_nr_broby
+        show_scheduled_time: true # Optional
+#        max_entries: 5 # Optional
+
       - type: custom:stack-in-card
         title: System
         cards:

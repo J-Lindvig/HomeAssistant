@@ -89,6 +89,8 @@
 #    / _, _/
 #   /_/ |_|
 # 
+- type: js
+  url: /hacsfiles/rejseplanen-card/rejseplanen-card.js
 - type: module
   url: /hacsfiles/restriction-card/restriction-card.js
 

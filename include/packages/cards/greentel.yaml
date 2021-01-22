@@ -30,3 +30,17 @@ greentel:
   shell_command:
     greentel_scrape: "source /config/shell/greentel.sh; greentel_scrape"
     greentel_get: "source /config/shell/greentel.sh; greentel_get"
+
+  automation:
+    - id: a84853b82b3e4b09ad354cb0ad13bde7
+      alias: "Greentel"
+      description: "Scrape forbrug fra Greentel, vent på data er klar"
+      initial_state: true
+      mode: single
+      trigger:
+        - platform: time_pattern
+          minutes: 45
+        - platform: webhook
+          webhook_id: fdad0b0c5b8448579dc9255e152bc45b
+      action:
+        - service: "shell_command.greentel_{{ 'scrape' if trigger.platform == 'time_pattern' else 'get' }}"
