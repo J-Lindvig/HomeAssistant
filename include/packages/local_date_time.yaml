@@ -1,0 +1,99 @@
+local_date_time:
+  sensor:
+    - platform: template
+      sensors:
+        local_date_time:
+          friendly_name: "Dato og tid DK"
+          unique_id: 89917394c3044a598f916b5f5e02a6db
+          value_template: "{{ state_attr('sensor.local_date_time', 'weekday') }} den {{ state_attr('sensor.local_date_time', 'date') }}. {{ state_attr('sensor.local_date_time', 'month') }} {{ state_attr('sensor.local_date_time', 'year') }} {{ state_attr('sensor.local_date_time', 'time') }}" 
+          attribute_templates:
+            ts: "{{ now().timestamp() }}"
+            date: "{{ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%-d.') | int }}"
+            date_tts: >-
+              {%- set date = state_attr('sensor.local_date_time', 'date') | int %}
+              {%- set number_ordinal = {
+                1: "første",
+                2: "anden",
+                3: "tredje",
+                4: "fjerde",
+                5: "femte",
+                6: "sjette",
+                7: "syvende",
+                8: "ottende",
+                9: "niende",
+                10: "tiende",
+                11: "ellevte",
+                12: "tolvte",
+                13: "trettende",
+                14: "fjortende",
+                15: "femtende",
+                16: "sekstende",
+                17: "syttende",
+                18: "attende",
+                19: "nittende",
+                "and": "og",
+                "a1": "en",
+                "a2": "to",
+                "a3": "tre",
+                "a4": "fire",
+                "a5": "fem",
+                "a6": "seks",
+                "a7": "syv",
+                "a8": "otte",
+                "a9": "ni",
+                "2x": "tyvende",
+                "3x": "tredivte"
+                } -%}
+              {% if date < 20 -%}
+                {{ number_ordinal[day] }}
+              {% else -%}
+                {% set date = date | string -%}
+                {{ number_ordinal["a" ~ date[1]] }} {{ number_ordinal["and"] }} {{ number_ordinal[date[0] ~ "x"] }} 
+              {% endif -%}
+            month: >-
+              {% set months = ['Januar','Februar','Marts','April','Maj','Juni','Juli','August','September','Oktober','November','December'] %}
+              {{ months[ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%-m') | int - 1 ] }}
+            month_short: "{{ state_attr('sensor.local_date_time', 'month')[0:3] }}"
+            year: "{{ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%Y') }}"
+            weekday: "{{ state_attr('sensor.local_date_time', 'weekday_short')~'dag' }}"
+            weekday_short: >-
+              {% set weekdays_short = ['Søn','Man','Tirs','Ons','Tors','Fre','Lør'] %}
+              {{ weekdays_short[ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%w') | int ] -}}
+            sunrise: "{{ state_attr('sun.sun', 'next_rising') | as_timestamp | timestamp_custom('%H:%M') }}"
+            sunset: "{{ state_attr('sun.sun', 'next_setting') | as_timestamp | timestamp_custom('%H:%M') }}"
+            time: "{{ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%H:%M:%S') }}"
+            time_tts: >-
+              {%- set H = state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%-I') | int %}
+              {%- set M = state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%-M') | int %}
+              {%- set H24 = state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%-H') | int %}
+              {%- set time_names = {
+                0: "natten",
+                6: "morgenen",
+                9: "formiddagen",
+                12: "middagen",
+                14: "eftermiddagen",
+                18: "aftenen"
+                } %}
+              {%- set ns = namespace(time_name="") %}
+              
+              {%- for Hour in time_names -%}
+                {% if H24 >= Hour -%}
+                  {% if loop.last or H24 < loop.nextitem -%}
+                    {% set ns.time_name = time_names[Hour] -%}
+                  {% endif -%}
+                {% endif %}
+              {%- endfor -%}
+  
+              {%- if M == 0 -%}
+                {{ H }} om {{ ns.time_name }}
+              {%- elif M == 15 -%}
+                kvart over {{ H }} om {{ ns.time_name }}
+              {%- elif M == 45 -%}
+                kvart i {{ 1 if H == 12 else H + 1 }} om {{ ns.time_name }}
+              {%- elif M == 30 -%}
+                halv {{ 1 if H == 12 else H + 1 }} om {{ ns.time_name }}
+              {%- elif M <= 35 -%}
+                {{ M }} minut{{ "ter" if M > 1 }} over {{ H }} om {{ ns.time_name }}
+              {%- elif M > 35 -%}
+                {{ 60 - M }} minut{{ "ter" if 60 - M > 1 }} i {{ 1 if H == 12 else H + 1 }} om {{ ns.time_name }}
+              {%- endif -%}

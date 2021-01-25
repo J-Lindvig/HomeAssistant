@@ -17,6 +17,7 @@ views:
   - !include include/views/system.yaml
   - !include include/views/gauges.yaml
   - !include include/views/weather.yaml
+  - !include include/views/grid.yaml
   - !include include/views/test.yaml
 ################################################################################
 ####                              End of file                               ####
