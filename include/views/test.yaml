@@ -21,6 +21,18 @@ cards:
     column_width: 33%
     cards:
 
+      - type: custom:stack-in-card
+        mode: horizontal
+        cards:
+          - type: picture-entity
+            entity: camera.mouse_cam_kokken
+            camera_view: live
+            show_state: false
+          - type: picture-entity
+            entity: camera.mouse_cam_gangen
+            camera_view: live
+            show_state: false
+
       - type: custom:rejseplanen-card
         entity: sensor.busser_brobyvaerk
         show_scheduled_time: true # Optional

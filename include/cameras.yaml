@@ -10,74 +10,14 @@
 #   stream_source: !secret TERRASSE_STREAM_URL
 #   verify_ssl: false
 
-# - platform: generic
-#   name: Extra 1 SD
-#   still_image_url: !secret EXTRA_1_STILL_URL
-#   stream_source: !secret EXTRA_1_STREAM_URL
-#   verify_ssl: false
+- platform: generic
+  name: Mouse-Cam Køkken
+  still_image_url: !secret EXTRA_1_STILL_URL
+  stream_source: !secret EXTRA_1_STREAM_URL
+  verify_ssl: false
 
-# - platform: generic
-#   name: Extra 2 SD
-#   still_image_url: !secret EXTRA_2_STILL_URL
-#   stream_source: !secret EXTRA_2_STREAM_URL
-#   verify_ssl: false
-
-# - platform: xiaomi_cloud_map_extractor
-#   host: !secret S6_IP
-#   token: !secret S6_TOKEN
-#   username: !secret S6_USER
-#   password: !secret S6_PASS
-#   country: "de"
-#   name: "Lynet McClean"
-#   draw:
-#     - charger
-#     - path
-#     - goto_path
-#     - predicted_path
-#     # - no_go_zones
-#     # - no_mopping_zones
-#     - vacuum_position
-#     # - virtual_walls
-#     # - zones
-#   colors:
-#     color_map_inside: [32, 115, 185]
-#     color_map_outside: [32, 32, 32, 128]
-#     color_map_wall: [196, 196, 196]
-#     color_map_wall_v2: [255, 255, 255]
-#     color_grey_wall: [93, 109, 126]
-#     color_path: [147, 194, 238]
-#     color_goto_path: [0, 255, 0]
-#     color_predicted_path: [255, 255, 0, 0]
-#     color_zones: [0xAD, 0xD8, 0xFF, 0x8F]
-#     color_zones_outline: [0xAD, 0xD8, 0xFF]
-#     color_virtual_walls: [255, 0, 0]
-#     color_no_go_zones: [255, 33, 55, 127]
-#     color_no_go_zones_outline: [255, 0, 0]
-#     color_no_mop_zones: [163, 130, 211, 127]
-#     color_no_mop_zones_outline: [163, 130, 211]
-#     color_charger: [255, 85, 23]
-#     color_robo: [32, 32, 32]
-#     color_unknown: [0, 0, 0]
-#     color_scan: [0xDF, 0xDF, 0xDF]
-#   map_transformation:
-#     trim:
-#       top: 10
-#       left: 10
-#       right: 10
-#   attributes:
-#     - calibration_points
-#     - charger
-#     - goto
-#     - goto_path
-#     - goto_predicted_path
-#     - image
-#     - map_name
-#     - no_go_areas
-#     - no_mopping_areas
-#     - obstacles
-#     - path
-#     - room_numbers
-#     - rooms
-#     - vacuum_position
-#     - walls
-#     - zones
+- platform: generic
+  name: Mouse-Cam Gangen
+  still_image_url: !secret EXTRA_2_STILL_URL
+  stream_source: !secret EXTRA_2_STREAM_URL
+  verify_ssl: false

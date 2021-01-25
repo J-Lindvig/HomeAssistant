@@ -21,7 +21,15 @@ cards:
     column_num: 3
     column_width: 33%
     cards:
-      - !include cards/main/transport.yaml
+      - type: picture-entity
+        entity: camera.mouse_cam_kokken
+        camera_view: live
+        show_state: false
+      - type: picture-entity
+        entity: camera.mouse_cam_gangen
+        camera_view: live
+        show_state: false
+#      - !include cards/main/transport.yaml
 #      - !include cards/main/library.yaml
       - !include cards/room_lights/glance.yaml
       - break

@@ -10,14 +10,14 @@
 ################################################################################
 
 views:
-  - !include views/main.yaml
-  - !include views/room_lights.yaml
-#  - !include views/movies.yaml
-  - !include views/light_control.yaml
-  - !include views/system.yaml
-  - !include views/gauges.yaml
-  - !include views/weather.yaml
-  - !include views/test.yaml
+  - !include include/views/main.yaml
+  - !include include/views/room_lights.yaml
+#  - !include include/views/movies.yaml
+  - !include include/views/light_control.yaml
+  - !include include/views/system.yaml
+  - !include include/views/gauges.yaml
+  - !include include/views/weather.yaml
+  - !include include/views/test.yaml
 ################################################################################
 ####                              End of file                               ####
 ################################################################################

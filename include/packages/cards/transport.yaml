@@ -13,35 +13,40 @@ transport:
       region: "EU"
 
     - platform: rejseplanen
-      name: Bus mod Odense 110
+      name: 110 Odense
       stop_id: 430276300
       direction:
         - "Odense"        
       route: "Bus 110"
 
     - platform: rejseplanen
-      name: Bus mod Assens 110
+      name: 110 Assens
       stop_id: 430276300
       direction:
         - "Assens"
       route: "Bus 110"
 
     - platform: rejseplanen
-      name: Bus mod Odense 111
+      name: 111 Odense
       stop_id: 430268500
       direction:
         - "Odense"
       route: "Bus 111"
 
     - platform: rejseplanen
-      name: Bus mod Faaborg 111
+      name: 111 Faaborg
       stop_id: 430268500
       direction:
         - "Faaborg"
       route: "Bus 111"
 
     - platform: rejseplanen
-      name: Bus mod Glamsbjerg
+      name: 111
+      stop_id: 430268500
+      route: "Bus 111"
+
+    - platform: rejseplanen
+      name: VG
       stop_id: "430269400"
       route: "Bus 851U"
       direction:

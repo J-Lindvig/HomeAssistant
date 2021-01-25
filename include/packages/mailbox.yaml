@@ -28,8 +28,8 @@ mailbox:
   # The sensor in the mailbox is ON and have been for the time in input_number.mailbox_time_open
   # Condition: only fire when the "seitch" is OFF
   automation:
-    - alias: "Postkasse"
-      id: 7937fdac601d4ee6b5a33932cf92d8cd
+    - id: 7937fdac601d4ee6b5a33932cf92d8cd
+      alias: Postkasse
       description: "Der er kommet post"
       initial_state: true
       mode: single
@@ -59,8 +59,8 @@ mailbox:
                   title: "Posten er hentet"
 
     # Receiver of the actions from the phone
-    - alias: Posten er hentet
-      id: 3bc4a5f9e5bf4aecabc8f2b24bfd65dc
+    - id: 3bc4a5f9e5bf4aecabc8f2b24bfd65dc
+      alias: Posten er hentet
       description: Nulstiller postakassen
       initial_state: true
       mode: single
