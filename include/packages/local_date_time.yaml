@@ -45,7 +45,7 @@ local_date_time:
                 "3x": "tredivte"
                 } -%}
               {% if date < 20 -%}
-                {{ number_ordinal[day] }}
+                {{ number_ordinal[date] }}
               {% else -%}
                 {% set date = date | string -%}
                 {{ number_ordinal["a" ~ date[1]] }} {{ number_ordinal["and"] }} {{ number_ordinal[date[0] ~ "x"] }} 
