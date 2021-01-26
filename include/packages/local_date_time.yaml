@@ -5,10 +5,17 @@ local_date_time:
         local_date_time:
           friendly_name: "Dato og tid DK"
           unique_id: 89917394c3044a598f916b5f5e02a6db
+          # Complete string with day, date, month, year and time
           value_template: "{{ state_attr('sensor.local_date_time', 'weekday') }} den {{ state_attr('sensor.local_date_time', 'date') }}. {{ state_attr('sensor.local_date_time', 'month') }} {{ state_attr('sensor.local_date_time', 'year') }} {{ state_attr('sensor.local_date_time', 'time') }}" 
           attribute_templates:
+
+            # TS - Timestamp for use in the following attributes          
             ts: "{{ now().timestamp() }}"
+
+            # Date of today, without leading zeros if below 10
             date: "{{ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%-d.') | int }}"
+
+            # Date in spoken language wth numbers as ordinals
             date_tts: >-
               {%- set date = state_attr('sensor.local_date_time', 'date') | int %}
               {%- set number_ordinal = {
@@ -50,18 +57,36 @@ local_date_time:
                 {% set date = date | string -%}
                 {{ number_ordinal["a" ~ date[1]] }} {{ number_ordinal["and"] }} {{ number_ordinal[date[0] ~ "x"] }} 
               {% endif -%}
+
+            # Month, get the name of the month from a list
             month: >-
               {% set months = ['Januar','Februar','Marts','April','Maj','Juni','Juli','August','September','Oktober','November','December'] %}
               {{ months[ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%-m') | int - 1 ] }}
+
+            # Month_short, cut the Month from the 3rd char
             month_short: "{{ state_attr('sensor.local_date_time', 'month')[0:3] }}"
+
+            # Year
             year: "{{ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%Y') }}"
+
+            # Weekday, get weekday_short and append "dag"
             weekday: "{{ state_attr('sensor.local_date_time', 'weekday_short')~'dag' }}"
+
+            # Weekday_short, get the name of the day from a list
             weekday_short: >-
               {% set weekdays_short = ['Søn','Man','Tirs','Ons','Tors','Fre','Lør'] %}
               {{ weekdays_short[ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%w') | int ] -}}
+
+            # Next sunsrise in HH:MM format
             sunrise: "{{ state_attr('sun.sun', 'next_rising') | as_timestamp | timestamp_custom('%H:%M') }}"
+
+            # Next sunset in HH:MM format
             sunset: "{{ state_attr('sun.sun', 'next_setting') | as_timestamp | timestamp_custom('%H:%M') }}"
+
+            # Time in HH:MM:SS format
             time: "{{ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%H:%M:%S') }}"
+
+            # Time in spoken language with names of the current time of day
             time_tts: >-
               {%- set H = state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%-I') | int %}
               {%- set M = state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%-M') | int %}
