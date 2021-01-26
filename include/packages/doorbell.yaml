@@ -54,7 +54,7 @@ doorbell:
               - media_player.kokken
               - media_player.indgang
               - media_player.pigernes_stue
-            media_content_id: "https://ha.skovtrolden.duckdns.org/local/audio/doorbell.mp3"
+            media_content_id: "media-source://media_source/local/audio/doorbell.mp3"
             media_content_type: music
         - delay: "00:00:10"
         - service: media_player.volume_set
