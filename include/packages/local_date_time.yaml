@@ -17,7 +17,12 @@ local_date_time:
 
             # Date in spoken language wth numbers as ordinals
             date_tts: >-
+              # Make a temp variable containg todays date
               {%- set date = state_attr('sensor.local_date_time', 'date') | int %}
+              # Key: Value list with ordinals and a concatenating string "og"
+              # 1-19 is purely the number of the date
+              # a1-9 is the last digit in dates above 20
+              # x2-3 is the first digit in dates above 20
               {%- set number_ordinal = {
                 1: "første",
                 2: "anden",
@@ -38,7 +43,6 @@ local_date_time:
                 17: "syttende",
                 18: "attende",
                 19: "nittende",
-                "and": "og",
                 "a1": "en",
                 "a2": "to",
                 "a3": "tre",
@@ -49,12 +53,16 @@ local_date_time:
                 "a8": "otte",
                 "a9": "ni",
                 "2x": "tyvende",
-                "3x": "tredivte"
+                "3x": "tredivte",
+                "and": "og"                
                 } -%}
               {% if date < 20 -%}
                 {{ number_ordinal[date] }}
               {% else -%}
+                # Make the date a string got use in the following
                 {% set date = date | string -%}
+                # Get the first digit by appending the last digt to the letter "a"  and get the value from the list
+                # Append the concatenating string and get the first digit and appende it to the letter "x" and get the value from the list
                 {{ number_ordinal["a" ~ date[1]] }} {{ number_ordinal["and"] }} {{ number_ordinal[date[0] ~ "x"] }} 
               {% endif -%}
 
