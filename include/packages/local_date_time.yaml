@@ -94,6 +94,9 @@ local_date_time:
             # Time in HH:MM:SS format
             time: "{{ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%H:%M:%S') }}"
 
+            # Time in HH:MM format
+            time_hhmm: "{{ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%H:%M') }}"
+
             # Time in spoken language with names of the current time of day
             time_tts: >-
               {%- set H = state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%-I') | int %}
