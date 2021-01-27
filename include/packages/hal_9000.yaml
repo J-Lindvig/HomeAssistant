@@ -42,22 +42,13 @@ hal_9000:
               {% set ran_idx = range(0, len) | random() %}
               {{ states('var.greetings').split("|")[ran_idx] }},.
               
-              Klokken er {{ states('sensor.tid_naturlig') }}, og det er i dag {{ state_attr('sensor.dato', 'ugedag') }} den {{ state_attr('sensor.dato', 'dato_ordenstal') }} {{ state_attr('sensor.dato', 'maaned') }},.
+              Klokken er {{ state_attr('sensor.local_date_time', 'time_tts') }}, og det er i dag {{ state_attr('sensor.local_date_time', 'weekday') }} den {{ state_attr('sensor.local_date_time', 'date_tts') }} {{ state_attr('sensor.local_date_time', 'month') }}
 
-              Temperaturen, i {{ state_attr('weather.brobyvaerk', 'friendly_name') }}, er lige nu {{ state_attr('weather.brobyvaerk', 'temperature') | round }} grader som vil føles som mellem {{ states('sensor.brobyvaerk_realfeel_temperature_min_0d') | round }} og {{ states('sensor.brobyvaerk_realfeel_temperature_max_0d') | round }} grader,.
-              {% if states('sensor.brobyvaerk_precipitation') | int > 0 %}
-                Der forventes at falde {{ states('sensor.brobyvaerk_precipitation') | round }} {{ state_attr('sensor.brobyvaerk_precipitation', 'unit_of_measurement') }} i løbet af dagen i dag,.
+              Temperaturen, i {{ state_attr('weather.brobyvaerk', 'friendly_name') }}, er lige nu {{ state_attr('weather.brobyvaerk', 'temperature') | round }} grader.
+              {% if state_attr('weather.brobyvaerk', 'forecast')[0]['precipitation'] | int > 0 %}
+                Der er {{ state_attr('weather.brobyvaerk', 'forecast')[0]['precipitation_probability'] }} procents risiko for at der kommer {{ state_attr('weather.brobyvaerk', 'forecast')[0]['precipitation'] }} mm nedbør i løbet af dagen i dag.
               {% endif %}
-              
-              {%- if ( states('sensor.brobyvaerk_thunderstorm_probability_day_0d') | int ) > 0 %}
-                Der er {{ states('sensor.brobyvaerk_thunderstorm_probability_day_0d') }} {{ state_attr('sensor.brobyvaerk_thunderstorm_probability_day_0d', 'unit_of_measurement') }} risiko for torden i dagtimerne,.
-                {%- if states('sensor.brobyvaerk_thunderstorm_probability_night_0d') | int > 0 %}
-                  og {{ states('sensor.brobyvaerk_thunderstorm_probability_night_0d') }} {{ state_attr('sensor.brobyvaerk_thunderstorm_probability_night_0d', 'unit_of_measurement') }} risiko for torden i nat,.
-                {%- else -%}
-                .
-                {% endif %}
-              {% endif %}  
-              
+
               {% if states('sensor.max_uv_index') >= states('sensor.uv_sun') %}
               UV-indexet når i dag {{ states('sensor.max_uv_index') | round(2) | replace('.', ',') }},.
               {% endif %}

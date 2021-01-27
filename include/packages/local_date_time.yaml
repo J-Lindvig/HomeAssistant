@@ -6,7 +6,7 @@ local_date_time:
           friendly_name: "Dato og tid DK"
           unique_id: 89917394c3044a598f916b5f5e02a6db
           # Complete string with day, date, month, year and time
-          value_template: "{{ state_attr('sensor.local_date_time', 'weekday') }} den {{ state_attr('sensor.local_date_time', 'date') }}. {{ state_attr('sensor.local_date_time', 'month') }} {{ state_attr('sensor.local_date_time', 'year') }} {{ state_attr('sensor.local_date_time', 'time') }}" 
+          value_template: "{{ state_attr('sensor.local_date_time', 'weekday') }} den {{ state_attr('sensor.local_date_time', 'date') }}. {{ state_attr('sensor.local_date_time', 'month') }} {{ state_attr('sensor.local_date_time', 'year') }}" 
           attribute_templates:
 
             # TS - Timestamp for use in the following attributes          

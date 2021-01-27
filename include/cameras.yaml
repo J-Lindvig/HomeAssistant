@@ -21,3 +21,9 @@
   still_image_url: !secret EXTRA_2_STILL_URL
   stream_source: !secret EXTRA_2_STREAM_URL
   verify_ssl: false
+
+- platform: push
+  name: MotionEye Outdoor
+  buffer: 3
+  timeout: 5
+  webhook_id: d68b778a6abe40ed9a1edce65e3adbac
