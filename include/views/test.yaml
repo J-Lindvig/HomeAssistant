@@ -21,6 +21,110 @@ cards:
     column_width: 33%
     cards:
 
+      - type: picture-elements
+        image: /local/images/backgrounds/blank.png
+        camera_image: camera.indgang_sd
+        camera_view: live
+        elements:
+          - type: icon
+            icon: mdi:arrow-top-left-thick
+            style:
+              left: 2.2vh
+              top: 3vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "left up"
+                inverted: true
+          - type: icon
+            icon: mdi:arrow-up-thick
+            style:
+              left: 4.2vh
+              top: 1.8vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "up"
+                inverted: true
+          - type: icon
+            icon: mdi:arrow-top-right-thick
+            style:
+              left: 6.2vh
+              top: 3vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "right up"
+                inverted: true
+
+          - type: icon
+            icon: mdi:arrow-left-thick
+            style:
+              left: 1vh
+              top: 5vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "left"
+                inverted: true
+          - type: icon
+            icon: mdi:arrow-right-thick
+            style:
+              left: 7.4vh
+              top: 5vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "right"
+                inverted: true
+
+          - type: icon
+            icon: mdi:arrow-bottom-left-thick
+            style:
+              left: 2.2vh
+              top: 7vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "left down"
+                inverted: true
+          - type: icon
+            icon: mdi:arrow-down-thick
+            style:
+              left: 4.2vh
+              top: 8.2vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "down"
+                inverted: true
+          - type: icon
+            icon: mdi:arrow-bottom-right-thick
+            style:
+              left: 6.2vh
+              top: 7vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "right down"
+                inverted: true
+
       - type: custom:stack-in-card
         mode: horizontal
         cards:

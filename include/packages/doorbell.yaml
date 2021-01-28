@@ -40,7 +40,7 @@ doorbell:
             data:
               channel: Dørklokke
               importance: high
-              image: "/api/camera_proxy/camera.indgang_sd"
+#              image: "/api/camera_proxy/camera.indgang_sd"
         - service: media_player.volume_set
           data:
             entity_id:

@@ -11,6 +11,7 @@
 
 views:
   - !include include/views/main.yaml
+  - !include include/views/cctv.yaml
   - !include include/views/room_lights.yaml
 #  - !include include/views/movies.yaml
   - !include include/views/light_control.yaml

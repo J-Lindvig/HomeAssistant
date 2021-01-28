@@ -1,0 +1,26 @@
+title: CCTV
+icon: mdi:cctv
+panel: true
+cards:
+  - type: vertical-stack
+    cards:
+      - type: horizontal-stack
+        cards:
+        - type: picture-entity
+          entity: camera.rat_cam_kokken
+          camera_view: live
+          show_state: false
+        - type: picture-entity
+          entity: camera.rat_cam_gangen
+          camera_view: live
+          show_state: false
+      - type: horizontal-stack
+        cards:
+        - type: picture-entity
+          entity: camera.rat_cam_badevaerelse
+          camera_view: live
+          show_state: false
+        - type: picture-entity
+          entity: camera.rat_cam_stuen
+          camera_view: live
+          show_state: false

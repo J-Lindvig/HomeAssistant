@@ -11,7 +11,7 @@
 type: picture-elements
 image: /local/images/backgrounds/birthday_5x2.jpg
 elements:
-  - type: custom:state-attribute-element
+  - type: state-label
     entity: sensor.next_birthday
     attribute: friendly_name
     style:
@@ -22,7 +22,7 @@ elements:
       text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
       font-weight: bold
 
-  - type: custom:state-attribute-element
+  - type: state-label
     entity: sensor.next_birthday
     attribute: years_at_next_anniversary
     suffix: " år"

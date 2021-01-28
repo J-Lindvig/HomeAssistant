@@ -1,0 +1,23 @@
+ptz:
+  # PTZ generic command
+  # Takes the following data:
+  #   ip, the IP adsress of the camera
+  #   direction, the direction to turn the camera. Must be a string containing the direction:
+  #              ex: "left up", "leftup", "upleft"
+  #   inverted, whether the cam is up side down, optional
+  url: >-
+    {% set inverted = inverted | default(false) %}
+    {% set direction = direction | lower %}
+    {% set ptz_command = "ptz"%}
+    {% if "left" in direction %}
+      {% set ptz_command = ptz_command ~ ("r" if inverted else "l") %}
+    {% elif "right" in direction %}
+      {% set ptz_command = ptz_command ~ ("l" if inverted else "r") %}
+    {% endif %}
+    {% if "up" in direction %}
+      {% set ptz_command = ptz_command ~ ("d" if inverted else "u") %}
+    {% elif "down" in direction %}
+      {% set ptz_command = ptz_command ~ ("u" if inverted else "d") %}
+    {% endif %}
+    
+    http://{{ ip }}:8080/cgi-bin/webui?command={{ ptz_command }}
