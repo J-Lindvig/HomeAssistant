@@ -12,7 +12,7 @@ blueprint:
 
     device:
       name: The device to operate
-      description: Choose the device you with to have a default view
+      description: Choose the device you with to have the changeing view
       selector:
         entity:
           domain: sensor
@@ -43,7 +43,7 @@ variables:
   timeout: !input timeout
 trigger:
 - platform: state
-  entity_id: !input device
+  entity_id: !input pir_sensor
   to: "on"
 action:
   - variables:
