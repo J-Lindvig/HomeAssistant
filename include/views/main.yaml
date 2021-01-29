@@ -18,8 +18,9 @@ panel: true
 cards:
   - type: custom:layout-card
     layout: vertical
-    column_num: 3
-    column_width: 33%
+    min_columns: 1
+    max_columns: 3
+    min_width: 33%
     cards:
       - type: vertical-stack
         cards:

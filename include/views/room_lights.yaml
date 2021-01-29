@@ -15,8 +15,9 @@ panel: True
 cards:
   - type: custom:layout-card
     layout: auto
-    column_num: 4
-    column_width: 24.75%
+    min_columns: 1
+    max_columns: 4
+    min_width: 24.25%
     cards:
       - type: custom:stack-in-card
         title: "Køkken"

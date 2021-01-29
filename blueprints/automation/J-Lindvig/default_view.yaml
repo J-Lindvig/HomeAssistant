@@ -1,0 +1,61 @@
+blueprint:
+  name: Default Lovelace view
+  description: |
+    This blueprint makes it easy to have a Lovelave interface which returns to a default view after a timeout.
+    
+    Requirements:
+    + browser_mod by Thomas Lovén (https://github.com/thomasloven/hass-browser_mod)
+    + a input_text to store the path to the default view (https://www.home-assistant.io/integrations/input_text/)
+    
+    Use:
+    Find you must find the entity of the device to control. This is sadly not as easy as it could/should be, since Blueprints does not offer the possibility to sort entites by their attribute.
+    It gets a little easier if you specify a alias to the deviceID (https://github.com/thomasloven/hass-browser_mod#aliases)
+    
+    Second, you must select the input_select that you have created for this use. The input_select MUST have a sting with the default path stored.
+    
+    Lastly you will need to select a timeout in seconds before the device navigates back to the default view.
+  source_url: https://github.com/J-Lindvig/HomeAssistant/blob/master/blueprints/automation/J-Lindvig/default_view.yaml
+  domain: automation
+
+  input:
+    device:
+      name: The device to operate
+      description: Choose the device you with to have a default view
+      selector:
+        entity:
+          domain: sensor
+
+    path_default:
+      name: Default view
+      description: The input_text containing the path of the default view ex. '/lovelace/0'
+      selector:
+        entity:
+          domain: input_text
+
+    timeout:
+      name: Time out
+      description: After this time out return to default view
+      default: 30
+      selector:
+        number:
+          min: 10
+          max: 300
+          step: 5
+          unit_of_measurement: seconds
+
+mode: restart
+max_exceeded: silent
+variables:
+  device: !input device
+  path_default: !input path_default
+  timeout: !input timeout
+trigger:
+- platform: state
+  entity_id: !input device
+  attribute: path
+action:
+  - delay: "{{ timeout }}"
+  - service: browser_mod.navigate
+    data:
+      deviceID: "{{ state_attr(device, 'deviceID') }}"
+      navigation_path: "{{ states(path_default) }}"

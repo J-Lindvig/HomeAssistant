@@ -43,7 +43,7 @@ room_groups_lights:
       entity_id: switch.nathalies_sengelamper
 
     - platform: group
-      name: Studieværelse Gulvlampe
+      name: Gulvlampe
       entities:
         - light.gulvlampe_nederst
         - light.gulvlampe_midterst
