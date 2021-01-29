@@ -22,30 +22,6 @@
     data: {}
     entity_id: sensor.next_birthday
   mode: single
-- id: '1608991948003'
-  alias: Tag Test Sandbox is scanned
-  description: ''
-  trigger:
-  - platform: tag
-    tag_id: 2e3cbe3e-7026-4e27-ae9c-f00e50c20135
-  condition: []
-  action:
-  - service: light.toggle
-    data: {}
-    entity_id: light.sandbox
-  mode: single
-- id: '1608992157017'
-  alias: Tag Test Sandbox is scanned
-  description: ''
-  trigger:
-  - platform: tag
-    tag_id: 4d9eed58-54c3-4558-9b98-c89b7dd57095
-  condition: []
-  action:
-  - service: light.toggle
-    data: {}
-    entity_id: light.sandbox
-  mode: single
 - id: '1609275894067'
   alias: AP down - power cycle
   description: Hjaltes AP er gået død - genstart det med en powercycle
@@ -139,3 +115,12 @@
     data: {}
     entity_id: input_select.cards_to_slide
   mode: single
+- id: '1611953530386'
+  alias: Touchpanel - Default View
+  description: ''
+  use_blueprint:
+    path: J-Lindvig/default_view.yaml
+    input:
+      timeout: '30'
+      device: sensor.touchpanel
+      path_default: input_text.default_view_path
