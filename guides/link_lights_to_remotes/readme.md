@@ -34,13 +34,14 @@ I am merely using curl to obtain a token from deCONZ.
 ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/deconz_token.png)
 I have redacted some of my token.
 
-5.	 Open a browser at enter the following URL, replacing the capitalized parts with your own info
+## Exctract groups from decONZ
+1.	 Open a browser at enter the following URL, replacing the capitalized parts with your own info
 
     http://YOUR_HA_IP:40850/api/YOUR_TOKEN/groups
 
 
-6. This will give you a output pretty much like this, maybe your browser is better to display JSON, but mine is not.
+2. This will give you a output pretty much like this, maybe your browser is better to display JSON, but mine is not.
 	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/deconz_groups.png)
-7. To helt us parse and find the wanted groups in the mess, lets go to [JSON Editor Online](https://jsoneditoronline.org/) and paste it all into the the left pane. Be sure to click "tree" in the right pane.
+3. To help us parse and find the wanted groups in the mess, lets go to [JSON Editor Online](https://jsoneditoronline.org/) and paste it all into the the left pane. Be sure to click "tree" in the right pane.
 	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/json_tree.png)
-
+## Finding the ID of the remote
