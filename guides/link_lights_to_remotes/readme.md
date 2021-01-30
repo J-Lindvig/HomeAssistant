@@ -88,3 +88,9 @@ Press Done
  ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_add.png)
  4. When done click "Apply" not "Done"
  ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_apply.png)
+## Finish
+If we were using a round IKEA remote, it would now be visible in Phoscon
+![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/phoscon_groups.png)
+But since I have been using a square dimmer, it is not visible i Phoscon.
+It is however visible in Home Assistant as a light, after we have done a update in the Services panel.
+![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/ha_update.png)
