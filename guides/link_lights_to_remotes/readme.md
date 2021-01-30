@@ -3,7 +3,8 @@
 
 
 # Linking lights and remotes directly (deCONZ)
-This guide i heavily inspired by 
+This guide is heavily inspired by the works of [Claus Blaabjerg Hansen](https://rolig.dk/?p=1827&fbclid=IwAR2JTtbErRf8s97mQOSEeVbfch7PHsGondFJg0whd3_IE9d3FcfiYkLcnR0), but I think this version has a more simple and easy approach, since it does not use the deCONZ app.
+
 By completing the numerous steps in this guide, you will end up having:
  1. a fail-safe solution, where lights still is operational allthough Home Assistant is down
  2. a prettier implementation of deCONZ groups in Home Assistant
@@ -14,19 +15,19 @@ The remote must be reset and free of any existing groups. Furthermore custom key
  2. `curl` command
 ### Steps
 Here are the steps we need to perform:
- 1. Open deCONZ for direct API calls
- 2. Obtain a `token` from deCONZ (Phoscon)
- 3. Extract groups from deCONZ
+ 1. Open Phoscon for direct API calls
+ 2. Obtain a `token` from Phoscon
+ 3. Extract groups from Phoscon
  4. Find the ID (MAC address) of the remote(s)
  5. Edit the name of the group
  6. Add members (lights) to the group
  7. Enjoy a fail-safe solution
-## Open deCONZ for direct API calls
-In our daily use with deCONZ we do not need to forward ports, since we are using ingress in Home Assistant.
-But to get the token and perform the needed task, we need to have a direct connection to deCONZ.
+## Open Phoscon for direct API calls
+In our daily use with Phoscon we do not need to forward ports, since we are using ingress in Home Assistant.
+But to get the token and perform the needed task, we need to have a direct connection to Phoscon.
 ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/deconz_configuration.png)
-## Getting token from deCONZ
-I am merely using curl to obtain a token from deCONZ.
+## Getting token from Phoscon
+I am merely using curl to obtain a token from Phoscon.
 1. Open a SSH session to your Home Assistant, this can be from the:
 		-	SSH add-on within Home Assistant
 		-	a SSH session from your favourite SSH client
@@ -36,7 +37,7 @@ I am merely using curl to obtain a token from deCONZ.
 
     curl -X POST -d '{"devicetype":"YOUR_FICTIVE_APP_NAME"}' YOUR_HA_IP:40850/api
 
-3. Before we press Enter, we need to let deCONZ accept a new connection.
+3. Before we press Enter, we need to let Phoscon accept a new connection.
 ![Open the menu](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/phoscon_menu.png)
 ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/phoscon_gateway.png)
 ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/phoscon_advanced.png)
@@ -47,7 +48,7 @@ I am merely using curl to obtain a token from deCONZ.
 ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/deconz_token.png)
 I have redacted some of my token.
 
-## Exctract groups from decONZ
+## Exctract groups from Phoscon
  1.  Open a browser at enter the following URL, replacing the capitalized parts with your own info
 
     http://YOUR_HA_IP:40850/api/YOUR_TOKEN/groups
@@ -73,7 +74,7 @@ I have redacted some of my token.
  7. Use these credentials to login
 	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_login.png)
 	**User: delight
-	Password: YOUR_DECONZ_PASSWORD**
+	Password: YOUR_PHOSCON_PASSWORD**
  8. This will take your to a overview of the current groups in deCONZ.
 	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_start.png)
  9. Now we must find our remote - it quite easy....
