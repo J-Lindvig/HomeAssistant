@@ -1,5 +1,6 @@
 
 
+
 # Linking lights and remotes directly (deCONZ)
 This guide i heavily inspired by 
 By completing the numerous steps in this guide, you will end up having:
@@ -7,11 +8,13 @@ By completing the numerous steps in this guide, you will end up having:
  2. a prettier implementation of deCONZ groups in Home Assistant
 ## Introduction
 ### tools needed
- 3. a browser (duh)
- 4. `curl` command
+ 1. a browser (duh)
+ 2. `curl` command
 ### Steps
 Here are the steps we need to perform:
  1. Obtain a `token` from deCONZ (Phoscon)
+ 2. Extract groups from deCONZ
+ 3. Find the ID (MAC address) of the remote(s)
 ## Getting token from deCONZ
 I am merely using curl to obtain a token from deCONZ.
 1. Open a SSH session to your Home Assistant, this can be from the:
@@ -35,13 +38,20 @@ I am merely using curl to obtain a token from deCONZ.
 I have redacted some of my token.
 
 ## Exctract groups from decONZ
-1.	 Open a browser at enter the following URL, replacing the capitalized parts with your own info
+ 1.  Open a browser at enter the following URL, replacing the capitalized parts with your own info
 
     http://YOUR_HA_IP:40850/api/YOUR_TOKEN/groups
 
 
-2. This will give you a output pretty much like this, maybe your browser is better to display JSON, but mine is not.
+ 2. This will give you a output pretty much like this, maybe your browser is better to display JSON, but mine is not.
 	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/deconz_groups.png)
-3. To help us parse and find the wanted groups in the mess, lets go to [JSON Editor Online](https://jsoneditoronline.org/) and paste it all into the the left pane. Be sure to click "tree" in the right pane.
+ 3. To help us parse and find the wanted groups in the mess, lets go to [JSON Editor Online](https://jsoneditoronline.org/) and paste it all into the the left pane. Be sure to click "tree" in the right pane.
 	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/json_tree.png)
+	**Keep this window open!!!**
 ## Finding the ID of the remote
+
+ 1. We are using the developer tools of Home Assistant and a event listener `deconz_event` to find the ID of the remote.
+ ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/deconz_event.png)
+ 2. Copy this ID, which is actually the MAC address of the remote, and paste it into the search field of the JSON Editor.
+ ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/json_found_id.png)
+ The ID of the remote is merely a key in the JSON data.
