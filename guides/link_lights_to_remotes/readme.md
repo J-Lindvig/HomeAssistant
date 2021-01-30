@@ -15,6 +15,7 @@ Here are the steps we need to perform:
  1. Obtain a `token` from deCONZ (Phoscon)
  2. Extract groups from deCONZ
  3. Find the ID (MAC address) of the remote(s)
+ 4. Edit the group
 ## Getting token from deCONZ
 I am merely using curl to obtain a token from deCONZ.
 1. Open a SSH session to your Home Assistant, this can be from the:
@@ -50,8 +51,17 @@ I have redacted some of my token.
 	**Keep this window open!!!**
 ## Finding the ID of the remote
 
- 1. We are using the developer tools of Home Assistant and a event listener `deconz_event` to find the ID of the remote.
+ 4. We are using the developer tools of Home Assistant and a event listener `deconz_event` to find the ID of the remote.
  ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/deconz_event.png)
- 2. Copy this ID, which is actually the MAC address of the remote, and paste it into the search field of the JSON Editor.
+ 5. Copy this ID, which is actually the MAC address of the remote, and paste it into the search field of the JSON Editor.
  ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/json_found_id.png)
  The ID of the remote is merely a key in the JSON data.
+ ## Edit the group
+1. This is done in the "light control", not Phoscon or deCONZ.
+	Enter this url in a new browser window:
+
+    http://YOUR_HA_IP:40850/api/YOUR_TOKEN/groups
+
+2.	 We need to prepare, but not fire, our request string to obtain the token.
+
+    curl -X POST -d '{"devicetype":"YOUR_FICTIVE_APP_NAME"}' YOUR_HA_IP:40850/api
