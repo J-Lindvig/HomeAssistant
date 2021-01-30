@@ -1,4 +1,5 @@
 
+
 # Linking lights and remotes directly (deCONZ)
 This guide i heavily inspired by 
 By completing the numerous steps in this guide, you will end up having:
@@ -21,7 +22,7 @@ I am merely using curl to obtain a token from deCONZ.
 2.	 We need to prepare, but not fire, our request string to obtain the token.
 
     curl -X POST -d '{"devicetype":"YOUR_FICTIVE_APP_NAME"}' YOUR_HA_IP:40850/api
-  
+
 3. Before we press Enter, we need to let deCONZ accept a new connection.
 ![Open the menu](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/phoscon_menu.png)
 ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/phoscon_gateway.png)
@@ -32,3 +33,14 @@ I am merely using curl to obtain a token from deCONZ.
 	If everything worked as it should you will have result like this below:
 ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/deconz_token.png)
 I have redacted some of my token.
+
+5.	 Open a browser at enter the following URL, replacing the capitalized parts with your own info
+
+    http://YOUR_HA_IP:40850/api/YOUR_TOKEN/groups
+
+
+6. This will give you a output pretty much like this, maybe your browser is better to display JSON, but mine is not.
+	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/deconz_groups.png)
+7. To helt us parse and find the wanted groups in the mess, lets go to [JSON Editor Online](https://jsoneditoronline.org/) and paste it all into the the left pane. Be sure to click "tree" in the right pane.
+	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/json_tree.png)
+
