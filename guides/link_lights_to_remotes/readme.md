@@ -1,6 +1,7 @@
 
 
 
+
 # Linking lights and remotes directly (deCONZ)
 This guide i heavily inspired by 
 By completing the numerous steps in this guide, you will end up having:
@@ -57,11 +58,12 @@ I have redacted some of my token.
  ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/json_found_id.png)
  The ID of the remote is merely a key in the JSON data.
  ## Edit the group
-1. This is done in the "light control", not Phoscon or deCONZ.
+1.	 This is done in the "light control", not Phoscon or deCONZ.
 	Enter this url in a new browser window:
 
-    http://YOUR_HA_IP:40850/api/YOUR_TOKEN/groups
-
-2.	 We need to prepare, but not fire, our request string to obtain the token.
-
-    curl -X POST -d '{"devicetype":"YOUR_FICTIVE_APP_NAME"}' YOUR_HA_IP:40850/api
+    http://YOUR_HA_IP:40850/login.html
+2. Use these credentials to login
+	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_login.png)
+	**User: delight
+	Password: YOUR_DECONZ_PASSWORD**
+        
