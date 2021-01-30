@@ -66,4 +66,9 @@ I have redacted some of my token.
 	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_login.png)
 	**User: delight
 	Password: YOUR_DECONZ_PASSWORD**
-        
+3. This will take your to a overview of the current groups in deCONZ.
+	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_start.png)
+4. Now we must find our remote - it quite easy....
+	Click on the four dot on any group.
+	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_open.png)
+5. This will open the group, but not the group we want to edit. Therefore replace the ID in the URL with the ID of our group
