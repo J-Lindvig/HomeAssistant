@@ -11,7 +11,7 @@ By completing the numerous steps in this guide, you will end up having:
  2. a prettier implementation of deCONZ groups in Home Assistant, because now the remote and the group is the same
 ## Introduction
 The remote must be reset and free of any existing groups. Furthermore custom key bindings in Home Assistant will not function in a fail-safe situation.
-### tools needed
+### Tools needed
  1. a browser
  2. access to curl` command, preferably in a SSH session or similar
 ### Steps
