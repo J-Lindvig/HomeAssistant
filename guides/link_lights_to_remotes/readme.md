@@ -71,4 +71,10 @@ I have redacted some of my token.
 4. Now we must find our remote - it quite easy....
 	Click on the four dot on any group.
 	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_open.png)
-5. This will open the group, but not the group we want to edit. Therefore replace the ID in the URL with the ID of our group
+5. This will open the group, but not the group we want to edit. Therefore replace the ID in the URL with the ID of our group.
+![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_id_before.png)
+![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_id_after.png)
+6. Now we can rename the group/remote to our own liking:
+![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_rename.png)
+Press Done
+![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_rename_done.png)
