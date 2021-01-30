@@ -58,23 +58,33 @@ I have redacted some of my token.
  ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/json_found_id.png)
  The ID of the remote is merely a key in the JSON data.
  ## Edit the group
-1.	 This is done in the "light control", not Phoscon or deCONZ.
+ 6.  This is done in the "light control", not Phoscon or deCONZ.
 	Enter this url in a new browser window:
 
     http://YOUR_HA_IP:40850/login.html
-2. Use these credentials to login
+ 7. Use these credentials to login
 	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_login.png)
 	**User: delight
 	Password: YOUR_DECONZ_PASSWORD**
-3. This will take your to a overview of the current groups in deCONZ.
+ 8. This will take your to a overview of the current groups in deCONZ.
 	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_start.png)
-4. Now we must find our remote - it quite easy....
+ 9. Now we must find our remote - it quite easy....
 	Click on the four dot on any group.
 	![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_open.png)
-5. This will open the group, but not the group we want to edit. Therefore replace the ID in the URL with the ID of our group.
+ 10. This will open the group, but not the group we want to edit. Therefore replace the ID in the URL with the ID of our group.
 ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_id_before.png)
 ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_id_after.png)
-6. Now we can rename the group/remote to our own liking:
+ 11. Now we can rename the group/remote to our own liking:
 ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_rename.png)
 Press Done
 ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_rename_done.png)
+## Add lights to the group
+
+ 1. Now we can find our remote in the "Group" view.
+ ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_groups.png)
+ 2. Now we can easily find the group
+ ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_group_members.png)   
+ 3. And edit the members (lights) of the group
+ ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_add.png)
+ 4. When done click "Apply" not "Done"
+ ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/light_control_apply.png)
