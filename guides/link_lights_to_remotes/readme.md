@@ -8,15 +8,23 @@ By completing the numerous steps in this guide, you will end up having:
  1. a fail-safe solution, where lights still is operational allthough Home Assistant is down
  2. a prettier implementation of deCONZ groups in Home Assistant
 ## Introduction
+The remote must be reset and free of any existing groups. Furthermore custom key bindings in Home Assistant will not perform in a fail-safe situation.
 ### tools needed
  1. a browser (duh)
  2. `curl` command
 ### Steps
 Here are the steps we need to perform:
- 1. Obtain a `token` from deCONZ (Phoscon)
- 2. Extract groups from deCONZ
- 3. Find the ID (MAC address) of the remote(s)
- 4. Edit the group
+ 1. Open deCONZ for direct API calls
+ 2. Obtain a `token` from deCONZ (Phoscon)
+ 3. Extract groups from deCONZ
+ 4. Find the ID (MAC address) of the remote(s)
+ 5. Edit the name of the group
+ 6. Add members (lights) to the group
+ 7. Enjoy a fail-safe solution
+## Open deCONZ for direct API calls
+In our daily use with deCONZ we do not need to forward ports, since we are using ingress in Home Assistant.
+But to get the token and perform the needed task, we need to have a direct connection to deCONZ.
+![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/deconz_configuration.png)
 ## Getting token from deCONZ
 I am merely using curl to obtain a token from deCONZ.
 1. Open a SSH session to your Home Assistant, this can be from the:
