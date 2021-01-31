@@ -38,7 +38,7 @@ I am merely using `curl` to obtain a token from Phoscon.
 2.	 We need to prepare, but not fire, our request string in order to obtain the token from Phoscon.
 	Replace the capitalized **YOUR_FICTIVE_APP_NAME** with a name of your liking and **YOUR_HA_IP** with the IP adsress of your Home Assistant.
 
-    curl -X POST -d '{"devicetype":"YOUR_FICTIVE_APP_NAME"}' YOUR_HA_IP:40850/api
+    curl -X POST -d '{"devicetype":"YOUR_FICTIVE_APP_NAME"}' YOUR_DECONZ_IP:40850/api
 
 3. Before we press `Enter`, we need to let Phoscon accept a new connection.
 Therefore we need to open Phoscon and authourize our fictive app.
@@ -56,7 +56,7 @@ I have redacted some of my token.
 We need to find the ID of the remote, to do this we will need to extract all the groups in Phoscon.
  1.  Open a browser at enter the following URL, replacing the capitalized parts with your own info
 
-    http://YOUR_HA_IP:40850/api/YOUR_TOKEN/groups
+    http://YOUR_DECONZ_IP:40850/api/YOUR_TOKEN/groups
 
 
  2. This will give you a output pretty much like this, maybe your browser is better to display JSON, but mine is not.
@@ -76,7 +76,7 @@ In order the find the ID of the remote, we will need to find a its unique identi
  1.  This is done in the **Wireless Light Control System**, not Phoscon or deCONZ.
 	Alter this URL and paste it into a new browser window:
 
-    http://YOUR_HA_IP:40850/login.html
+    http://YOUR_DECONZ_IP:40850/login.html
  2. Use these credentials to login
  	**User: delight
 	Password: YOUR_PHOSCON_PASSWORD**
