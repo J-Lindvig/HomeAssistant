@@ -100,21 +100,6 @@
         channel: Pengekasse
         importance: high
   mode: single
-- id: '1609700478466'
-  alias: Næste slide
-  description: Skift til næste slide
-  trigger:
-  - platform: time_pattern
-    seconds: /15
-  condition:
-  - condition: template
-    value_template: '{{ state_attr("input_select.cards_to_slide", "options") | length
-      > 1 }}'
-  action:
-  - service: input_select.select_next
-    data: {}
-    entity_id: input_select.cards_to_slide
-  mode: single
 - id: '1611953530386'
   alias: Touchpanel - Default View
   description: ''
