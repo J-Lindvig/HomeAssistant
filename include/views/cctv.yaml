@@ -9,18 +9,18 @@ cards:
     min_width: 33%
     cards:
       - type: picture-entity
-        entity: camera.rat_cam_kokken
+        entity: camera.kitchen
         camera_view: live
         show_state: false
       - type: picture-entity
-        entity: camera.rat_cam_gangen
+        entity: camera.livingroom
         camera_view: live
         show_state: false
       - type: picture-entity
-        entity: camera.rat_cam_badevaerelse
+        entity: camera.hallway
         camera_view: live
         show_state: false
       - type: picture-entity
-        entity: camera.rat_cam_stuen
+        entity: camera.bathroom
         camera_view: live
         show_state: false

@@ -1,23 +1,55 @@
-- platform: generic
-  name: Rat-Cam Badeværelse
-  still_image_url: !secret INDGANG_STILL_URL
-  stream_source: !secret INDGANG_STREAM_URL
+# - platform: generic
+#   name: Rat-Cam Badeværelse
+#   still_image_url: !secret INDGANG_STILL_URL
+#   stream_source: !secret INDGANG_STREAM_URL
+#   verify_ssl: false
+
+# - platform: generic
+#   name: Rat-Cam Stuen
+#   still_image_url: !secret TERRASSE_STILL_URL
+#   stream_source: !secret TERRASSE_STREAM_URL
+#   verify_ssl: false
+
+# - platform: generic
+#   name: Rat-Cam Køkken
+#   still_image_url: !secret EXTRA_1_STILL_URL
+#   stream_source: !secret EXTRA_1_STREAM_URL
+#   verify_ssl: false
+
+# - platform: generic
+#   name: Rat-Cam Gangen
+#   still_image_url: !secret EXTRA_2_STILL_URL
+#   stream_source: !secret EXTRA_2_STREAM_URL
+#   verify_ssl: false
+
+- platform: mjpeg
+  name: Bathroom
+  mjpeg_url: !secret BATHROOM_VIDEO_URL
+  still_image_url: !secret BATHROOM_STILL_URL
+  username: !secret CCTV_USERNAME
+  password: !secret CCTV_PASSWORD
   verify_ssl: false
 
-- platform: generic
-  name: Rat-Cam Stuen
-  still_image_url: !secret TERRASSE_STILL_URL
-  stream_source: !secret TERRASSE_STREAM_URL
+- platform: mjpeg
+  name: Livingroom
+  mjpeg_url: !secret LIVINGROOM_VIDEO_URL
+  still_image_url: !secret LIVINGROOM_STILL_URL
+  username: !secret CCTV_USERNAME
+  password: !secret CCTV_PASSWORD
   verify_ssl: false
 
-- platform: generic
-  name: Rat-Cam Køkken
-  still_image_url: !secret EXTRA_1_STILL_URL
-  stream_source: !secret EXTRA_1_STREAM_URL
+- platform: mjpeg
+  name: Kitchen
+  mjpeg_url: !secret KITCHEN_VIDEO_URL
+  still_image_url: !secret KITCHEN_STILL_URL
+  username: !secret CCTV_USERNAME
+  password: !secret CCTV_PASSWORD
   verify_ssl: false
 
-- platform: generic
-  name: Rat-Cam Gangen
-  still_image_url: !secret EXTRA_2_STILL_URL
-  stream_source: !secret EXTRA_2_STREAM_URL
+- platform: mjpeg
+  name: Hallway
+  mjpeg_url: !secret HALLWAY_VIDEO_URL
+  still_image_url: !secret HALLWAY_STILL_URL
+  username: !secret CCTV_USERNAME
+  password: !secret CCTV_PASSWORD
   verify_ssl: false

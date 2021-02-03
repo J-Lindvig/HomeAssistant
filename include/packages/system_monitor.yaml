@@ -69,6 +69,16 @@ systemmonitor:
       unit_of_measurement: "°C"
       value_template: "{{ value | multiply(0.001) | round(1) }}"
 
+    - platform: command_line
+      name: YAML linier
+      command: "wc -l `find -name '*.yaml'` | grep 'total' | cut -d't' -f1 | xargs"
+      scan_interval: 3600
+
+    - platform: command_line
+      name: YAML filer
+      command: "find | grep -c '\\.yaml$'"
+      scan_interval: 3600
+
   homeassistant:
     customize:
       binary_sensor.router:
