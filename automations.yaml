@@ -106,6 +106,4 @@
   use_blueprint:
     path: J-Lindvig/default_view.yaml
     input:
-      timeout: '30'
       device: sensor.touchpanel
-      path_default: input_text.default_view_path

@@ -7,7 +7,7 @@ browsers:
 
   browser_mod:
     devices:
-      493ab2e7-037380e5:
+      527754cd-95c8b201:
         name: TouchPanel
         camera: true
 

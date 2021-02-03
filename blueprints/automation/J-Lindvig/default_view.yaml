@@ -1,17 +1,18 @@
 blueprint:
   name: Default Lovelace view
   description: |
+    # Default Lovelace view
     This blueprint makes it easy to have a Lovelave interface which returns to a default view after a timeout.
     
-    Requirements:
+    ## Requirements:
     + browser_mod by Thomas Lovén (https://github.com/thomasloven/hass-browser_mod)
-    + a input_text to store the path to the default view (https://www.home-assistant.io/integrations/input_text/)
+    + Home Assistant v. 2021.2.0 as minimum (text selector)
     
-    Use:
+    ## Use:
     Find you must find the entity of the device to control. This is sadly not as easy as it could/should be, since Blueprints does not offer the possibility to sort entites by their attribute.
     It gets a little easier if you specify a alias to the deviceID (https://github.com/thomasloven/hass-browser_mod#aliases)
     
-    Second, you must select the input_select that you have created for this use. The input_select MUST have a sting with the default path stored.
+    Second, you must enter the default path.
     
     Lastly you will need to select a timeout in seconds before the device navigates back to the default view.
   source_url: https://github.com/J-Lindvig/HomeAssistant/blob/master/blueprints/automation/J-Lindvig/default_view.yaml
@@ -27,10 +28,10 @@ blueprint:
 
     path_default:
       name: Default view
-      description: The input_text containing the path of the default view ex. '/lovelace/0'
+      description: Path of the default view ex. '/lovelace/0'
+      default: "/lovelace/0"
       selector:
-        entity:
-          domain: input_text
+        text:
 
     timeout:
       name: Time out
@@ -58,4 +59,4 @@ action:
   - service: browser_mod.navigate
     data:
       deviceID: "{{ state_attr(device, 'deviceID') }}"
-      navigation_path: "{{ states(path_default) }}"
+      navigation_path: "{{ path_default }}"
