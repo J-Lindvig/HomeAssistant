@@ -79,11 +79,6 @@ action:
   - repeat:
       count: "{{ repeats | int }}"
       sequence:
-        - service: persistent_notification.create
-          data:
-            notification_id: debug
-            title: deCONZ Flashing
-            message: "{{ repeat.index }}"
         - delay:
             milliseconds: "{{ flash_delay }}"
         - service: light.toggle
