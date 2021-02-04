@@ -1,9 +1,4 @@
 browsers:
-  input_text:
-    default_view_path:
-      name: Sti til default view
-      icon: mdi:file-link
-      initial: "/lovelace/0"
 
   browser_mod:
     devices:
