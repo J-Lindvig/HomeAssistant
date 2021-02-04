@@ -107,3 +107,15 @@
     path: J-Lindvig/default_view.yaml
     input:
       device: sensor.touchpanel
+- id: '1612474146983'
+  alias: AAAAA
+  description: ''
+  use_blueprint:
+    path: J-Lindvig/deconz_flashing.yaml
+    input:
+      flash_delay: '500'
+      remote: 96141da2c52d15ec607ff13d2ace22bf
+      lights:
+        entity_id: light.sandbox
+      timer: 00:00:25
+      flash_time: 15
