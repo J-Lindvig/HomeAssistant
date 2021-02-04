@@ -73,6 +73,8 @@ action:
 
   - service: light.turn_on
     target: !input lights
+    data:
+      brightness_pct: 100
 
   - repeat:
       count: "{{ repeats | int }}"

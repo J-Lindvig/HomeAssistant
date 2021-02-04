@@ -113,9 +113,9 @@
   use_blueprint:
     path: J-Lindvig/deconz_flashing.yaml
     input:
-      flash_delay: '500'
+      flash_delay: 1000
       remote: 96141da2c52d15ec607ff13d2ace22bf
       lights:
         entity_id: light.sandbox
       timer: 00:00:25
-      flash_time: 15
+      flash_time: '15'
