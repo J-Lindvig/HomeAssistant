@@ -61,7 +61,6 @@ TEMP_PATH="temp"
 FLAG_TMP_FILE="flag_temp.html"
 FLAG_PROCESSED_FILE="flag_processed.txt"
 
-
 ##########          FUNCTIONS          ##########
 # RETURN THE CORRECT IMAGE OF TH EFALG WITH PATH
 flag_image() {
