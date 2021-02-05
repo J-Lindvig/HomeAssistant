@@ -1,35 +1,32 @@
 #!/bin/bash
 
-:'
+
 ##########          TOOLS          ##########
+# I have a bunch of tools in a separate file
+# Essentially you will only need this function:
 
-I have a bunch of tools in a separate file
-Essentially you will only need this function:
+# _send_data
+# $1 = query
+# $2 = URL
+# _send_data() {
+#   curl -X POST \
+#   -H "Accept: application/json" \
+#   -H "Authorization: Bearer $APITOKEN" \
+#   -H "Content-Type: application/json" \
+#   -d "$1" \
+#   $2
+#}
 
-_send_data
-$1 = query
-$2 = URL
-_send_data() {
-  curl -X POST \
-  -H "Accept: application/json" \
-  -H "Authorization: Bearer $APITOKEN" \
-  -H "Content-Type: application/json" \
-  -d "$1" \
-  $2
-}
-'
 # LOAD THE TOOL-BOX
 source /config/shell/tools.sh
 
-:'
 ##########          CONST          ##########
-I have stored my shell-secrets in "/config/shell_secrets.txt"
-These are the needed secrets:
+# I have stored my shell-secrets in "/config/shell_secrets.txt"
+# These are the needed secrets:
 
-APITOKEN="YOUR TOKEN"
-API_STATES_PATH="api/states"
-BASE_URL="http://YOUR_HA_IP:8123/"
-'
+# APITOKEN="YOUR TOKEN"
+# API_STATES_PATH="api/states"
+# BASE_URL="http://YOUR_HA_IP:8123/"
 
 # LOAD THE SECRETS
 source /config/shell_secrets.txt
@@ -60,6 +57,7 @@ DEFAULT_FLAG=$DENMARK_IMAGE
 TEMP_PATH="temp"
 FLAG_TMP_FILE="flag_temp.html"
 FLAG_PROCESSED_FILE="flag_processed.txt"
+MONTHS=(januar februar marts april maj juni juli august september oktober november december)
 
 ##########          FUNCTIONS          ##########
 # RETURN THE CORRECT IMAGE OF THE FLAG WITH PATH
@@ -98,10 +96,10 @@ rm -f $TEMP_PATH/$FLAG_TMP_FILE $TEMP_PATH/$FLAG_PROCESSED_FILE
 # AND SAVE IT IN A TEMP FILE
 curl $URL -o $TEMP_PATH/$FLAG_TMP_FILE
 
-# EXTRACRT THE YEAR
+# EXTRACT THE YEAR
 YEAR=$(grep $HTML_YEAR_STRING $TEMP_PATH/$FLAG_TMP_FILE | cut -d' ' -f3 | cut -d'<' -f1)
 
-# EXTRACT THE DATA  AND STORE IT IN A NEW TEMP FILE
+# EXTRACT THE DATA AND STORE IT IN A NEW TEMP FILE
 grep -o '<figure class="wp-block-table is-style-stripes"><table><tbody><tr>.*</figure>' $TEMP_PATH/$FLAG_TMP_FILE | sed 's/.*<tbody>//g' | sed 's/<\/tbody>.*//g' | sed 's/<\/tr>/\n/g' | sed 's/<\/td><td>/|/g' | awk 'NF' | sed 's/<tr><td>//g' | sed 's/<\/td>//g' > $TEMP_PATH/$FLAG_PROCESSED_FILE
 
 # PREPARE SOME PLACEHOLDERS
@@ -120,22 +118,15 @@ while read line; do
   # EXTRACT THE DAY OF THE EVENT
   DAY=$(echo "$line" | cut -d'.' -f1)
 
-  # EXTRACT THE MONTH OF THE EVENT AND CONVERT IT TO A NUMBER
-  MONTH=$(case $(echo "$line" | cut -d' ' -f2 | cut -d'|' -f1) in
-      januar)     echo 1;;
-      februar)    echo 2;;
-      marts)      echo 3;;
-      april)      echo 4;;
-      maj)        echo 5;;
-      juni)       echo 6;;
-      juli)       echo 7;;
-      august)     echo 8;;
-      september)  echo 9;;
-      oktober)    echo 10;;
-      november)   echo 11;;
-      december)   echo 12;;
-  esac)
-  
+  # EXTRACT THE MONTH OF THE EVENT AND FIND IT IN THE LIST OF MONTHS
+  MONTH=$(echo "$line" | cut -d' ' -f2 | cut -d'|' -f1)
+  for (( i=1; i<=${#MONTHS[*]}; i++ )); do
+    if [[ ${MONTHS[$i]} == $MONTH ]]; then
+      MONTH=$i
+      break
+    fi
+  done
+
   # CALCULATE TIMESTAMP AND DAYS FROM EPOCH FOR THE EVENT
   EVENT_TIMESTAMP=$(date -d "$YEAR-$MONTH-$DAY" +"%s")
   EVENT_DAYS_FROM_EPOCH=$(( $(date -d "$YEAR-$MONTH-$DAY" +"%s") / 86400 ))
