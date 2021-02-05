@@ -41,3 +41,22 @@ dmi_tts:
               data:
                 api_key: !secret PARSEHUB_API_KEY
                 project_token: !secret DMI_TTS_TOKEN
+
+    # - id: 040a81ca64ba4ea2b326d3a95531eb69
+    #   alias: "DMI TTS Scrape No Webhook"
+    #   description: "Scrape dagens vejrudsigter, vent lidt og hent data"
+    #   initial_state: true
+    #   mode: single
+    #   trigger:
+    #     - platform: time_pattern
+    #       minutes: 40
+    #   action:
+    #     - service: shell_command.dmi_tts_run_scrape
+    #       data:
+    #         api_key: !secret PARSEHUB_API_KEY
+    #         project_token: !secret DMI_TTS_TOKEN
+        
+    #     - delay: 30
+
+    #     - service: homeassistant.update_entity
+    #       entity_id: sensor.dmi_tts
