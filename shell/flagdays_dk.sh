@@ -62,7 +62,7 @@ FLAG_TMP_FILE="flag_temp.html"
 FLAG_PROCESSED_FILE="flag_processed.txt"
 
 ##########          FUNCTIONS          ##########
-# RETURN THE CORRECT IMAGE OF TH EFALG WITH PATH
+# RETURN THE CORRECT IMAGE OF THE FLAG WITH PATH
 flag_image() {
   case $EVENT in
     *"$GREENLAND"*)       echo $FLAG_IMAGE_PATH/$GREENLAND_IMAGE;;
