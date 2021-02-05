@@ -1,34 +1,45 @@
 #!/bin/bash
 
-# TOOLS
-# I have a bunch of tools in a separate file
-# Essentially you will only need this function:
-#
-# _send_data
-# $1 = query
-# $2 = URL
-# _send_data() {
-#   curl -X POST \
-#   -H "Accept: application/json" \
-#   -H "Authorization: Bearer $APITOKEN" \
-#   -H "Content-Type: application/json" \
-#   -d "$1" \
-#   $2
-# }
-#
-# Load the tools
+:'
+##########          TOOLS          ##########
+
+I have a bunch of tools in a separate file
+Essentially you will only need this function:
+
+_send_data
+$1 = query
+$2 = URL
+_send_data() {
+  curl -X POST \
+  -H "Accept: application/json" \
+  -H "Authorization: Bearer $APITOKEN" \
+  -H "Content-Type: application/json" \
+  -d "$1" \
+  $2
+}
+'
+# LOAD THE TOOL-BOX
 source /config/shell/tools.sh
 
-# CONST
-# I stored my shell-secrets in "/config/shell_secrets.txt"
-# These are the needed secrets:
-#
-# APITOKEN="YOUR TOKEN"
-# API_STATES_PATH="api/states"
-# BASE_URL="http://YOUR_HA_IP:8123/"
-# TEMP_PATH="temp"
-# Load the secrets
+:'
+##########          CONST          ##########
+I have stored my shell-secrets in "/config/shell_secrets.txt"
+These are the needed secrets:
+
+APITOKEN="YOUR TOKEN"
+API_STATES_PATH="api/states"
+BASE_URL="http://YOUR_HA_IP:8123/"
+'
+
+# LOAD THE SECRETS
 source /config/shell_secrets.txt
+
+# ENTITY OF THE SENSOR
+ENTITY="sensor.flagday_dk"
+
+# SCRAPING DETAILS
+URL="https://www.justitsministeriet.dk/temaer/flagning/flagdage/"
+HTML_YEAR_STRING="<h2>Officielle flagdage"
 
 # HALF MAST DAYS
 GOOD_FRIDAY="Langfredag"
@@ -39,44 +50,83 @@ GREENLAND="Grønland"
 FAROE_ISLANDS="Færø"
 
 # IMAGES
-FLAG_IMAGE_PATH="/local/images/flags/"
+FLAG_IMAGE_PATH="/local/images/flags"
 DENMARK_IMAGE="Denmark.png"
 GREENLAND_IMAGE="Greenland.png"
 FAROE_ISLANDS_IMAGE="Faroe_Islands.png"
 DEFAULT_FLAG=$DENMARK_IMAGE
 
 # SCRIPT CONST
+TEMP_PATH="temp"
 FLAG_TMP_FILE="flag_temp.html"
 FLAG_PROCESSED_FILE="flag_processed.txt"
 
-# Initial cleanup
+
+##########          FUNCTIONS          ##########
+# RETURN THE CORRECT IMAGE OF TH EFALG WITH PATH
+flag_image() {
+  if [[ $EVENT == *"$GREENLAND"* ]]; then
+    echo $FLAG_IMAGE_PATH/$GREENLAND_IMAGE
+  elif [[ $EVENT == *"$FAROE_ISLANDS"* ]]; then
+    echo $FLAG_IMAGE_PATH/$FAROE_ISLANDS_IMAGE
+  else
+    echo $FLAG_IMAGE_PATH/$DENMARK_IMAGE
+  fi
+}
+
+# IF THE EVENT IS "GOOD FRIDAY" RETURN TRUE ELSE FALSE
+# COULD BE IMPROVED
+good_friday() {
+  if [[ $EVENT == *"$GOOD_FRIDAY"* ]]; then
+    echo "true"
+  else
+    echo "false"
+  fi
+}
+
+# IF THE EVENT IS THE DAY OF THE GERMAN OCCUPATION
+# RETURN "12:00:00" WHICH IS THE TIME OF DAY TO HOIST THE FALG TO THE TOP
+# ELSE RETURN FALSE
+german_occupation_day() {
+  if [ "$DAY-$MONTH" = $GERMAN_OCCUPATION_DAY ]; then
+    echo "\"12:00:00\""
+  else
+    echo "false"
+  fi
+}
+##########          FUNCTIONS END         ##########
+
+##########          MAIN          ##########
+# INITIAL CLEANUP
 rm -f $TEMP_PATH/$FLAG_TMP_FILE $TEMP_PATH/$FLAG_PROCESSED_FILE
 
-# Fetch the HTML page
-#curl https://designflag.dk/om-flag/flagdage/ -o $TEMP_PATH/$FLAG_TMP_FILE
-curl https://www.justitsministeriet.dk/temaer/flagning/flagdage/ -o $TEMP_PATH/$FLAG_TMP_FILE
+# FETCH THE HTML PAGE FROM THE DANISH JUSTICE DEPARTMENT
+# AND SAVE IT IN A TEMP FILE
+curl $URL -o $TEMP_PATH/$FLAG_TMP_FILE
 
-# Extract the Year
-# Result ex: "2020"
-#YEAR=$(grep "<h1>Officielle flagdage" $TEMP_PATH/$FLAG_TMP_FILE | cut -d' ' -f3 | cut -d'<' -f1)
-YEAR=$(grep "<h2>Officielle flagdage" $TEMP_PATH/$FLAG_TMP_FILE | cut -d' ' -f3 | cut -d'<' -f1)
+# EXTRACRT THE YEAR
+YEAR=$(grep $HTML_YEAR_STRING $TEMP_PATH/$FLAG_TMP_FILE | cut -d' ' -f3 | cut -d'<' -f1)
 
-# Extract the data - combine the 2 columns on 1 line - store in a file
-#grep '<td style="text-align: left;" valign="top" width="102">\|<td style="text-align: left;" valign="top" width="550">' $TEMP_PATH/$FLAG_TMP_FILE | cut -d'>' -f2 | cut -d'<' -f1 | awk 'NF' | sed '{N; s/\n/|/}' > $TEMP_PATH/$FLAG_PROCESSED_FILE
+# EXTRACT THE DATA  AND STORE IT IN A NEW TEMP FILE
 grep -o '<figure class="wp-block-table is-style-stripes"><table><tbody><tr>.*</figure>' $TEMP_PATH/$FLAG_TMP_FILE | sed 's/.*<tbody>//g' | sed 's/<\/tbody>.*//g' | sed 's/<\/tr>/\n/g' | sed 's/<\/td><td>/|/g' | awk 'NF' | sed 's/<tr><td>//g' | sed 's/<\/td>//g' > $TEMP_PATH/$FLAG_PROCESSED_FILE
 
-# Prepare the placeholders
+# PREPARE SOME PLACEHOLDERS
+# STATE IS USED TO TEST WHETHER A EVENT IS IN THE FUTURE/TODAY > 0
 STATE=-1
+# MAIN QUERY STRING IS RESET
 QUERY=""
+# ATTRIBUTES STRING IS DEFINED WITH THE NAME OF THE LIST OF EVENTS
 ATTR="\"events\": [ "
-NOW_IN_DAYS=$(( ($(date +"%s") / 86400) -1 ))
+# CALCULATE DAYS (NOW) FROM THE EPOCH
+NOW_DAYS_FROM_EPOCH=$(( ($(date +"%s") / 86400) - 1 ))
 
+# READ LINES FROM THE 2ND TEMP FILE
 while read line; do
 
-  # Extract the day
+  # EXTRACT THE DAY OF THE EVENT
   DAY=$(echo "$line" | cut -d'.' -f1)
 
-  # Extract the month and convert it to number
+  # EXTRACT THE MONTH OF THE EVENT AND CONVERT IT TO A NUMBER
   MONTH=$(case $(echo "$line" | cut -d' ' -f2 | cut -d'|' -f1) in
       januar)     echo 1;;
       februar)    echo 2;;
@@ -92,100 +142,69 @@ while read line; do
       december)   echo 12;;
   esac)
   
-  # Calculate the timestamp
-  TIMESTAMP=$(date -d "$YEAR-$MONTH-$DAY" +"%s")
+  # CALCULATE TIMESTAMP AND DAYS FROM EPOCH FOR THE EVENT
+  EVENT_TIMESTAMP=$(date -d "$YEAR-$MONTH-$DAY" +"%s")
+  EVENT_DAYS_FROM_EPOCH=$(( $(date -d "$YEAR-$MONTH-$DAY" +"%s") / 86400 ))
 
-  # Format date in proper manner
+  # FORMAT THE DATE IN A PROPER WAY DD-MM-YYYY
   DATE=$(date -d "$YEAR-$MONTH-$DAY" +"%d-%m-%Y")
 
-  # Extract the description of the event
+  # EXTRACT THE DESCRIPTION OG THE EVENT
   EVENT=$(echo "$line" | cut -d'|' -f2)
   
-  # Check events until we have found the first event in the future
+  # CHECK EVENTS UNTIL WE HAVE FOUND THE FIRST EVENT IN THE FUTURE
+  # STATE < 0, WE HAVE NOR FOUND IT YET
   if [[ $STATE -lt 0 ]]; then
 
-    # Calculate days to the next event
-    NEW_STATE=$(( ($TIMESTAMP / 86400) - $NOW_IN_DAYS ))
+    # SET NEW_STATE TO THE DAYS FROM NOW TO THE EVENT
+    NEW_STATE=$(( $EVENT_DAYS_FROM_EPOCH - $NOW_DAYS_FROM_EPOCH ))
 
-    # Is the new event today or in the future
+    # IS THE EVENT IN THE PAST OR FUTURE
+    # NEW_STATE >= 0, IS EITHER TODAY OR IN THE FUTURE
     if [[ $NEW_STATE -ge 0 ]]; then
 
-      # Set the state of the next event
+      # SET THE STATE TO THE NEW_STATE
+      # SEARCH NO FUTHER
       STATE=$NEW_STATE
-      
-      # Prepare the main part of the query
-      # ( substract days in advance )
-      QUERY="{ \"state\": \"$NEW_STATE\", \"attributes\": { \"date\": \"$DATE\", \"event\": \"$EVENT\", \"timestamp\": \"$TIMESTAMP\", \"icon\": \"mdi:flag\", \"friendly_name\": \"`echo $EVENT | cut -d'.' -f1`\", \"default_flag\": \"$FLAG_IMAGE_PATH$DEFAULT_FLAG\""
 
-      # IMAGE
-      QUERY="$QUERY, \"entity_picture\": \"$FLAG_IMAGE_PATH"
-      if [[ `echo $EVENT | grep $GREENLAND; echo $?` ]]; then
-        if [[ `echo $EVENT | grep $FAROE_ISLANDS; echo $?` ]]; then
-          QUERY="$QUERY$DENMARK_IMAGE\""
-        else
-          QUERY="$QUERY$FAROE_ISLANDS_IMAGE\""
-        fi
-      else
-        QUERY="$QUERY$GREENLAND_IMAGE\""
-      fi
+      # PREPARE THE MAIN PART OF THE QUERY TO THE API
+      # THE STATE OF THE ENTITY IS THE NEW_STATE
+      QUERY="{ \"state\": \"$NEW_STATE\", \"attributes\": { \"date\": \"$DATE\", \"event\": \"$EVENT\", \"timestamp\": \"$EVENT_TIMESTAMP\", \"icon\": \"mdi:flag\", \"friendly_name\": \"`echo $EVENT | cut -d'.' -f1`\", \"default_flag\": \"$FLAG_IMAGE_PATH$DEFAULT_FLAG\""
+
+      # ADD THE IMAGE OF THE FALG
+      QUERY="$QUERY, \"entity_picture\": \"$(flag_image)\""
 
       # GOOD FRIDAY...?
-      QUERY="$QUERY, \"half_mast_all_day\": "
-      if [[ `echo $EVENT | grep $GOOD_FRIDAY; echo $?` ]]; then
-        QUERY="$QUERY false"
-      else
-        QUERY="$QUERY true"
-      fi
+      QUERY="$QUERY, \"half_mast_all_day\": $(good_friday)"
 
-      # GERMAN_OCCUPATION_DAY
-      QUERY="$QUERY, \"half_mast_end_time\": "
-      if [ "$DAY-$MONTH" = $GERMAN_OCCUPATION_DAY ]; then
-        QUERY="$QUERY \"12:00:00\""
-      else
-        QUERY="$QUERY false"
-      fi
+      # GERMAN_OCCUPATION_DAY...?
+      QUERY="$QUERY, \"half_mast_end_time\": $(german_occupation_day)"
     fi
   fi
 
-  # Append the data of the event
-  ATTR="$ATTR{ \"date\": \"$DATE\", \"event\": \"$EVENT\", \"timestamp\": \"$TIMESTAMP\""
+  # START A NEW ATTRIBUTE WITH DATE, EVENT & TIMESTAMP
+  ATTR="$ATTR{ \"date\": \"$DATE\", \"event\": \"$EVENT\", \"timestamp\": \"$EVENT_TIMESTAMP\""
 
-  # GOOd FRIDAY...?
-  ATTR="$ATTR, \"half_mast_all_day\": "
-  if [ `echo $EVENT | grep $GOOD_FRIDAY; echo $?` ]; then
-    ATTR="$ATTR false"
-  else
-    ATTR="$ATTR true"
-  fi
+  # ADD IMAGE OF THE FLAG
+  ATTR="$ATTR, \"entity_picture\": \"$(flag_image)\""
 
-  # GERMAN_OCCUPATION_DAY
-  ATTR="$ATTR, \"half_mast_end_time\": "
-  if [ "$DAY-$MONTH" = $GERMAN_OCCUPATION_DAY ]; then
-    ATTR="$ATTR \"12:00:00\""
-  else
-    ATTR="$ATTR false"
-  fi
+  # GOOD FRIDAY...?
+  ATTR="$ATTR, \"half_mast_all_day\": $(good_friday)"
 
-  ATTR="$ATTR, \"entity_picture\": \"$FLAG_IMAGE_PATH"
-  if [[ `echo $EVENT | grep $GREENLAND; echo $?` ]]; then
-    if [[ `echo $EVENT | grep $FAROE_ISLANDS; echo $?` ]]; then
-      ATTR="$ATTR$DENMARK_IMAGE\""
-    else
-      ATTR="$ATTR$FAROE_ISLANDS_IMAGE\""
-    fi
-  else
-    ATTR="$ATTR$GREENLAND_IMAGE\""
-  fi
+  # GERMAN_OCCUPATION_DAY...?
+  ATTR="$ATTR, \"half_mast_end_time\": $(german_occupation_day)"
 
+  # END THE ATTRIBUTE STRING
   ATTR="$ATTR },"
 
 done < $TEMP_PATH/$FLAG_PROCESSED_FILE
 
-# Finish the query
+# FINISH THE QUERY BY APPENDING THE ATTRIBUTES, STRIPPING THE LAST CHARACTER
 QUERY="$QUERY, ${ATTR:0:-1} ] } }"
 
-# Send the query to the API
-_send_data "$QUERY" "$BASE_URL$API_STATES_PATH/sensor.flagday_dk"
+# SEND THE QUERY TO HOME ASSISTANTS API
+_send_data "$QUERY" "$BASE_URL$API_STATES_PATH/$ENTITY"
 
-# Cleanup on exit
+# CLEANUP ON EXIT
 rm -f $TEMP_PATH/$FLAG_TMP_FILE $TEMP_PATH/$FLAG_PROCESSED_FILE
+##########          MAIN END          ##########
