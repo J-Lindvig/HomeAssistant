@@ -65,34 +65,29 @@ FLAG_PROCESSED_FILE="flag_processed.txt"
 ##########          FUNCTIONS          ##########
 # RETURN THE CORRECT IMAGE OF TH EFALG WITH PATH
 flag_image() {
-  if [[ $EVENT == *"$GREENLAND"* ]]; then
-    echo $FLAG_IMAGE_PATH/$GREENLAND_IMAGE
-  elif [[ $EVENT == *"$FAROE_ISLANDS"* ]]; then
-    echo $FLAG_IMAGE_PATH/$FAROE_ISLANDS_IMAGE
-  else
-    echo $FLAG_IMAGE_PATH/$DENMARK_IMAGE
-  fi
+  case $EVENT in
+    *"$GREENLAND"*)       echo $FLAG_IMAGE_PATH/$GREENLAND_IMAGE;;
+    *"$FAROE_ISLANDS"*)   echo $FLAG_IMAGE_PATH/$FAROE_ISLANDS_IMAGE;;
+    *)                    echo $FLAG_IMAGE_PATH/$DENMARK_IMAGE;;
+  esac
 }
 
 # IF THE EVENT IS "GOOD FRIDAY" RETURN TRUE ELSE FALSE
-# COULD BE IMPROVED
 good_friday() {
-  if [[ $EVENT == *"$GOOD_FRIDAY"* ]]; then
-    echo "true"
-  else
-    echo "false"
-  fi
+  case $EVENT in
+    *"$GOOD_FRIDAY"*)     echo "true";;
+    *)                    echo "false";;
+  esac
 }
 
 # IF THE EVENT IS THE DAY OF THE GERMAN OCCUPATION
 # RETURN "12:00:00" WHICH IS THE TIME OF DAY TO HOIST THE FALG TO THE TOP
 # ELSE RETURN FALSE
 german_occupation_day() {
-  if [ "$DAY-$MONTH" = $GERMAN_OCCUPATION_DAY ]; then
-    echo "\"12:00:00\""
-  else
-    echo "false"
-  fi
+  case $GERMAN_OCCUPATION_DAY in
+    "$DAY-$MONTH")        echo "\"12:00:00\"";;
+    *)                    echo "false";;
+  esac
 }
 ##########          FUNCTIONS END         ##########
 
@@ -151,6 +146,9 @@ while read line; do
 
   # EXTRACT THE DESCRIPTION OG THE EVENT
   EVENT=$(echo "$line" | cut -d'|' -f2)
+  
+
+  
   
   # CHECK EVENTS UNTIL WE HAVE FOUND THE FIRST EVENT IN THE FUTURE
   # STATE < 0, WE HAVE NOR FOUND IT YET
