@@ -15,12 +15,12 @@ flagdays_dk:
     - platform: template
       sensors:
         # Template for automations and Lovelace card
-        flag_day:
+        next_flag_day:
           # The name of the event
-          friendly_name_template: "{{ state_attr('sensor.flagday_dk','friendly_name') }}"
+          friendly_name_template: "{{ state_attr('sensor.flagdays_dk','friendly_name') }}"
           unique_id: bfe66582a1354fd2aa15c19a156fa8ca
           value_template: >-
-            {%- set days = states('sensor.flagday_dk') | int %}
+            {%- set days = states('sensor.flagdays_dk') | int %}
             {% if days > 0 %}
               {%- if days > 1 -%}
                 om {{ days }} dage
@@ -30,10 +30,10 @@ flagdays_dk:
             {% else %}
               i dag...!!!
             {% endif %}
-          icon_template: "{{ state_attr('sensor.flagday_dk','icon') }}"
-          entity_picture_template: "{{ state_attr('sensor.flagday_dk','entity_picture') }}"
+          icon_template: "{{ state_attr('sensor.flagdays_dk','icon') }}"
+          entity_picture_template: "{{ state_attr('sensor.flagdays_dk','entity_picture') }}"
           attribute_templates:
-            days: "{{ states('sensor.flagday_dk') }}"
+            days: "{{ states('sensor.flagdays_dk') }}"
 
             flag_up_time: >-
               {% set sunrise_ts = as_timestamp(state_attr('sun.sun', 'next_rising')) | int %}
@@ -48,13 +48,33 @@ flagdays_dk:
               {{ as_timestamp(state_attr('sun.sun', 'next_setting')) | int | timestamp_custom('%H:%M', true) }}
 
             half_mast: >-
-              {%- if is_state_attr('sensor.flagday_dk', 'half_mast_all_day', true) %}
+              {%- if is_state_attr('sensor.flagdays_dk', 'half_mast_all_day', true) %}
                 true
-              {% elif is_state_attr('sensor.flagday_dk', 'half_mast_end_time', false) %}
+              {% elif is_state_attr('sensor.flagdays_dk', 'half_mast_end_time', false) %}
                 false
               {% else %}
-                {{ state_attr('sensor.flagday_dk', 'half_mast_end_time') }}
+                {{ state_attr('sensor.flagdays_dk', 'half_mast_end_time') }}
               {% endif %}
+
+  script:
+    flagday_notify:
+      sequence:
+        - service: notify.mobile_app_jacobs_moto
+          data:
+            title: "{{ title }}"
+            message: "{{ message }}"
+            data:
+              icon_url: /local/images/flags/Denmark.png
+              sticky: true
+              persistent: true
+              tag: persistent
+              channel: Flagstang
+              importance: high
+              actions:
+                - action: "flag_toggle"
+                  title: "{{ flag_toggle_title }}"
+                - action: "flag_cancel"
+                  title: "Annuler"
 
   automation:
     - alias: Opdater flagdage
@@ -78,15 +98,15 @@ flagdays_dk:
       mode: single
       trigger:
         - platform: template
-          value_template: "{{ states('sensor.time') == state_attr('sensor.flag_day', 'flag_up_time') }}"
-      condition: "{{ ( state_attr('sensor.flag_day', 'days') | int ) == 0 }}"
+          value_template: "{{ states('sensor.time') == state_attr('sensor.nex_flag_day', 'flag_up_time') }}"
+      condition: "{{ ( state_attr('sensor.nex_flag_day', 'days') | int ) == 0 }}"
       action:
 
         # Update the boolean switch whether it is a half mast
         - service: >-
-            {%- if is_state_attr('sensor.flagday_dk', 'half_mast_all_day', true) %}
+            {%- if is_state_attr('sensor.flagdays_dk', 'half_mast_all_day', true) %}
               input_boolean.turn_on
-            {% elif is_state_attr('sensor.flagday_dk', 'half_mast_end_time', false) %}
+            {% elif is_state_attr('sensor.flagdays_dk', 'half_mast_end_time', false) %}
               input_boolean.turn_off
             {% else %}
               input_boolean.turn_on
@@ -99,11 +119,13 @@ flagdays_dk:
           data:
             title: "Besked fra din flagstang"
             message: >
-              Husk at hejse flaget i anledning af {{ state_attr('sensor.flag_day', 'friendly_name') }}.
-              {%- if not is_state_attr('sensor.flag_day', 'half_mast', 'false') %}
-                HUSK: Flaget skal være på halv {{ 'hele dagen.' if is_state_attr('sensor.flag_day', 'half_mast', 'true') else 'indtil ' + state_attr('sensor.flag_day', 'half_mast') + ' hvorefter det skal hejses til tops.' }}
+              Husk at hejse flaget i anledning af {{ state_attr('sensor.nex_flag_day', 'friendly_name') }}.
+              {%- if not is_state_attr('sensor.nex_flag_day', 'half_mast', 'false') %}
+                HUSK: Flaget skal være på halv {{ 'hele dagen.' if is_state_attr('sensor.nex_flag_day', 'half_mast', 'true') else 'indtil ' + state_attr('sensor.nex_flag_day', 'half_mast') + ' hvorefter det skal hejses til tops.' }}
               {% endif %}
             data:
+              icon_url: /local/images/flags/Denmark.png
+              sticky: true
               persistent: true
               tag: persistent
               channel: Flagstang
@@ -111,6 +133,8 @@ flagdays_dk:
               actions:
                 - action: "flag_toggle"
                   title: "OK, flaget er hejst"
+                - action: "flag_cancel"
+                  title: "Annuler"
 
     # On a half mast day  with a end time
     - alias: Flaget skal helt til tops
@@ -120,7 +144,7 @@ flagdays_dk:
       mode: single
       trigger:
         - platform: template
-          value_template: "{{ states('sensor.time') == state_attr('sensor.flag_day', 'half_mast') }}"
+          value_template: "{{ states('sensor.time') == state_attr('sensor.nex_flag_day', 'half_mast') }}"
       action:
 
         - service: input_boolean.turn_off
@@ -133,6 +157,10 @@ flagdays_dk:
             message: >
               Det er nu tid til at flaget skal helt til tops.
             data:
+              icon_url: /local/images/flags/Denmark.png
+              sticky: true
+              persistent: true
+              tag: persistent
               channel: Flagstang
               importance: high
 
@@ -150,9 +178,11 @@ flagdays_dk:
           data:
             title: "Besked fra din flagstang"
             message: >
-              Husk at tage flaget ned. Solen går ned kl. {{ state_attr('sensor.flag_day', 'flag_down_time') }}.
+              Husk at tage flaget ned. Solen går ned kl. {{ state_attr('sensor.nex_flag_day', 'flag_down_time') }}.
               {{ 'OBS: Hejs først flaget helt til tops inden det tages ned.' if is_state('input_boolean.private_half_mast', 'on') }}
             data:
+              icon_url: /local/images/flags/Denmark.png
+              sticky: true
               persistent: true
               tag: persistent
               channel: Flagstang
@@ -174,9 +204,16 @@ flagdays_dk:
       trigger:
         - platform: event
           event_type: mobile_app_notification_action
-          event_data:
-            action: flag_toggle
       action:
-        - service: automation.toggle
-          data:
-            entity_id: automation.flaget_er_hejst
+        - choose:
+          - conditions: "{{ trigger.event.data['action'] == 'flag_toggle' }}"
+            sequence:
+            - service: automation.toggle
+              data:
+                entity_id: automation.flaget_er_hejst
+          default:
+            - service: notify.mobile_app_jacobs_moto
+              data:
+                message: clear_notification
+                data:
+                  tag: persistent

@@ -1,2 +1,0 @@
-var.weekdays_dk
-Man,Tirs,Ons,Tors,Fre,Lør,Søn

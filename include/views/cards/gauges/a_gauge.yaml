@@ -9,6 +9,9 @@
 
 type: custom:gauge-card
 entity: {{ entity }}
+{% if attribute %}
+attribute: {{ attribute }}
+{% endif %}
 {% if title %}
 title: {{ title }}
 {% endif %}
@@ -16,9 +19,6 @@ title: {{ title }}
 measurement: {{ measurement }}
 {% else %}
 measurement: ""
-{% endif %}
-{% if attribute %}
-attribute: {{ attribute }}
 {% endif %}
 {% if min %}
 min: {{ min }}

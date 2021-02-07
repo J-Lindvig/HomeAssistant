@@ -1,6 +1,5 @@
 #!/bin/bash
 
-
 ##########          TOOLS          ##########
 # I have a bunch of tools in a separate file
 # Essentially you will only need this function:
@@ -32,7 +31,7 @@ source /config/shell/tools.sh
 source /config/shell_secrets.txt
 
 # ENTITY OF THE SENSOR
-ENTITY="sensor.flagday_dk"
+ENTITY="sensor.flagdays_dk"
 
 # SCRAPING DETAILS
 URL="https://www.justitsministeriet.dk/temaer/flagning/flagdage/"
@@ -57,7 +56,8 @@ DEFAULT_FLAG=$DENMARK_IMAGE
 TEMP_PATH="temp"
 FLAG_TMP_FILE="flag_temp.html"
 FLAG_PROCESSED_FILE="flag_processed.txt"
-MONTHS=(januar februar marts april maj juni juli august september oktober november december)
+
+MONTHS="januar februar marts april maj juni juli august september oktober november december"
 
 ##########          FUNCTIONS          ##########
 # RETURN THE CORRECT IMAGE OF THE FLAG WITH PATH
@@ -118,13 +118,15 @@ while read line; do
   # EXTRACT THE DAY OF THE EVENT
   DAY=$(echo "$line" | cut -d'.' -f1)
 
-  # EXTRACT THE MONTH OF THE EVENT AND FIND IT IN THE LIST OF MONTHS
+  # # EXTRACT THE MONTH OF THE EVENT AND FIND IT IN THE LIST OF MONTHS
   MONTH=$(echo "$line" | cut -d' ' -f2 | cut -d'|' -f1)
-  for (( i=1; i<=${#MONTHS[*]}; i++ )); do
-    if [[ ${MONTHS[$i]} == $MONTH ]]; then
+  i=1
+  for A_MONTH in $MONTHS; do
+    if [[ $A_MONTH == $MONTH ]]; then
       MONTH=$i
       break
     fi
+    i=$((i+1))
   done
 
   # CALCULATE TIMESTAMP AND DAYS FROM EPOCH FOR THE EVENT
@@ -136,10 +138,7 @@ while read line; do
 
   # EXTRACT THE DESCRIPTION OG THE EVENT
   EVENT=$(echo "$line" | cut -d'|' -f2)
-  
 
-  
-  
   # CHECK EVENTS UNTIL WE HAVE FOUND THE FIRST EVENT IN THE FUTURE
   # STATE < 0, WE HAVE NOR FOUND IT YET
   if [[ $STATE -lt 0 ]]; then
