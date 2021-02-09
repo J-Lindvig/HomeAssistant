@@ -49,6 +49,36 @@ tools:
                 {% endif %}
               {%- endfor %}
 
+    notification_android:
+      alias: Android notifikationer med actions
+      icon: mdi:android-debug-bridge
+      description: Med dette script er det nemt at sende notifikationer til en Android enhed.
+      sequence:
+        - service: "{{ service }}"
+          data:
+            title: "{{ title }}"
+            message: |
+              {{ message }}
+            data:
+              icon_url: "{{ icon_url }}"
+              sticky: "{{ sticky }}"
+              persistent: "{{ persistent }}"
+              tag: "{{ tag }}"
+              channel: "{{ channel }}"
+              importance: "{{ high }}"
+              chronometer: "{{ chronometer }}"
+              when: "{{ when }}"
+              actions: >
+                {% set ns = namespace(actions = []) %}
+                {% for a_action in actions %}
+                {% set action = {
+                  "action": a_action.action_name,
+                  "title": a_action.action_title
+                } %}
+                {% set ns.actions = ns.actions + [action] %}
+                {% endfor %}
+                {{ ns.actions }}
+
     # # Generic loop
     # loop:
     #   alias: "Generic Loop"

@@ -156,7 +156,7 @@ while read line; do
 
       # PREPARE THE MAIN PART OF THE QUERY TO THE API
       # THE STATE OF THE ENTITY IS THE NEW_STATE
-      QUERY="{ \"state\": \"$NEW_STATE\", \"attributes\": { \"date\": \"$DATE\", \"event\": \"$EVENT\", \"timestamp\": \"$EVENT_TIMESTAMP\", \"icon\": \"mdi:flag\", \"friendly_name\": \"`echo $EVENT | cut -d'.' -f1`\", \"default_flag\": \"$FLAG_IMAGE_PATH$DEFAULT_FLAG\""
+      QUERY="{ \"state\": \"$NEW_STATE\", \"attributes\": { \"date\": \"$DATE\", \"event\": \"$EVENT\", \"timestamp\": \"$EVENT_TIMESTAMP\", \"icon\": \"mdi:flag\", \"friendly_name\": \"`echo $EVENT | cut -d'.' -f1`\", \"default_flag\": \"$FLAG_IMAGE_PATH/$DEFAULT_FLAG\""
 
       # ADD THE IMAGE OF THE FALG
       QUERY="$QUERY, \"entity_picture\": \"$(flag_image)\""
