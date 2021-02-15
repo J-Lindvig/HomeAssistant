@@ -77,6 +77,19 @@ _set_variable() {
   done
 }
 
+# $1 File with path
+_curl_upload_file() {
+  curl -T $1 -u $FTP_USER:$FTP_PASS ftp://$FTP_URL
+}
+
+# $1 = JSON string
+# $2 = Filename with path
+_curl_upload_rest() {
+  echo "$1" > $2
+  _curl_upload_file $2
+  rm -f $2
+}
+
 # $1 = query
 # $2 = URL
 _send_data() {

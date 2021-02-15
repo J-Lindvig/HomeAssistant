@@ -112,13 +112,15 @@ ATTR="\"events\": [ "
 # CALCULATE DAYS (NOW) FROM THE EPOCH
 NOW_DAYS_FROM_EPOCH=$(( ($(date +"%s") / 86400) - 1 ))
 
+echo "START:" > $TEMP_PATH/Debug.txt
+
 # READ LINES FROM THE 2ND TEMP FILE
 while read line; do
 
   # EXTRACT THE DAY OF THE EVENT
   DAY=$(echo "$line" | cut -d'.' -f1)
 
-  # # EXTRACT THE MONTH OF THE EVENT AND FIND IT IN THE LIST OF MONTHS
+  # EXTRACT THE MONTH OF THE EVENT AND FIND IT IN THE LIST OF MONTHS
   MONTH=$(echo "$line" | cut -d' ' -f2 | cut -d'|' -f1)
   i=1
   for A_MONTH in $MONTHS; do
@@ -136,7 +138,7 @@ while read line; do
   # FORMAT THE DATE IN A PROPER WAY DD-MM-YYYY
   DATE=$(date -d "$YEAR-$MONTH-$DAY" +"%d-%m-%Y")
 
-  # EXTRACT THE DESCRIPTION OG THE EVENT
+  # EXTRACT THE DESCRIPTION OF THE EVENT
   EVENT=$(echo "$line" | cut -d'|' -f2)
 
   # CHECK EVENTS UNTIL WE HAVE FOUND THE FIRST EVENT IN THE FUTURE
@@ -186,11 +188,21 @@ while read line; do
 
 done < $TEMP_PATH/$FLAG_PROCESSED_FILE
 
+echo $QUERY >> $TEMP_PATH/Debug.txt
+#echo ${ATTR:0:-1} >> $TEMP_PATH/Debug.txt
+
 # FINISH THE QUERY BY APPENDING THE ATTRIBUTES, STRIPPING THE LAST CHARACTER
 QUERY="$QUERY, ${ATTR:0:-1} ] } }"
 
 # SEND THE QUERY TO HOME ASSISTANTS API
 _send_data "$QUERY" "$BASE_URL$API_STATES_PATH/$ENTITY"
+
+echo $QUERY >> $TEMP_PATH/Debug.txt
+
+# $1 = JSON string
+# $2 = Filename with path
+# UPLOAD TO REST SERVICE
+_curl_upload_rest "$QUERY" "$TEMP_PATH/flagdays.json"
 
 # CLEANUP ON EXIT
 rm -f $TEMP_PATH/$FLAG_TMP_FILE $TEMP_PATH/$FLAG_PROCESSED_FILE

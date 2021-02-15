@@ -92,7 +92,7 @@ flagdays_dk:
   automation:
     - id: 8b9b876269874ef7ba2dae67366e68ea
       alias: Flagdage, scrape og aktioner
-      description: samlet automation
+      description: Samlet automation til alt omkring flagdage; scraping, flagdage og op/nedtagning m.m.
       initial_state: true
       mode: single
       trigger:
@@ -116,8 +116,7 @@ flagdays_dk:
         - variables:
             platform: "{{ trigger.platform }}"
             flag_day: "{{ ( state_attr('sensor.next_flag_day', 'days') | int ) == 0 }}"
-            half_mast_all_day: "{{ state_attr('sensor.flagdays_dk', 'half_mast_all_day') }}"
-            half_mast_end_time: "{{ state_attr('sensor.flagdays_dk', 'half_mast_end_time') }}"
+            half_mast: "{{ state_attr('sensor.next_flag_day', 'half_mast') }}"
             half_mast_end_time_trigger: "{{ (trigger.to_state.state) if platform == 'template' else '' }}"
             half_mast_option: "{{ state_attr('input_select.flag_position', 'options')[1] }}"
             full_mast_option: "{{ state_attr('input_select.flag_position', 'options')[2] }}"
@@ -129,7 +128,7 @@ flagdays_dk:
               sequence:
                 - choose:
                     # FROM HALF MAST TO THE TOP
-                    - conditions: "{{ half_mast_end_time_trigger == state_attr('sensor.next_flag_day', 'half_mast') }}"
+                    - conditions: "{{ half_mast_end_time_trigger == half_mast }}"
                       sequence:
                         - service: script.flag_notification
                           data:
@@ -160,8 +159,8 @@ flagdays_dk:
                       data:
                         message: |
                           Husk at hejse flaget i anledning af {{ state_attr('sensor.next_flag_day', 'friendly_name') }}.
-                          {%- if not is_state_attr('sensor.next_flag_day', 'half_mast', 'false') %}
-                            <br><br><b>HUSK</b>: Flaget skal være på halv {{ 'hele dagen.' if is_state_attr('sensor.next_flag_day', 'half_mast', 'true') else 'indtil ' + state_attr('sensor.next_flag_day', 'half_mast') + ' hvorefter det skal hejses til tops.' }}
+                          {%- if not half_mast %}
+                            <br><br><b>HUSK</b>: Flaget skal være på halv {{ 'hele dagen.' if half_mast == 'true' else 'indtil ' + half_mast + ' hvorefter det skal hejses til tops.' }}
                           {% endif %}
                         actions:
                           - action_title: "OK, flaget er hejst"
@@ -182,7 +181,7 @@ flagdays_dk:
                     - service: input_select.select_option
                       data:
                         entity_id: input_select.flag_position
-                        option: "{{ half_mast_option if half_mast_all_day or half_mast_end_time else full_mast_option }}"
+                        option: "{{ half_mast_option if half_mast else full_mast_option }}"
 
                 - service: script.flag_clear_notification
 
@@ -218,171 +217,3 @@ flagdays_dk:
 
           default:
             - service: shell_command.flagdays_update
-
-
-    # - alias: Opdater flagdage
-    #   id: 2f0253f30f74479b90b5231ec7296d61
-    #   description: Opdater nedtællingen til næste officielle flagdag
-    #   initial_state: true
-    #   mode: single
-    #   trigger:
-    #     - platform: time
-    #       at: "05:00:00"
-    #     - platform: homeassistant
-    #       event: start
-
-    #   action:
-    #     service: shell_command.flagdays_update
-
-    # # It is flagday
-    # - alias: Flaget skal hejses
-    #   id: 3f6b25440fe54302b3165c2624431d8c
-    #   description: Reminder om at hejse flaget
-    #   initial_state: true
-    #   mode: single
-    #   trigger:
-    #     - platform: template
-    #       value_template: "{{ states('sensor.time') == state_attr('sensor.next_flag_day', 'flag_up_time') }}"
-    #   condition: "{{ ( state_attr('sensor.next_flag_day', 'days') | int ) == 0 }}"
-    #   action:
-
-    #     # Update the boolean switch whether it is a half mast
-    #     - service: >-
-    #         {%- if is_state_attr('sensor.flagdays_dk', 'half_mast_all_day', true) %}
-    #           input_boolean.turn_on
-    #         {% elif is_state_attr('sensor.flagdays_dk', 'half_mast_end_time', false) %}
-    #           input_boolean.turn_off
-    #         {% else %}
-    #           input_boolean.turn_on
-    #         {% endif %}
-    #       data:
-    #         entity_id: input_boolean.private_half_mast
-
-    #     # Send a actionable notification to my phone
-    #     - service: script.flag_notification
-    #       data:
-    #         message: |
-    #           Husk at hejse flaget i anledning af {{ state_attr('sensor.next_flag_day', 'friendly_name') }}.
-    #           {%- if not is_state_attr('sensor.next_flag_day', 'half_mast', 'false') %}
-    #             <br><br><b>HUSK</b>: Flaget skal være på halv {{ 'hele dagen.' if is_state_attr('sensor.next_flag_day', 'half_mast', 'true') else 'indtil ' + state_attr('sensor.next_flag_day', 'half_mast') + ' hvorefter det skal hejses til tops.' }}
-    #           {% endif %}
-    #         actions:
-    #           - action_title: "OK, flaget er hejst"
-    #             action_name: "flag_toggle"
-    #           - action_title: "Annuler"
-    #             action_name: "flag_cancel"
-                
-    # # On a half mast day  with a end time
-    # - alias: Flaget skal helt til tops
-    #   id: 45b26aec9e45450ebefdc46f7c6be4bd
-    #   description: Reminder om at hejse flaget helt til tops
-    #   initial_state: true
-    #   mode: single
-    #   trigger:
-    #     - platform: template
-    #       value_template: "{{ states('sensor.time') == state_attr('sensor.next_flag_day', 'half_mast') }}"
-    #   variables:
-    #     time_out: 600
-    #   action:
-
-    #     - service: script.flag_notification
-    #       data:
-    #         message: |
-    #           Det er nu tid til at flaget skal helt til tops.
-    #         time_offset: "{{ time_out }}"
-    #         actions:
-    #           - action_title: "OK"
-    #             action_name: "flag_ok_half_mast"
-    #           - action_title: "Annullér"
-    #             action_name: "flag_cancel_half_mast"
-
-    #     - wait_for_trigger:
-    #         - platform: event
-    #           event_type: mobile_app_notification_action
-    #       timeout:
-    #         seconds: "{{ time_out }}"
-
-    #     - choose:
-    #       - conditions: "{{ trigger.event.data.action == 'flag_ok_half_mast' }}"
-    #         sequence:
-    #           - service: input_boolean.turn_off
-    #             data:
-    #               entity_id: input_boolean.private_half_mast
-    #       default:
-    #         - service: notify.mobile_app_jacobs_moto
-    #           data:
-    #             message: clear_notification
-    #             data:
-    #               tag: flag_notification
-
-    # # Time to take the flag down
-    # - alias: Flaget er hejst
-    #   id: 305695924c244ce4a3ddbb4710228135
-    #   description: Reminder om at tage flaget ned
-    #   mode: single
-    #   trigger:
-    #     - platform: sun
-    #       event: sunset
-    #       offset:
-    #         minutes: "-10"
-    #   action:
-    #     - variables:
-    #         time_out: "{{ trigger.offset[1:] | int }}"
-
-    #     - service: script.flag_notification
-    #       data:
-    #         message: |
-    #           Husk at tage flaget ned. Solen går ned kl. {{ state_attr('sensor.next_flag_day', 'flag_down_time') }}.
-    #           {{ '<b>OBS</b>: Hejs først flaget helt til tops inden det tages ned.' if is_state('input_boolean.private_half_mast', 'on') }}
-    #         time_offset: "{{ time_out }}"
-    #         actions:
-    #           - action_title: "OK, flaget er taget ned"
-    #             action_name: "flag_toggle"
-    #           - action_title: "Annullér"
-    #             action_name: "flag_cancel"
-
-    #     - wait_for_trigger:
-    #         - platform: event
-    #           event_type: mobile_app_notification_action
-    #       timeout:
-    #         seconds: "{{ time_out * 60 }}"
-
-    #     - choose:
-    #       - conditions: "{{ trigger.event.data.action == 'flag_toggle' }}"
-    #         sequence:
-    #           - service: input_boolean.turn_off
-    #             data:
-    #               entity_id: input_boolean.private_half_mast
-    #       default:
-    #         - service: notify.mobile_app_jacobs_moto
-    #           data:
-    #             message: clear_notification
-    #             data:
-    #               tag: flag_notification
-
-    #     - service: input_boolean.turn_off
-    #       data:
-    #         entity_id: input_boolean.private_half_mast
-
-    # # Receiver of the actions from the phone
-    # - alias: Opdater flagets status
-    #   id: 0408a260c8514a17b42ae7c4167217f2
-    #   description: Modtager af kommandoer fra notifikationer
-    #   initial_state: true
-    #   mode: single
-    #   trigger:
-    #     - platform: event
-    #       event_type: mobile_app_notification_action
-    #   action:
-    #     - choose:
-    #       - conditions: "{{ trigger.event.data['action'] == 'flag_toggle' }}"
-    #         sequence:
-    #         - service: automation.toggle
-    #           data:
-    #             entity_id: automation.flaget_er_hejst
-    #       default:
-    #         - service: notify.mobile_app_jacobs_moto
-    #           data:
-    #             message: clear_notification
-    #             data:
-    #               tag: persistent
