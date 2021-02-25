@@ -15,7 +15,8 @@
   "cd71f96a0d0e412bba41e91e3866ee07": ["Havelåge", "3C003A", "door"],
   "f1fe358686d14a9f916ffaf77d7d2fde": ["Hoveddør", "C0E3DA", "door"],
   "d5182926870e47f69083b8eadf03df24": ["Pengekasse", "5D81DA", "opening"],
-  "b88c46f5344446b8ab8a8e944a1edee0": ["Alarmpanel", "BE8618", "vibration", 30]
+  "b88c46f5344446b8ab8a8e944a1edee0": ["Alarmpanel", "BE8618", "vibration", 30],
+  "2c2159e924e54112a65fbf0c4fe2aada": ["Røgalarm kontor", "668596", "smoke", 5]
 } %}
 
 {% set on_off_sensors = {
@@ -95,14 +96,21 @@
 {% macro python_code() %}
 sensors = {
 {%- for rf_command in mqtt_commands %}
-  "{{ rf_command }}": ["{{ mqtt_commands[rf_command][0] }}", "{{ mqtt_commands[rf_command][1] }}", "{{ mqtt_commands[rf_command][2] }}"],
+  {% set is_number = (rf_command | int) > 0 -%}
+  {{ '"'~rf_command~'"' if not is_number else rf_command }}: ["{{ mqtt_commands[rf_command][0] }}", "{{ mqtt_commands[rf_command][1] }}", "{{ mqtt_commands[rf_command][2] }}"],
 {%- endfor %}
 {%- for sensor in on_sensors %}
-  "{{ on_sensors[sensor][1] }}": ["{{ on_sensors[sensor][0] }}", "ON", "false"],
+  {% set rf_command = on_sensors[sensor][1] -%}
+  {% set is_number = (rf_command | int) > 0 -%}
+  {{ '"'~rf_command~'"' if not is_number else rf_command }}: ["{{ on_sensors[sensor][0] }}", "ON", "false"],
 {%- endfor %}
 {%- for sensor in on_off_sensors %}
-  "{{ on_off_sensors[sensor][1] }}{{ on_off_sensors[sensor][3] | default(open_suffix) }}": ["{{ on_off_sensors[sensor][0] }}", "ON", "true"],
-  "{{ on_off_sensors[sensor][1] }}{{ on_off_sensors[sensor][4] | default(close_suffix) }}": ["{{ on_off_sensors[sensor][0] }}", "OFF", "true"]{{ ',' if not loop.last }}
+  {% set rf_command_on = on_off_sensors[sensor][1]~on_off_sensors[sensor][3] | default(open_suffix) -%}
+  {% set rf_command_off = on_off_sensors[sensor][1]~on_off_sensors[sensor][4] | default(close_suffix) -%}
+  {% set is_on_number = (rf_command_on | int) > 0 -%}
+  {% set is_off_number = (rf_command_off | int) > 0 -%}
+  {{ '"'~rf_command_on~'"' if not is_on_number else rf_command_on }}: ["{{ on_off_sensors[sensor][0] }}", "ON", "true"],
+  {{ '"'~rf_command_off~'"' if not is_off_number else rf_command_off }}: ["{{ on_off_sensors[sensor][0] }}", "OFF", "true"]{{ ',' if not loop.last }}
 {%- endfor %}
 }
 payload = data.get("payload")

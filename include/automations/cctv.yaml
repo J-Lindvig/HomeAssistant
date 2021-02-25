@@ -1,0 +1,48 @@
+- id: c2da7e461fde48bdb23081ec5158e017
+  alias: "Pop-Up Video when motion is detected"
+  mode: single
+  initial_state: true
+  trigger:
+    - platform: state
+      entity_id:
+        - binary_sensor.bathroom_attic
+        - binary_sensor.kitchen_attic
+        - binary_sensor.hallway_attic
+        - binary_sensor.livingroom_attic
+  condition:
+    condition: time
+    after: "06:30:00"
+    before: "23:00:00"
+  action:
+    - choose:
+        - conditions: "{{ trigger.to_state.state == 'on' }}"
+          sequence:
+            - service: browser_mod.popup
+              data:
+                title: Rotte!!!
+                large: true
+                deviceID: TouchPanel
+                card:
+                  type: picture-entity
+                  entity: "{{ state_attr(trigger.entity_id, 'camera_entity') }}"
+                  camera_view: live
+                  show_state: false
+            - service: notify.mobile_app_jacobs_moto
+              data:
+                title: "Bevægelse på loftet"
+                message: >
+                  Der er bevægelse ved {{ state_attr(trigger.entity_id, 'friendly_name' ) | lower }}
+                data:
+                  channel: Rotte
+                  tag: "{{ state_attr(trigger.entity_id, 'camera_entity') }}"
+                  importance: high
+                  image: "/api/camera_proxy/{{ state_attr(trigger.entity_id, 'camera_entity') }}"
+      default:
+        - service: browser_mod.close_popup
+          data:
+            deviceID: TouchPanel
+        - service: notify.mobile_app_jacobs_moto
+          data:
+            message: clear_notification
+            data:
+              tag: "{{ state_attr(trigger.entity_id, 'camera_entity') }}"

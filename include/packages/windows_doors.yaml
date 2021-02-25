@@ -6,7 +6,7 @@
 #    /_/  /_/\___\_\/_/   /_/     /____/\___/_/ /_/____/\____/_/  /____/       #
 #                                                             by J-Lindvig     #
 ################################################################################
-# Created: 15/1/2021                                                           #
+# Created: 21/2/2021                                                           #
 ################################################################################
 windows_doors:
   group:
@@ -19,6 +19,7 @@ windows_doors:
         - binary_sensor.hoveddor
         - binary_sensor.pengekasse
         - binary_sensor.alarmpanel
+        - binary_sensor.rogalarm_kontor
 
     open_close_sensors:
       name: "Vinduer og døre med åbn/luk sensor"
@@ -97,6 +98,13 @@ windows_doors:
       device_class: vibration
       state_topic: "home/Alarmpanel"
       off_delay: 30
+
+    - platform: mqtt
+      name: "Røgalarm kontor"
+      unique_id: 2c2159e924e54112a65fbf0c4fe2aada
+      device_class: smoke
+      state_topic: "home/Røgalarm kontor"
+      off_delay: 5
 
     - platform: mqtt
       name: "Indgang vindue haven"

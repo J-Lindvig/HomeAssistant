@@ -8,8 +8,6 @@ tts_tools:
       # https://github.com/home-assistant/core/issues/35142
       service_name: aaa_google_cloud_say
       key_file: googlecloud.json
-      language: da-DK
-      gender: female
       voice: da-DK-Wavenet-A
       speed: 0.7
       profiles:

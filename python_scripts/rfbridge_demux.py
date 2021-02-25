@@ -10,6 +10,7 @@ sensors = {
   "C0E3DA": ["Hoveddør", "ON", "false"],
   "5D81DA": ["Pengekasse", "ON", "false"],
   "BE8618": ["Alarmpanel", "ON", "false"],
+  668596: ["Røgalarm kontor", "ON", "false"],
   "B0C30A": ["Indgang vindue haven", "ON", "true"],
   "B0C30E": ["Indgang vindue haven", "OFF", "true"],
   "12C40A": ["Indgang vindue vejen", "ON", "true"],

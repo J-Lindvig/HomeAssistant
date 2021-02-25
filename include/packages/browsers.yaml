@@ -2,17 +2,12 @@ browsers:
 
   browser_mod:
     devices:
-      527754cd-95c8b201:
+      493ab2e7-037380e5:
         name: TouchPanel
         camera: true
 
-      e83df4e4-e9e551f5:
-        name: Chromebook-J-Lindvig
+      5219a1e9-bdcf1364:
+        name: J-Lindvig-Chromebook
 
-      fc32449d-8c4b3c8b:
+      2ad4f70e-22a9f258:
         name: PC-J-Lindvig-Linux
-
-  shell_command:
-    touchscreen_off: "source /config/shell/tools.sh; screen_toggle off"
-    touchscreen_on: "source /config/shell/tools.sh; screen_toggle on"
-    touchscreen_suspend: "source /config/shell/tools.sh; screen_suspend"

@@ -1,0 +1,139 @@
+blueprint:
+  name: Frederik - tutorial
+  description: Kommer
+  domain: automation
+
+  input:
+    sensor:
+      name: Sensor
+      description: The sensor which shall trigger the automation
+      selector:
+        entity:
+          domain: binary_sensor
+
+    switch:
+      name: Switch(es)
+      description: Switch(es) to operate
+      selector:
+        target:
+          entity:
+            domain: switch
+    
+    time_after:
+      name: Time Start
+      description: The earliest time to trigger
+      default: "07:00:00"
+      selector:
+        time:
+
+    time_before:
+      name: Time End
+      description: The latest time to trigger
+      default: "23:30:00"
+      selector:
+        time:
+
+    time_duration:
+      name: Duration of sensor
+      description: How long time should pass before trigger
+      default: "00:10:00"
+      selector:
+        time:
+
+    delay_min:
+      name: Delay minimum
+      description: How short delay
+      default: 60
+      selector:
+        number:
+          min: 0
+          max: 300
+          mode: slider
+          step: 10
+          unit_of_measurement: "seconds"
+
+    delay_max:
+      name: Delay maximum
+      description: How long delay
+      default: 300
+      selector:
+        number:
+          min: 10
+          max: 600
+          mode: slider
+          step: 10
+          unit_of_measurement: "seconds"
+
+mode: single
+max_exceeded: silent
+variables:
+  sensor: !input sensor
+  time_after: !input time_after
+  time_before: !input time_before
+  delay_min: !input delay_min
+  delay_max: !input delay_max
+
+trigger:
+  - platform: state
+    entity_id: !input sensor
+    for: !input time_duration
+
+  - platform: time
+    at:
+      - !input time_after
+      - !input time_before
+
+action:
+
+  - service: persistent_notification.create
+    data:
+      title: Debug
+      notification_id: debug
+      message: |
+
+  - choose:
+      # It is a sensor that triggered the automation
+      # It is between the specified time window
+      - conditions:
+          - "{{ trigger.platform == 'state' }}"
+          - condition: time
+            after: !input time_after
+            before: !input time_before
+        sequence:
+          # Wait to see if the sensor changes state, if not after timeout continue
+          - wait_for_trigger:
+            - platform: state
+              entity_id: !input sensor
+              to: "{{ trigger.from_state.state }}"
+            timeout:
+              seconds: "{{ range(delay_min, delay_max) | random }}"
+            continue_on_timeout: true
+            # Only perform action if the wait was completed
+          - choose:
+              - conditions: "{{ wait.completed }}"
+                sequence:
+                  - service: "switch.turn_{{ trigger.to_state.state }}"
+                    target: !input switch
+
+    default:
+      # Save some variables
+      - variables:
+          # State of the sensor
+          sensor_state: "{{ states(sensor) }}"
+          # What time (HH:MM:SS) was the trigger
+          trigger_time: "{{ as_timestamp(trigger.now) | timestamp_custom('%H:%M:%S') }}"
+  
+      # Wait to see if the sensor changes state
+      - wait_for_trigger:
+        - platform: state
+          entity_id: !input sensor
+          to: "{{ 'off' if sensor_state == 'on' else 'on' }}"
+        timeout:
+          seconds: "{{ range(delay_min, delay_max) | random }}"
+        continue_on_timeout: true
+        # Only perform action if the wait was completed
+      - choose:
+          - conditions: "{{ wait.completed }}"
+            sequence:
+              - service: "switch.turn_{{ 'on' if trigger_time == time_after else 'off' }}"
+                target: !input switch

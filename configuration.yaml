@@ -69,7 +69,7 @@ homeassistant:
 #  /_____/
 #
 logger:
-  default: error
+  default: debug
   logs:
     homeassistant.components.script: error
     homeassistant.components.automation: error
@@ -121,6 +121,8 @@ recorder:
       - sensor.date
       - sensor.dato
       - sensor.dato_ordenstal
+      - sensor.superligaen
+      - sensor.premier_league
 
 rest_command: !include_dir_merge_named include/rest_commands/
 
@@ -130,11 +132,6 @@ rest_command: !include_dir_merge_named include/rest_commands/
 #   ___/ /
 #  /____/
 #
-sensor:
-  - platform: seventeentrack
-    username: !secret 17TRACK_USER
-    password: !secret 17TRACK_PASSWORD
-
 shell_command: !include_dir_merge_named include/shell_commands/
 
 #    ______

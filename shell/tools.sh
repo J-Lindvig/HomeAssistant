@@ -11,16 +11,25 @@ function file_exists_web() {
 }
 
 # SCREEN FUNCTIONS
-screen_toggle() {
-  ssh $TOUCHPANEL_SSH xset -display :0.0 dpms force $1
+screen_on() {
+  _screen_on_off $1 $2 on
 }
 
-screen_suspend () {
-#  PID=$$
-#  ssh $TOUCHPANEL_SSH "echo $SUDO_PASSWORD | sudo -S systemctl suspend"
-  ssh $TOUCHPANEL_SSH "echo $SUDO_PASSWORD | sudo -S pm-suspend"
-#  sleep 2
-#  kill $PID
+screen_off() {
+  _screen_on_off $1 $2 off
+}
+
+_screen_on_off() {
+  ssh $1@$2 sudo vbetool dpms $3
+}
+
+# POWER FUNCTIONS
+suspend_linux () {
+  ssh $1@$2 'sudo pm-suspend'
+}
+
+shutdown_linux() {
+  ssh $1@$2 'sudo shutdown -h now'
 }
 
 shell_test() {

@@ -21,6 +21,15 @@ cards:
     column_width: 33%
     cards:
 
+      - type: markdown
+        title: Premier League
+        content: |
+          |      |   |      | Kampe | V | U | T | Mål | Points |
+          |-----:|---|------|:-----:|:-:|:-:|:-:|:---:|:------:|
+          {% for club in state_attr('sensor.premier_league', 'scoreboard') -%}
+            |{{ loop.index }}.|<img src="{{ club.club_logo }}" alt="{{ club.club_name }}" width="32"/>|{{ club.club_name }}|{{ club.matches_played }}|{{ club.matches_won }}|{{ club.matches_tie }}|{{ club.matches_lost }}|{{ club.goals | replace(" ", "") }}|{{ club.points }}|
+          {% endfor %}
+
       - type: picture-elements
         image: /local/images/backgrounds/blank.png
         camera_image: camera.indgang_sd
