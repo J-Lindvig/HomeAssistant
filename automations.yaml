@@ -107,17 +107,3 @@
     path: J-Lindvig/default_view.yaml
     input:
       device: sensor.touchpanel
-- id: '1614109785363'
-  alias: Frederik - tutorial
-  description: ''
-  use_blueprint:
-    path: J-Lindvig/frederik.yaml
-    input:
-      delay_max: '300'
-      sensor: binary_sensor.kontor
-      switch:
-        entity_id: switch.julelys_bag
-      time_before: 09:25:00
-      delay_min: '60'
-      time_duration: 00:00:10
-      time_after: 07:00:00

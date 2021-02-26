@@ -1,5 +1,5 @@
 blueprint:
-  name: Frederik - tutorial
+  name: Light and sensors
   description: Kommer
   domain: automation
 
@@ -11,14 +11,12 @@ blueprint:
         entity:
           domain: binary_sensor
 
-    switch:
-      name: Switch(es)
-      description: Switch(es) to operate
+    light:
+      name: Light(s)
+      description: Light(s) to operate
       selector:
         target:
-          entity:
-            domain: switch
-    
+
     time_after:
       name: Time Start
       description: The earliest time to trigger
@@ -85,11 +83,13 @@ trigger:
 
 action:
 
-  - service: persistent_notification.create
-    data:
-      title: Debug
-      notification_id: debug
-      message: |
+  # - service: persistent_notification.create
+  #   data:
+  #     title: Debug
+  #     notification_id: debug
+  #     message: |
+  #       {{ trigger.platform }}
+  #       delay: {{ delay }}
 
   - choose:
       # It is a sensor that triggered the automation
@@ -101,19 +101,16 @@ action:
             before: !input time_before
         sequence:
           # Wait to see if the sensor changes state, if not after timeout continue
-          - wait_for_trigger:
-            - platform: state
-              entity_id: !input sensor
-              to: "{{ trigger.from_state.state }}"
+          - wait_template: "{{ is_state(sensor, 'trigger.from_state.state') }}"
             timeout:
-              seconds: "{{ range(delay_min, delay_max) | random }}"
+              seconds: "{{ range(delay_min | int, delay_max | int) | random }}"
             continue_on_timeout: true
             # Only perform action if the wait was completed
           - choose:
-              - conditions: "{{ wait.completed }}"
+              - conditions: "{{ not wait.completed }}"
                 sequence:
-                  - service: "switch.turn_{{ trigger.to_state.state }}"
-                    target: !input switch
+                  - service: "homeassistant.turn_{{ trigger.to_state.state }}"
+                    target: !input light
 
     default:
       # Save some variables
@@ -124,16 +121,13 @@ action:
           trigger_time: "{{ as_timestamp(trigger.now) | timestamp_custom('%H:%M:%S') }}"
   
       # Wait to see if the sensor changes state
-      - wait_for_trigger:
-        - platform: state
-          entity_id: !input sensor
-          to: "{{ 'off' if sensor_state == 'on' else 'on' }}"
+      - wait_template: "{{ is_state(sensor, ( 'off' if sensor_state == 'on' else 'on' )) }}"
         timeout:
-          seconds: "{{ range(delay_min, delay_max) | random }}"
+          seconds: "{{ range(delay_min | int, delay_max | int) | random }}"
         continue_on_timeout: true
         # Only perform action if the wait was completed
       - choose:
-          - conditions: "{{ wait.completed }}"
+          - conditions: "{{ not wait.completed }}"
             sequence:
-              - service: "switch.turn_{{ 'on' if trigger_time == time_after else 'off' }}"
-                target: !input switch
+              - service: "homeassistant.turn_{{ 'on' if trigger_time == time_after else 'off' }}"
+                target: !input light

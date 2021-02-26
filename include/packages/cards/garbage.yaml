@@ -4,16 +4,7 @@ garbage:
 ############################################################
 
 #### PLUGINS NEEDED ####
-# Variable, https://github.com/snarky-snark/home-assistant-variables
 # Garbage-Collection, https://github.com/bruxy70/Garbage-Collection
-
-#### VARIABLES NEEDED ####
-# I have declared the variables in an other package.
-# var:
-#   weekdays_dk:
-#     initial_value: "Man,Tirs,Ons,Tors,Fre,Lør,Søn"
-#   months_dk:
-#     initial_value: "Januar,Februar,Marts,April,Maj,Juni,Juli,August,September,Oktober,November,December"
 
   garbage_collection:
     sensors:
@@ -70,9 +61,8 @@ garbage:
             {%- elif state_attr('sensor.affald', 'days') == 1 %}
               i morgen
             {%- else -%}
-              {% set time_stamp = as_timestamp(state_attr('sensor.affald', 'next_date')) | int %}
-              om {{ ((time_stamp - as_timestamp(now())) / ( 60 * 60 * 24 )) | round(0, 'ceil') }} dage (
-              {{- states("var.weekdays_dk").split(",")[time_stamp | timestamp_custom('%w') | int - 1] }}dag den {{ time_stamp | timestamp_custom('%-d.') }}{{ states("var.months_dk").split(",")[time_stamp | timestamp_custom('%-m') | int - 1] }})
+              {% set ts = as_timestamp(state_attr('sensor.affald', 'next_date')) | int %}
+              om {{ state_attr('sensor.affald', 'days') }} dage ({{- state_attr('sensor.local_date_time', 'weekdays_short')[ts | timestamp_custom('%w') | int ] }}dag den {{ ts | timestamp_custom('%-d.') }} {{ state_attr('sensor.local_date_time', 'months')[ts | timestamp_custom('%-m') | int ] }})
             {%- endif -%}
           attribute_templates:
             days: >-
@@ -87,9 +77,8 @@ garbage:
             {%- elif state_attr('sensor.genbrug', 'days') == 1 %}
               i morgen
             {%- else -%}
-              {% set time_stamp = as_timestamp(state_attr('sensor.genbrug', 'next_date')) | int %}
-              om {{ ((time_stamp - as_timestamp(now())) / ( 60 * 60 * 24 )) | round(0, 'ceil') }} dage (
-              {{- states("var.weekdays_dk").split(",")[time_stamp | timestamp_custom('%w') | int - 1] }}dag den {{ time_stamp | timestamp_custom('%-d.') }}{{ states("var.months_dk").split(",")[time_stamp | timestamp_custom('%-m') | int - 1] }})
+              {% set ts = as_timestamp(state_attr('sensor.genbrug', 'next_date')) | int %}
+              om {{ state_attr('sensor.genbrug', 'days') }} dage ({{- state_attr('sensor.local_date_time', 'weekdays_short')[ts | timestamp_custom('%w') | int ] }}dag den {{ ts | timestamp_custom('%-d.') }} {{ state_attr('sensor.local_date_time', 'months')[ts | timestamp_custom('%-m') | int ] }})
             {%- endif -%}
           attribute_templates:
             days: >-

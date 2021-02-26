@@ -58,10 +58,13 @@ local_date_time:
                 {{ number_ordinal["a" ~ date[1]] }} {{ number_ordinal["and"] }} {{ number_ordinal[date[0] ~ "x"] }} 
               {% endif -%}
 
+            months: >
+              {% set months = ['Januar','Februar','Marts','April','Maj','Juni','Juli','August','September','Oktober','November','December'] %}
+              {{ months }}
+
             # Month, get the name of the month from a list
             month: >-
-              {% set months = ['Januar','Februar','Marts','April','Maj','Juni','Juli','August','September','Oktober','November','December'] %}
-              {{ months[ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%-m') | int - 1 ] }}
+              {{ state_attr('sensor.local_date_time', 'months')[ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%-m') | int - 1 ] }}
 
             # Month_short, cut the Month from the 3rd char
             month_short: "{{ state_attr('sensor.local_date_time', 'month')[0:3] }}"
@@ -69,13 +72,16 @@ local_date_time:
             # Year
             year: "{{ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%Y') }}"
 
+            weekdays_short: >
+              {% set weekdays_short = ['Søn','Man','Tirs','Ons','Tors','Fre','Lør'] %}
+              {{ weekdays_short }}
+
             # Weekday, get weekday_short and append "dag"
             weekday: "{{ state_attr('sensor.local_date_time', 'weekday_short')~'dag' }}"
 
             # Weekday_short, get the name of the day from a list
             weekday_short: >-
-              {% set weekdays_short = ['Søn','Man','Tirs','Ons','Tors','Fre','Lør'] %}
-              {{ weekdays_short[ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%w') | int ] -}}
+              {{ state_attr('sensor.local_date_time', 'weekdays_short')[ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%w') | int ] -}}
 
             # Next sunsrise in HH:MM format
             sunrise: "{{ state_attr('sun.sun', 'next_rising') | as_timestamp | timestamp_custom('%H:%M') }}"
