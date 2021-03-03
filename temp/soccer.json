@@ -5,136 +5,136 @@
    "league_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/x128/8191.png",
    "scoreboard": [
     {
-     "club_name": "Brøndby IF",
-     "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/broendby-if/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/7987.png",
-     "matches_played": "17",
-     "matches_won": "12",
-     "matches_tie": "1",
-     "matches_lost": "4",
-     "goals": "34 – 21",
-     "points": "37"
-    },
-    {
      "club_name": "FC Midtjylland",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/fc-midtjylland/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/44.png",
-     "matches_played": "17",
-     "matches_won": "11",
+     "matches_played": "18",
+     "matches_won": "12",
      "matches_tie": "3",
      "matches_lost": "3",
-     "goals": "29 – 17",
-     "points": "36"
+     "goals": "30 – 17",
+     "points": "39"
+    },
+    {
+     "club_name": "Brøndby IF",
+     "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/broendby-if/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/7987.png",
+     "matches_played": "18",
+     "matches_won": "12",
+     "matches_tie": "1",
+     "matches_lost": "5",
+     "goals": "34 – 22",
+     "points": "37"
     },
     {
      "club_name": "AGF",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/agf/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/142.png",
-     "matches_played": "17",
+     "matches_played": "19",
      "matches_won": "9",
-     "matches_tie": "5",
-     "matches_lost": "3",
-     "goals": "29 – 16",
-     "points": "32"
+     "matches_tie": "6",
+     "matches_lost": "4",
+     "goals": "32 – 20",
+     "points": "33"
     },
     {
      "club_name": "FC København",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/fc-koebenhavn/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/8183.png",
-     "matches_played": "17",
+     "matches_played": "18",
      "matches_won": "9",
-     "matches_tie": "3",
+     "matches_tie": "4",
      "matches_lost": "5",
-     "goals": "32 – 27",
-     "points": "30"
+     "goals": "35 – 30",
+     "points": "31"
     },
     {
      "club_name": "Randers FC",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/randers-fc/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/4301.png",
-     "matches_played": "17",
+     "matches_played": "18",
      "matches_won": "8",
      "matches_tie": "3",
-     "matches_lost": "6",
-     "goals": "26 – 15",
-     "points": "27"
-    },
-    {
-     "club_name": "SønderjyskE",
-     "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/soenderjyske/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/4102.png",
-     "matches_played": "17",
-     "matches_won": "7",
-     "matches_tie": "3",
      "matches_lost": "7",
-     "goals": "25 – 24",
-     "points": "24"
+     "goals": "27 – 17",
+     "points": "27"
     },
     {
      "club_name": "OB",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/ob/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/5509.png",
-     "matches_played": "17",
-     "matches_won": "5",
+     "matches_played": "18",
+     "matches_won": "6",
      "matches_tie": "6",
      "matches_lost": "6",
-     "goals": "20 – 21",
-     "points": "21"
+     "goals": "22 – 22",
+     "points": "24"
     },
     {
-     "club_name": "AaB",
-     "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/aab/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/3.png",
-     "matches_played": "17",
-     "matches_won": "5",
-     "matches_tie": "6",
-     "matches_lost": "6",
-     "goals": "18 – 24",
-     "points": "21"
-    },
-    {
-     "club_name": "Vejle Boldklub",
-     "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/vejle-boldklub/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/194.png",
-     "matches_played": "17",
-     "matches_won": "5",
-     "matches_tie": "5",
-     "matches_lost": "7",
-     "goals": "22 – 28",
-     "points": "20"
+     "club_name": "SønderjyskE",
+     "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/soenderjyske/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/4102.png",
+     "matches_played": "18",
+     "matches_won": "7",
+     "matches_tie": "3",
+     "matches_lost": "8",
+     "goals": "26 – 28",
+     "points": "24"
     },
     {
      "club_name": "FC Nordsjælland",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/fc-nordsjaelland/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/7989.png",
-     "matches_played": "17",
-     "matches_won": "4",
+     "matches_played": "19",
+     "matches_won": "5",
+     "matches_tie": "7",
+     "matches_lost": "7",
+     "goals": "28 – 27",
+     "points": "22"
+    },
+    {
+     "club_name": "AaB",
+     "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/aab/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/3.png",
+     "matches_played": "19",
+     "matches_won": "5",
+     "matches_tie": "7",
+     "matches_lost": "7",
+     "goals": "21 – 28",
+     "points": "22"
+    },
+    {
+     "club_name": "Vejle Boldklub",
+     "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/vejle-boldklub/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/194.png",
+     "matches_played": "18",
+     "matches_won": "5",
      "matches_tie": "6",
      "matches_lost": "7",
-     "goals": "25 – 25",
-     "points": "18"
+     "goals": "22 – 28",
+     "points": "21"
     },
     {
      "club_name": "Lyngby",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/lyngby/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/150.png",
-     "matches_played": "17",
-     "matches_won": "1",
+     "matches_played": "18",
+     "matches_won": "2",
      "matches_tie": "5",
      "matches_lost": "11",
-     "goals": "15 – 37",
-     "points": "8"
+     "goals": "19 – 38",
+     "points": "11"
     },
     {
      "club_name": "AC Horsens",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/ac-horsens/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/6741.png",
-     "matches_played": "17",
-     "matches_won": "1",
-     "matches_tie": "4",
+     "matches_played": "19",
+     "matches_won": "2",
+     "matches_tie": "5",
      "matches_lost": "12",
-     "goals": "10 – 30",
-     "points": "7"
+     "goals": "12 – 31",
+     "points": "11"
     }
    ],
    "schedule": [
@@ -944,37 +944,43 @@
        "date": "26.02.2021",
        "time": "19:00",
        "clubs_playing": "Vejle Boldklub – AC Horsens",
-       "match_url": "https://www.bold.dk/fodbold/kamp/vejle-boldklub-vs-ac-horsens/36278188/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/vejle-boldklub-vs-ac-horsens/36278188/",
+       "result": "0 – 0"
       },
       {
        "date": "28.02.2021",
        "time": "14:00",
        "clubs_playing": "OB – Randers FC",
-       "match_url": "https://www.bold.dk/fodbold/kamp/ob-vs-randers-fc/36278186/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/ob-vs-randers-fc/36278186/",
+       "result": "2 – 1"
       },
       {
        "date": "28.02.2021",
        "time": "14:00",
        "clubs_playing": "FC Nordsjælland – AaB",
-       "match_url": "https://www.bold.dk/fodbold/kamp/fc-nordsjaelland-vs-aab/36278187/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/fc-nordsjaelland-vs-aab/36278187/",
+       "result": "2 – 2"
       },
       {
        "date": "28.02.2021",
        "time": "16:00",
        "clubs_playing": "FC København – AGF",
-       "match_url": "https://www.bold.dk/fodbold/kamp/fc-koebenhavn-vs-agf/36278183/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/fc-koebenhavn-vs-agf/36278183/",
+       "result": "3 – 3"
       },
       {
        "date": "28.02.2021",
        "time": "18:00",
        "clubs_playing": "FC Midtjylland – Brøndby IF",
-       "match_url": "https://www.bold.dk/fodbold/kamp/fc-midtjylland-vs-broendby-if/36278184/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/fc-midtjylland-vs-broendby-if/36278184/",
+       "result": "1 – 0"
       },
       {
        "date": "01.03.2021",
        "time": "19:00",
        "clubs_playing": "SønderjyskE – Lyngby",
-       "match_url": "https://www.bold.dk/fodbold/kamp/soenderjyske-vs-lyngby/36278185/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/soenderjyske-vs-lyngby/36278185/",
+       "result": "1 – 4"
       }
      ]
     },
@@ -985,13 +991,15 @@
        "date": "03.03.2021",
        "time": "18:00",
        "clubs_playing": "AGF – FC Nordsjælland",
-       "match_url": "https://www.bold.dk/fodbold/kamp/agf-vs-fc-nordsjaelland/36278191/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/agf-vs-fc-nordsjaelland/36278191/",
+       "result": "0 – 1"
       },
       {
        "date": "03.03.2021",
        "time": "18:00",
        "clubs_playing": "AC Horsens – AaB",
-       "match_url": "https://www.bold.dk/fodbold/kamp/ac-horsens-vs-aab/36278193/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/ac-horsens-vs-aab/36278193/",
+       "result": "2 – 1"
       },
       {
        "date": "03.03.2021",
@@ -1152,12 +1160,12 @@
      "club_name": "Viborg FF",
      "club_url": "https://www.bold.dk/fodbold/danmark/1-division/viborg/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/125.png",
-     "matches_played": "18",
-     "matches_won": "13",
+     "matches_played": "19",
+     "matches_won": "14",
      "matches_tie": "5",
      "matches_lost": "0",
-     "goals": "38 – 14",
-     "points": "44"
+     "goals": "39 – 14",
+     "points": "47"
     },
     {
      "club_name": "Esbjerg fB",
@@ -1182,103 +1190,103 @@
      "points": "40"
     },
     {
-     "club_name": "Fremad Amager",
-     "club_url": "https://www.bold.dk/fodbold/danmark/1-division/fremad-amager/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/52.png",
-     "matches_played": "18",
-     "matches_won": "8",
-     "matches_tie": "3",
-     "matches_lost": "7",
-     "goals": "37 – 21",
-     "points": "27"
-    },
-    {
-     "club_name": "FC Fredericia",
-     "club_url": "https://www.bold.dk/fodbold/danmark/1-division/fredericia/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/159.png",
-     "matches_played": "18",
-     "matches_won": "8",
-     "matches_tie": "3",
-     "matches_lost": "7",
-     "goals": "25 – 23",
-     "points": "27"
-    },
-    {
      "club_name": "FC Helsingør",
      "club_url": "https://www.bold.dk/fodbold/danmark/1-division/fc-helsingoer/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/8173.png",
-     "matches_played": "18",
-     "matches_won": "8",
+     "matches_played": "19",
+     "matches_won": "9",
      "matches_tie": "2",
      "matches_lost": "8",
-     "goals": "26 – 26",
-     "points": "26"
+     "goals": "27 – 26",
+     "points": "29"
+    },
+    {
+     "club_name": "Fremad Amager",
+     "club_url": "https://www.bold.dk/fodbold/danmark/1-division/fremad-amager/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/52.png",
+     "matches_played": "19",
+     "matches_won": "8",
+     "matches_tie": "4",
+     "matches_lost": "7",
+     "goals": "39 – 23",
+     "points": "28"
     },
     {
      "club_name": "HB Køge",
      "club_url": "https://www.bold.dk/fodbold/danmark/1-division/hb-koege/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/149.png",
-     "matches_played": "18",
-     "matches_won": "7",
+     "matches_played": "19",
+     "matches_won": "8",
      "matches_tie": "4",
      "matches_lost": "7",
-     "goals": "19 – 22",
-     "points": "25"
+     "goals": "22 – 22",
+     "points": "28"
+    },
+    {
+     "club_name": "FC Fredericia",
+     "club_url": "https://www.bold.dk/fodbold/danmark/1-division/fredericia/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/159.png",
+     "matches_played": "19",
+     "matches_won": "8",
+     "matches_tie": "3",
+     "matches_lost": "8",
+     "goals": "25 – 24",
+     "points": "27"
     },
     {
      "club_name": "Hobro",
      "club_url": "https://www.bold.dk/fodbold/danmark/1-division/hobro-ik/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/4620.png",
-     "matches_played": "18",
+     "matches_played": "19",
      "matches_won": "6",
-     "matches_tie": "4",
+     "matches_tie": "5",
      "matches_lost": "8",
-     "goals": "27 – 33",
-     "points": "22"
+     "goals": "29 – 35",
+     "points": "23"
     },
     {
      "club_name": "Hvidovre IF",
      "club_url": "https://www.bold.dk/fodbold/danmark/1-division/hvidovre/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/158.png",
-     "matches_played": "18",
+     "matches_played": "19",
      "matches_won": "6",
      "matches_tie": "1",
-     "matches_lost": "11",
-     "goals": "21 – 35",
+     "matches_lost": "12",
+     "goals": "21 – 36",
      "points": "19"
     },
     {
      "club_name": "Vendsyssel FF",
      "club_url": "https://www.bold.dk/fodbold/danmark/1-division/vendsyssel-ff/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/316.png",
-     "matches_played": "18",
+     "matches_played": "19",
      "matches_won": "4",
      "matches_tie": "3",
-     "matches_lost": "11",
-     "goals": "17 – 33",
+     "matches_lost": "12",
+     "goals": "17 – 36",
      "points": "15"
     },
     {
      "club_name": "Kolding IF",
      "club_url": "https://www.bold.dk/fodbold/danmark/1-division/kolding-if/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/3612.png",
-     "matches_played": "18",
+     "matches_played": "19",
      "matches_won": "2",
      "matches_tie": "7",
-     "matches_lost": "9",
-     "goals": "16 – 32",
+     "matches_lost": "10",
+     "goals": "18 – 36",
      "points": "13"
     },
     {
      "club_name": "Skive IK",
      "club_url": "https://www.bold.dk/fodbold/danmark/1-division/skive/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/7760.png",
-     "matches_played": "18",
-     "matches_won": "1",
+     "matches_played": "19",
+     "matches_won": "2",
      "matches_tie": "4",
      "matches_lost": "13",
-     "goals": "14 – 40",
-     "points": "7"
+     "goals": "18 – 42",
+     "points": "10"
     }
    ],
    "schedule": [
@@ -2147,31 +2155,36 @@
        "date": "26.02.2021",
        "time": "18:00",
        "clubs_playing": "Viborg FF – Hvidovre IF",
-       "match_url": "https://www.bold.dk/fodbold/kamp/viborg-ff-vs-hvidovre-if/36242975/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/viborg-ff-vs-hvidovre-if/36242975/",
+       "result": "1 – 0"
       },
       {
        "date": "26.02.2021",
        "time": "19:00",
        "clubs_playing": "FC Helsingør – FC Fredericia",
-       "match_url": "https://www.bold.dk/fodbold/kamp/fc-helsingoer-vs-fc-fredericia/36242980/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/fc-helsingoer-vs-fc-fredericia/36242980/",
+       "result": "1 – 0"
       },
       {
        "date": "27.02.2021",
        "time": "14:00",
        "clubs_playing": "Kolding IF – Skive IK",
-       "match_url": "https://www.bold.dk/fodbold/kamp/kolding-if-vs-skive-ik/36242976/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/kolding-if-vs-skive-ik/36242976/",
+       "result": "2 – 4"
       },
       {
        "date": "28.02.2021",
        "time": "13:30",
        "clubs_playing": "HB Køge – Vendsyssel FF",
-       "match_url": "https://www.bold.dk/fodbold/kamp/hb-koege-vs-vendsyssel-ff/36242977/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/hb-koege-vs-vendsyssel-ff/36242977/",
+       "result": "3 – 0"
       },
       {
        "date": "28.02.2021",
        "time": "15:00",
        "clubs_playing": "Fremad Amager – Hobro",
-       "match_url": "https://www.bold.dk/fodbold/kamp/fremad-amager-vs-hobro/36242979/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/fremad-amager-vs-hobro/36242979/",
+       "result": "2 – 2"
       }
      ]
     },
@@ -2308,221 +2321,221 @@
      "club_name": "Manchester City",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/manchester-city/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/5347.png",
-     "matches_played": "25",
-     "matches_won": "18",
+     "matches_played": "27",
+     "matches_won": "20",
      "matches_tie": "5",
      "matches_lost": "2",
-     "goals": "50 – 15",
-     "points": "59"
+     "goals": "56 – 17",
+     "points": "65"
     },
     {
      "club_name": "Manchester United",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/manchester-united/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/71.png",
-     "matches_played": "25",
+     "matches_played": "26",
      "matches_won": "14",
-     "matches_tie": "7",
+     "matches_tie": "8",
      "matches_lost": "4",
      "goals": "53 – 32",
-     "points": "49"
+     "points": "50"
     },
     {
      "club_name": "Leicester",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/leicester/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/336.png",
-     "matches_played": "25",
+     "matches_played": "27",
      "matches_won": "15",
-     "matches_tie": "4",
-     "matches_lost": "6",
-     "goals": "44 – 27",
-     "points": "49"
+     "matches_tie": "5",
+     "matches_lost": "7",
+     "goals": "46 – 31",
+     "points": "50"
     },
     {
      "club_name": "West Ham",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/west-ham/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/7507.png",
-     "matches_played": "25",
+     "matches_played": "26",
      "matches_won": "13",
      "matches_tie": "6",
-     "matches_lost": "6",
-     "goals": "39 – 29",
+     "matches_lost": "7",
+     "goals": "40 – 31",
      "points": "45"
     },
     {
      "club_name": "Chelsea",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/chelsea/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/27.png",
-     "matches_played": "25",
+     "matches_played": "26",
      "matches_won": "12",
-     "matches_tie": "7",
+     "matches_tie": "8",
      "matches_lost": "6",
      "goals": "41 – 25",
-     "points": "43"
+     "points": "44"
     },
     {
      "club_name": "Liverpool",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/liverpool/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/175.png",
-     "matches_played": "25",
-     "matches_won": "11",
+     "matches_played": "26",
+     "matches_won": "12",
      "matches_tie": "7",
      "matches_lost": "7",
-     "goals": "45 – 34",
-     "points": "40"
+     "goals": "47 – 34",
+     "points": "43"
     },
     {
      "club_name": "Everton",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/everton/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/5358.png",
-     "matches_played": "24",
-     "matches_won": "12",
+     "matches_played": "25",
+     "matches_won": "13",
      "matches_tie": "4",
      "matches_lost": "8",
-     "goals": "37 – 33",
-     "points": "40"
-    },
-    {
-     "club_name": "Aston Villa",
-     "club_url": "https://www.bold.dk/fodbold/england/premier-league/aston-villa/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/10.png",
-     "matches_played": "23",
-     "matches_won": "11",
-     "matches_tie": "3",
-     "matches_lost": "9",
-     "goals": "37 – 26",
-     "points": "36"
+     "goals": "38 – 33",
+     "points": "43"
     },
     {
      "club_name": "Tottenham",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/tottenham/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/118.png",
-     "matches_played": "24",
-     "matches_won": "10",
-     "matches_tie": "6",
-     "matches_lost": "8",
-     "goals": "37 – 27",
-     "points": "36"
-    },
-    {
-     "club_name": "Leeds",
-     "club_url": "https://www.bold.dk/fodbold/england/premier-league/leeds/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/338.png",
      "matches_played": "25",
      "matches_won": "11",
-     "matches_tie": "2",
-     "matches_lost": "12",
-     "goals": "43 – 43",
-     "points": "35"
+     "matches_tie": "6",
+     "matches_lost": "8",
+     "goals": "41 – 27",
+     "points": "39"
+    },
+    {
+     "club_name": "Aston Villa",
+     "club_url": "https://www.bold.dk/fodbold/england/premier-league/aston-villa/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/10.png",
+     "matches_played": "25",
+     "matches_won": "12",
+     "matches_tie": "3",
+     "matches_lost": "10",
+     "goals": "38 – 27",
+     "points": "39"
     },
     {
      "club_name": "Arsenal",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/arsenal/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/9.png",
-     "matches_played": "25",
-     "matches_won": "10",
+     "matches_played": "26",
+     "matches_won": "11",
      "matches_tie": "4",
      "matches_lost": "11",
-     "goals": "31 – 26",
-     "points": "34"
+     "goals": "34 – 27",
+     "points": "37"
+    },
+    {
+     "club_name": "Leeds",
+     "club_url": "https://www.bold.dk/fodbold/england/premier-league/leeds/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/338.png",
+     "matches_played": "26",
+     "matches_won": "11",
+     "matches_tie": "2",
+     "matches_lost": "13",
+     "goals": "43 – 44",
+     "points": "35"
     },
     {
      "club_name": "Wolverhampton",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/wolverhampton/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/134.png",
-     "matches_played": "25",
+     "matches_played": "27",
      "matches_won": "9",
-     "matches_tie": "6",
-     "matches_lost": "10",
-     "goals": "26 – 32",
-     "points": "33"
+     "matches_tie": "7",
+     "matches_lost": "11",
+     "goals": "28 – 37",
+     "points": "34"
     },
     {
      "club_name": "Crystal Palace",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/crystal-palace/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/178.png",
-     "matches_played": "25",
+     "matches_played": "26",
      "matches_won": "9",
-     "matches_tie": "5",
+     "matches_tie": "6",
      "matches_lost": "11",
      "goals": "29 – 43",
-     "points": "32"
+     "points": "33"
     },
     {
      "club_name": "Southampton",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/southampton/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/107.png",
-     "matches_played": "25",
+     "matches_played": "26",
      "matches_won": "8",
      "matches_tie": "6",
-     "matches_lost": "11",
-     "goals": "31 – 43",
+     "matches_lost": "12",
+     "goals": "31 – 44",
      "points": "30"
     },
     {
      "club_name": "Burnley",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/burnley/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/335.png",
-     "matches_played": "25",
+     "matches_played": "27",
      "matches_won": "7",
-     "matches_tie": "7",
-     "matches_lost": "11",
-     "goals": "18 – 30",
-     "points": "28"
+     "matches_tie": "8",
+     "matches_lost": "12",
+     "goals": "19 – 35",
+     "points": "29"
     },
     {
      "club_name": "Brighton",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/brighton/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/185.png",
-     "matches_played": "25",
+     "matches_played": "26",
      "matches_won": "5",
      "matches_tie": "11",
-     "matches_lost": "9",
-     "goals": "26 – 32",
+     "matches_lost": "10",
+     "goals": "26 – 33",
      "points": "26"
     },
     {
      "club_name": "Newcastle",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/newcastle/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/176.png",
-     "matches_played": "25",
+     "matches_played": "26",
      "matches_won": "7",
-     "matches_tie": "4",
+     "matches_tie": "5",
      "matches_lost": "14",
-     "goals": "26 – 43",
-     "points": "25"
+     "goals": "27 – 44",
+     "points": "26"
     },
     {
      "club_name": "Fulham",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/fulham/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/53.png",
-     "matches_played": "25",
+     "matches_played": "26",
      "matches_won": "4",
-     "matches_tie": "10",
+     "matches_tie": "11",
      "matches_lost": "11",
      "goals": "21 – 32",
-     "points": "22"
+     "points": "23"
     },
     {
      "club_name": "West Bromwich",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/west-bromwich-albion/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/129.png",
-     "matches_played": "25",
-     "matches_won": "2",
+     "matches_played": "26",
+     "matches_won": "3",
      "matches_tie": "8",
      "matches_lost": "15",
-     "goals": "19 – 55",
-     "points": "14"
+     "goals": "20 – 55",
+     "points": "17"
     },
     {
      "club_name": "Sheffield United",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/sheffield-u/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/372.png",
-     "matches_played": "25",
-     "matches_won": "3",
+     "matches_played": "27",
+     "matches_won": "4",
      "matches_tie": "2",
-     "matches_lost": "20",
-     "goals": "15 – 41",
-     "points": "11"
+     "matches_lost": "21",
+     "goals": "16 – 43",
+     "points": "14"
     }
    ],
    "schedule": [
@@ -4456,61 +4469,71 @@
        "date": "27.02.2021",
        "time": "13:30",
        "clubs_playing": "Manchester City – West Ham",
-       "match_url": "https://www.bold.dk/fodbold/kamp/manchester-city-vs-west-ham/36642704/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/manchester-city-vs-west-ham/36642704/",
+       "result": "2 – 1"
       },
       {
        "date": "27.02.2021",
        "time": "16:00",
        "clubs_playing": "West Bromwich – Brighton",
-       "match_url": "https://www.bold.dk/fodbold/kamp/west-bromwich-vs-brighton/36642708/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/west-bromwich-vs-brighton/36642708/",
+       "result": "1 – 0"
       },
       {
        "date": "27.02.2021",
        "time": "18:30",
        "clubs_playing": "Leeds – Aston Villa",
-       "match_url": "https://www.bold.dk/fodbold/kamp/leeds-vs-aston-villa/36642702/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/leeds-vs-aston-villa/36642702/",
+       "result": "0 – 1"
       },
       {
        "date": "27.02.2021",
        "time": "21:00",
        "clubs_playing": "Newcastle – Wolverhampton",
-       "match_url": "https://www.bold.dk/fodbold/kamp/newcastle-vs-wolverhampton/36642705/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/newcastle-vs-wolverhampton/36642705/",
+       "result": "1 – 1"
       },
       {
        "date": "28.02.2021",
        "time": "13:00",
        "clubs_playing": "Crystal Palace – Fulham",
-       "match_url": "https://www.bold.dk/fodbold/kamp/crystal-palace-vs-fulham/36642700/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/crystal-palace-vs-fulham/36642700/",
+       "result": "0 – 0"
       },
       {
        "date": "28.02.2021",
        "time": "13:00",
        "clubs_playing": "Leicester – Arsenal",
-       "match_url": "https://www.bold.dk/fodbold/kamp/leicester-vs-arsenal/36642703/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/leicester-vs-arsenal/36642703/",
+       "result": "1 – 3"
       },
       {
        "date": "28.02.2021",
        "time": "15:00",
        "clubs_playing": "Tottenham – Burnley",
-       "match_url": "https://www.bold.dk/fodbold/kamp/tottenham-vs-burnley/36642707/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/tottenham-vs-burnley/36642707/",
+       "result": "4 – 0"
       },
       {
        "date": "28.02.2021",
        "time": "17:30",
        "clubs_playing": "Chelsea – Manchester United",
-       "match_url": "https://www.bold.dk/fodbold/kamp/chelsea-vs-manchester-united/36642699/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/chelsea-vs-manchester-united/36642699/",
+       "result": "0 – 0"
       },
       {
        "date": "28.02.2021",
        "time": "20:15",
        "clubs_playing": "Sheffield United – Liverpool",
-       "match_url": "https://www.bold.dk/fodbold/kamp/sheffield-united-vs-liverpool/36642706/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/sheffield-united-vs-liverpool/36642706/",
+       "result": "0 – 2"
       },
       {
        "date": "01.03.2021",
        "time": "21:00",
        "clubs_playing": "Everton – Southampton",
-       "match_url": "https://www.bold.dk/fodbold/kamp/everton-vs-southampton/36642701/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/everton-vs-southampton/36642701/",
+       "result": "1 – 0"
       }
      ]
     },
@@ -4521,19 +4544,22 @@
        "date": "02.03.2021",
        "time": "21:00",
        "clubs_playing": "Manchester City – Wolverhampton",
-       "match_url": "https://www.bold.dk/fodbold/kamp/manchester-city-vs-wolverhampton/36642734/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/manchester-city-vs-wolverhampton/36642734/",
+       "result": "4 – 1"
       },
       {
        "date": "03.03.2021",
        "time": "19:00",
        "clubs_playing": "Burnley – Leicester",
-       "match_url": "https://www.bold.dk/fodbold/kamp/burnley-vs-leicester/36642730/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/burnley-vs-leicester/36642730/",
+       "result": "1 – 1"
       },
       {
        "date": "03.03.2021",
        "time": "19:00",
        "clubs_playing": "Sheffield United – Aston Villa",
-       "match_url": "https://www.bold.dk/fodbold/kamp/sheffield-united-vs-aston-villa/36642735/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/sheffield-united-vs-aston-villa/36642735/",
+       "result": "1 – 0"
       },
       {
        "date": "03.03.2021",
@@ -5336,198 +5362,198 @@
      "club_name": "Bayern München",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/bayern-mnchen/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/16.png",
-     "matches_played": "22",
-     "matches_won": "15",
+     "matches_played": "23",
+     "matches_won": "16",
      "matches_tie": "4",
      "matches_lost": "3",
-     "goals": "62 – 31",
-     "points": "49"
+     "goals": "67 – 32",
+     "points": "52"
     },
     {
      "club_name": "RB Leipzig",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/rb-leipzig/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/949.png",
-     "matches_played": "22",
-     "matches_won": "14",
+     "matches_played": "23",
+     "matches_won": "15",
      "matches_tie": "5",
      "matches_lost": "3",
-     "goals": "40 – 18",
-     "points": "47"
+     "goals": "43 – 20",
+     "points": "50"
     },
     {
      "club_name": "Wolfsburg",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/wolfsburg/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/133.png",
-     "matches_played": "22",
-     "matches_won": "11",
+     "matches_played": "23",
+     "matches_won": "12",
      "matches_tie": "9",
      "matches_lost": "2",
-     "goals": "35 – 19",
-     "points": "42"
+     "goals": "37 – 19",
+     "points": "45"
     },
     {
      "club_name": "Eintracht Frankfurt",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/eintracht-frankfurt/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/36.png",
-     "matches_played": "22",
+     "matches_played": "23",
      "matches_won": "11",
      "matches_tie": "9",
-     "matches_lost": "2",
-     "goals": "45 – 30",
+     "matches_lost": "3",
+     "goals": "46 – 32",
      "points": "42"
-    },
-    {
-     "club_name": "Bayer Leverkusen",
-     "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/bayer-leverkusen/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/160.png",
-     "matches_played": "22",
-     "matches_won": "10",
-     "matches_tie": "7",
-     "matches_lost": "5",
-     "goals": "40 – 24",
-     "points": "37"
     },
     {
      "club_name": "Dortmund",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/borussia-dortmund/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/161.png",
-     "matches_played": "22",
-     "matches_won": "11",
+     "matches_played": "23",
+     "matches_won": "12",
      "matches_tie": "3",
      "matches_lost": "8",
-     "goals": "45 – 31",
-     "points": "36"
+     "goals": "48 – 31",
+     "points": "39"
+    },
+    {
+     "club_name": "Bayer Leverkusen",
+     "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/bayer-leverkusen/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/160.png",
+     "matches_played": "23",
+     "matches_won": "10",
+     "matches_tie": "7",
+     "matches_lost": "6",
+     "goals": "41 – 26",
+     "points": "37"
     },
     {
      "club_name": "Union Berlin",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/union-berlin/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/638.png",
-     "matches_played": "22",
+     "matches_played": "23",
      "matches_won": "8",
-     "matches_tie": "9",
+     "matches_tie": "10",
      "matches_lost": "5",
-     "goals": "35 – 25",
-     "points": "33"
-    },
-    {
-     "club_name": "Mönchengladbach",
-     "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/borussia-mnchengladbach/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/152.png",
-     "matches_played": "22",
-     "matches_won": "8",
-     "matches_tie": "9",
-     "matches_lost": "5",
-     "goals": "38 – 33",
-     "points": "33"
+     "goals": "36 – 26",
+     "points": "34"
     },
     {
      "club_name": "Freiburg",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/freiburg/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/51.png",
-     "matches_played": "22",
-     "matches_won": "8",
+     "matches_played": "23",
+     "matches_won": "9",
      "matches_tie": "7",
      "matches_lost": "7",
-     "goals": "35 – 34",
-     "points": "31"
+     "goals": "37 – 35",
+     "points": "34"
+    },
+    {
+     "club_name": "Mönchengladbach",
+     "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/borussia-mnchengladbach/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/152.png",
+     "matches_played": "23",
+     "matches_won": "8",
+     "matches_tie": "9",
+     "matches_lost": "6",
+     "goals": "40 – 36",
+     "points": "33"
     },
     {
      "club_name": "Stuttgart",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/vfb-stuttgart/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/116.png",
-     "matches_played": "22",
-     "matches_won": "7",
+     "matches_played": "23",
+     "matches_won": "8",
      "matches_tie": "8",
      "matches_lost": "7",
-     "goals": "39 – 35",
-     "points": "29"
+     "goals": "44 – 36",
+     "points": "32"
     },
     {
      "club_name": "Hoffenheim",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/hoffenheim/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/120.png",
-     "matches_played": "22",
+     "matches_played": "23",
      "matches_won": "7",
-     "matches_tie": "5",
+     "matches_tie": "6",
      "matches_lost": "10",
-     "goals": "36 – 39",
-     "points": "26"
+     "goals": "37 – 40",
+     "points": "27"
     },
     {
      "club_name": "Werder Bremen",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/werder-bremen/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/128.png",
-     "matches_played": "21",
-     "matches_won": "5",
+     "matches_played": "22",
+     "matches_won": "6",
      "matches_tie": "8",
      "matches_lost": "8",
-     "goals": "24 – 31",
-     "points": "23"
+     "goals": "26 – 32",
+     "points": "26"
     },
     {
      "club_name": "Augsburg",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/augsburg/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/14.png",
-     "matches_played": "22",
-     "matches_won": "6",
+     "matches_played": "23",
+     "matches_won": "7",
      "matches_tie": "5",
      "matches_lost": "11",
-     "goals": "22 – 35",
-     "points": "23"
+     "goals": "23 – 35",
+     "points": "26"
     },
     {
      "club_name": "FC Köln",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/fc-koln/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/637.png",
-     "matches_played": "22",
+     "matches_played": "23",
      "matches_won": "5",
      "matches_tie": "6",
-     "matches_lost": "11",
-     "goals": "20 – 36",
+     "matches_lost": "12",
+     "goals": "21 – 41",
      "points": "21"
     },
     {
      "club_name": "Hertha Berlin",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/hertha-berlin/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/172.png",
-     "matches_played": "22",
+     "matches_played": "23",
      "matches_won": "4",
      "matches_tie": "6",
-     "matches_lost": "12",
-     "goals": "26 – 40",
+     "matches_lost": "13",
+     "goals": "26 – 42",
      "points": "18"
     },
     {
      "club_name": "Bielefeld",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/arminia-bielefeld/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/652.png",
-     "matches_played": "21",
+     "matches_played": "22",
      "matches_won": "5",
      "matches_tie": "3",
-     "matches_lost": "13",
-     "goals": "18 – 38",
+     "matches_lost": "14",
+     "goals": "18 – 41",
      "points": "18"
     },
     {
      "club_name": "Mainz 05",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/mainz-05/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/164.png",
-     "matches_played": "22",
+     "matches_played": "23",
      "matches_won": "4",
      "matches_tie": "5",
-     "matches_lost": "13",
-     "goals": "23 – 43",
+     "matches_lost": "14",
+     "goals": "23 – 44",
      "points": "17"
     },
     {
      "club_name": "Schalke 04",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/schalke-04/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/151.png",
-     "matches_played": "22",
+     "matches_played": "23",
      "matches_won": "1",
      "matches_tie": "6",
-     "matches_lost": "15",
-     "goals": "15 – 56",
+     "matches_lost": "16",
+     "goals": "16 – 61",
      "points": "9"
     }
    ],
@@ -7028,55 +7054,64 @@
        "date": "26.02.2021",
        "time": "20:30",
        "clubs_playing": "Werder Bremen – Eintracht Frankfurt",
-       "match_url": "https://www.bold.dk/fodbold/kamp/werder-bremen-vs-eintracht-frankfurt/36424891/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/werder-bremen-vs-eintracht-frankfurt/36424891/",
+       "result": "2 – 1"
       },
       {
        "date": "27.02.2021",
        "time": "15:30",
        "clubs_playing": "Bayern München – FC Köln",
-       "match_url": "https://www.bold.dk/fodbold/kamp/bayern-munchen-vs-fc-kln/36424884/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/bayern-munchen-vs-fc-kln/36424884/",
+       "result": "5 – 1"
       },
       {
        "date": "27.02.2021",
        "time": "15:30",
        "clubs_playing": "Dortmund – Bielefeld",
-       "match_url": "https://www.bold.dk/fodbold/kamp/dortmund-vs-bielefeld/36424885/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/dortmund-vs-bielefeld/36424885/",
+       "result": "3 – 0"
       },
       {
        "date": "27.02.2021",
        "time": "15:30",
        "clubs_playing": "Wolfsburg – Hertha Berlin",
-       "match_url": "https://www.bold.dk/fodbold/kamp/wolfsburg-vs-hertha-berlin/36424888/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/wolfsburg-vs-hertha-berlin/36424888/",
+       "result": "2 – 0"
       },
       {
        "date": "27.02.2021",
        "time": "15:30",
        "clubs_playing": "Stuttgart – Schalke 04",
-       "match_url": "https://www.bold.dk/fodbold/kamp/stuttgart-vs-schalke-04/36424892/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/stuttgart-vs-schalke-04/36424892/",
+       "result": "5 – 1"
       },
       {
        "date": "27.02.2021",
        "time": "18:30",
        "clubs_playing": "RB Leipzig – Mönchengladbach",
-       "match_url": "https://www.bold.dk/fodbold/kamp/rb-leipzig-vs-mnchengladbach/36424886/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/rb-leipzig-vs-mnchengladbach/36424886/",
+       "result": "3 – 2"
       },
       {
        "date": "28.02.2021",
        "time": "13:30",
        "clubs_playing": "Union Berlin – Hoffenheim",
-       "match_url": "https://www.bold.dk/fodbold/kamp/union-berlin-vs-hoffenheim/36424889/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/union-berlin-vs-hoffenheim/36424889/",
+       "result": "1 – 1"
       },
       {
        "date": "28.02.2021",
        "time": "15:30",
        "clubs_playing": "Mainz 05 – Augsburg",
-       "match_url": "https://www.bold.dk/fodbold/kamp/mainz-05-vs-augsburg/36424890/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/mainz-05-vs-augsburg/36424890/",
+       "result": "0 – 1"
       },
       {
        "date": "28.02.2021",
        "time": "18:00",
        "clubs_playing": "Bayer Leverkusen – Freiburg",
-       "match_url": "https://www.bold.dk/fodbold/kamp/bayer-leverkusen-vs-freiburg/36424887/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/bayer-leverkusen-vs-freiburg/36424887/",
+       "result": "1 – 2"
       }
      ]
     },
@@ -7750,221 +7785,221 @@
      "club_name": "Atletico Madrid",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/atletico-madrid/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/7416.png",
-     "matches_played": "23",
-     "matches_won": "17",
+     "matches_played": "24",
+     "matches_won": "18",
      "matches_tie": "4",
      "matches_lost": "2",
-     "goals": "45 – 16",
-     "points": "55"
-    },
-    {
-     "club_name": "Real Madrid",
-     "club_url": "https://www.bold.dk/fodbold/spanien/laliga/real-madrid/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/96.png",
-     "matches_played": "24",
-     "matches_won": "16",
-     "matches_tie": "4",
-     "matches_lost": "4",
-     "goals": "42 – 19",
-     "points": "52"
+     "goals": "47 – 16",
+     "points": "58"
     },
     {
      "club_name": "Barcelona",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/barcelona/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/2.png",
-     "matches_played": "24",
-     "matches_won": "15",
+     "matches_played": "25",
+     "matches_won": "16",
      "matches_tie": "5",
      "matches_lost": "4",
-     "goals": "53 – 22",
-     "points": "50"
+     "goals": "55 – 22",
+     "points": "53"
+    },
+    {
+     "club_name": "Real Madrid",
+     "club_url": "https://www.bold.dk/fodbold/spanien/laliga/real-madrid/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/96.png",
+     "matches_played": "25",
+     "matches_won": "16",
+     "matches_tie": "5",
+     "matches_lost": "4",
+     "goals": "43 – 20",
+     "points": "53"
     },
     {
      "club_name": "Sevilla",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/sevilla/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/212.png",
-     "matches_played": "23",
+     "matches_played": "24",
      "matches_won": "15",
      "matches_tie": "3",
-     "matches_lost": "5",
-     "goals": "34 – 16",
+     "matches_lost": "6",
+     "goals": "34 – 18",
      "points": "48"
     },
     {
      "club_name": "Real Sociedad",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/real-sociedad/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/98.png",
-     "matches_played": "24",
+     "matches_played": "25",
      "matches_won": "11",
-     "matches_tie": "8",
+     "matches_tie": "9",
      "matches_lost": "5",
-     "goals": "41 – 20",
-     "points": "41"
-    },
-    {
-     "club_name": "Villarreal",
-     "club_url": "https://www.bold.dk/fodbold/spanien/laliga/villarreal/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/3613.png",
-     "matches_played": "24",
-     "matches_won": "8",
-     "matches_tie": "13",
-     "matches_lost": "3",
-     "goals": "33 – 25",
-     "points": "37"
+     "goals": "42 – 21",
+     "points": "42"
     },
     {
      "club_name": "Real Betis",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/real-betis/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/95.png",
-     "matches_played": "24",
-     "matches_won": "11",
+     "matches_played": "25",
+     "matches_won": "12",
      "matches_tie": "3",
      "matches_lost": "10",
-     "goals": "32 – 38",
-     "points": "36"
+     "goals": "33 – 38",
+     "points": "39"
     },
     {
-     "club_name": "Levante",
-     "club_url": "https://www.bold.dk/fodbold/spanien/laliga/levante/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/67.png",
-     "matches_played": "24",
-     "matches_won": "7",
-     "matches_tie": "10",
-     "matches_lost": "7",
-     "goals": "34 – 33",
-     "points": "31"
+     "club_name": "Villarreal",
+     "club_url": "https://www.bold.dk/fodbold/spanien/laliga/villarreal/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/3613.png",
+     "matches_played": "25",
+     "matches_won": "8",
+     "matches_tie": "13",
+     "matches_lost": "4",
+     "goals": "33 – 27",
+     "points": "37"
     },
     {
      "club_name": "Granada",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/granada/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/1307.png",
-     "matches_played": "24",
-     "matches_won": "8",
+     "matches_played": "25",
+     "matches_won": "9",
      "matches_tie": "6",
      "matches_lost": "10",
-     "goals": "29 – 41",
-     "points": "30"
+     "goals": "31 – 42",
+     "points": "33"
+    },
+    {
+     "club_name": "Levante",
+     "club_url": "https://www.bold.dk/fodbold/spanien/laliga/levante/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/67.png",
+     "matches_played": "25",
+     "matches_won": "7",
+     "matches_tie": "11",
+     "matches_lost": "7",
+     "goals": "35 – 34",
+     "points": "32"
     },
     {
      "club_name": "Athletic Club",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/athletic-bilbao/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/12.png",
-     "matches_played": "23",
+     "matches_played": "24",
      "matches_won": "8",
-     "matches_tie": "5",
+     "matches_tie": "6",
      "matches_lost": "10",
-     "goals": "33 – 27",
-     "points": "29"
+     "goals": "34 – 28",
+     "points": "30"
     },
     {
      "club_name": "Celta Vigo",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/celta-vigo/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/24.png",
-     "matches_played": "24",
+     "matches_played": "25",
      "matches_won": "7",
-     "matches_tie": "8",
-     "matches_lost": "9",
-     "goals": "29 – 36",
-     "points": "29"
-    },
-    {
-     "club_name": "Valencia",
-     "club_url": "https://www.bold.dk/fodbold/spanien/laliga/valencia/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/217.png",
-     "matches_played": "24",
-     "matches_won": "6",
      "matches_tie": "9",
      "matches_lost": "9",
-     "goals": "30 – 32",
-     "points": "27"
+     "goals": "30 – 37",
+     "points": "30"
     },
     {
      "club_name": "Osasuna",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/osasuna/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/214.png",
-     "matches_played": "24",
-     "matches_won": "6",
+     "matches_played": "25",
+     "matches_won": "7",
      "matches_tie": "7",
      "matches_lost": "11",
-     "goals": "22 – 33",
-     "points": "25"
-    },
-    {
-     "club_name": "Cadiz",
-     "club_url": "https://www.bold.dk/fodbold/spanien/laliga/cadiz/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/1439.png",
-     "matches_played": "24",
-     "matches_won": "6",
-     "matches_tie": "7",
-     "matches_lost": "11",
-     "goals": "21 – 40",
-     "points": "25"
+     "goals": "23 – 33",
+     "points": "28"
     },
     {
      "club_name": "Getafe",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/getafe/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/213.png",
-     "matches_played": "24",
-     "matches_won": "6",
+     "matches_played": "25",
+     "matches_won": "7",
      "matches_tie": "6",
      "matches_lost": "12",
-     "goals": "17 – 30",
-     "points": "24"
+     "goals": "20 – 30",
+     "points": "27"
     },
     {
-     "club_name": "Alaves",
-     "club_url": "https://www.bold.dk/fodbold/spanien/laliga/deportivo-alaves/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/673.png",
-     "matches_played": "24",
-     "matches_won": "5",
+     "club_name": "Valencia",
+     "club_url": "https://www.bold.dk/fodbold/spanien/laliga/valencia/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/217.png",
+     "matches_played": "25",
+     "matches_won": "6",
+     "matches_tie": "9",
+     "matches_lost": "10",
+     "goals": "30 – 35",
+     "points": "27"
+    },
+    {
+     "club_name": "Cadiz",
+     "club_url": "https://www.bold.dk/fodbold/spanien/laliga/cadiz/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/1439.png",
+     "matches_played": "25",
+     "matches_won": "6",
      "matches_tie": "7",
      "matches_lost": "12",
-     "goals": "20 – 38",
-     "points": "22"
+     "goals": "21 – 41",
+     "points": "25"
     },
     {
      "club_name": "Eibar",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/eibar/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/672.png",
-     "matches_played": "24",
+     "matches_played": "25",
      "matches_won": "4",
-     "matches_tie": "9",
+     "matches_tie": "10",
      "matches_lost": "11",
-     "goals": "19 – 27",
-     "points": "21"
+     "goals": "20 – 28",
+     "points": "22"
     },
     {
      "club_name": "Valladolid",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/real-valladolid/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/220.png",
-     "matches_played": "24",
+     "matches_played": "25",
      "matches_won": "4",
-     "matches_tie": "9",
+     "matches_tie": "10",
      "matches_lost": "11",
-     "goals": "22 – 35",
-     "points": "21"
+     "goals": "23 – 36",
+     "points": "22"
+    },
+    {
+     "club_name": "Alaves",
+     "club_url": "https://www.bold.dk/fodbold/spanien/laliga/deportivo-alaves/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/673.png",
+     "matches_played": "25",
+     "matches_won": "5",
+     "matches_tie": "7",
+     "matches_lost": "13",
+     "goals": "20 – 39",
+     "points": "22"
     },
     {
      "club_name": "Elche",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/elche/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/219.png",
-     "matches_played": "23",
+     "matches_played": "24",
      "matches_won": "4",
      "matches_tie": "9",
-     "matches_lost": "10",
-     "goals": "20 – 34",
+     "matches_lost": "11",
+     "goals": "21 – 36",
      "points": "21"
     },
     {
      "club_name": "SD Huesca",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/sd-huesca/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/3325.png",
-     "matches_played": "24",
+     "matches_played": "25",
      "matches_won": "3",
-     "matches_tie": "10",
+     "matches_tie": "11",
      "matches_lost": "11",
-     "goals": "21 – 35",
-     "points": "19"
+     "goals": "22 – 36",
+     "points": "20"
     }
    ],
    "schedule": [
@@ -9796,61 +9831,71 @@
        "date": "26.02.2021",
        "time": "21:00",
        "clubs_playing": "Levante – Athletic Club",
-       "match_url": "https://www.bold.dk/fodbold/kamp/levante-vs-athletic-club/36920025/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/levante-vs-athletic-club/36920025/",
+       "result": "1 – 1"
       },
       {
        "date": "27.02.2021",
        "time": "14:00",
        "clubs_playing": "Eibar – SD Huesca",
-       "match_url": "https://www.bold.dk/fodbold/kamp/eibar-vs-sd-huesca/36920021/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/eibar-vs-sd-huesca/36920021/",
+       "result": "1 – 1"
       },
       {
        "date": "27.02.2021",
        "time": "16:15",
        "clubs_playing": "Sevilla – Barcelona",
-       "match_url": "https://www.bold.dk/fodbold/kamp/sevilla-vs-barcelona/36920027/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/sevilla-vs-barcelona/36920027/",
+       "result": "0 – 2"
       },
       {
        "date": "27.02.2021",
        "time": "18:30",
        "clubs_playing": "Alaves – Osasuna",
-       "match_url": "https://www.bold.dk/fodbold/kamp/alaves-vs-osasuna/36920019/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/alaves-vs-osasuna/36920019/",
+       "result": "0 – 1"
       },
       {
        "date": "27.02.2021",
        "time": "21:00",
        "clubs_playing": "Getafe – Valencia",
-       "match_url": "https://www.bold.dk/fodbold/kamp/getafe-vs-valencia/36920022/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/getafe-vs-valencia/36920022/",
+       "result": "3 – 0"
       },
       {
        "date": "28.02.2021",
        "time": "14:00",
        "clubs_playing": "Celta Vigo – Valladolid",
-       "match_url": "https://www.bold.dk/fodbold/kamp/celta-vigo-vs-valladolid/36920020/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/celta-vigo-vs-valladolid/36920020/",
+       "result": "1 – 1"
       },
       {
        "date": "28.02.2021",
        "time": "16:15",
        "clubs_playing": "Cadiz – Real Betis",
-       "match_url": "https://www.bold.dk/fodbold/kamp/cadiz-vs-real-betis/36920023/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/cadiz-vs-real-betis/36920023/",
+       "result": "0 – 1"
       },
       {
        "date": "28.02.2021",
        "time": "18:30",
        "clubs_playing": "Granada – Elche",
-       "match_url": "https://www.bold.dk/fodbold/kamp/granada-vs-elche/36920024/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/granada-vs-elche/36920024/",
+       "result": "2 – 1"
       },
       {
        "date": "28.02.2021",
        "time": "21:00",
        "clubs_playing": "Villarreal – Atletico Madrid",
-       "match_url": "https://www.bold.dk/fodbold/kamp/villarreal-vs-atletico-madrid/36920028/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/villarreal-vs-atletico-madrid/36920028/",
+       "result": "0 – 2"
       },
       {
        "date": "01.03.2021",
        "time": "21:00",
        "clubs_playing": "Real Madrid – Real Sociedad",
-       "match_url": "https://www.bold.dk/fodbold/kamp/real-madrid-vs-real-sociedad/36920026/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/real-madrid-vs-real-sociedad/36920026/",
+       "result": "1 – 1"
       }
      ]
     },
@@ -10010,64 +10055,64 @@
      "round": "28",
      "matches": [
       {
-       "date": "21.03.2021",
-       "time": "17:00",
-       "clubs_playing": "Athletic Club – Eibar",
-       "match_url": "https://www.bold.dk/fodbold/kamp/athletic-club-vs-eibar/36920049/"
-      },
-      {
-       "date": "21.03.2021",
-       "time": "17:00",
-       "clubs_playing": "Atletico Madrid – Alaves",
-       "match_url": "https://www.bold.dk/fodbold/kamp/atletico-madrid-vs-alaves/36920050/"
-      },
-      {
-       "date": "21.03.2021",
-       "time": "17:00",
+       "date": "19.03.2021",
+       "time": "21:00",
        "clubs_playing": "Real Betis – Levante",
        "match_url": "https://www.bold.dk/fodbold/kamp/real-betis-vs-levante/36920051/"
       },
       {
-       "date": "21.03.2021",
-       "time": "17:00",
+       "date": "20.03.2021",
+       "time": "14:00",
+       "clubs_playing": "Athletic Club – Eibar",
+       "match_url": "https://www.bold.dk/fodbold/kamp/athletic-club-vs-eibar/36920049/"
+      },
+      {
+       "date": "20.03.2021",
+       "time": "16:15",
        "clubs_playing": "Celta Vigo – Real Madrid",
        "match_url": "https://www.bold.dk/fodbold/kamp/celta-vigo-vs-real-madrid/36920052/"
       },
       {
-       "date": "21.03.2021",
-       "time": "17:00",
-       "clubs_playing": "Getafe – Elche",
-       "match_url": "https://www.bold.dk/fodbold/kamp/getafe-vs-elche/36920053/"
-      },
-      {
-       "date": "21.03.2021",
-       "time": "17:00",
+       "date": "20.03.2021",
+       "time": "18:30",
        "clubs_playing": "SD Huesca – Osasuna",
        "match_url": "https://www.bold.dk/fodbold/kamp/sd-huesca-vs-osasuna/36920054/"
       },
       {
-       "date": "21.03.2021",
-       "time": "17:00",
-       "clubs_playing": "Real Sociedad – Barcelona",
-       "match_url": "https://www.bold.dk/fodbold/kamp/real-sociedad-vs-barcelona/36920055/"
-      },
-      {
-       "date": "21.03.2021",
-       "time": "17:00",
-       "clubs_playing": "Valencia – Granada",
-       "match_url": "https://www.bold.dk/fodbold/kamp/valencia-vs-granada/36920056/"
-      },
-      {
-       "date": "21.03.2021",
-       "time": "17:00",
+       "date": "20.03.2021",
+       "time": "21:00",
        "clubs_playing": "Valladolid – Sevilla",
        "match_url": "https://www.bold.dk/fodbold/kamp/valladolid-vs-sevilla/36920057/"
       },
       {
        "date": "21.03.2021",
-       "time": "17:00",
+       "time": "14:00",
+       "clubs_playing": "Getafe – Elche",
+       "match_url": "https://www.bold.dk/fodbold/kamp/getafe-vs-elche/36920053/"
+      },
+      {
+       "date": "21.03.2021",
+       "time": "16:15",
+       "clubs_playing": "Valencia – Granada",
+       "match_url": "https://www.bold.dk/fodbold/kamp/valencia-vs-granada/36920056/"
+      },
+      {
+       "date": "21.03.2021",
+       "time": "16:15",
        "clubs_playing": "Villarreal – Cadiz",
        "match_url": "https://www.bold.dk/fodbold/kamp/villarreal-vs-cadiz/36920058/"
+      },
+      {
+       "date": "21.03.2021",
+       "time": "18:30",
+       "clubs_playing": "Atletico Madrid – Alaves",
+       "match_url": "https://www.bold.dk/fodbold/kamp/atletico-madrid-vs-alaves/36920050/"
+      },
+      {
+       "date": "21.03.2021",
+       "time": "21:00",
+       "clubs_playing": "Real Sociedad – Barcelona",
+       "match_url": "https://www.bold.dk/fodbold/kamp/real-sociedad-vs-barcelona/36920055/"
       }
      ]
     },

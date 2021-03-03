@@ -61,6 +61,7 @@ tools:
               {{ message }}
             data:
               icon_url: "{{ icon_url }}"
+              image: "{{ image }}"
               sticky: "{{ sticky }}"
               persistent: "{{ persistent }}"
               tag: "{{ tag }}"

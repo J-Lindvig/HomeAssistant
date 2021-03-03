@@ -1,5 +1,4 @@
 christmas:
-
   automation:
     - alias: "Julelys"
       id: f4bbae9b61654458b588d37ce29cd103
@@ -9,6 +8,7 @@ christmas:
       trigger:
         - platform: state
           entity_id: sun.sun
+      condition: "{{ now().month < 3 or now().month > 10 }}"
       action:
         - service: "light.turn_{{ 'on' if is_state('sun.sun', 'below_horizon') else 'off' }}"
           entity_id:

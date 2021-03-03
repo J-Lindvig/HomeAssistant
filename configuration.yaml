@@ -136,6 +136,26 @@ rest_command: !include_dir_merge_named include/rest_commands/
 #   ___/ /
 #  /____/
 #
+# Example configuration.yaml entry
+sensor:
+  - platform: weather_data
+    name: Weather
+    forecast: 24
+    monitored_conditions:
+      - temperature
+      - symbol
+      - precipitation
+      - windSpeed
+      - pressure
+      - windDirection
+      - humidity
+      - fog
+      - cloudiness
+      - lowClouds
+      - mediumClouds
+      - highClouds
+      - dewpointTemperature
+
 shell_command: !include_dir_merge_named include/shell_commands/
 
 #    ______
