@@ -8,11 +8,11 @@
      "club_name": "FC Midtjylland",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/fc-midtjylland/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/44.png",
-     "matches_played": "18",
+     "matches_played": "19",
      "matches_won": "12",
      "matches_tie": "3",
-     "matches_lost": "3",
-     "goals": "30 – 17",
+     "matches_lost": "4",
+     "goals": "30 – 19",
      "points": "39"
     },
     {
@@ -27,6 +27,17 @@
      "points": "37"
     },
     {
+     "club_name": "FC København",
+     "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/fc-koebenhavn/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/8183.png",
+     "matches_played": "19",
+     "matches_won": "10",
+     "matches_tie": "4",
+     "matches_lost": "5",
+     "goals": "37 – 31",
+     "points": "34"
+    },
+    {
      "club_name": "AGF",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/agf/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/142.png",
@@ -36,17 +47,6 @@
      "matches_lost": "4",
      "goals": "32 – 20",
      "points": "33"
-    },
-    {
-     "club_name": "FC København",
-     "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/fc-koebenhavn/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/8183.png",
-     "matches_played": "18",
-     "matches_won": "9",
-     "matches_tie": "4",
-     "matches_lost": "5",
-     "goals": "35 – 30",
-     "points": "31"
     },
     {
      "club_name": "Randers FC",
@@ -63,23 +63,23 @@
      "club_name": "OB",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/ob/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/5509.png",
-     "matches_played": "18",
+     "matches_played": "19",
      "matches_won": "6",
-     "matches_tie": "6",
+     "matches_tie": "7",
      "matches_lost": "6",
-     "goals": "22 – 22",
-     "points": "24"
+     "goals": "23 – 23",
+     "points": "25"
     },
     {
      "club_name": "SønderjyskE",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/soenderjyske/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/4102.png",
-     "matches_played": "18",
+     "matches_played": "19",
      "matches_won": "7",
-     "matches_tie": "3",
+     "matches_tie": "4",
      "matches_lost": "8",
-     "goals": "26 – 28",
-     "points": "24"
+     "goals": "27 – 29",
+     "points": "25"
     },
     {
      "club_name": "FC Nordsjælland",
@@ -107,23 +107,23 @@
      "club_name": "Vejle Boldklub",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/vejle-boldklub/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/194.png",
-     "matches_played": "18",
+     "matches_played": "19",
      "matches_won": "5",
      "matches_tie": "6",
-     "matches_lost": "7",
-     "goals": "22 – 28",
+     "matches_lost": "8",
+     "goals": "23 – 30",
      "points": "21"
     },
     {
      "club_name": "Lyngby",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/lyngby/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/150.png",
-     "matches_played": "18",
-     "matches_won": "2",
+     "matches_played": "19",
+     "matches_won": "3",
      "matches_tie": "5",
      "matches_lost": "11",
-     "goals": "19 – 38",
-     "points": "11"
+     "goals": "21 – 38",
+     "points": "14"
     },
     {
      "club_name": "AC Horsens",
@@ -1005,19 +1005,22 @@
        "date": "03.03.2021",
        "time": "20:00",
        "clubs_playing": "FC København – Vejle Boldklub",
-       "match_url": "https://www.bold.dk/fodbold/kamp/fc-koebenhavn-vs-vejle-boldklub/36278189/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/fc-koebenhavn-vs-vejle-boldklub/36278189/",
+       "result": "2 – 1"
       },
       {
        "date": "04.03.2021",
        "time": "18:00",
        "clubs_playing": "SønderjyskE – OB",
-       "match_url": "https://www.bold.dk/fodbold/kamp/soenderjyske-vs-ob/36278192/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/soenderjyske-vs-ob/36278192/",
+       "result": "1 – 1"
       },
       {
        "date": "04.03.2021",
        "time": "18:00",
        "clubs_playing": "Lyngby – FC Midtjylland",
-       "match_url": "https://www.bold.dk/fodbold/kamp/lyngby-vs-fc-midtjylland/36278194/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/lyngby-vs-fc-midtjylland/36278194/",
+       "result": "2 – 0"
       },
       {
        "date": "04.03.2021",
@@ -2332,12 +2335,12 @@
      "club_name": "Manchester United",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/manchester-united/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/71.png",
-     "matches_played": "26",
+     "matches_played": "27",
      "matches_won": "14",
-     "matches_tie": "8",
+     "matches_tie": "9",
      "matches_lost": "4",
      "goals": "53 – 32",
-     "points": "50"
+     "points": "51"
     },
     {
      "club_name": "Leicester",
@@ -2349,6 +2352,17 @@
      "matches_lost": "7",
      "goals": "46 – 31",
      "points": "50"
+    },
+    {
+     "club_name": "Everton",
+     "club_url": "https://www.bold.dk/fodbold/england/premier-league/everton/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/5358.png",
+     "matches_played": "26",
+     "matches_won": "14",
+     "matches_tie": "4",
+     "matches_lost": "8",
+     "goals": "39 – 33",
+     "points": "46"
     },
     {
      "club_name": "West Ham",
@@ -2384,26 +2398,15 @@
      "points": "43"
     },
     {
-     "club_name": "Everton",
-     "club_url": "https://www.bold.dk/fodbold/england/premier-league/everton/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/5358.png",
-     "matches_played": "25",
-     "matches_won": "13",
-     "matches_tie": "4",
-     "matches_lost": "8",
-     "goals": "38 – 33",
-     "points": "43"
-    },
-    {
      "club_name": "Tottenham",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/tottenham/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/118.png",
-     "matches_played": "25",
-     "matches_won": "11",
+     "matches_played": "26",
+     "matches_won": "12",
      "matches_tie": "6",
      "matches_lost": "8",
-     "goals": "41 – 27",
-     "points": "39"
+     "goals": "42 – 27",
+     "points": "42"
     },
     {
      "club_name": "Aston Villa",
@@ -2453,12 +2456,12 @@
      "club_name": "Crystal Palace",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/crystal-palace/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/178.png",
-     "matches_played": "26",
+     "matches_played": "27",
      "matches_won": "9",
-     "matches_tie": "6",
+     "matches_tie": "7",
      "matches_lost": "11",
      "goals": "29 – 43",
-     "points": "33"
+     "points": "34"
     },
     {
      "club_name": "Southampton",
@@ -2508,22 +2511,22 @@
      "club_name": "Fulham",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/fulham/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/53.png",
-     "matches_played": "26",
+     "matches_played": "27",
      "matches_won": "4",
      "matches_tie": "11",
-     "matches_lost": "11",
-     "goals": "21 – 32",
+     "matches_lost": "12",
+     "goals": "21 – 33",
      "points": "23"
     },
     {
      "club_name": "West Bromwich",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/west-bromwich-albion/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/129.png",
-     "matches_played": "26",
+     "matches_played": "27",
      "matches_won": "3",
      "matches_tie": "8",
-     "matches_lost": "15",
-     "goals": "20 – 55",
+     "matches_lost": "16",
+     "goals": "20 – 56",
      "points": "17"
     },
     {
@@ -4565,13 +4568,15 @@
        "date": "03.03.2021",
        "time": "21:15",
        "clubs_playing": "Crystal Palace – Manchester United",
-       "match_url": "https://www.bold.dk/fodbold/kamp/crystal-palace-vs-manchester-united/36642731/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/crystal-palace-vs-manchester-united/36642731/",
+       "result": "0 – 0"
       },
       {
        "date": "04.03.2021",
        "time": "19:00",
        "clubs_playing": "West Bromwich – Everton",
-       "match_url": "https://www.bold.dk/fodbold/kamp/west-bromwich-vs-everton/36642737/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/west-bromwich-vs-everton/36642737/",
+       "result": "0 – 1"
       }
      ]
     },
@@ -4582,7 +4587,8 @@
        "date": "04.03.2021",
        "time": "19:00",
        "clubs_playing": "Fulham – Tottenham",
-       "match_url": "https://www.bold.dk/fodbold/kamp/fulham-vs-tottenham/36642885/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/fulham-vs-tottenham/36642885/",
+       "result": "0 – 1"
       }
      ]
     },

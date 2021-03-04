@@ -71,38 +71,39 @@ countdowns:
   sensor:
     - platform: template
       sensors:
-        next_birthday_entity:
-          unique_id: cb2d283a24d5492cb75fef508da232d5
-          friendly_name: Next Birthday Entity
-          value_template: >
-            {%- set ns = namespace(entity_id="", prev=1000) -%}
-            {% for birthday in state_attr('group.birthdays', 'entity_id') -%}
-              {% if states(birthday) | int < ns.prev %}
-                {%- set ns.entity_id = birthday -%}
-                {%- set ns.prev = states(birthday) | int -%}
-              {% endif -%}
+        next_birthday:
+          unique_id: 000bb25b894345ab912ac394f697064f
+          friendly_name_template: "{{ state_attr(states('sensor.next_birthday'), 'friendly_name')[:-11] }}"
+          value_template: >-
+            {#
+              Lets us find the entity_id of the next birthday
+              First we create a namespace to store some variables and initiate a previous_birthday of 366 days
+              Loop only through birthsdays before the previous birthday...
+              If the current birthday is before the previous one, store the entity_id and update previous birthday
+              and continue searching
+            #}
+            {%- set ns = namespace(entity_id="", previous_birthday=366) -%}
+            {% for birthday in state_attr('group.birthdays', 'entity_id') if states(birthday) | int < ns.previous_birthday -%}
+              {%- set ns.entity_id = birthday -%}
+              {%- set ns.previous_birthday = states(birthday) | int -%}
             {% endfor -%}
             {{ ns.entity_id }}
-        next_birthday:
-          unique_id: 3bb6f91db9db486eb0d6be44bc6e3f3e
-          friendly_name_template: "{{ state_attr(states('sensor.next_birthday_entity'), 'friendly_name')[:-11] -}}"
-          value_template: >-
-            {% set days = states(states('sensor.next_birthday_entity')) | int %} 
-            {% if days > 0 %}
-              {%- if days | int > 1 -%}
-                om {{ days }} dage
-              {% else %}
-                i morgen
-              {% endif -%}
-            {% else %}
-              i dag...!!!
-            {% endif -%}
           attribute_templates:
             years_at_next_anniversary: >-
-              {% set entity_id = states('sensor.next_birthday_entity') %}
+              {% set entity_id = states('sensor.next_birthday') %}
               {% if states(entity_id) | int == 0 -%}
                 {{ state_attr(entity_id, "years_at_next_anniversary") - 1 }}
               {% else %}
                 {{ state_attr(entity_id, "years_at_next_anniversary") }}
               {% endif %}
-            hide_in_list: "true"
+            next_birthday: >-
+              {% set days = states(states('sensor.next_birthday')) | int %} 
+              {% if days > 0 %}
+                {%- if days | int > 1 -%}
+                  om {{ days }} dage
+                {% else %}
+                  i morgen
+                {% endif -%}
+              {% else %}
+                i dag...!!!
+              {% endif -%}
