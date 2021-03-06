@@ -18,9 +18,6 @@
 automation manual: !include_dir_merge_list include/automations/
 automation ui: !include automations.yaml
 
-# automation: !include automations.yaml
-# automation old: !include_dir_merge_list include/automations/
-
 #     ______
 #    / ____/
 #   / /
