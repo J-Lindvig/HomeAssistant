@@ -19,12 +19,12 @@
      "club_name": "Brøndby IF",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/broendby-if/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/7987.png",
-     "matches_played": "18",
+     "matches_played": "19",
      "matches_won": "12",
-     "matches_tie": "1",
+     "matches_tie": "2",
      "matches_lost": "5",
      "goals": "34 – 22",
-     "points": "37"
+     "points": "38"
     },
     {
      "club_name": "FC København",
@@ -52,12 +52,12 @@
      "club_name": "Randers FC",
      "club_url": "https://www.bold.dk/fodbold/danmark/3f-superligaen/randers-fc/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/4301.png",
-     "matches_played": "18",
+     "matches_played": "19",
      "matches_won": "8",
-     "matches_tie": "3",
+     "matches_tie": "4",
      "matches_lost": "7",
      "goals": "27 – 17",
-     "points": "27"
+     "points": "28"
     },
     {
      "club_name": "OB",
@@ -1026,7 +1026,8 @@
        "date": "04.03.2021",
        "time": "20:00",
        "clubs_playing": "Brøndby IF – Randers FC",
-       "match_url": "https://www.bold.dk/fodbold/kamp/broendby-if-vs-randers-fc/36278190/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/broendby-if-vs-randers-fc/36278190/",
+       "result": "0 – 0"
       }
      ]
     },
@@ -1163,12 +1164,12 @@
      "club_name": "Viborg FF",
      "club_url": "https://www.bold.dk/fodbold/danmark/1-division/viborg/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/125.png",
-     "matches_played": "19",
-     "matches_won": "14",
+     "matches_played": "20",
+     "matches_won": "15",
      "matches_tie": "5",
      "matches_lost": "0",
-     "goals": "39 – 14",
-     "points": "47"
+     "goals": "42 – 14",
+     "points": "50"
     },
     {
      "club_name": "Esbjerg fB",
@@ -1215,6 +1216,17 @@
      "points": "28"
     },
     {
+     "club_name": "FC Fredericia",
+     "club_url": "https://www.bold.dk/fodbold/danmark/1-division/fredericia/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/159.png",
+     "matches_played": "20",
+     "matches_won": "8",
+     "matches_tie": "4",
+     "matches_lost": "8",
+     "goals": "26 – 25",
+     "points": "28"
+    },
+    {
      "club_name": "HB Køge",
      "club_url": "https://www.bold.dk/fodbold/danmark/1-division/hb-koege/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/149.png",
@@ -1226,26 +1238,15 @@
      "points": "28"
     },
     {
-     "club_name": "FC Fredericia",
-     "club_url": "https://www.bold.dk/fodbold/danmark/1-division/fredericia/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/159.png",
-     "matches_played": "19",
-     "matches_won": "8",
-     "matches_tie": "3",
-     "matches_lost": "8",
-     "goals": "25 – 24",
-     "points": "27"
-    },
-    {
      "club_name": "Hobro",
      "club_url": "https://www.bold.dk/fodbold/danmark/1-division/hobro-ik/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/4620.png",
-     "matches_played": "19",
+     "matches_played": "20",
      "matches_won": "6",
-     "matches_tie": "5",
+     "matches_tie": "6",
      "matches_lost": "8",
-     "goals": "29 – 35",
-     "points": "23"
+     "goals": "30 – 36",
+     "points": "24"
     },
     {
      "club_name": "Hvidovre IF",
@@ -1284,11 +1285,11 @@
      "club_name": "Skive IK",
      "club_url": "https://www.bold.dk/fodbold/danmark/1-division/skive/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/7760.png",
-     "matches_played": "19",
+     "matches_played": "20",
      "matches_won": "2",
      "matches_tie": "4",
-     "matches_lost": "13",
-     "goals": "18 – 42",
+     "matches_lost": "14",
+     "goals": "18 – 45",
      "points": "10"
     }
    ],
@@ -2198,13 +2199,15 @@
        "date": "05.03.2021",
        "time": "19:00",
        "clubs_playing": "FC Fredericia – Hobro",
-       "match_url": "https://www.bold.dk/fodbold/kamp/fc-fredericia-vs-hobro/36242981/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/fc-fredericia-vs-hobro/36242981/",
+       "result": "1 – 1"
       },
       {
        "date": "05.03.2021",
        "time": "19:00",
        "clubs_playing": "Skive IK – Viborg FF",
-       "match_url": "https://www.bold.dk/fodbold/kamp/skive-ik-vs-viborg-ff/36242986/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/skive-ik-vs-viborg-ff/36242986/",
+       "result": "0 – 3"
       },
       {
        "date": "06.03.2021",
@@ -2354,6 +2357,17 @@
      "points": "50"
     },
     {
+     "club_name": "Chelsea",
+     "club_url": "https://www.bold.dk/fodbold/england/premier-league/chelsea/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/27.png",
+     "matches_played": "27",
+     "matches_won": "13",
+     "matches_tie": "8",
+     "matches_lost": "6",
+     "goals": "42 – 25",
+     "points": "47"
+    },
+    {
      "club_name": "Everton",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/everton/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/5358.png",
@@ -2376,25 +2390,14 @@
      "points": "45"
     },
     {
-     "club_name": "Chelsea",
-     "club_url": "https://www.bold.dk/fodbold/england/premier-league/chelsea/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/27.png",
-     "matches_played": "26",
-     "matches_won": "12",
-     "matches_tie": "8",
-     "matches_lost": "6",
-     "goals": "41 – 25",
-     "points": "44"
-    },
-    {
      "club_name": "Liverpool",
      "club_url": "https://www.bold.dk/fodbold/england/premier-league/liverpool/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/175.png",
-     "matches_played": "26",
+     "matches_played": "27",
      "matches_won": "12",
      "matches_tie": "7",
-     "matches_lost": "7",
-     "goals": "47 – 34",
+     "matches_lost": "8",
+     "goals": "47 – 35",
      "points": "43"
     },
     {
@@ -4599,7 +4602,8 @@
        "date": "04.03.2021",
        "time": "21:15",
        "clubs_playing": "Liverpool – Chelsea",
-       "match_url": "https://www.bold.dk/fodbold/kamp/liverpool-vs-chelsea/36642733/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/liverpool-vs-chelsea/36642733/",
+       "result": "0 – 1"
       }
      ]
     },
@@ -5530,6 +5534,17 @@
      "points": "18"
     },
     {
+     "club_name": "Mainz 05",
+     "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/mainz-05/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/164.png",
+     "matches_played": "24",
+     "matches_won": "4",
+     "matches_tie": "6",
+     "matches_lost": "14",
+     "goals": "23 – 44",
+     "points": "18"
+    },
+    {
      "club_name": "Bielefeld",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/arminia-bielefeld/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/652.png",
@@ -5541,26 +5556,15 @@
      "points": "18"
     },
     {
-     "club_name": "Mainz 05",
-     "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/mainz-05/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/164.png",
-     "matches_played": "23",
-     "matches_won": "4",
-     "matches_tie": "5",
-     "matches_lost": "14",
-     "goals": "23 – 44",
-     "points": "17"
-    },
-    {
      "club_name": "Schalke 04",
      "club_url": "https://www.bold.dk/fodbold/tyskland/1-bundesliga/schalke-04/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/151.png",
-     "matches_played": "23",
+     "matches_played": "24",
      "matches_won": "1",
-     "matches_tie": "6",
+     "matches_tie": "7",
      "matches_lost": "16",
      "goals": "16 – 61",
-     "points": "9"
+     "points": "10"
     }
    ],
    "schedule": [
@@ -7128,7 +7132,8 @@
        "date": "05.03.2021",
        "time": "20:30",
        "clubs_playing": "Schalke 04 – Mainz 05",
-       "match_url": "https://www.bold.dk/fodbold/kamp/schalke-04-vs-mainz-05/36424899/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/schalke-04-vs-mainz-05/36424899/",
+       "result": "0 – 0"
       },
       {
        "date": "06.03.2021",
@@ -7857,11 +7862,11 @@
      "club_name": "Villarreal",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/villarreal/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/3613.png",
-     "matches_played": "25",
+     "matches_played": "26",
      "matches_won": "8",
      "matches_tie": "13",
-     "matches_lost": "4",
-     "goals": "33 – 27",
+     "matches_lost": "5",
+     "goals": "34 – 29",
      "points": "37"
     },
     {
@@ -7898,6 +7903,17 @@
      "points": "30"
     },
     {
+     "club_name": "Valencia",
+     "club_url": "https://www.bold.dk/fodbold/spanien/laliga/valencia/",
+     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/217.png",
+     "matches_played": "26",
+     "matches_won": "7",
+     "matches_tie": "9",
+     "matches_lost": "10",
+     "goals": "32 – 36",
+     "points": "30"
+    },
+    {
      "club_name": "Celta Vigo",
      "club_url": "https://www.bold.dk/fodbold/spanien/laliga/celta-vigo/",
      "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/24.png",
@@ -7928,17 +7944,6 @@
      "matches_tie": "6",
      "matches_lost": "12",
      "goals": "20 – 30",
-     "points": "27"
-    },
-    {
-     "club_name": "Valencia",
-     "club_url": "https://www.bold.dk/fodbold/spanien/laliga/valencia/",
-     "club_logo": "https://s3.eu-central-1.amazonaws.com/static.bold.dk/img/tag/64x64/217.png",
-     "matches_played": "25",
-     "matches_won": "6",
-     "matches_tie": "9",
-     "matches_lost": "10",
-     "goals": "30 – 35",
      "points": "27"
     },
     {
@@ -9912,7 +9917,8 @@
        "date": "05.03.2021",
        "time": "21:00",
        "clubs_playing": "Valencia – Villarreal",
-       "match_url": "https://www.bold.dk/fodbold/kamp/valencia-vs-villarreal/36920036/"
+       "match_url": "https://www.bold.dk/fodbold/kamp/valencia-vs-villarreal/36920036/",
+       "result": "2 – 1"
       },
       {
        "date": "06.03.2021",
