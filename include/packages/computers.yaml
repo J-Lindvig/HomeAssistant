@@ -1,4 +1,7 @@
 computers:
+
+  wake_on_lan:
+
   switch:
     - platform: wake_on_lan
       name: PC-J-Lindvig-Windows

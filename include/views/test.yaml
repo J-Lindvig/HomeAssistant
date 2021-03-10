@@ -135,27 +135,6 @@ cards:
                 inverted: true
 
       - type: custom:stack-in-card
-        mode: horizontal
-        cards:
-          - type: picture-entity
-            entity: camera.mouse_cam_kokken
-            camera_view: live
-            show_state: false
-          - type: picture-entity
-            entity: camera.mouse_cam_gangen
-            camera_view: live
-            show_state: false
-
-      - type: custom:rejseplanen-card
-        entity: sensor.busser_brobyvaerk
-        show_scheduled_time: true # Optional
-#        max_entries: 5 # Optional
-      - type: custom:rejseplanen-card
-        entity: sensor.busser_nr_broby
-        show_scheduled_time: true # Optional
-#        max_entries: 5 # Optional
-
-      - type: custom:stack-in-card
         title: System
         cards:
           - type: custom:stack-in-card
@@ -185,27 +164,12 @@ cards:
           - type: custom:bar-card
             entity: sensor.disk_use_percent
 
-
-
-
       - type: alarm-panel
         states:
           - arm_home
           - arm_away
-        entity: alarm_control_panel.alarmo
+        entity: alarm_control_panel.master
         name: Alarmen
-
-      - type: horizontal-stack
-        cards:
-          - type: grid
-            title: Lys
-            cards:
-              - type: button
-                entity: light.sofalamper
-              - type: button
-                entity: light.stuelamper
-              - type: button
-                entity: light.lille_sofa
 
       - type: custom:auto-entities
         card:

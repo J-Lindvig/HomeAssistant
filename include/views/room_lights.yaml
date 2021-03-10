@@ -6,7 +6,7 @@
 #      /_____/\__,_/\__/\__/\____/_/ /_/\____/\/____/_/_/\__,_/\___/_/         #
 #                                                              by J-Lindvig    #
 ################################################################################
-# Created: 9/12/2020                                                           #
+# Created: 8/3/2021                                                            #
 ################################################################################
 
 title: Lys
@@ -15,9 +15,8 @@ panel: True
 cards:
   - type: custom:layout-card
     layout: auto
-    min_columns: 1
-    max_columns: 4
-    min_width: 24.25%
+    column_num: 4
+    column_width: 24.75%
     cards:
       - type: custom:stack-in-card
         title: "Køkken"
@@ -61,16 +60,6 @@ cards:
               - type: custom:stack-in-card
                 cards:
                   - type: custom:button-card
-                    entity: light.maleri
-                  - type: entities
-                    entities:
-                      - type: custom:slider-entity-row
-                        entity: light.maleri
-                        hide_state: true
-                        full_row: true
-              - type: custom:stack-in-card
-                cards:
-                  - type: custom:button-card
                     entity: light.tavle
                   - type: entities
                     entities:
@@ -78,8 +67,19 @@ cards:
                         entity: light.tavle
                         hide_state: true
                         full_row: true
+              - type: custom:stack-in-card
+                cards:
+                  - type: custom:button-card
+                    entity: light.maleri
+                  - type: entities
+                    entities:
+                      - type: custom:slider-entity-row
+                        entity: light.maleri
+                        hide_state: true
+                        full_row: true
               - type: custom:button-card
                 color_type: blank-card
+    
 
       - type: custom:stack-in-card
         title: "Kontor"
@@ -101,6 +101,7 @@ cards:
                 color_type: blank-card
               - type: custom:button-card
                 color_type: blank-card
+    
 
       - type: custom:stack-in-card
         title: "Stuen"
@@ -121,21 +122,21 @@ cards:
               - type: custom:stack-in-card
                 cards:
                   - type: custom:button-card
-                    entity: light.stuelamper
-                  - type: entities
-                    entities:
-                      - type: custom:slider-entity-row
-                        entity: light.stuelamper
-                        hide_state: true
-                        full_row: true
-              - type: custom:stack-in-card
-                cards:
-                  - type: custom:button-card
                     entity: light.lille_sofa
                   - type: entities
                     entities:
                       - type: custom:slider-entity-row
                         entity: light.lille_sofa
+                        hide_state: true
+                        full_row: true
+              - type: custom:stack-in-card
+                cards:
+                  - type: custom:button-card
+                    entity: light.stuelamper
+                  - type: entities
+                    entities:
+                      - type: custom:slider-entity-row
+                        entity: light.stuelamper
                         hide_state: true
                         full_row: true
 
@@ -145,16 +146,6 @@ cards:
           - type: custom:stack-in-card
             mode: horizontal
             cards:
-              - type: custom:stack-in-card
-                cards:
-                  - type: custom:button-card
-                    entity: light.studievaerelse_gulvlampe
-                  - type: entities
-                    entities:
-                      - type: custom:slider-entity-row
-                        entity: light.studievaerelse_gulvlampe
-                        hide_state: true
-                        full_row: true
               - type: custom:stack-in-card
                 cards:
                   - type: custom:button-card
@@ -168,16 +159,13 @@ cards:
               - type: custom:stack-in-card
                 cards:
                   - type: custom:button-card
-                    entity: light.cornelies_skrivebordslampe
+                    entity: light.gulvlampe
                   - type: entities
                     entities:
                       - type: custom:slider-entity-row
-                        entity: light.cornelies_skrivebordslampe
+                        entity: light.gulvlampe
                         hide_state: true
                         full_row: true
-          - type: custom:stack-in-card
-            mode: horizontal
-            cards:
               - type: custom:stack-in-card
                 cards:
                   - type: custom:button-card
@@ -188,10 +176,24 @@ cards:
                         entity: light.nathalies_skrivebordslampe
                         hide_state: true
                         full_row: true
+          - type: custom:stack-in-card
+            mode: horizontal
+            cards:
+              - type: custom:stack-in-card
+                cards:
+                  - type: custom:button-card
+                    entity: light.cornelies_skrivebordslampe
+                  - type: entities
+                    entities:
+                      - type: custom:slider-entity-row
+                        entity: light.cornelies_skrivebordslampe
+                        hide_state: true
+                        full_row: true
               - type: custom:button-card
                 color_type: blank-card
               - type: custom:button-card
                 color_type: blank-card
+    
 
       - type: custom:stack-in-card
         title: "Fælles"
@@ -258,6 +260,7 @@ cards:
                         full_row: true
               - type: custom:button-card
                 color_type: blank-card
+    
 
       - type: custom:stack-in-card
         title: "Williams værelse"
@@ -268,16 +271,6 @@ cards:
               - type: custom:stack-in-card
                 cards:
                   - type: custom:button-card
-                    entity: light.williams_loftlampe
-                  - type: entities
-                    entities:
-                      - type: custom:slider-entity-row
-                        entity: light.williams_loftlampe
-                        hide_state: true
-                        full_row: true
-              - type: custom:stack-in-card
-                cards:
-                  - type: custom:button-card
                     entity: light.williams_lampe
                   - type: entities
                     entities:
@@ -285,8 +278,19 @@ cards:
                         entity: light.williams_lampe
                         hide_state: true
                         full_row: true
+              - type: custom:stack-in-card
+                cards:
+                  - type: custom:button-card
+                    entity: light.williams_loftlampe
+                  - type: entities
+                    entities:
+                      - type: custom:slider-entity-row
+                        entity: light.williams_loftlampe
+                        hide_state: true
+                        full_row: true
               - type: custom:button-card
                 color_type: blank-card
+    
 
       - type: custom:stack-in-card
         title: "Badeværelser"
@@ -316,6 +320,7 @@ cards:
                         full_row: true
               - type: custom:button-card
                 color_type: blank-card
+    
 
       - type: custom:stack-in-card
         title: "Emilios værelse"
@@ -345,6 +350,7 @@ cards:
                         full_row: true
               - type: custom:button-card
                 color_type: blank-card
+    
 
       - type: custom:stack-in-card
         title: "Colins værelse"
@@ -355,11 +361,11 @@ cards:
               - type: custom:stack-in-card
                 cards:
                   - type: custom:button-card
-                    entity: light.colins_skylampe
+                    entity: light.colins_lampe
                   - type: entities
                     entities:
                       - type: custom:slider-entity-row
-                        entity: light.colins_skylampe
+                        entity: light.colins_lampe
                         hide_state: true
                         full_row: true
               - type: custom:stack-in-card
@@ -375,11 +381,11 @@ cards:
               - type: custom:stack-in-card
                 cards:
                   - type: custom:button-card
-                    entity: light.colins_lampe
+                    entity: light.colins_skylampe
                   - type: entities
                     entities:
                       - type: custom:slider-entity-row
-                        entity: light.colins_lampe
+                        entity: light.colins_skylampe
                         hide_state: true
                         full_row: true
 
@@ -403,6 +409,7 @@ cards:
                 color_type: blank-card
               - type: custom:button-card
                 color_type: blank-card
+    
 
       - type: custom:stack-in-card
         title: "Cornelies værelse"
@@ -424,6 +431,7 @@ cards:
                 color_type: blank-card
               - type: custom:button-card
                 color_type: blank-card
+    
 
       - type: custom:stack-in-card
         title: "Nathalies værelse"
@@ -453,6 +461,7 @@ cards:
                         full_row: true
               - type: custom:button-card
                 color_type: blank-card
+    
 
       - type: custom:stack-in-card
         title: "Bloklys"
@@ -490,6 +499,7 @@ cards:
                         entity: light.bloklys_stuen
                         hide_state: true
                         full_row: true
+
 ################################################################################
 ####                              End of file                               ####
 ################################################################################

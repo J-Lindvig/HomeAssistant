@@ -56,7 +56,7 @@ room_groups_lights:
         - group.koekken
         - group.kontor
         - group.stuen
-        - group.studie_vaerelse
+        - group.studievaerelse
         - group.faelles
         - group.hjaltes_vaerelse
         - group.williams_vaerelse
@@ -68,6 +68,35 @@ room_groups_lights:
         - group.nathalies_vaerelse
         - group.bloklys
 
+    koekken:
+      name: Køkken
+      entities:
+        - light.spisebord
+        - light.kaffebar
+        - light.kokkenbord
+        - light.tavle
+        - light.maleri
+
+    kontor:
+      name: Kontor
+      entities:
+        - light.sandbox
+
+    stuen:
+      name: Stuen
+      entities:
+        - light.stor_sofa
+        - light.lille_sofa
+        - light.stuelamper
+
+    studievaerelse:
+      name: Studieværelse
+      entities:
+        - light.studievaerelse_uplight
+        - light.gulvlampe
+        - light.nathalies_skrivebordslampe
+        - light.cornelies_skrivebordslampe
+
     faelles:
       name: Fælles
       icon: mdi:track-light
@@ -75,6 +104,53 @@ room_groups_lights:
         - light.gangen
         - light.indgang
         - light.havegangen
+
+    hjaltes_vaerelse:
+      name: Hjaltes værelse
+      entities:
+        - light.hjaltes_loftlampe
+        - light.hjaltes_nanoleaf
+
+    williams_vaerelse:
+      name: Williams værelse
+      entities:
+        - light.williams_lampe
+        - light.williams_loftlampe
+
+    badevaerelser:
+      name: Badeværelser
+      entities:
+        - light.lille_badevaerelse
+        - light.stort_badevaerelse
+
+    emilios_vaerelse:
+      name: Emilios værelse
+      entities:
+        - light.emilios_stjernelampe
+        - light.emilios_loftlampe
+
+    colins_vaerelse:
+      name: Colins værelse
+      entities:
+        - light.colins_lampe
+        - light.colins_loftlampe
+        - light.colins_skylampe
+
+    pigernes_stue:
+      name: Pigernes stue
+      entities:
+        - light.pigernes_stue_kuglelampe
+
+    cornelies_vaerelse:
+      name: Cornelies værelse
+      entities:
+        - light.cornelies_gulvlampe
+
+    nathalies_vaerelse:
+      name: Nathalies værelse
+      entities:
+        - light.nathalies_sengelamper
+        - light.nathalies_loftlamper
 
     bloklys:
       name: Bloklys

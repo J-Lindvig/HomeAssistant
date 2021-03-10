@@ -6,7 +6,7 @@
 #    /_____/_/\__, /_/ /_/\__/      \____/\____/_/ /_/\__/_/   \____/_/        #
 #            /____/                                           by J-Lindvig     #
 ################################################################################
-# Created: 10/11/2020                                                          #
+# Created: 8/3/2021                                                            #
 ################################################################################
 
 type: custom:stack-in-card
@@ -332,7 +332,7 @@ cards:
         type: glance
         show_state: false
         entities:
-          - entity: light.sandbox_bulb
+          - entity: light.sandbox
             tap_action:
               action: toggle
             hold_action:
@@ -350,7 +350,7 @@ cards:
                   show_header_toggle: true
                   entities:
                     - type: custom:slider-entity-row
-                      entity: light.sandbox_bulb
+                      entity: light.sandbox
                       toggle: true
             double_tap_action:
               action: call-service
@@ -367,7 +367,7 @@ cards:
                   show_header_toggle: true
                   entities:
                     - type: custom:slider-entity-row
-                      entity: light.sandbox_bulb
+                      entity: light.sandbox
                       toggle: true
     
       Stuen:
@@ -395,7 +395,7 @@ cards:
                       entity: light.lille_sofa
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.sofalamper
+                      entity: light.stor_sofa
                       toggle: true
                     - type: custom:slider-entity-row
                       entity: light.stuelamper
@@ -418,12 +418,12 @@ cards:
                       entity: light.lille_sofa
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.sofalamper
+                      entity: light.stor_sofa
                       toggle: true
                     - type: custom:slider-entity-row
                       entity: light.stuelamper
                       toggle: true
-          - entity: light.sofalamper
+          - entity: light.stor_sofa
             tap_action:
               action: toggle
             hold_action:
@@ -444,7 +444,7 @@ cards:
                       entity: light.lille_sofa
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.sofalamper
+                      entity: light.stor_sofa
                       toggle: true
                     - type: custom:slider-entity-row
                       entity: light.stuelamper
@@ -467,7 +467,7 @@ cards:
                       entity: light.lille_sofa
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.sofalamper
+                      entity: light.stor_sofa
                       toggle: true
                     - type: custom:slider-entity-row
                       entity: light.stuelamper
@@ -493,7 +493,7 @@ cards:
                       entity: light.lille_sofa
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.sofalamper
+                      entity: light.stor_sofa
                       toggle: true
                     - type: custom:slider-entity-row
                       entity: light.stuelamper
@@ -516,7 +516,7 @@ cards:
                       entity: light.lille_sofa
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.sofalamper
+                      entity: light.stor_sofa
                       toggle: true
                     - type: custom:slider-entity-row
                       entity: light.stuelamper
@@ -547,13 +547,13 @@ cards:
                       entity: light.cornelies_skrivebordslampe
                       toggle: true
                     - type: custom:slider-entity-row
+                      entity: light.gulvlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
                       entity: light.nathalies_skrivebordslampe
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.studievarelse_gulvlampe
-                      toggle: true
-                    - type: custom:slider-entity-row
-                      entity: light.studievarelse_uplight
+                      entity: light.studievaerelse_uplight
                       toggle: true
             double_tap_action:
               action: call-service
@@ -573,13 +573,68 @@ cards:
                       entity: light.cornelies_skrivebordslampe
                       toggle: true
                     - type: custom:slider-entity-row
+                      entity: light.gulvlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
                       entity: light.nathalies_skrivebordslampe
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.studievarelse_gulvlampe
+                      entity: light.studievaerelse_uplight
+                      toggle: true
+          - entity: light.gulvlampe
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Studieværelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.cornelies_skrivebordslampe
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.studievarelse_uplight
+                      entity: light.gulvlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.studievaerelse_uplight
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Studieværelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.cornelies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.gulvlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.studievaerelse_uplight
                       toggle: true
           - entity: light.nathalies_skrivebordslampe
             tap_action:
@@ -602,13 +657,13 @@ cards:
                       entity: light.cornelies_skrivebordslampe
                       toggle: true
                     - type: custom:slider-entity-row
+                      entity: light.gulvlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
                       entity: light.nathalies_skrivebordslampe
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.studievarelse_gulvlampe
-                      toggle: true
-                    - type: custom:slider-entity-row
-                      entity: light.studievarelse_uplight
+                      entity: light.studievaerelse_uplight
                       toggle: true
             double_tap_action:
               action: call-service
@@ -628,15 +683,15 @@ cards:
                       entity: light.cornelies_skrivebordslampe
                       toggle: true
                     - type: custom:slider-entity-row
+                      entity: light.gulvlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
                       entity: light.nathalies_skrivebordslampe
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.studievarelse_gulvlampe
+                      entity: light.studievaerelse_uplight
                       toggle: true
-                    - type: custom:slider-entity-row
-                      entity: light.studievarelse_uplight
-                      toggle: true
-          - entity: light.studievarelse_gulvlampe
+          - entity: light.studievaerelse_uplight
             tap_action:
               action: toggle
             hold_action:
@@ -657,13 +712,13 @@ cards:
                       entity: light.cornelies_skrivebordslampe
                       toggle: true
                     - type: custom:slider-entity-row
+                      entity: light.gulvlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
                       entity: light.nathalies_skrivebordslampe
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.studievarelse_gulvlampe
-                      toggle: true
-                    - type: custom:slider-entity-row
-                      entity: light.studievarelse_uplight
+                      entity: light.studievaerelse_uplight
                       toggle: true
             double_tap_action:
               action: call-service
@@ -683,68 +738,13 @@ cards:
                       entity: light.cornelies_skrivebordslampe
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.nathalies_skrivebordslampe
-                      toggle: true
-                    - type: custom:slider-entity-row
-                      entity: light.studievarelse_gulvlampe
-                      toggle: true
-                    - type: custom:slider-entity-row
-                      entity: light.studievarelse_uplight
-                      toggle: true
-          - entity: light.studievarelse_uplight
-            tap_action:
-              action: toggle
-            hold_action:
-              action: call-service
-              service: browser_mod.popup
-              service_data:
-                title: Indstilling af lys
-                style:
-                  border-radius: 20px
-                  --ha-card-border-radius: 20px
-                card:
-                  type: entities
-                  # The title of the room
-                  title: Studieværelse
-                  show_header_toggle: true
-                  entities:
-                    - type: custom:slider-entity-row
-                      entity: light.cornelies_skrivebordslampe
+                      entity: light.gulvlampe
                       toggle: true
                     - type: custom:slider-entity-row
                       entity: light.nathalies_skrivebordslampe
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.studievarelse_gulvlampe
-                      toggle: true
-                    - type: custom:slider-entity-row
-                      entity: light.studievarelse_uplight
-                      toggle: true
-            double_tap_action:
-              action: call-service
-              service: browser_mod.popup
-              service_data:
-                title: Indstilling af lys
-                style:
-                  border-radius: 20px
-                  --ha-card-border-radius: 20px
-                card:
-                  type: entities
-                  # The title of the room
-                  title: Studieværelse
-                  show_header_toggle: true
-                  entities:
-                    - type: custom:slider-entity-row
-                      entity: light.cornelies_skrivebordslampe
-                      toggle: true
-                    - type: custom:slider-entity-row
-                      entity: light.nathalies_skrivebordslampe
-                      toggle: true
-                    - type: custom:slider-entity-row
-                      entity: light.studievarelse_gulvlampe
-                      toggle: true
-                    - type: custom:slider-entity-row
-                      entity: light.studievarelse_uplight
+                      entity: light.studievaerelse_uplight
                       toggle: true
     
       Fælles:
@@ -1085,7 +1085,7 @@ cards:
         type: glance
         show_state: false
         entities:
-          - entity: light.lille_badevarelse
+          - entity: light.lille_badevaerelse
             tap_action:
               action: toggle
             hold_action:
@@ -1103,10 +1103,10 @@ cards:
                   show_header_toggle: true
                   entities:
                     - type: custom:slider-entity-row
-                      entity: light.lille_badevarelse
+                      entity: light.lille_badevaerelse
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.stort_badevarelse
+                      entity: light.stort_badevaerelse
                       toggle: true
             double_tap_action:
               action: call-service
@@ -1123,12 +1123,12 @@ cards:
                   show_header_toggle: true
                   entities:
                     - type: custom:slider-entity-row
-                      entity: light.lille_badevarelse
+                      entity: light.lille_badevaerelse
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.stort_badevarelse
+                      entity: light.stort_badevaerelse
                       toggle: true
-          - entity: light.stort_badevarelse
+          - entity: light.stort_badevaerelse
             tap_action:
               action: toggle
             hold_action:
@@ -1146,10 +1146,10 @@ cards:
                   show_header_toggle: true
                   entities:
                     - type: custom:slider-entity-row
-                      entity: light.lille_badevarelse
+                      entity: light.lille_badevaerelse
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.stort_badevarelse
+                      entity: light.stort_badevaerelse
                       toggle: true
             double_tap_action:
               action: call-service
@@ -1166,10 +1166,10 @@ cards:
                   show_header_toggle: true
                   entities:
                     - type: custom:slider-entity-row
-                      entity: light.lille_badevarelse
+                      entity: light.lille_badevaerelse
                       toggle: true
                     - type: custom:slider-entity-row
-                      entity: light.stort_badevarelse
+                      entity: light.stort_badevaerelse
                       toggle: true
     
       Emilios værelse:
@@ -1267,7 +1267,7 @@ cards:
         type: glance
         show_state: false
         entities:
-          - entity: light.colins_loftlampe
+          - entity: light.colins_lampe
             tap_action:
               action: toggle
             hold_action:
@@ -1284,6 +1284,9 @@ cards:
                   title: Colins værelse
                   show_header_toggle: true
                   entities:
+                    - type: custom:slider-entity-row
+                      entity: light.colins_lampe
+                      toggle: true
                     - type: custom:slider-entity-row
                       entity: light.colins_loftlampe
                       toggle: true
@@ -1304,6 +1307,58 @@ cards:
                   title: Colins værelse
                   show_header_toggle: true
                   entities:
+                    - type: custom:slider-entity-row
+                      entity: light.colins_lampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_skylampe
+                      toggle: true
+          - entity: light.colins_loftlampe
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Colins værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.colins_lampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_skylampe
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Colins værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.colins_lampe
+                      toggle: true
                     - type: custom:slider-entity-row
                       entity: light.colins_loftlampe
                       toggle: true
@@ -1328,6 +1383,9 @@ cards:
                   show_header_toggle: true
                   entities:
                     - type: custom:slider-entity-row
+                      entity: light.colins_lampe
+                      toggle: true
+                    - type: custom:slider-entity-row
                       entity: light.colins_loftlampe
                       toggle: true
                     - type: custom:slider-entity-row
@@ -1347,6 +1405,9 @@ cards:
                   title: Colins værelse
                   show_header_toggle: true
                   entities:
+                    - type: custom:slider-entity-row
+                      entity: light.colins_lampe
+                      toggle: true
                     - type: custom:slider-entity-row
                       entity: light.colins_loftlampe
                       toggle: true

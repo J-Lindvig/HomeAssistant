@@ -11,26 +11,3 @@ icon: mdi:tune
 panel: false
 cards:
   - !include cards/light_control/dimming.yaml
-
-  - type: custom:stack-in-card
-    cards:
-      - type: grid
-        title: Lys
-        cards:
-        - type: button
-          entity: light.sofalamper
-        - type: button
-          entity: light.stuelamper
-        - type: button
-          entity: light.lille_sofa
-
-  - type: custom:auto-entities
-    card:
-      type: grid
-      columns: 4
-    card_param: cards
-    filter:
-      include:
-        - group: group.faelles
-          options:
-            type: button
