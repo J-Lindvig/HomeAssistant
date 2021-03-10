@@ -11,4 +11,4 @@ TEMP_PATH="temp"
 
 curl $PARSEHUB_GET_BOLD_DK_URL | gunzip > "$TEMP_PATH/soccer.json"
 _curl_upload_file "$TEMP_PATH/soccer.json"
-rm -f $TEMP_PATH/dmi_tts.json
+rm -f $TEMP_PATH/soccer.json
