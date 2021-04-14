@@ -14,9 +14,9 @@ icon: mdi:lightbulb
 panel: True
 cards:
   - type: custom:layout-card
-    layout: auto
-    column_num: 4
-    column_width: 24.75%
+    layout-type: vertical
+    layout_options:
+      max_cols: 4
     cards:
       - type: custom:stack-in-card
         title: "Køkken"

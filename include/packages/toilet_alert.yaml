@@ -16,7 +16,6 @@ toilet_alert:
           event_data:
             id: toiletknap
             unique_id: 00:15:8d:00:02:8f:43:b9
-            event: 1002
       variables:
         saved_volume: "{{ state_attr('media_player.kokken', 'volume_level') }}"
       action:

@@ -15,11 +15,63 @@ title: System
 icon: mdi:test-tube
 panel: true
 cards:
+
   - type: custom:layout-card
     layout: auto
     column_num: 3
     column_width: 33%
     cards:
+
+      - type: map
+        entities:
+          - device_tracker.jacobs_moto
+        hours_to_show: 24
+
+      - type: custom:gui-sandbox
+
+      - type: markdown
+        content: |
+          {% set travel_sensor = "sensor.busmodaalborg" %}
+          {% set ts_format = "kl. %R" %}
+          {% set max_listings = 5 %}
+          {% set headers = ["", "Rute", "Afgang", "Planlagt afgang"] %}
+          {% set icon = "mdi:bus" %}
+          
+          <table width="100%">
+            <tr>
+          {%- for header in headers %}
+              <th align="left">{{ header }}</th>
+          {%- endfor %}
+            </tr>
+            <tr>
+              <td><ha-icon icon="{{ icon }}"></ha-icon></td>
+              <td>{{ state_attr(travel_sensor, "route") }}</td>
+              <td><span>{{ "nu" if states(travel_sensor) | int == 0 else "om "~states(travel_sensor)~" minut"~("ter" if states(travel_sensor) | int > 1)}}</span></td>
+              <td><span>{{ strptime(state_attr(travel_sensor, "scheduled_at"), "%d.%m.%y %H:%M").timestamp() | timestamp_custom(ts_format) }}{{ " (ny tid: "~strptime(state_attr(travel_sensor, "real_time_at"), "%d.%m.%y %H:%M").timestamp() | timestamp_custom("%R")~")" if state_attr(travel_sensor, "real_time_at") is not none }}</span></td>
+            </tr>
+          
+          {%- for departure in state_attr(travel_sensor, "next_departures") %}
+            {%- if loop.index < max_listings %}
+            <tr>
+              <td><ha-icon icon="{{ icon }}"></ha-icon></td>
+              <td>{{ departure.route }}</td>
+              <td><span>{{ "nu" if departure.due_in | int == 0 else "om "~departure.due_in~" minut"~("ter" if departure.due_in | int > 1)}}</span></td>
+              <td><span>{{ strptime(departure.due_at, "%d.%m.%y %H:%M").timestamp() | timestamp_custom(ts_format) }}{{ "(ny tid: "~strptime(departure.real_time_at, "%d.%m.%y %H:%M").timestamp() | timestamp_custom("%R")~")" if departure.real_time_at is defined }}</span></td>
+            </tr>
+            {%- endif %}
+          {%- endfor %}
+          </table>
+
+      - type: markdown
+        title: Busser
+        content: |
+          | Rute | Destination | Minutter |
+          |:-----|:------------|---------:|
+          {% for rejse in state_attr("sensor.111", "next_departures") -%}
+            {% if loop.index0 < 5 -%}
+            | {{ rejse.route }} | {{ rejse.direction }} | {{ rejse.due_in }} minut{{ 'ter' if rejse.due_in | int > 1 }} |
+            {%- endif %}
+          {% endfor %}
 
       - type: markdown
         title: Premier League
@@ -164,11 +216,18 @@ cards:
           - type: custom:bar-card
             entity: sensor.disk_use_percent
 
+      - type: custom:alarmo-card
+        entity: alarm_control_panel.alarmen
+        name: Alarmen
+        states:
+          - arm_home
+          - arm_away
+
       - type: alarm-panel
         states:
           - arm_home
           - arm_away
-        entity: alarm_control_panel.master
+        entity: alarm_control_panel.alarmen
         name: Alarmen
 
       - type: custom:auto-entities

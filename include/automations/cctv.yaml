@@ -1,7 +1,7 @@
 - id: c2da7e461fde48bdb23081ec5158e017
   alias: "Pop-Up Video when motion is detected"
   mode: single
-  initial_state: true
+  initial_state: false
   trigger:
     - platform: state
       entity_id:

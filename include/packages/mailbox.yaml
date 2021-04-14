@@ -34,24 +34,14 @@ mailbox:
       sequence:
         - service: automation.trigger
           data:
-            entity_id: automation.posten_er_hentet
-        - service: notify.mobile_app_jacobs_moto
-          data:
-            message: clear_notification
-            data:
-              tag: postkasse
-
-        # - service: automation.trigger
-        #   data:
-        #     entity_id: automation.mailbox_aio
+            entity_id: automation.mailbox_aio
 
   # The sensor in the mailbox is ON and have been for the time in input_number.mailbox_time_open
   # Condition: only fire when the "seitch" is OFF
   automation:
-  
-    - id: 7937fdac601d4ee6b5a33932cf92d8cd
-      alias: Postkasse
-      description: "Der er kommet post"
+    - id: 283417e04a154b15a272d46d41164c00
+      alias: Mailbox AIO
+      description: All-in-One Mailbox automation
       initial_state: true
       mode: single
       trigger:
@@ -59,90 +49,41 @@ mailbox:
           entity_id: binary_sensor.mailbox
           to: "on"
           for:
-            seconds: 2
-      condition:
-        condition: state
-        entity_id: input_boolean.private_mailbox
-        state: "off"
-      action:
-        - service: input_boolean.turn_on
-          data:
-            entity_id: input_boolean.private_mailbox
-
-        - service: notify.mobile_app_jacobs_moto
-          data:
-            title: "Postkasse"
-            message: "Der er kommet post."
-            data:
-              persistent: true
-              tag: postkasse 
-              channel: Postkasse
-              importance: high
-              actions:
-                - action: "mail_toggle"
-                  title: "Posten er hentet"
-
-    # Receiver of the actions from the phone
-    - id: 3bc4a5f9e5bf4aecabc8f2b24bfd65dc
-      alias: Posten er hentet
-      description: Nulstiller postkassen
-      initial_state: true
-      mode: single
-      trigger:
+            seconds: "{{ states('input_number.mailbox_time_open') | int }}"
         - platform: event
           event_type: mobile_app_notification_action
           event_data:
-            action: mail_toggle
+            action: mailbox_reset
       action:
-        - service: input_boolean.turn_off
-          data:
-            entity_id: input_boolean.private_mailbox
-    
-    # - id: 283417e04a154b15a272d46d41164c00
-    #   alias: Mailbox AIO
-    #   description: All-in-One Mailbox automation
-    #   initial_state: true
-    #   mode: single
-    #   trigger:
-    #     - platform: state
-    #       entity_id: binary_sensor.mailbox
-    #       to: "on"
-    #       for:
-    #         seconds: "{{ states('input_number.mailbox_time_open') | int }}"
-    #     - platform: event
-    #       event_type: mobile_app_notification_action
-    #       event_data:
-    #         action: mailbox_reset
-    #   action:
-    #     - choose:
-    #         - conditions:
-    #             - "{{ trigger.platform == 'state' }}"
-    #             - "{{ is_state('input_boolean.private_mailbox', 'off') }}"
-    #           sequence:
-    #             - service: input_boolean.turn_on
-    #               data:
-    #                 entity_id: input_boolean.private_mailbox
+        - choose:
+            - conditions:
+                - "{{ trigger.platform == 'state' }}"
+                - "{{ is_state('input_boolean.private_mailbox', 'off') }}"
+              sequence:
+                - service: input_boolean.turn_on
+                  data:
+                    entity_id: input_boolean.private_mailbox
   
-    #             - service: script.notification_android
-    #               data:
-    #                 service: notify.mobile_app_jacobs_moto
-    #                 title: "Besked fra din postkasse"
-    #                 message: "Der er med 99.9% sikkerhed kommet post...."
-    #                 persistent: true
-    #                 tag: postkasse
-    #                 channel: Postkasse
-    #                 importance: high
-    #                 image: "https://static1.gewaechshauscentrum.de/media/10789/allux-grundform-sort-struktur-mnavn.jpeg"
-    #                 actions:
-    #                   - action_title: "OK, posten er hentet"
-    #                     action_name: "mailbox_reset"
+                - service: script.notification_android
+                  data:
+                    service: notify.mobile_app_jacobs_moto
+                    title: "Besked fra din postkasse"
+                    message: "Der er med 99.9% sikkerhed kommet post...."
+                    persistent: true
+                    tag: postkasse
+                    channel: Postkasse
+                    importance: high
+                    image: "https://static1.gewaechshauscentrum.de/media/10789/allux-grundform-sort-struktur-mnavn.jpeg"
+                    actions:
+                      - action_title: "OK, posten er hentet"
+                        action_name: "mailbox_reset"
 
-    #       default:
-    #         - service: input_boolean.turn_off
-    #           data:
-    #             entity_id: input_boolean.private_mailbox
-    #         - service: notify.mobile_app_jacobs_moto
-    #           data:
-    #             message: clear_notification
-    #             data:
-    #               tag: postkasse
+          default:
+            - service: input_boolean.turn_off
+              data:
+                entity_id: input_boolean.private_mailbox
+            - service: notify.mobile_app_jacobs_moto
+              data:
+                message: clear_notification
+                data:
+                  tag: postkasse

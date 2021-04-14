@@ -15,9 +15,9 @@ elements:
     entity: sensor.local_date_time
     attribute: time_hhmm
     style:
-      top: 55%
+      top: 45%
       left: 50%
-      font-size: 10vh
+      font-size: 5vw
       color: white
       text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
       font-weight: bold
@@ -25,9 +25,9 @@ elements:
   - type: state-label
     entity: sensor.local_date_time
     style:
-      top: 85%
+      top: 75%
       left: 50%
-      font-size: 4vh
+      font-size: 1vw
       color: white
       text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
       font-weight: bold
@@ -36,7 +36,7 @@ elements:
     icon: mdi:weather-sunset-up
     style:
       top: 10%
-      left: 5%
+      left: 10%
       font-size: 1vw
       color: white
       text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
@@ -47,7 +47,7 @@ elements:
     attribute: sunrise
     style:
       top: 20%
-      left: 5%
+      left: 10%
       font-size: 1vw
       color: white
       text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
@@ -57,7 +57,7 @@ elements:
     icon: mdi:weather-sunset-down
     style:
       top: 10%
-      left: 95%
+      left: 90%
       font-size: 1vw
       color: white
       text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
@@ -68,7 +68,7 @@ elements:
     attribute: sunset
     style:
       top: 20%
-      left: 95%
+      left: 90%
       font-size: 1vw
       color: white
       text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black

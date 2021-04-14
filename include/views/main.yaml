@@ -23,47 +23,29 @@ icon: mdi:home-assistant
 panel: true
 cards:
   - type: custom:layout-card
-    layout: vertical
-    min_columns: 1
-    max_columns: 3
-    min_width: 33%
+    layout_type: vertical
+    layout_options:
+      max_cols: 4
     cards:
-      - type: vertical-stack
-        cards:
-          - type: picture
-            image: /local/images/headers/rotte.jpg
-          - type: horizontal-stack
-            cards:
-              - type: picture-entity
-                entity: camera.kitchen
-                camera_view: live
-                show_state: false
-              # - type: picture-entity
-              #   entity: camera.bathroom
-              #   camera_view: live
-              #   show_state: false
-          - type: horizontal-stack
-            cards:
-              - type: picture-entity
-                entity: camera.hallway
-                camera_view: live
-                show_state: false
-              - type: picture-entity
-                entity: camera.livingroom
-                camera_view: live
-                show_state: false
-
-#      - !include cards/main/transport.yaml
+      - !include cards/main/transport.yaml
 #      - !include cards/main/library.yaml
       - !include cards/room_lights/glance.yaml
-      - break
+      - type: custom:layout-break
+#      - break
 
       - !include cards/main/people_home.yaml
       - !include cards/main/slides/clock.yaml
       - !include cards/main/slides.yaml
       - !include cards/main/vacuum.yaml
-      - break
+      - type: custom:layout-break
+#      - break
 
       - !include cards/main/garbage.yaml
       - !include cards/weather/uv-index.yaml
-      - !include cards/weather/brobyvaerk.yaml
+      - type: custom:layout-break
+
+      - type: vertical-stack
+        cards:
+          - type: picture
+            image: /local/images/headers/weather.jpg
+          - !include cards/weather/brobyvaerk.yaml

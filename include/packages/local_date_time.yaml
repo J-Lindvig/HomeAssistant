@@ -2,6 +2,45 @@ local_date_time:
   sensor:
     - platform: template
       sensors:
+
+        dst:
+          friendly_name: Daylight Savings Times
+          unique_id: f2a8791bf12449c4a67d149c609c21c4
+          device_class: timestamp
+          value_template: >-
+            {%- set ns = namespace(spring = none, fall = none) %}
+            {%- set today = strptime(states('sensor.date'), '%Y-%m-%d') %}
+            {%- for i in range(365) if (today + timedelta(days = i)).timetuple().tm_mon in [3, 10] and (today + timedelta(days = i)) | as_timestamp | timestamp_custom("%w") | int == 0 %}
+              {%- set day = (today + timedelta(days = i)).astimezone() %}
+              {%- if day.timetuple().tm_mon == 3 %}
+                {%- set ns.spring = day.replace(hour = 2) %}
+              {%- else %}
+                {%- set ns.fall = day.replace(hour = 3) %}
+              {%- endif %}
+            {%- endfor %}
+            {{ [ns.spring, ns.fall] | min }}
+          attribute_templates:
+            next_spring: >-
+              {%- set ns = namespace(spring = none) %}
+              {%- set today = strptime(states('sensor.date'), '%Y-%m-%d') %}
+              {%- for i in range(365) if (today + timedelta(days = i)).timetuple().tm_mon == 3 and (today + timedelta(days = i)) | as_timestamp | timestamp_custom("%w") | int == 0 %}
+                {%- set ns.spring = (today + timedelta(days = i)).astimezone().replace(hour = 2) %}
+              {%- endfor %}
+              {{ ns.spring }}
+            next_fall: >-
+              {%- set ns = namespace(fall = none) %}
+              {%- set today = strptime(states('sensor.date'), '%Y-%m-%d') %}
+              {%- for i in range(365) if (today + timedelta(days = i)).timetuple().tm_mon == 10 and (today + timedelta(days = i)) | as_timestamp | timestamp_custom("%w") | int == 0 %}
+                {%- set ns.fall = (today + timedelta(days = i)).astimezone().replace(hour = 3) %}
+              {%- endfor %}
+              {{ ns.fall }}
+            is_dst: >-
+              {{ now().timetuple().tm_isdst == 1 }}
+            dst_change_tomorrow: >-
+              {{ now().astimezone().tzinfo != (now() + timedelta(days = 1)).astimezone().tzinfo }}
+            days_to_event: "{{ ((strptime(states('sensor.dst'), '%Y-%m-%d') | as_timestamp - strptime(states('sensor.date'), '%Y-%m-%d') | as_timestamp) / 86400) | int }}"
+            phrase: "{{ 'lose' if states('sensor.dst') == state_attr('sensor.dst', 'next_spring') else 'gain' }} an hour"
+
         local_date_time:
           friendly_name: "Dato og tid DK"
           unique_id: 89917394c3044a598f916b5f5e02a6db

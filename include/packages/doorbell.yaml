@@ -18,6 +18,10 @@ doorbell:
         - platform: event
           event_type: deconz_event
           event_data:
+            unique_id: 84:2e:14:ff:fe:f8:1d:59
+        - platform: event
+          event_type: deconz_event
+          event_data:
             unique_id: 00:15:8d:00:05:2b:96:3e
             event: 1002
       variables:
@@ -40,7 +44,7 @@ doorbell:
             data:
               channel: Dørklokke
               importance: high
-#              image: "/api/camera_proxy/camera.indgang_sd"
+              image: "/api/camera_proxy/camera.indgang"
         - service: media_player.volume_set
           data:
             entity_id:

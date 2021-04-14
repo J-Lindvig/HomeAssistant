@@ -29,13 +29,21 @@ filter:
         method: attribute
         numeric: true
         attribute: sort_value_minutes
-    - entity_id: "sensor.busser_*"
-      attributes:
-        direction: "Odense"
-      # sort:
-      #   count: 2
-      #   method: attribute
-      #   numeric: true
-      #   attribute: sort_value_minutes
+    - entity_id: "sensor.bus_*"
+      sort:
+       count: 2
+       method: attribute
+       numeric: true
+       attribute: due_in
   exclude:
     - state: "unavailable"
+
+
+type: vertical-stack
+cards:
+  - type: picture
+    image: /local/images/headers/fynbus.jpg
+  - type: custom:rejseplanen-card
+    entity: sensor.busser_fra_marsk_billesvej
+    show_scheduled_time: true
+    max_entries: 10

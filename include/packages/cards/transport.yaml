@@ -13,44 +13,84 @@ transport:
       region: "EU"
 
     - platform: rejseplanen
-      name: 110 Odense
+      name: Bus 110 Odense
       stop_id: 430276300
       direction:
         - "Odense"        
       route: "Bus 110"
 
     - platform: rejseplanen
-      name: 110 Assens
+      name: Bus 110 Assens
       stop_id: 430276300
       direction:
         - "Assens"
       route: "Bus 110"
 
     - platform: rejseplanen
-      name: 111 Odense
+      name: Busser fra Marsk Billesvej
+      stop_id: 430268500
+
+    - platform: rejseplanen
+      name: Bus 111 Odense
       stop_id: 430268500
       direction:
         - "Odense"
       route: "Bus 111"
 
     - platform: rejseplanen
-      name: 111 Faaborg
+      name: Bus 111 Faaborg
       stop_id: 430268500
       direction:
         - "Faaborg"
       route: "Bus 111"
 
     - platform: rejseplanen
-      name: 111
-      stop_id: 430268500
-      route: "Bus 111"
-
-    - platform: rejseplanen
-      name: VG
-      stop_id: "430269400"
+      name: Bus 851U Glamsbjerg
+      stop_id: 430269400
       route: "Bus 851U"
       direction:
         - "Vestfyns Uddannelsescenter"
+
+# RUNE
+    - platform: rejseplanen
+      name: "busmodaalborg"
+      stop_id: "851803202"
+      direction:
+        - 'Aalborg Busterminal'
+  
+    - platform: rejseplanen
+      name: "Elmegade 350S"
+      stop_id: "000045740"
+      route: "Bus 350S"
+      direction:
+        - 'Herlev St.'
+        - 'Ballerup St.'
+  
+    - platform: template
+      sensors:
+        busmodaalborg2:
+          friendly_name_template: >-
+            {{ state_attr('sensor.busmodaalborg'
+            , 'route') }} mod {{ state_attr('sensor.busmodaalborg'
+            , 'direction') }} om:
+          value_template: >-
+            {{ states('sensor.busmodaalborg') }} minut
+            {% if states('sensor.busmodaalborg') | int > 1 %}ter
+            {%- endif %} ({{ strptime(state_attr('sensor.busmodaalborg'
+            , 'due_at'), '%d.%m.%y %H:%M').timestamp() | timestamp_custom('%R') }})
+  
+    - platform: template
+      sensors:
+        busmodaalborg3:
+          friendly_name_template: >-
+            {{ state_attr('sensor.busmodaalborg'
+            , 'route') }}
+          value_template: >-
+            {{ states('sensor.busmodaalborg') }} minut{% if states('sensor.busmodaalborg') | int > 1 %}ter
+            {%- endif %} ({{ strptime(state_attr('sensor.busmodaalborg'
+            , 'due_at'), '%d.%m.%y %H:%M').timestamp() | timestamp_custom('%R') }}
+# RUNE
+        
 
     - platform: template
       sensors:
@@ -80,12 +120,12 @@ transport:
         ##### BUSSER #####
         bus_mod_glamsbjerg:
           friendly_name_template: >-
-            {{ state_attr('sensor.glamsbjerg', 'route') }} mod {{ state_attr('sensor.glamsbjerg', 'direction') }} om:
+            {{ state_attr('sensor.vg', 'route') }} mod {{ state_attr('sensor.vg', 'direction') }} om:
           unique_id: a0b3c4b2c4664974ab948e3a1d3d8c09
           value_template: >-
-            {{ states('sensor.glamsbjerg') }} minut{% if states('sensor.glamsbjerg') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.glamsbjerg', 'due_at').split(' ')[1] }})
+            {{ states('sensor.vg') }} minut{% if states('sensor.vg') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.vg', 'due_at').split(' ')[1] }})
           attribute_templates:
-            sort_value_minutes: "{{ state_attr('sensor.glamsbjerg', 'due_in') }}"
+            sort_value_minutes: "{{ state_attr('sensor.vg', 'due_in') }}"
 
         bus_mod_faaborg:
           friendly_name_template: >-

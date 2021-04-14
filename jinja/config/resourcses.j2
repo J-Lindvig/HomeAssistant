@@ -17,6 +17,7 @@
   "lovelace-card-templater.js": "",
   "mini-graph-card-bundle.js": "mini-graph-card",
   "multiple-entity-row.js": "lovelace-multiple-entity-row",
+  "rejseplanen-card.js": "",
   "restriction-card.js": "",
   "select-list-card.js": "",
   "slider-entity-row.js": "lovelace-slider-entity-row",
@@ -98,7 +99,7 @@
 {%- if ns.prev_char != char %}
 {%- set ns.prev_char = char %}
 {{ "#".ljust(16, "#") }}
-{% for line in banners['B'] -%}
+{% for line in banners[char] -%}
 #{{ line.center(14) }}#
 {% endfor -%}
 {{ "#".ljust(16, "#") }}

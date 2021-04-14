@@ -1,49 +1,96 @@
-title: Grid
+title: Grid new
 icon: mdi:grid
 panel: true
 cards:
-  # - type: vertical-stack
-  #   cards:
-  #     - type: picture-elements
-  #       image: /local/images/backgrounds/blank.png
-  #       aspect_ratio: 5%
-  #       elements:
-
-  #         - type: state-label
-  #           entity: sensor.time
-  #           style:
-  #             top: 50%
-  #             left: 20px
-  #             #height: 100px
-  #             width: 200px
-  #             text-align: right
-  #             font-size: 2.8em
-  #             color: rgba(202,217,235,1)
-
   - type: custom:layout-card
-    layout: grid
-    gridrows: 10vh 20vh% 40%
-    gridcols: 20% 35.55vh auto 20% 20%
-    gridgap: -10px
+    layout_type: grid
+    layout_options:
+      grid-template-columns: 5fr 5fr 5fr 5fr
+      grid-template-rows: auto
+      grid-template-areas: |
+        "header1 header2 header3 header4"
+        "transport main . sidebar"
+        "footer footer footer footer"
     cards:
-      - type: markdown
-        content: |
-          # Header
-        gridrow: 1
-        gridcol: 1 / span 5
-        style: "ha-card { height: 100%; }"
-
-      - type: picture-entity
-        entity: camera.rat_cam_kokken
-        camera_view: live
-        show_state: false
-        gridrow: 2
-        gridcol: 2
-        style: "ha-card { height: 100%; }"
-
-      - type: markdown
-        content: |
-          celle 4
-        gridrow: 3
-        gridcol: 1 / span 5
-        style: "ha-card { height: 100%; }"
+      - type: picture
+        image: /local/images/headers/weather.jpg
+        layout:
+          grid-area: header3
+      - type: custom:stack-in-card
+        mode: horizontal
+        cards:
+          - type: picture-entity
+            entity: person.jacob
+            image: /api/image/serve/af1410210ca6d4b819bb188d8bd2fad1/512x512
+            
+            show_name: False
+            show_state: False
+            state_filter:
+              "home": brightness(110%) saturate(1.2)
+              "not_home": brightness(50%) grayscale(100%)
+             
+          - type: picture-entity
+            entity: person.rikke
+            image: /api/image/serve/3f3f5347347471e34ac0a2d0228fcef2/512x512
+            
+            show_name: False
+            show_state: False
+            state_filter:
+              "home": brightness(110%) saturate(1.2)
+              "not_home": brightness(50%) grayscale(100%)
+             
+          - type: picture-entity
+            entity: person.cornelie
+            image: /api/image/serve/2cf187b250d9b1ed7f178604c759b6ba/512x512
+            
+            show_name: False
+            show_state: False
+            state_filter:
+              "home": brightness(110%) saturate(1.2)
+              "not_home": brightness(50%) grayscale(100%)
+             
+          - type: picture-entity
+            entity: person.nathalie
+            image: /api/image/serve/d5c987c43b388e3806a636452b52a094/512x512
+            
+            show_name: False
+            show_state: False
+            state_filter:
+              "home": brightness(110%) saturate(1.2)
+              "not_home": brightness(50%) grayscale(100%)
+             
+          - type: picture-entity
+            entity: person.hjalte
+            image: /api/image/serve/6287e820ab516ef85f58b2018dee2016/512x512
+            
+            show_name: False
+            show_state: False
+            state_filter:
+              "home": brightness(110%) saturate(1.2)
+              "not_home": brightness(50%) grayscale(100%)
+        layout:
+          grid-area: header2
+      - type: picture
+        image: /local/images/headers/fynbus.jpg
+        layout:
+          grid-area: header1
+      - type: picture
+        image: /local/images/headers/ffv.jpg
+        layout:
+          grid-area: header4
+      - type: custom:rejseplanen-card
+        entity: sensor.busser_fra_marsk_billesvej
+        show_scheduled_time: true
+        max_entries: 10
+        layout:
+          grid-area: transport
+      - type: custom:weather-card
+        name: Brobyværk
+        entity: weather.brobyvaerk
+        current: true
+        details: false
+        forecast: true
+        hourly_forecast: false
+        number_of_forecasts: 5
+        layout:
+          grid-area: main
