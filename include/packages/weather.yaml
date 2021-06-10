@@ -1,0 +1,10 @@
+weather_combined:
+  weather:
+    - platform: template
+      name: "Brobyværk"
+      unique_id: 395f3c73a6914c08b5399d6804f582ab
+      attribution_template: "Data fra met.no og udendørs sensor"
+      condition_template: "{{ states('weather.home') }}"
+      temperature_template: "{{ states('sensor.ude_temperature') | round() | float }}"
+      humidity_template: "{{ states('sensor.ude_humidity') | float }}"
+      forecast_template: "{{ state_attr('weather.home', 'forecast') }}"

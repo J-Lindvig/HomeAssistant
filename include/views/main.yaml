@@ -27,7 +27,8 @@ cards:
     layout_options:
       max_cols: 4
     cards:
-      - !include cards/main/transport.yaml
+      - !include cards/main/sun.yaml
+#      - !include cards/main/transport.yaml
 #      - !include cards/main/library.yaml
       - !include cards/room_lights/glance.yaml
       - type: custom:layout-break

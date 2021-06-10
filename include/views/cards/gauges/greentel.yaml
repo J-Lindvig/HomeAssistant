@@ -19,7 +19,7 @@ cards:
             - entity: "sensor.greentel"
               measurement: ""
               title: "Timer tilbage"
-              attribute: "talk_hours_left"
+              attribute: "talk_left"
               max: 35
               severity_list: "10, 30"
       - type: vertical-stack
@@ -35,6 +35,30 @@ cards:
               severity_list: "10, 30"
   - type: horizontal-stack
     cards:
+      - type: vertical-stack
+        title: SMS
+        cards:
+          - !include
+            - a_gauge.yaml
+            - entity: "sensor.greentel"
+              measurement: ""
+              title: "SMS tilbage"
+              attribute: "sms_left"
+              max: 20000
+              severity_list: "10, 30"
+      - type: vertical-stack
+        title: Data
+        cards:
+          - !include
+            - a_gauge.yaml
+            - entity: "sensor.greentel"
+              measurement: ""
+              title: "MMS tilbage"
+              attribute: "mms_left"
+              max: 5000
+              severity_list: "10, 30"
+  - type: horizontal-stack
+    cards:
       - type: custom:mini-graph-card
         hours_to_show: 168
         hour24: true
@@ -42,7 +66,7 @@ cards:
         points_per_hour: 0.2
         animate: true
         entities:
-          - entity: sensor.talk_hours_used
+          - entity: sensor.talk_used
             show_legend: false
       - type: custom:mini-graph-card
         hours_to_show: 168

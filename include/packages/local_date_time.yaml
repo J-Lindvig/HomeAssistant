@@ -123,6 +123,20 @@ local_date_time:
             # Year
             year: "{{ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%Y') }}"
 
+            # Season
+            season: >-
+              {% if states.sensor.season is not none %}
+                {% set seasons_dk = {
+                  'autumn': 'efterår',
+                  'spring': 'forår',
+                  'summer': 'sommer',
+                  'winter': 'vinter'
+                  } %}
+                  {{ seasons_dk[states('sensor.season')] }}
+              {% else %}
+                  Season not Avaiable
+              {% endif %}
+
             weekdays_short: >
               {% set weekdays_short = ['Søn','Man','Tirs','Ons','Tors','Fre','Lør'] %}
               {{ weekdays_short }}

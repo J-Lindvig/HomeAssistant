@@ -13,7 +13,6 @@ flagdays_dk:
         - nede
         - halv
         - oppe
-      initial: nede
 
   sensor:
     - platform: template

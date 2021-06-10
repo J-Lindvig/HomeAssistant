@@ -138,6 +138,8 @@ rest_command: !include_dir_merge_named include/rest_commands/
 #
 # Example configuration.yaml entry
 sensor:
+  - platform: season
+
   - platform: weather_data
     name: Weather
     forecast: 24

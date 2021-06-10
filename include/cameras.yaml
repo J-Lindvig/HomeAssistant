@@ -29,3 +29,64 @@
   username: !secret CCTV_USERNAME
   password: !secret CCTV_PASSWORD
   verify_ssl: false
+
+# - platform: mjpeg
+#   name: Rute 168 Bellinge S
+#   mjpeg_url: http://webcam.trafikken.dk/webcam/Bellinge_Cam1.jpg
+
+# - platform: mjpeg
+#   name: Vissenbjerg mod Vest
+#   mjpeg_url: http://webcam.trafikken.dk/webcam/Assens_Odensevej_Vissenbj_Cam2.jpg
+
+# - platform: mjpeg
+#   name: Vissenbjerg mod Øst
+#   mjpeg_url: http://webcam.trafikken.dk/webcam/Assens_Odensevej_Vissenbj_Cam1.jpg
+
+# - platform: mjpeg
+#   name: E20 Kauslunde mod Vest
+#   mjpeg_url: http://webcam.trafikken.dk/webcam/kauslunde2.jpg
+
+# - platform: mjpeg
+#   name: E20 Kauslunde mod Øst
+#   mjpeg_url: http://webcam.trafikken.dk/webcam/kauslunde1.jpg
+
+# - platform: mjpeg
+#   name: Odense Syd mod Vest
+#   mjpeg_url: http://webcam.trafikken.dk/webcam/OdenseSyd_Cam1.jpg
+  
+# - platform: mjpeg
+#   name: Odense Syd mod Øst
+#   mjpeg_url: http://webcam.trafikken.dk/webcam/OdenseSyd_Cam2.jpg
+
+# - platform: mjpeg
+#   name: Odense MTX mod Øst
+#   mjpeg_url: http://webcam.trafikken.dk/webcam/OdenseMTX_Cam1.jpg
+
+# - platform: mjpeg
+#   name: Odense MTX mod Vest
+#   mjpeg_url: http://webcam.trafikken.dk/webcam/OdenseMTX_Cam2.jpg
+
+# - platform: mjpeg
+#   name: Langeskov mod Vest
+#   mjpeg_url: http://webcam.trafikken.dk/webcam/Ronninge_Cam2.jpg
+
+# - platform: mjpeg
+#   name: Langeskov mod Øst
+#   mjpeg_url: http://webcam.trafikken.dk/webcam/Ronninge_Cam1.jpg
+
+# - platform: mjpeg
+#   name: Nyborg mod Vest
+#   mjpeg_url: http://webcam.trafikken.dk/webcam/Hjulby.jpg
+
+# - platform: mjpeg
+#   name: Nyborg mod Øst
+#   mjpeg_url: http://webcam.trafikken.dk/webcam/hjulbyvej.jpg
+
+# - platform: mjpeg
+#   name: Nyborg C mod Syd (Øst)
+#   mjpeg_url: http://webcam.trafikken.dk/webcam/christianslundsvej.jpg
+
+# - platform: mjpeg
+#   name: Vemmelev mod Vest
+#   mjpeg_url: http://webcam.trafikken.dk/webcam/Vemmelev_Cam1.jpg
+

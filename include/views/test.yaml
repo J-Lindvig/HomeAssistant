@@ -22,6 +22,51 @@ cards:
     column_width: 33%
     cards:
 
+      - type: custom:vacuum-card
+        entity: vacuum.lynet_mcclean
+        stats:
+          default:
+            - attribute: filter_left
+              unit: timer
+              subtitle: Filter
+            - attribute: side_brush_left
+              unit: timer
+              subtitle: Sidebørste
+            - attribute: main_brush_left
+              unit: timer
+              subtitle: Hovedbørste
+            - attribute: sensor_dirty_left
+              unit: timer
+              subtitle: Sensorer
+          cleaning:
+            - attribute: cleaned_area
+              unit: m2
+              subtitle: Rengjorte m2
+            - attribute: cleaning_time
+              unit: minuter
+              subtitle: Rengjort i tid
+
+      - type: custom:sun-card
+        language: da
+
+      - type: custom:mini-graph-card
+        name: SpeedTest
+        hour24: true
+        hours_to_show: 12
+        decimals: 2
+        animate: true
+        points_per_hour: 1
+        line_width: 2
+        lower_bound: 0
+        entities:
+          - entity: sensor.speedtest_download
+            name: Download
+          - entity: sensor.speedtest_upload
+            name: Upload
+          - entity: sensor.speedtest_ping
+            name: Ping
+            y_axis: secondary
+
       - type: map
         entities:
           - device_tracker.jacobs_moto

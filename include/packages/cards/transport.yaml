@@ -1,17 +1,5 @@
 transport:
   sensor:
-    - platform: waze_travel_time
-      name: Herstedvester Fængsel
-      origin: zone.home
-      destination: zone.herstedvester_faengsel
-      region: "EU"
-
-    - platform: waze_travel_time
-      name: Margarita og Rolf
-      origin: zone.home
-      destination: zone.farmor_og_farfar
-      region: "EU"
-
     - platform: rejseplanen
       name: Bus 110 Odense
       stop_id: 430276300

@@ -3,7 +3,7 @@
 - platform: iphonedetect
   consider_home: 600
   new_device_defaults:
-    track_new_devices: false
+    track_new_devices: true
   hosts:
     rikke_telefon: 192.168.0.130
     rikke_ur: 192.168.0.131
@@ -26,3 +26,14 @@
     cornelie_telefon_ping: 192.168.0.150
     nathalie_telefon_ping: 192.168.0.160
     hjalte_telefon_ping: 192.168.0.140
+
+- platform: traccar
+  host: 127.0.0.1
+  port: 18682
+  ssl: true
+  verify_ssl: false
+  username: jacob@lindvig-henriksen.dk
+  password: Kar2ffel!
+  event: ['all_events']
+  new_device_defaults:
+    track_new_devices: true

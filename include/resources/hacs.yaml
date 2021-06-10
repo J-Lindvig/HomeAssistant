@@ -6,7 +6,7 @@
 #  /_/ /_/_/  |_\____//____/  /_/  |_\__,_/\__,_/      \____/_/ /_/ /____/     #
 #                                                               by J-Lindvig   #
 ################################################################################
-# Created: 15/3/2021                                                           #
+# Created: 25/5/2021                                                           #
 ################################################################################
 
 
@@ -74,6 +74,17 @@
   url: /hacsfiles/gauge-card/gauge-card.js
 - type: module
   url: /hacsfiles/lovelace-gui-sandbox/gui-sandbox.js
+
+################
+#      __  __  #
+#     / / / /  #
+#    / /_/ /   #
+#   / __  /    #
+#  /_/ /_/     #
+#              #
+################
+- type: module
+  url: /hacsfiles/home-assistant-sun-card/home-assistant-sun-card.js
 
 ################
 #      __      #
@@ -145,6 +156,17 @@
   url: /hacsfiles/text-element/text-element.js
 - type: module
   url: /hacsfiles/lovelace-time-picker-card/time-picker-card.js
+
+################
+#    _    __   #
+#   | |  / /   #
+#   | | / /    #
+#   | |/ /     #
+#   |___/      #
+#              #
+################
+- type: module
+  url: /hacsfiles/vacuum-card/vacuum-card.js
 
 ################
 #   _       __ #

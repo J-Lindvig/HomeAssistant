@@ -29,6 +29,6 @@ night_sensor:
               (
                 states('sensor.time') >= state_attr("input_datetime.dim_time", "timestamp") | int | timestamp_custom('%H:%M', false)
                 or
-                states('sensor.time') <= "12:00"
+                states('sensor.time') <= "07:00"
               )
             }}
