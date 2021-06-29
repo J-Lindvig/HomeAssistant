@@ -14,7 +14,6 @@ cards:
   - type: picture-entity
     entity: person.jacob
     image: /api/image/serve/af1410210ca6d4b819bb188d8bd2fad1/512x512
-    
     show_name: False
     show_state: False
     state_filter:
@@ -24,7 +23,6 @@ cards:
   - type: picture-entity
     entity: person.rikke
     image: /api/image/serve/3f3f5347347471e34ac0a2d0228fcef2/512x512
-    
     show_name: False
     show_state: False
     state_filter:
@@ -33,8 +31,7 @@ cards:
      
   - type: picture-entity
     entity: person.cornelie
-    image: /api/image/serve/2cf187b250d9b1ed7f178604c759b6ba/512x512
-    
+    image: /api/image/serve/8a9870116d1aa5c378e2a1695337ba80/512x512  
     show_name: False
     show_state: False
     state_filter:
@@ -44,7 +41,6 @@ cards:
   - type: picture-entity
     entity: person.nathalie
     image: /api/image/serve/d5c987c43b388e3806a636452b52a094/512x512
-    
     show_name: False
     show_state: False
     state_filter:
@@ -54,7 +50,6 @@ cards:
   - type: picture-entity
     entity: person.hjalte
     image: /api/image/serve/6287e820ab516ef85f58b2018dee2016/512x512
-    
     show_name: False
     show_state: False
     state_filter:

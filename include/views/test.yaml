@@ -22,8 +22,29 @@ cards:
     column_width: 33%
     cards:
 
+      - type: custom:slider-button-card
+        entity: light.sandbox
+        action_button:
+          tap_action:
+            action: toggle
+
+      - type: picture-elements
+        image: /local/images/backgrounds/blank.png
+        camera_image: camera.lynet_mcclean_camera
+        camera_view: true
+        elements:
+          - type: state-icon
+            entity: camera.lynet_mcclean_camera
+            icon: mdi:broom
+            style:
+              left: 27%
+              top: 57%
+              position: absolute
+              transform: translate(-50%, -50%)
+
       - type: custom:vacuum-card
         entity: vacuum.lynet_mcclean
+        map: camera.lynet_mcclean_camera
         stats:
           default:
             - attribute: filter_left
@@ -32,6 +53,7 @@ cards:
             - attribute: side_brush_left
               unit: timer
               subtitle: Sidebørste
+            - entity_id: input_select.vacuum_room
             - attribute: main_brush_left
               unit: timer
               subtitle: Hovedbørste
@@ -45,6 +67,17 @@ cards:
             - attribute: cleaning_time
               unit: minuter
               subtitle: Rengjort i tid
+        actions:
+          - icon: mdi:chevron-left-circle
+            name: Forrige rum
+            service: input_select.select_previous
+            service_data:
+              entity_id: input_select.vacuum_room
+          - icon: mdi:chevron-right-circle
+            name: Næste rum
+            service: input_select.select_next
+            service_data:
+              entity_id: input_select.vacuum_room
 
       - type: custom:sun-card
         language: da

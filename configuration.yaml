@@ -66,6 +66,11 @@ homeassistant:
   customize: !include_dir_merge_named include/customize/
   packages: !include_dir_merge_named include/packages/
 
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.33.9
+
 #      __
 #     / /
 #    / /
@@ -139,6 +144,8 @@ rest_command: !include_dir_merge_named include/rest_commands/
 # Example configuration.yaml entry
 sensor:
   - platform: season
+    name: "season meteorological"
+    type: meteorological
 
   - platform: weather_data
     name: Weather

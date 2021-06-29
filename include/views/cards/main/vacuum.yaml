@@ -18,8 +18,8 @@ cards:
         entity: sensor.vacuum_fan_speed
         direction: up
         entity_row: true
-        width: 6.5vw
-        height: 15vh
+        width: 4vw
+        height: 12vh
         color: "#222222"
         min: 0
         max: 3
@@ -28,11 +28,11 @@ cards:
           name: inside
           value: off
         style:
-          top: 52%
+          top: 60%
           right: 2.5%
           position: absolute
           transform: translate(0%,-50%)
-          font-size: 2.3vh
+          font-size: 1.8vh
           text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
         tap_action:
           action: call-service
@@ -163,15 +163,15 @@ cards:
                 deviceID:
                   - this
         entity_row: true
-        width: 7vw
-        height: 3.3vh
+        width: 4vw
+        height: 2.5vh
         color: "#222222"
         positions:
           icon: off
           name: inside
           value: off
         style:
-          top: 50%
+          top: 55%
           left: 0%
           position: absolute
           transform: translate(0%,-50%)
@@ -185,7 +185,7 @@ cards:
           top: 0px
           left: 50%
           color: "#ffffff"
-          font-size: 3vh
+          font-size: 2.5vh
           line-height: 2vh
           text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
           padding-left: 50%
@@ -235,7 +235,7 @@ cards:
               top: 6vh
               left: 50%
               color: "#222222"
-              font-size: 4vh
+              font-size: 3vh
               font-weight: bold
             tap_action:
               action: call-service

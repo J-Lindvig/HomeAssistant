@@ -46,11 +46,6 @@
 # for emptying the dustbin
 
 vacuum:
-  # vacuum:
-  #   - platform: xiaomi_miio
-  #     host: !secret S6_IP
-  #     token: !secret S6_TOKEN
-  #     name: Lynet McClean
 
   var:
     # String with room numbers sychronized with the list of roomnames
