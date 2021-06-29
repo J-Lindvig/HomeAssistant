@@ -136,15 +136,108 @@ local_date_time:
 
             # Next sunsrise in HH:MM format
             sunrise: "{{ state_attr('sun.sun', 'next_rising') | as_timestamp | timestamp_custom('%H:%M') }}"
+            
+            # Next sunrise in TTS
+            sunrise_tts: >-
+              {#
+                EXTRACT H, M & S FROM THE CURRENT TIME AND STORE THEM IN SEPARATE VARIABLES:
+                H IS THE HOUR IN 0-12 FORMAT, EG 23 IS 11
+                M IS MINUTES WITH NON-LEADING ZERO
+                H24 IS THE HOUR IN 24 HOURS FORMAT
+              #}
+              {%- set H = state_attr('sun.sun', 'next_rising') | as_timestamp | timestamp_custom('%-I') | int %}
+              {%- set M = state_attr('sun.sun', 'next_rising') | as_timestamp | timestamp_custom('%-M') | int %}
+              {%- set H24 = state_attr('sun.sun', 'next_rising') | as_timestamp | timestamp_custom('%-H') | int %}
+
+              {# PLACEHOLDER FOR OUR STRING #}
+              {%- set ns = namespace(time_name="") %}
+
+              {#
+                LOOP THE KEYS OF IN THE LIST OF TIME NAMES THAT ER GREATER OR EQUAL TO H24
+                IF IT IS THE LAST LOOP OR H24 IS LESS THAN THE NEXT LOOP, THEN
+                WE HAVE FOUND THE NAME OF THE CURRENT TIME
+              #}
+              {%- for Hour in state_attr('sensor.local_date_time', 'time_names') if H24 >= Hour -%}
+                {% if loop.last or H24 < loop.nextitem -%}
+                  {% set ns.time_name = state_attr('sensor.local_date_time', 'time_names')[Hour] -%}
+                {% endif -%}
+              {%- endfor -%}
+  
+              {# LET THE MAGIC BEGIN.... #}
+              {%- if M == 0 -%}
+                {{ H }} om {{ ns.time_name }}
+              {%- elif M == 15 -%}
+                kvart over {{ H }} om {{ ns.time_name }}
+              {%- elif M == 30 -%}
+                halv {{ 1 if H == 12 else H + 1 }} om {{ ns.time_name }}
+              {%- elif M == 45 -%}
+                kvart i {{ 1 if H == 12 else H + 1 }} om {{ ns.time_name }}
+              {%- elif M <= 35 -%}
+                {{ M }} minut{{ "ter" if M > 1 }} over {{ H }} om {{ ns.time_name }}
+              {%- elif M > 35 -%}
+                {{ 60 - M }} minut{{ "ter" if 60 - M > 1 }} i {{ 1 if H == 12 else H + 1 }} om {{ ns.time_name }}
+              {%- endif -%}
 
             # Next sunset in HH:MM format
             sunset: "{{ state_attr('sun.sun', 'next_setting') | as_timestamp | timestamp_custom('%H:%M') }}"
+
+            # Next sunset in TTS
+            sunset_tts: >-
+              {#
+                EXTRACT H, M & S FROM THE CURRENT TIME AND STORE THEM IN SEPARATE VARIABLES:
+                H IS THE HOUR IN 0-12 FORMAT, EG 23 IS 11
+                M IS MINUTES WITH NON-LEADING ZERO
+                H24 IS THE HOUR IN 24 HOURS FORMAT
+              #}
+              {%- set H = state_attr('sun.sun', 'next_setting') | as_timestamp | timestamp_custom('%-I') | int %}
+              {%- set M = state_attr('sun.sun', 'next_setting') | as_timestamp | timestamp_custom('%-M') | int %}
+              {%- set H24 = state_attr('sun.sun', 'next_setting') | as_timestamp | timestamp_custom('%-H') | int %}
+
+              {# PLACEHOLDER FOR OUR STRING #}
+              {%- set ns = namespace(time_name="") %}
+
+              {#
+                LOOP THE KEYS OF IN THE LIST OF TIME NAMES THAT ER GREATER OR EQUAL TO H24
+                IF IT IS THE LAST LOOP OR H24 IS LESS THAN THE NEXT LOOP, THEN
+                WE HAVE FOUND THE NAME OF THE CURRENT TIME
+              #}
+              {%- for Hour in state_attr('sensor.local_date_time', 'time_names') if H24 >= Hour -%}
+                {% if loop.last or H24 < loop.nextitem -%}
+                  {% set ns.time_name = state_attr('sensor.local_date_time', 'time_names')[Hour] -%}
+                {% endif -%}
+              {%- endfor -%}
+  
+              {# LET THE MAGIC BEGIN.... #}
+              {%- if M == 0 -%}
+                {{ H }} om {{ ns.time_name }}
+              {%- elif M == 15 -%}
+                kvart over {{ H }} om {{ ns.time_name }}
+              {%- elif M == 30 -%}
+                halv {{ 1 if H == 12 else H + 1 }} om {{ ns.time_name }}
+              {%- elif M == 45 -%}
+                kvart i {{ 1 if H == 12 else H + 1 }} om {{ ns.time_name }}
+              {%- elif M <= 35 -%}
+                {{ M }} minut{{ "ter" if M > 1 }} over {{ H }} om {{ ns.time_name }}
+              {%- elif M > 35 -%}
+                {{ 60 - M }} minut{{ "ter" if 60 - M > 1 }} i {{ 1 if H == 12 else H + 1 }} om {{ ns.time_name }}
+              {%- endif -%}
 
             # Time in HH:MM:SS format
             time: "{{ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%H:%M:%S') }}"
 
             # Time in HH:MM format
             time_hhmm: "{{ state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%H:%M') }}"
+
+            time_names: >-
+              {%- set time_names = {
+                0: "natten",
+                6: "morgenen",
+                9: "formiddagen",
+                12: "middagen",
+                14: "eftermiddagen",
+                18: "aftenen"
+              } %}
+              {{ time_names }}
 
             # Time in spoken language with names of the current time of day
             time_tts: >-
@@ -158,16 +251,6 @@ local_date_time:
               {%- set M = state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%-M') | int %}
               {%- set H24 = state_attr('sensor.local_date_time', 'ts') | timestamp_custom('%-H') | int %}
 
-              {# KEY/VALUE LIST WITH TIME INTERVALS AND THEIR NAMES #}
-              {%- set time_names = {
-                0: "natten",
-                6: "morgenen",
-                9: "formiddagen",
-                12: "middagen",
-                14: "eftermiddagen",
-                18: "aftenen"
-                } %}
-
               {# PLACEHOLDER FOR OUR STRING #}
               {%- set ns = namespace(time_name="") %}
 
@@ -176,9 +259,9 @@ local_date_time:
                 IF IT IS THE LAST LOOP OR H24 IS LESS THAN THE NEXT LOOP, THEN
                 WE HAVE FOUND THE NAME OF THE CURRENT TIME
               #}
-              {%- for Hour in time_names if H24 >= Hour -%}
+              {%- for Hour in state_attr('sensor.local_date_time', 'time_names') if H24 >= Hour -%}
                 {% if loop.last or H24 < loop.nextitem -%}
-                  {% set ns.time_name = time_names[Hour] -%}
+                  {% set ns.time_name = state_attr('sensor.local_date_time', 'time_names')[Hour] -%}
                 {% endif -%}
               {%- endfor -%}
   
