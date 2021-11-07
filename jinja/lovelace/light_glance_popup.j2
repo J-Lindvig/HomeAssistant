@@ -1,0 +1,91 @@
+{# @Author: Jacob Lindvig Henriksen (J-Lindvig) #}
+
+{# Group containing groups(rooms) with lights #}
+{%- set main_group = "group.alle_rum" %}
+
+{# PRIVATE BEGIN #}
+{# BANNER IN YAML WITH SIGNATURE #}
+{% set signature = "by J-Lindvig" %}
+{% set stamp = "Created: " ~ now().day  ~ '/' ~ now().month ~ '/' ~ now().year %}
+{% set banner = [
+  "    __    _       __    __        ______            __             __",
+  "   / /   (_)___ _/ /_  / /_      / ____/___  ____  / /__________  / /",
+  "  / /   / / __ `/ __ \/ __/_____/ /   / __ \/ __ \/ __/ ___/ __ \/ / ",
+  " / /___/ / /_/ / / / / /_/_____/ /___/ /_/ / / / / /_/ /  / /_/ / /  ",
+  "/_____/_/\__, /_/ /_/\__/      \____/\____/_/ /_/\__/_/   \____/_/   ",
+  "        /____/                                                       "
+  ] %}
+
+{%- macro print_banner() %}
+{{ "#".ljust(80, "#") }}
+{%- for line in banner %}
+{%- if not loop.last %}
+# {{ line.center(76) }} #
+{%- else %}
+# {{ (line[:-(signature | length)] ~ signature).center(76) }} #
+{% endif -%}
+{% endfor -%}
+{{ "#".ljust(80, "#") }}
+# {{ stamp.ljust(76," ") }} #
+{{ "#".ljust(80, "#") }}
+{%- endmacro %}
+{# PRIVATE END #}
+
+{%- macro glance(group) %}
+        type: glance
+        show_state: false
+        entities:
+          {%- for light in expand(group) %}
+            {{- entity(light.entity_id, group) }}
+          {%- endfor -%}
+{%- endmacro %}
+
+{%- macro entity(light, group) %}
+          - entity: {{ light }}
+            tap_action:
+              action: toggle
+            hold_action:
+              {{ open_slider(group) }}
+            double_tap_action:
+              {{ open_slider(group) }}
+{%- endmacro %}
+
+{%- macro open_slider(group) -%}
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: {{ state_attr(group,'friendly_name') }}
+                  show_header_toggle: true
+                  entities:
+                  {%- for light in expand(group) %}
+                    - type: custom:slider-entity-row
+                      entity: {{ light.entity_id }}
+                      toggle: true
+                  {%- endfor -%}
+{%- endmacro %}
+
+{{ print_banner() }}
+
+type: custom:stack-in-card
+cards:
+  - type: entities
+    entities:
+      - input_select.room_light
+  - type: custom:state-switch
+    entity: input_select.room_light
+    states:
+    {% for group in state_attr(main_group, 'entity_id') %}
+      {{ state_attr(group,'friendly_name') }}:
+      {{- glance(group) }}
+    {% endfor %}
+
+{{ "#".ljust(80, "#") }}
+#### {{ "End of file".center(70) }} ####
+{{ "#".ljust(80, "#") }}

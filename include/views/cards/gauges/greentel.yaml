@@ -1,0 +1,78 @@
+#     ______                     __       __                       __
+#    / ____/_______  ___  ____  / /____  / /  _________ __________/ /
+#   / / __/ ___/ _ \/ _ \/ __ \/ __/ _ \/ /  / ___/ __ `/ ___/ __  / 
+#  / /_/ / /  /  __/  __/ / / / /_/  __/ /  / /__/ /_/ / /  / /_/ /  
+#  \____/_/   \___/\___/_/ /_/\__/\___/_/   \___/\__,_/_/   \__,_/   
+#                                                                    
+#                                                         by J-lindvig
+
+type: custom:stack-in-card
+mode: vertical
+cards:
+  - type: horizontal-stack
+    cards:
+      - type: vertical-stack
+        title: Taletid
+        cards:
+          - !include
+            - a_gauge.yaml
+            - entity: "sensor.greentel"
+              measurement: ""
+              title: "Timer tilbage"
+              attribute: "talk_left"
+              max: 35
+              severity_list: "10, 30"
+      - type: vertical-stack
+        title: Data
+        cards:
+          - !include
+            - a_gauge.yaml
+            - entity: "sensor.greentel"
+              measurement: ""
+              title: "GB tilbage"
+              attribute: "data_left"
+              max: 50
+              severity_list: "10, 30"
+  - type: horizontal-stack
+    cards:
+      - type: vertical-stack
+        title: SMS
+        cards:
+          - !include
+            - a_gauge.yaml
+            - entity: "sensor.greentel"
+              measurement: ""
+              title: "SMS tilbage"
+              attribute: "sms_left"
+              max: 20000
+              severity_list: "10, 30"
+      - type: vertical-stack
+        title: Data
+        cards:
+          - !include
+            - a_gauge.yaml
+            - entity: "sensor.greentel"
+              measurement: ""
+              title: "MMS tilbage"
+              attribute: "mms_left"
+              max: 5000
+              severity_list: "10, 30"
+  - type: horizontal-stack
+    cards:
+      - type: custom:mini-graph-card
+        hours_to_show: 168
+        hour24: true
+        unit: timer
+        points_per_hour: 0.2
+        animate: true
+        entities:
+          - entity: sensor.talk_used
+            show_legend: false
+      - type: custom:mini-graph-card
+        hours_to_show: 168
+        hour24: true
+        unit: GB
+        points_per_hour: 0.2
+        entities:
+          - entity: sensor.data_used
+            show_legend: false

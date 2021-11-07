@@ -1,0 +1,97 @@
+transport:
+  template:
+    - sensor:
+        - name: bil_mod_margarita_og_rolf
+          unique_id: 28eff7df076e45c59c2a9294e931ed15
+          state: >-
+            {{ states('sensor.margarita_og_rolf') }} minutter ({{ state_attr('sensor.margarita_og_rolf', 'distance' ) | round }} km. af {{ state_attr('sensor.margarita_og_rolf', 'route') }})
+          attributes:
+            sort_value_minutes: "{{ states('sensor.margarita_og_rolf') }}"
+            days: >-
+              {% set ts = as_timestamp(state_attr('calendar.farmor_og_farfar', 'start_time')) | int %}
+              {{ ((ts - as_timestamp(now()) | int) / ( 60 * 60 * 24 )) | round(0, 'ceil') }}
+
+        - name: bil_mod_herstedvester
+          unique_id: fe9c6f4519154bdf903d0dfeaed1a6af
+          state: >-
+            {{ states('sensor.herstedvester_faengsel') }} minutter ({{ state_attr('sensor.herstedvester_faengsel', 'distance' ) | round }} km. af {{ state_attr('sensor.herstedvester_faengsel', 'route') }})
+          attributes:
+            sort_value_minutes: "{{ states('sensor.herstedvester_faengsel') }}"
+            days: >-
+              {% set ts = as_timestamp(state_attr('calendar.herstedvester', 'start_time')) | int %}
+              {{ ((ts - as_timestamp(now()) | int) / ( 60 * 60 * 24 )) | round(0, 'ceil') }}
+
+        - name: bus_mod_glamsbjerg
+          unique_id: a0b3c4b2c4664974ab948e3a1d3d8c09
+          state: >-
+            {{ states('sensor.bus_851u_glamsbjerg') }} minut{% if states('sensor.bus_851u_glamsbjerg') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.bus_851u_glamsbjerg', 'due_at').split(' ')[1] }})
+          attributes:
+            sort_value_minutes: "{{ state_attr('sensor.bus_851u_glamsbjerg', 'due_in') }}"
+
+        - name: bus_mod_faaborg
+          unique_id: 613c677d60cb48128a6f56b843358205
+          state: >-
+            {{ states('sensor.bus_111_faaborg') }} minut{% if states('sensor.bus_111_faaborg') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.bus_111_faaborg', 'due_at').split(' ')[1] }})
+          attributes:
+            sort_value_minutes: "{{ state_attr('sensor.bus_111_faaborg', 'due_in') }}"
+
+        - name: bus_mod_odense
+          unique_id: 9855ea5267e148b9acc278ee97c1a927
+          state: >-
+            {{ states('sensor.bus_111_odense') }} minut{% if states('sensor.bus_111_odense') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.bus_111_odense', 'due_at').split(' ')[1] }})
+          attributes:
+            sort_value_minutes: "{{ state_attr('sensor.bus_111_odense', 'due_in') }}"
+
+        - name: bus_mod_odense_110
+          unique_id: e0f1b996e5e64849a9db39fa735bbd7e
+          state: >-
+            {{ states('sensor.bus_110_odense') }} minut{% if states('sensor.bus_110_odense') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.bus_110_odense', 'due_at').split(' ')[1] }})
+          attributes:
+            sort_value_minutes: "{{ state_attr('sensor.bus_110_odense', 'due_in') }}"
+
+        - name: bus_mod_assens_110
+          unique_id: 4f56e330030c4b138a8e259456e5c920
+          state: >-
+            {{ states('sensor.bus_110_assens') }} minut{% if states('sensor.bus_110_assens') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.bus_110_assens', 'due_at').split(' ')[1] }})
+          attributes:
+            sort_value_minutes: "{{ state_attr('sensor.bus_110_assens', 'due_in') }}"
+
+  sensor:
+    - platform: rejseplanen
+      name: Bus 110 Odense
+      stop_id: 430276300
+      direction:
+        - "Odense"        
+      route: "Bus 110"
+
+    - platform: rejseplanen
+      name: Bus 110 Assens
+      stop_id: 430276300
+      direction:
+        - "Assens"
+      route: "Bus 110"
+
+    - platform: rejseplanen
+      name: Busser fra Marsk Billesvej
+      stop_id: 430268500
+
+    - platform: rejseplanen
+      name: Bus 111 Odense
+      stop_id: 430268500
+      direction:
+        - "Odense"
+      route: "Bus 111"
+
+    - platform: rejseplanen
+      name: Bus 111 Faaborg
+      stop_id: 430268500
+      direction:
+        - "Faaborg"
+      route: "Bus 111"
+
+    - platform: rejseplanen
+      name: Bus 851U Glamsbjerg
+      stop_id: 430269400
+      route: "Bus 851U"
+      direction:
+        - "Vestfyns Uddannelsescenter"

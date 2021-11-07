@@ -1,0 +1,139 @@
+vacuum_commands:
+  script:
+
+    vacuum_power_quiet:
+      alias: "Sugestyrke Stille"
+      sequence:
+        - service: input_select.select_option
+          data:
+            entity_id: input_select.vacuum_power
+            option: "{{ state_attr('input_select.vacuum_power', 'options')[0] }}"
+
+    vacuum_power_standard:
+      alias: "Sugestyrke Standard"
+      sequence:
+        - service: input_select.select_option
+          data:
+            entity_id: input_select.vacuum_power
+            option: "{{ state_attr('input_select.vacuum_power', 'options')[1] }}"
+
+    vacuum_power_turbo:
+      alias: "Sugestyrke Turbo"
+      sequence:
+        - service: input_select.select_option
+          data:
+            entity_id: input_select.vacuum_power
+            option: "{{ state_attr('input_select.vacuum_power', 'options')[2] }}"
+
+    vacuum_power_max:
+      alias: "Sugestyrke Max"
+      sequence:
+        - service: input_select.select_option
+          data:
+            entity_id: input_select.vacuum_power
+            option: "{{ state_attr('input_select.vacuum_power', 'options')[3] }}"
+
+    vacuum_power_up:
+      alias: "Sugestyrke Op"
+      sequence:
+        - service: input_select.select_next
+          data:
+            entity_id: input_select.vacuum_power
+
+    vacuum_power_down:
+      alias: "Sugestyrke Ned"
+      sequence:
+        - service: input_select.select_previous
+          data:
+            entity_id: input_select.vacuum_power
+
+    vacuum_kitchen:
+      alias: "Støvsug køkkenet"
+      sequence:
+        - service: script.vacuum_room_google
+          data:
+            roomname: "Køkken"
+
+    vacuum_studie:
+      alias: "Støvsug studie værelse"
+      sequence:
+        - service: script.vacuum_room_google
+          data:
+            roomname: "Studie værelse"
+
+    vacuum_bedroom:
+      alias: "Støvsug Soveværelse"
+      sequence:
+        - service: script.vacuum_room_google
+          data:
+            roomname: "Soveværelse"
+
+    vacuum_livingroom:
+      alias: "Støvsug stuen"
+      sequence:
+        - service: script.vacuum_room_google
+          data:
+            roomname: "Stuen"
+
+    vacuum_entrance:
+      alias: "Støvsug indgang"
+      sequence:
+        - service: script.vacuum_room_google
+          data:
+            roomname: "Indgang"
+
+    vacuum_hallway:
+      alias: "Støvsug gangen"
+      sequence:
+        - service: script.vacuum_room_google
+          data:
+            roomname: "Gangen"
+
+    vacuum_small_bath:
+      alias: "Støvsug lille badeværelse"
+      sequence:
+        - service: script.vacuum_room_google
+          data:
+            roomname: "Lille badeværelse"
+
+    vacuum_large_bath:
+      alias: "Støvsug stort badeværelse"
+      sequence:
+        - service: script.vacuum_room_google
+          data:
+            roomname: "Stort badeværelse"
+
+    vacuum_william:
+      alias: "Støvsug Willliams værelse"
+      sequence:
+        - service: script.vacuum_room_google
+          data:
+            roomname: "Willliams værelse"
+
+    vacuum_emilio:
+      alias: "Støvsug Emilios værelse"
+      sequence:
+        - service: script.vacuum_room_google
+          data:
+            roomname: "Emilios værelse"
+
+    vacuum_colin:
+      alias: "Støvsug Colins værelse"
+      sequence:
+        - service: script.vacuum_room_google
+          data:
+            roomname: "Colins værelse"
+
+    vacuum_room_google:
+      alias: "Private start støvsugningen fra Google"
+      description: "Vælg rummet og start støvsugningen"
+      fields:
+        roomname:
+          description: "Rummets navn"
+          example: "Stuen"
+      sequence:
+        - service: input_select.select_option
+          data:
+            entity_id: input_select.vacuum_room
+            option: "{{ roomname }}"
+        - service: script.vacuum_room_start

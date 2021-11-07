@@ -1,0 +1,454 @@
+################################################################################
+#        __  _______  ____________   _____                                     #
+#       /  |/  / __ \/_  __/_  __/  / ___/___  ____  _________  __________     #
+#      / /|_/ / / / / / /   / /_____\__ \/ _ \/ __ \/ ___/ __ \/ ___/ ___/     #
+#     / /  / / /_/ / / /   / /_____/__/ /  __/ / / (__  ) /_/ / /  (__  )      #
+#    /_/  /_/\___\_\/_/   /_/     /____/\___/_/ /_/____/\____/_/  /____/       #
+#                                                             by J-Lindvig     #
+################################################################################
+# Created: 5/4/2021                                                            #
+################################################################################
+windows_doors:
+  group:
+    open_sensors:
+      name: "Vinduer og døre med åbn sensor"
+      icon: mdi:window-open-variant
+      all: true
+      entities:
+        - binary_sensor.havelage
+        - binary_sensor.hoveddor
+        - binary_sensor.pengekasse
+        - binary_sensor.alarmpanel
+        - binary_sensor.rogalarm_kontor
+
+    open_close_sensors:
+      name: "Vinduer og døre med åbn/luk sensor"
+      icon: mdi:window-closed-variant
+      all: true
+      entities:
+        - binary_sensor.indgang_vindue_haven
+        - binary_sensor.indgang_vindue_vejen
+        - binary_sensor.hjaltes_vindue_haven
+        - binary_sensor.hjaltes_vindue_vejen
+        - binary_sensor.williams_vindue
+        - binary_sensor.lille_badevaerelse_vindue_2
+        - binary_sensor.stort_badevaerelse_vindue_3
+        - binary_sensor.pigernes_indgang
+        - binary_sensor.cornelies_vindue
+        - binary_sensor.nathalies_vindue
+        - binary_sensor.pigernes_stue_vindue
+        - binary_sensor.colins_vindue
+        - binary_sensor.emilios_vindue
+        - binary_sensor.dobbelt_terrassedor
+        - binary_sensor.stuevindue_1
+        - binary_sensor.stuevindue_2
+        - binary_sensor.stuedor
+        - binary_sensor.stuevindue_3
+        - binary_sensor.kokkenvindue_1
+        - binary_sensor.kokkendor
+        - binary_sensor.kokkenvindue_2
+        - binary_sensor.kokkenvindue_3
+        - binary_sensor.kokkenvindue_4
+        - binary_sensor.kokkenvindue_5
+        - binary_sensor.kontor
+        - binary_sensor.studievaerelse_vindue
+        - binary_sensor.sovevaerelsesdor
+        - binary_sensor.sovevaerelse_vindue
+
+  automation:
+    - alias: "RF Bridge Demux"
+      mode: parallel
+      trigger:
+        - platform: mqtt
+          topic: "tele/kontor/RESULT"
+        - platform: mqtt
+          topic: "tele/indgang/RESULT"
+        - platform: mqtt
+          topic: "tele/pigernes_stue/RESULT"
+      action:
+        - service: "python_script.rfbridge_demux"
+          data:
+            payload: "{{ trigger.payload_json.RfReceived.Data }}"
+
+  binary_sensor:
+    - platform: mqtt
+      name: "Havelåge"
+      unique_id: cd71f96a0d0e412bba41e91e3866ee07
+      device_class: door
+      state_topic: "home/Havelåge"
+      off_delay: 15
+
+    - platform: mqtt
+      name: "Hoveddør"
+      unique_id: f1fe358686d14a9f916ffaf77d7d2fde
+      device_class: door
+      state_topic: "home/Hoveddør"
+      off_delay: 15
+
+    - platform: mqtt
+      name: "Pengekasse"
+      unique_id: d5182926870e47f69083b8eadf03df24
+      device_class: opening
+      state_topic: "home/Pengekasse"
+      off_delay: 15
+
+    - platform: mqtt
+      name: "Alarmpanel"
+      unique_id: b88c46f5344446b8ab8a8e944a1edee0
+      device_class: vibration
+      state_topic: "home/Alarmpanel"
+      off_delay: 30
+
+    - platform: mqtt
+      name: "Røgalarm kontor"
+      unique_id: 2c2159e924e54112a65fbf0c4fe2aada
+      device_class: smoke
+      state_topic: "home/Røgalarm kontor"
+      off_delay: 5
+
+    - platform: mqtt
+      name: "Indgang vindue haven"
+      unique_id: private_81f4a158a0444ea08b1fc8c1735bf28c
+      device_class: window
+      state_topic: "home/Indgang vindue haven"
+
+    - platform: mqtt
+      name: "Indgang vindue vejen"
+      unique_id: private_a511afebaf48413f8ed5b126554dfd63
+      device_class: window
+      state_topic: "home/Indgang vindue vejen"
+
+    - platform: mqtt
+      name: "Hjaltes vindue haven"
+      unique_id: private_5e1f399a5d574e06a2b811b03d9127ed
+      device_class: window
+      state_topic: "home/Hjaltes vindue haven"
+
+    - platform: mqtt
+      name: "Hjaltes vindue vejen"
+      unique_id: private_d127a2f135d4407289a40eddb6c88dd8
+      device_class: window
+      state_topic: "home/Hjaltes vindue vejen"
+
+    - platform: mqtt
+      name: "Williams vindue"
+      unique_id: private_45c5aa1914c641f9903ea399343399f6
+      device_class: window
+      state_topic: "home/Williams vindue"
+
+    - platform: mqtt
+      name: "Lille badeværelse vindue 2"
+      unique_id: private_3d0e098c5daa4cd2ae195493f2fba33c
+      device_class: window
+      state_topic: "home/Lille badeværelse vindue 2"
+
+    - platform: mqtt
+      name: "Stort badeværelse vindue 3"
+      unique_id: private_e499fb9750a342b3a3139115b9c4fbbd
+      device_class: window
+      state_topic: "home/Stort badeværelse vindue 3"
+
+    - platform: mqtt
+      name: "Pigernes indgang"
+      unique_id: 9bcad61af8284662a1749dbce330421e
+      device_class: door
+      state_topic: "home/Pigernes indgang"
+
+    - platform: mqtt
+      name: "Cornelies vindue"
+      unique_id: private_2a3dec1038084981b6f786b54a28c17b
+      device_class: window
+      state_topic: "home/Cornelies vindue"
+
+    - platform: mqtt
+      name: "Nathalies vindue"
+      unique_id: private_3ff715ed48204fce967b67fdc70fa692
+      device_class: window
+      state_topic: "home/Nathalies vindue"
+
+    - platform: mqtt
+      name: "Pigernes stue vindue"
+      unique_id: private_7e3185c4aef2445a981583b736273364
+      device_class: window
+      state_topic: "home/Pigernes stue vindue"
+
+    - platform: mqtt
+      name: "Colins vindue"
+      unique_id: private_37919a9252ed43e58ef2a899f2eb5487
+      device_class: window
+      state_topic: "home/Colins vindue"
+
+    - platform: mqtt
+      name: "Emilios vindue"
+      unique_id: private_f3e98ef3db904c0db1fd6ae165e4c251
+      device_class: window
+      state_topic: "home/Emilios vindue"
+
+    - platform: mqtt
+      name: "Dobbelt terrassedør"
+      unique_id: 4b03ffb918314900b4b59eed108c1960
+      device_class: door
+      state_topic: "home/Dobbelt terrassedør"
+
+    - platform: mqtt
+      name: "Stuevindue 1"
+      unique_id: private_41e1209797804d348118bf6b3c9e78fa
+      device_class: window
+      state_topic: "home/Stuevindue 1"
+
+    - platform: mqtt
+      name: "Stuevindue 2"
+      unique_id: private_f12a36fa8df54d78b758c4dfe801427d
+      device_class: window
+      state_topic: "home/Stuevindue 2"
+
+    - platform: mqtt
+      name: "Stuedør"
+      unique_id: 1a2b80684c2643c8976ed79873b4ea3d
+      device_class: door
+      state_topic: "home/Stuedør"
+
+    - platform: mqtt
+      name: "Stuevindue 3"
+      unique_id: private_b2fe2c7835554987864244d5484200e9
+      device_class: window
+      state_topic: "home/Stuevindue 3"
+
+    - platform: mqtt
+      name: "Køkkenvindue 1"
+      unique_id: private_0e8df701761a4684bb5ddbc2b6a89d3b
+      device_class: window
+      state_topic: "home/Køkkenvindue 1"
+
+    - platform: mqtt
+      name: "Køkkendør"
+      unique_id: d799c7abb7d741a9a716aa41b59ae246
+      device_class: door
+      state_topic: "home/Køkkendør"
+
+    - platform: mqtt
+      name: "Køkkenvindue 2"
+      unique_id: private_b8d129e81eca41e98f1aface82724b99
+      device_class: window
+      state_topic: "home/Køkkenvindue 2"
+
+    - platform: mqtt
+      name: "Køkkenvindue 3"
+      unique_id: private_1c78292266c54a05a0a1a2f5076cbfe3
+      device_class: window
+      state_topic: "home/Køkkenvindue 3"
+
+    - platform: mqtt
+      name: "Køkkenvindue 4"
+      unique_id: private_15d663cd3e414c2990b7f6ffa92787bd
+      device_class: window
+      state_topic: "home/Køkkenvindue 4"
+
+    - platform: mqtt
+      name: "Køkkenvindue 5"
+      unique_id: private_cbeddfe8610b48c0beb8948ae8857df6
+      device_class: window
+      state_topic: "home/Køkkenvindue 5"
+
+    - platform: mqtt
+      name: "Kontor"
+      unique_id: private_a87374accbf64e1cb4a59e6d41f12917
+      device_class: window
+      state_topic: "home/Kontor"
+
+    - platform: mqtt
+      name: "Studieværelse vindue"
+      unique_id: private_32f41eb9bb7744f1a6666f624152b12a
+      device_class: window
+      state_topic: "home/Studieværelse vindue"
+
+    - platform: mqtt
+      name: "Soveværelsesdør"
+      unique_id: 8649d817fa754d0bb7f005d6719a9a14
+      device_class: door
+      state_topic: "home/Soveværelsesdør"
+
+    - platform: mqtt
+      name: "Soveværelse vindue"
+      unique_id: private_48d246efd72c4485afca819baa59051b
+      device_class: window
+      state_topic: "home/Soveværelse vindue"
+
+    - platform: template
+      sensors:
+        indgang_vindue_haven:
+          friendly_name: "Indgang vindue haven"
+          unique_id: 81f4a158a0444ea08b1fc8c1735bf28c
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_indgang_vindue_haven') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_indgang_vindue_haven', 'on') else 'closed' }}-variant"
+
+        indgang_vindue_vejen:
+          friendly_name: "Indgang vindue vejen"
+          unique_id: a511afebaf48413f8ed5b126554dfd63
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_indgang_vindue_vejen') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_indgang_vindue_vejen', 'on') else 'closed' }}-variant"
+
+        hjaltes_vindue_haven:
+          friendly_name: "Hjaltes vindue haven"
+          unique_id: 5e1f399a5d574e06a2b811b03d9127ed
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_hjaltes_vindue_haven') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_hjaltes_vindue_haven', 'on') else 'closed' }}-variant"
+
+        hjaltes_vindue_vejen:
+          friendly_name: "Hjaltes vindue vejen"
+          unique_id: d127a2f135d4407289a40eddb6c88dd8
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_hjaltes_vindue_vejen') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_hjaltes_vindue_vejen', 'on') else 'closed' }}-variant"
+
+        williams_vindue:
+          friendly_name: "Williams vindue"
+          unique_id: 45c5aa1914c641f9903ea399343399f6
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_williams_vindue') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_williams_vindue', 'on') else 'closed' }}-variant"
+
+        lille_badevaerelse_vindue_2:
+          friendly_name: "Lille badeværelse vindue 2"
+          unique_id: 3d0e098c5daa4cd2ae195493f2fba33c
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_lille_badevaerelse_vindue_2') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_lille_badevaerelse_vindue_2', 'on') else 'closed' }}-variant"
+
+        stort_badevaerelse_vindue_3:
+          friendly_name: "Stort badeværelse vindue 3"
+          unique_id: e499fb9750a342b3a3139115b9c4fbbd
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_stort_badevaerelse_vindue_3') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_stort_badevaerelse_vindue_3', 'on') else 'closed' }}-variant"
+
+        cornelies_vindue:
+          friendly_name: "Cornelies vindue"
+          unique_id: 2a3dec1038084981b6f786b54a28c17b
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_cornelies_vindue') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_cornelies_vindue', 'on') else 'closed' }}-variant"
+
+        nathalies_vindue:
+          friendly_name: "Nathalies vindue"
+          unique_id: 3ff715ed48204fce967b67fdc70fa692
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_nathalies_vindue') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_nathalies_vindue', 'on') else 'closed' }}-variant"
+
+        pigernes_stue_vindue:
+          friendly_name: "Pigernes stue vindue"
+          unique_id: 7e3185c4aef2445a981583b736273364
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_pigernes_stue_vindue') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_pigernes_stue_vindue', 'on') else 'closed' }}-variant"
+
+        colins_vindue:
+          friendly_name: "Colins vindue"
+          unique_id: 37919a9252ed43e58ef2a899f2eb5487
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_colins_vindue') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_colins_vindue', 'on') else 'closed' }}-variant"
+
+        emilios_vindue:
+          friendly_name: "Emilios vindue"
+          unique_id: f3e98ef3db904c0db1fd6ae165e4c251
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_emilios_vindue') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_emilios_vindue', 'on') else 'closed' }}-variant"
+
+        stuevindue_1:
+          friendly_name: "Stuevindue 1"
+          unique_id: 41e1209797804d348118bf6b3c9e78fa
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_stuevindue_1') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_stuevindue_1', 'on') else 'closed' }}-variant"
+
+        stuevindue_2:
+          friendly_name: "Stuevindue 2"
+          unique_id: f12a36fa8df54d78b758c4dfe801427d
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_stuevindue_2') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_stuevindue_2', 'on') else 'closed' }}-variant"
+
+        stuevindue_3:
+          friendly_name: "Stuevindue 3"
+          unique_id: b2fe2c7835554987864244d5484200e9
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_stuevindue_3') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_stuevindue_3', 'on') else 'closed' }}-variant"
+
+        kokkenvindue_1:
+          friendly_name: "Køkkenvindue 1"
+          unique_id: 0e8df701761a4684bb5ddbc2b6a89d3b
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_kokkenvindue_1') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_kokkenvindue_1', 'on') else 'closed' }}-variant"
+
+        kokkenvindue_2:
+          friendly_name: "Køkkenvindue 2"
+          unique_id: b8d129e81eca41e98f1aface82724b99
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_kokkenvindue_2') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_kokkenvindue_2', 'on') else 'closed' }}-variant"
+
+        kokkenvindue_3:
+          friendly_name: "Køkkenvindue 3"
+          unique_id: 1c78292266c54a05a0a1a2f5076cbfe3
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_kokkenvindue_3') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_kokkenvindue_3', 'on') else 'closed' }}-variant"
+
+        kokkenvindue_4:
+          friendly_name: "Køkkenvindue 4"
+          unique_id: 15d663cd3e414c2990b7f6ffa92787bd
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_kokkenvindue_4') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_kokkenvindue_4', 'on') else 'closed' }}-variant"
+
+        kokkenvindue_5:
+          friendly_name: "Køkkenvindue 5"
+          unique_id: cbeddfe8610b48c0beb8948ae8857df6
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_kokkenvindue_5') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_kokkenvindue_5', 'on') else 'closed' }}-variant"
+
+        kontor:
+          friendly_name: "Kontor"
+          unique_id: a87374accbf64e1cb4a59e6d41f12917
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_kontor') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_kontor', 'on') else 'closed' }}-variant"
+
+        studievaerelse_vindue:
+          friendly_name: "Studieværelse vindue"
+          unique_id: 32f41eb9bb7744f1a6666f624152b12a
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_studievaerelse_vindue') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_studievaerelse_vindue', 'on') else 'closed' }}-variant"
+
+        sovevaerelse_vindue:
+          friendly_name: "Soveværelse vindue"
+          unique_id: 48d246efd72c4485afca819baa59051b
+          device_class: window
+          value_template: "{{ states('binary_sensor.private_sovevaerelse_vindue') }}"
+          icon_template: "mdi:window-{{ 'open' if is_state('binary_sensor.private_sovevaerelse_vindue', 'on') else 'closed' }}-variant"
+
+  script:
+    reload_mqtt_sensors:
+      alias: "Genindlæs MQTT sensorer"
+      icon: mdi:reload
+      description: "Genindlæs MQTT, Grupper, Templates og Scripts"
+      mode: single
+      sequence:
+        - service: automation.reload
+        - service: mqtt.reload
+        - service: template.reload
+        - service: group.reload
+
+################################################################################
+####                              End of file                               ####
+################################################################################

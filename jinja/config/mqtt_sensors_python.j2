@@ -1,0 +1,224 @@
+{# @Author: Jacob Lindvig Henriksen (J-Lindvig) #}
+
+{# VAR #}
+{% set mqtt_commands = {
+  "BE8612": ["alarmo/command", "DISARM", "false"],
+  "BE8614": ["alarmo/command", "ARMHOME", "false"],
+  "BE8611": ["alarmo/command", "ARM_AWAY", "false"],
+  "42AAA9": ["alarmo/command", "ARM_AWAY", "false"],
+  "42AAAA": ["alarmo/command", "DISARM", "false"],
+  "386608": ["alarmo/command", "ARM_AWAY", "false"],
+  "FF5F71": ["alarmo/command", "DISARM", "false"]
+} %}
+
+{% set on_sensors = {
+  "cd71f96a0d0e412bba41e91e3866ee07": ["Havelåge", "3C003A", "door"],
+  "f1fe358686d14a9f916ffaf77d7d2fde": ["Hoveddør", "C0E3DA", "door"],
+  "d5182926870e47f69083b8eadf03df24": ["Pengekasse", "5D81DA", "opening"],
+  "b88c46f5344446b8ab8a8e944a1edee0": ["Alarmpanel", "BE8618", "vibration", 30],
+  "2c2159e924e54112a65fbf0c4fe2aada": ["Røgalarm kontor", "668596", "smoke", 5]
+} %}
+
+{% set on_off_sensors = {
+  "81f4a158a0444ea08b1fc8c1735bf28c": ["Indgang vindue haven", "B0C30", "window"],
+  "a511afebaf48413f8ed5b126554dfd63": ["Indgang vindue vejen", "12C40", "window"],
+  "5e1f399a5d574e06a2b811b03d9127ed": ["Hjaltes vindue haven", "16100", "window"],
+  "d127a2f135d4407289a40eddb6c88dd8": ["Hjaltes vindue vejen", "0D510", "window"],
+  "45c5aa1914c641f9903ea399343399f6": ["Williams vindue", "E0DC0", "window"],
+  "3d0e098c5daa4cd2ae195493f2fba33c": ["Lille badeværelse vindue 2", "E32A0", "window"],
+  "e499fb9750a342b3a3139115b9c4fbbd": ["Stort badeværelse vindue 3", "ACB90", "window"],
+  "9bcad61af8284662a1749dbce330421e": ["Pigernes indgang", "E46B0", "door"],
+  "2a3dec1038084981b6f786b54a28c17b": ["Cornelies vindue", "181F0", "window"],
+  "3ff715ed48204fce967b67fdc70fa692": ["Nathalies vindue", "B2B10", "window"],
+  "7e3185c4aef2445a981583b736273364": ["Pigernes stue vindue", "AFF70", "window"],
+  "37919a9252ed43e58ef2a899f2eb5487": ["Colins vindue", "9B9B0", "window"],
+  "f3e98ef3db904c0db1fd6ae165e4c251": ["Emilios vindue", "E1220", "window"],
+  "4b03ffb918314900b4b59eed108c1960": ["Dobbelt terrassedør", "45400", "door"],
+  "41e1209797804d348118bf6b3c9e78fa": ["Stuevindue 1", "99A10", "window"],
+  "f12a36fa8df54d78b758c4dfe801427d": ["Stuevindue 2", "E2D60", "window"],
+  "1a2b80684c2643c8976ed79873b4ea3d": ["Stuedør", "0CD20", "door"],
+  "b2fe2c7835554987864244d5484200e9": ["Stuevindue 3", "E5A20", "window"],
+  "0e8df701761a4684bb5ddbc2b6a89d3b": ["Køkkenvindue 1", "ABE70", "window"],
+  "d799c7abb7d741a9a716aa41b59ae246": ["Køkkendør", "E2B70", "door"],
+  "b8d129e81eca41e98f1aface82724b99": ["Køkkenvindue 2", "0FB60", "window"],
+  "1c78292266c54a05a0a1a2f5076cbfe3": ["Køkkenvindue 3", "0B790", "window"],
+  "15d663cd3e414c2990b7f6ffa92787bd": ["Køkkenvindue 4", "E0310", "window"],
+  "cbeddfe8610b48c0beb8948ae8857df6": ["Køkkenvindue 5", "E65A0", "window"],
+  "a87374accbf64e1cb4a59e6d41f12917": ["Kontor", "45B60", "window"],
+  "32f41eb9bb7744f1a6666f624152b12a": ["Studieværelse vindue", "0DFD0", "window"],  
+  "8649d817fa754d0bb7f005d6719a9a14": ["Soveværelsesdør", "E5B50", "door"],
+  "48d246efd72c4485afca819baa59051b": ["Soveværelse vindue", "B1C40", "window"]
+} %}
+
+{% set state_topics = [
+  "tele/kontor/RESULT",
+  "tele/indgang/RESULT",
+  "tele/pigernes_stue/RESULT"
+] %}
+{% set state_topic = "tele/tasmota/RESULT" %}
+{% set demux_topic = "home/" %}
+{% set payload = "{{ trigger.payload_json.RfReceived.Data }}" %}
+{% set python = true %}
+{% set python_script = "python_script.rfbridge_demux" %}
+{% set off_delay = 15 %}
+{% set open_suffix = "A" %}
+{% set close_suffix = "E" %}
+
+{# PRIVATE BEGIN #}
+{# BANNER IN YAML WITH SIGNATURE #}
+{% set signature = "by J-Lindvig" %}
+{% set stamp = "Created: " ~ now().day  ~ '/' ~ now().month ~ '/' ~ now().year %}
+{% set banner = [
+  "    __  _______  ____________   _____                                ",
+  "   /  |/  / __ \/_  __/_  __/  / ___/___  ____  _________  __________",
+  "  / /|_/ / / / / / /   / /_____\__ \/ _ \/ __ \/ ___/ __ \/ ___/ ___/",
+  " / /  / / /_/ / / /   / /_____/__/ /  __/ / / (__  ) /_/ / /  (__  ) ",
+  "/_/  /_/\___\_\/_/   /_/     /____/\___/_/ /_/____/\____/_/  /____/  ",
+  "                                                                     "
+  ] %}
+
+{%- macro print_banner() %}
+{{ "#".ljust(80, "#") }}
+{%- for line in banner %}
+{%- if not loop.last %}
+# {{ line.center(76) }} #
+{%- else %}
+# {{ (line[:-(signature | length)] ~ signature).center(76) }} #
+{% endif -%}
+{% endfor -%}
+{{ "#".ljust(80, "#") }}
+# {{ stamp.ljust(76," ") }} #
+{{ "#".ljust(80, "#") }}
+{%- endmacro %}
+{# PRIVATE END #}
+
+{# MACRO #}
+{% macro python_code() %}
+sensors = {
+{%- for rf_command in mqtt_commands %}
+  {% set is_number = (rf_command | int) > 0 -%}
+  {{ '"'~rf_command~'"' if not is_number else rf_command }}: ["{{ mqtt_commands[rf_command][0] }}", "{{ mqtt_commands[rf_command][1] }}", "{{ mqtt_commands[rf_command][2] }}"],
+{%- endfor %}
+{%- for sensor in on_sensors %}
+  {% set rf_command = on_sensors[sensor][1] -%}
+  {% set is_number = (rf_command | int) > 0 -%}
+  {{ '"'~rf_command~'"' if not is_number else rf_command }}: ["{{ on_sensors[sensor][0] }}", "ON", "false"],
+{%- endfor %}
+{%- for sensor in on_off_sensors %}
+  {% set rf_command_on = on_off_sensors[sensor][1]~on_off_sensors[sensor][3] | default(open_suffix) -%}
+  {% set rf_command_off = on_off_sensors[sensor][1]~on_off_sensors[sensor][4] | default(close_suffix) -%}
+  {% set is_on_number = (rf_command_on | int) > 0 -%}
+  {% set is_off_number = (rf_command_off | int) > 0 -%}
+  {{ '"'~rf_command_on~'"' if not is_on_number else rf_command_on }}: ["{{ on_off_sensors[sensor][0] }}", "ON", "true"],
+  {{ '"'~rf_command_off~'"' if not is_off_number else rf_command_off }}: ["{{ on_off_sensors[sensor][0] }}", "OFF", "true"]{{ ',' if not loop.last }}
+{%- endfor %}
+}
+payload = data.get("payload")
+
+if payload is not None:
+  if payload in sensors.keys():
+    service_data = {"topic": "home/{}".format(sensors[payload][0]), "payload":"{}".format(sensors[payload][1]), "qos":0, "retain":"{}".format(sensors[payload][2])}
+  else:
+    service_data = {"topic":"home/unknown", "payload":"{}".format(payload), "qos":0, "retain":"false"}
+    logger.warning("<rfbridge_demux> Received unknown RF command: {}".format(payload))
+  hass.services.call("mqtt", "publish", service_data, False)
+{% endmacro %}
+
+{% macro private_device(sensor) -%}
+  {{ "PRIVATE "~on_off_sensors[sensor][0] if on_off_sensors[sensor][4] == "window" else on_off_sensors[sensor][0] }}
+{%- endmacro %}
+
+{%- macro entity_name(name) -%}
+  {% set name = name.lower() %}
+  {%- set name = name.replace("æ", "ae") %}
+  {%- set name = name.replace("ø", "o") %}
+  {%- set name = name.replace("å", "a") %}
+  {%- set name = name.replace(" ", "_") -%}
+        {{ name }}
+{%- endmacro %}
+
+{% macro sensor_value(sensor_id) -%}
+  {{ "{{ states('"~sensor_id~"') }}" }}
+{%- endmacro %}
+
+{% macro sensor_icon(sensor_id) -%}
+  {{ "mdi:window-{{ 'open' if is_state('"~sensor_id~"', 'on') else 'closed' }}-variant" }}
+{%- endmacro %}
+{{ print_banner() }}
+windows_doors:
+  group:
+    open_sensors:
+      name: "Vinduer og døre med åbn sensor"
+      icon: mdi:window-open-variant
+      all: true
+      entities:
+{%- for sensor in on_sensors %}
+        - binary_sensor.{{ entity_name(on_sensors[sensor][0]) }}
+{%- endfor %}
+
+    open_close_sensors:
+      name: "Vinduer og døre med åbn/luk sensor"
+      icon: mdi:window-closed-variant
+      all: true
+      entities:
+{%- for sensor in on_off_sensors %}
+        - binary_sensor.{{ entity_name(on_off_sensors[sensor][0]) }}
+{%- endfor %}
+
+  automation:
+    - alias: "RF Bridge Demux"
+      mode: parallel
+      trigger:
+{%- for state_topic in state_topics %}
+        - platform: mqtt
+          topic: "{{ state_topic }}"
+{%- endfor %}
+      action:
+        - service: "{{ python_script }}"
+          data:
+            payload: "{{ payload }}"
+
+  binary_sensor:
+{%- for sensor in on_sensors %}
+    - platform: mqtt
+      name: "{{ on_sensors[sensor][0] }}"
+      unique_id: {{ sensor }}
+      device_class: {{ on_sensors[sensor][2] }}
+      state_topic: "{{ demux_topic }}{{ on_sensors[sensor][0] }}"
+      off_delay: {{ on_sensors[sensor][3] | default(off_delay) }}
+{% endfor %}
+{%- for sensor in on_off_sensors %}
+    - platform: mqtt
+      name: "{{ private_device(sensor) }}"
+      unique_id: {{ 'private_' if on_off_sensors[sensor][2] == "window"}}{{ sensor }}
+      device_class: {{ on_off_sensors[sensor][2] }}
+      state_topic: "{{ demux_topic }}{{ on_off_sensors[sensor][0] }}"
+{% endfor %}
+    - platform: template
+      sensors:
+{%- for sensor in on_off_sensors if on_off_sensors[sensor][2] == "window" %}
+  {%- set entity_id = entity_name (on_off_sensors[sensor][0]) %}
+        {{ entity_id }}:
+          friendly_name: "{{ on_off_sensors[sensor][0] }}"
+          unique_id: {{ sensor }}
+          device_class: window
+          value_template: "{{ sensor_value("binary_sensor.private_"~entity_id) }}"
+          icon_template: "{{ sensor_icon("binary_sensor.private_"~entity_id) }}"
+{% endfor %}
+  script:
+    reload_mqtt_sensors:
+      alias: "Genindlæs MQTT sensorer"
+      icon: mdi:reload
+      description: "Genindlæs MQTT, Grupper, Templates og Scripts"
+      mode: single
+      sequence:
+        - service: automation.reload
+        - service: mqtt.reload
+        - service: template.reload
+        - service: group.reload
+
+{{ "#".ljust(80, "#") }}
+#### {{ "End of file".center(70) }} ####
+{{ "#".ljust(80, "#") }}
+
+{{ python_code() if python }}

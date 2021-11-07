@@ -1,0 +1,85 @@
+blueprint:
+  name: deCONZ Flashing
+  description: Kommer
+  domain: automation
+
+  input:
+    remote:
+      name: Remote
+      description: IKEA on/off remote to use
+      selector:
+        device:
+          integration: deconz
+          manufacturer: IKEA of Sweden
+          model: TRADFRI on/off switch
+
+    lights:
+      name: Light(s)
+      description: Light(s) to flash
+      selector:
+        target:
+          entity:
+            domain: light
+    
+    timer:
+      name: Timer
+      description: Duration of the timer
+      default: "00:30:00"
+      selector:
+        time:
+
+    flash_time:
+      name: Flash time
+      description: How long should we flash the lights
+      default: 60
+      selector:
+        number:
+          min: 10
+          max: 300
+          mode: slider
+          step: 5.0
+          unit_of_measurement: "seconds"
+  
+    flash_delay:
+      name: Flash delay
+      description: How long delay between the flashes
+      default: 1000
+      selector:
+        number:
+          min: 500
+          max: 5000
+          mode: slider
+          step: 500
+          unit_of_measurement: "milliseconds"
+
+mode: restart
+max_exceeded: silent
+variables:
+  flash_time: !input flash_time
+  flash_delay: !input flash_delay
+  timer: !input timer
+  
+trigger:
+- platform: event
+  event_type: deconz_event
+  event_data:
+    device_id: !input remote
+action:
+  - variables:
+      delay_time: "{{ (timer[0:2] | int * 3600) + (timer[3:5] | int * 60) + timer[6:8] | int - flash_time | int }}"
+      repeats: "{{ (flash_time | int * 1000 / flash_delay | int) | round(0, 'floor') }}"
+
+  - delay: "{{ delay_time }}"
+
+  - service: light.turn_on
+    target: !input lights
+    data:
+      brightness_pct: 100
+
+  - repeat:
+      count: "{{ repeats | int }}"
+      sequence:
+        - delay:
+            milliseconds: "{{ flash_delay }}"
+        - service: light.toggle
+          target: !input lights

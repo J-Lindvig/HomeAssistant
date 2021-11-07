@@ -1,0 +1,102 @@
+# Bathroom
+type: entities
+title: Lysstyring
+entities:
+  - type: custom:fold-entity-row
+    head:
+      type: section
+      label: Badeværelser
+    padding: 0
+    entities:
+      - automation.badevaerelse_lysstyring
+      - type: custom:fold-entity-row
+        head: input_datetime.morningbath_start
+        padding: 0
+        entities:
+          - type: 'custom:time-picker-card'
+            entity: input_datetime.morningbath_start
+            name: Badetid start
+            link_values: true
+            layout:
+              name: inside
+              align_controls: right
+      - type: custom:fold-entity-row
+        head: input_datetime.morningbath_end
+        padding: 0
+        entities:
+          - type: 'custom:time-picker-card'
+            entity: input_datetime.morningbath_end
+            name: Badetid slut
+            link_values: true
+            layout:
+              name: inside
+              align_controls: right
+      - type: custom:slider-entity-row
+        entity: input_number.morningbath_length
+
+  - type: custom:fold-entity-row
+    head:
+      type: section
+      label: Dæmpning
+    padding: 0
+    entities:
+      - type: custom:slider-entity-row
+        entity: input_number.sun_elevation_light
+        hide_state: false
+      - type: custom:fold-entity-row
+        head: input_datetime.dim_time
+        entities:
+          - type: custom:time-picker-card
+            entity: input_datetime.dim_time
+            name: Vælg klokkeslæt
+            link_values: true
+            layout:
+              name: inside
+              align_controls: right
+      - type: custom:fold-entity-row
+        head:
+          type: section
+          label: Lysstyrker
+        padding: 0
+        entities:
+          - type: custom:slider-entity-row
+            entity: input_number.dim_high
+            hide_state: false
+          - type: custom:slider-entity-row
+            entity: input_number.dim_low
+            hide_state: false
+      - type: custom:fold-entity-row
+        head:
+          type: section
+          label: Tiemouts
+        padding: 0
+        entities:
+          - type: custom:slider-entity-row
+            entity: input_number.light_timeout_day
+            hide_state: false
+          - type: custom:slider-entity-row
+            entity: input_number.light_timeout_night
+            hide_state: false
+
+  - type: custom:fold-entity-row
+    head:
+      type: section
+      label: Glemt lys
+    padding: 0
+    entities:
+      - automation.sluk_lys_tomt_hus
+      - type: custom:fold-entity-row
+        head: automation.sluk_lys_tomt_vaerelse
+        padding: 0
+        entities:
+          - type: custom:slider-entity-row
+            entity: input_number.timeout_forgotten_light
+
+  - type: custom:fold-entity-row
+    head:
+      type: section
+      label: Legetid
+    padding: 0
+    entities:
+      - input_boolean.colin_legetid
+      - input_boolean.emilio_legetid

@@ -1,0 +1,60 @@
+{# @Author: Jacob Lindvig Henriksen (J-Lindvig) #}
+
+{# Group containing persons #}
+{%- set main_group = "group.family" %}
+{% set show_name = false %}
+{% set show_state = false %}
+{% set filters = {
+  "home": ("brightness(110%) saturate(1.2)"),
+  "not_home": ("brightness(50%) grayscale(100%)")
+} %}
+
+
+{# PRIVATE BEGIN #}
+{# BANNER IN YAML WITH SIGNATURE #}
+{% set signature = "by J-Lindvig" %}
+{% set stamp = "Created: " ~ now().day  ~ '/' ~ now().month ~ '/' ~ now().year %}
+{% set banner = [
+  "      ____                   __     ______  __  __                   ",
+  "     / __ \___  ____  ____  / /__  / ____ \/ / / /___  ____ ___  ___ ",
+  "    / /_/ / _ \/ __ \/ __ \/ / _ \/ / __ `/ /_/ / __ \/ __ `__ \/ _ \\",
+  "   / ____/  __/ /_/ / /_/ / /  __/ / /_/ / __  / /_/ / / / / / /  __/",
+  "  /_/    \___/\____/ .___/_/\___/\ \__,_/_/ /_/\____/_/ /_/ /_/\___/ ",
+  "                  /_/             \____/                             "
+] %}
+
+{%- macro print_banner() %}
+{{ "#".ljust(80, "#") }}
+{%- for line in banner %}
+{%- if not loop.last %}
+# {{ line.center(76) }} #
+{%- else %}
+# {{ (line[:-(signature | length)] ~ signature).center(76) }} #
+{% endif -%}
+{% endfor -%}
+{{ "#".ljust(80, "#") }}
+# {{ stamp.ljust(76," ") }} #
+{{ "#".ljust(80, "#") }}
+{%- endmacro %}
+{# PRIVATE END #}
+
+{{ print_banner() }}
+type: custom:stack-in-card
+mode: horizontal
+cards:
+{%- for person in state_attr(main_group, 'entity_id') %}
+  - type: picture-entity
+    entity: {{ person }}
+    image: {{ state_attr(person, 'entity_picture') }}
+    {{ 'name: '~state_attr(person, 'friendly_name') if show_name }}
+    {{ 'show_name: '~show_name if not show_name }}
+    {{ 'show_state: '~show_state if not show_state }}
+    state_filter:
+      "home": {{ filters["home"] }}
+      "not_home": {{ filters["not_home"] }}
+    {{ ' ' if not loop.last }}
+{%- endfor %}
+
+{{ "#".ljust(80, "#") }}
+#### {{ "End of file".center(70) }} ####
+{{ "#".ljust(80, "#") }}

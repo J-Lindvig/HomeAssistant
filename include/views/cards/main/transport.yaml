@@ -1,0 +1,48 @@
+#    ______                                       __                         __
+#   /_  __/________ _____  _________  ____  _____/ /_   _________ __________/ /
+#    / / / ___/ __ `/ __ \/ ___/ __ \/ __ \/ ___/ __/  / ___/ __ `/ ___/ __  / 
+#   / / / /  / /_/ / / / (__  ) /_/ / /_/ / /  / /_   / /__/ /_/ / /  / /_/ /  
+#  /_/ /_/   \__,_/_/ /_/____/ .___/\____/_/   \__/   \___/\__,_/_/   \__,_/   
+#                           /_/                                                
+#                                                                   by J-Lindvig
+#     ___                _                        __    
+#    / _ \___ ___ ___ __(_)______ __ _  ___ ___  / /____
+#   / , _/ -_) _ `/ // / / __/ -_)  ' \/ -_) _ \/ __(_-<
+#  /_/|_|\__/\_, /\_,_/_/_/  \__/_/_/_/\__/_//_/\__/___/
+#  
+# auto-entities, https://github.com/thomasloven/lovelace-auto-entities
+
+type: custom:auto-entities
+card:
+  type: entities
+  title: Transport
+  show_header_toggle: false
+  header:
+    type: picture
+    image: /local/images/headers/fynbus.jpg
+filter:
+  include:
+    - entity_id: "sensor.bil_mod_*"
+      attributes:
+        days: "=0"
+      sort:
+        method: attribute
+        numeric: true
+        attribute: sort_value_minutes
+    - entity_id: "sensor.bus_*"
+      sort:
+       count: 2
+       method: attribute
+       numeric: true
+       attribute: due_in
+  exclude:
+    - state: "unavailable"
+
+type: vertical-stack
+cards:
+  - type: picture
+    image: /local/images/headers/fynbus.jpg
+  - type: custom:rejseplanen-card
+    entity: sensor.busser_fra_marsk_billesvej
+    show_scheduled_time: true
+    max_entries: 10

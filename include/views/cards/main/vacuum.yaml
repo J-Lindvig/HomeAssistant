@@ -1,0 +1,401 @@
+################################################################################
+#         __                     __     __  ___     ________                   #
+#        / /   __  ______  ___  / /_   /  |/  /____/ ____/ /__  ____ _____     #
+#       / /   / / / / __ \/ _ \/ __/  / /|_/ / ___/ /   / / _ \/ __ `/ __ \    #
+#      / /___/ /_/ / / / /  __/ /_   / /  / / /__/ /___/ /  __/ /_/ / / / /    #
+#     /_____/\__, /_/ /_/\___/\__/  /_/  /_/\___/\____/_/\___/\__,_/_/ /_/     #
+#           /____/                                             by J-Lindvig    #
+################################################################################
+# Created: 25/10/2020                                                          #
+################################################################################
+type: custom:stack-in-card
+cards:
+  - type: picture-elements
+    image: /local/images/vacuum.png
+    elements:
+
+      - type: custom:bar-card
+        entity: sensor.vacuum_fan_speed
+        direction: up
+        entity_row: true
+        width: 4vw
+        height: 12vh
+        color: "#222222"
+        min: 0
+        max: 3
+        positions:
+          icon: off
+          name: inside
+          value: off
+        style:
+          top: 60%
+          right: 2.5%
+          position: absolute
+          transform: translate(0%,-50%)
+          font-size: 1.8vh
+          text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+        tap_action:
+          action: call-service
+          service: input_select.select_next
+          service_data:
+            entity_id: input_select.vacuum_power
+
+      - type: custom:bar-card
+        entities:
+          - entity: vacuum.lynet_mcclean
+            name: Sensorer
+            attribute: sensor_dirty_left
+            max: 30
+            tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstillinger
+                large: false
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: custom:stack-in-card
+                  cards:
+                    - type: entities
+                      entities:
+                        - switch.vacuum_dnd
+                        - type: custom:stack-in-card
+                          mode: horizontal
+                          cards:
+                            - type: custom:time-picker-card
+                              entity: input_datetime.vacuum_dnd_start
+                              name: Start
+                            - type: custom:time-picker-card
+                              entity: input_datetime.vacuum_dnd_end
+                              name: Slut
+                deviceID:
+                  - this
+          - entity: vacuum.lynet_mcclean
+            name: Filter
+            attribute: filter_left
+            max: 150
+            tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstillinger
+                large: false
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: custom:stack-in-card
+                  cards:
+                    - type: entities
+                      entities:
+                        - switch.vacuum_dnd
+                        - type: custom:stack-in-card
+                          mode: horizontal
+                          cards:
+                            - type: custom:time-picker-card
+                              entity: input_datetime.vacuum_dnd_start
+                              name: Start
+                            - type: custom:time-picker-card
+                              entity: input_datetime.vacuum_dnd_end
+                              name: Slut
+                deviceID:
+                  - this
+          - entity: vacuum.lynet_mcclean
+            name: Børste
+            attribute: main_brush_left
+            max: 300
+            tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstillinger
+                large: false
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: custom:stack-in-card
+                  cards:
+                    - type: entities
+                      entities:
+                        - switch.vacuum_dnd
+                        - type: custom:stack-in-card
+                          mode: horizontal
+                          cards:
+                            - type: custom:time-picker-card
+                              entity: input_datetime.vacuum_dnd_start
+                              name: Start
+                            - type: custom:time-picker-card
+                              entity: input_datetime.vacuum_dnd_end
+                              name: Slut
+                deviceID:
+                  - this
+          - entity: vacuum.lynet_mcclean
+            name: Sidebørste
+            attribute: side_brush_left
+            max: 200
+            tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstillinger
+                large: false
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: custom:stack-in-card
+                  cards:
+                    - type: entities
+                      entities:
+                        - switch.vacuum_dnd
+                        - type: custom:stack-in-card
+                          mode: horizontal
+                          cards:
+                            - type: custom:time-picker-card
+                              entity: input_datetime.vacuum_dnd_start
+                              name: Start
+                            - type: custom:time-picker-card
+                              entity: input_datetime.vacuum_dnd_end
+                              name: Slut
+                deviceID:
+                  - this
+        entity_row: true
+        width: 4vw
+        height: 2.5vh
+        color: "#222222"
+        positions:
+          icon: off
+          name: inside
+          value: off
+        style:
+          top: 55%
+          left: 0%
+          position: absolute
+          transform: translate(0%,-50%)
+          text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+
+      - type: state-label
+        entity: sensor.vacuum_lynet_mcclean
+        style:
+          transform: translate(-50%,0%)
+          position: absolute
+          top: 0px
+          left: 50%
+          color: "#ffffff"
+          font-size: 2.5vh
+          line-height: 2vh
+          text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+          padding-left: 50%
+          padding-right: 50%
+          border-color: rgb(34, 154, 210)
+          border-radius: 6px
+          background-color: rgba(34, 34, 34, 0.5)
+
+      - type: conditional
+        conditions:
+          - entity: var.cleaning_room_id
+            state: "null"
+        elements:
+          - type: icon
+            icon: mdi:chevron-left-circle
+            style:
+              transform: translate(0%,-50%)
+              position: absolute
+              top: 6vh
+              left: 10%
+              color: "#222222"
+              --iron-icon-height: 4vh
+              --iron-icon-width: 4vh
+            tap_action:
+              action: call-service
+              service: input_select.select_previous
+              service_data:
+                entity_id: input_select.vacuum_room
+          - type: icon
+            icon: mdi:chevron-right-circle
+            style:
+              transform: translate(0%,-50%)
+              position: absolute
+              top: 6vh
+              right: 10%
+              color: "#222222"
+              --iron-icon-height: 4vh
+              --iron-icon-width: 4vh
+            tap_action:
+              action: call-service
+              service: input_select.select_next
+              service_data:
+                entity_id: input_select.vacuum_room
+          - type: state-label
+            entity: input_select.vacuum_room
+            style:
+              top: 6vh
+              left: 50%
+              color: "#222222"
+              font-size: 3vh
+              font-weight: bold
+            tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Vælg rum
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  entities:
+                    - input_select.vacuum_room
+                deviceID:
+                  - this
+
+      - type: conditional
+        conditions:
+          - entity: var.cleaning_room_id
+            state_not: "null"
+        elements:
+          - type: custom:bar-card
+            entity: sensor.clean_room_progress
+            entity_row: true
+            width: 14vw
+            height: 4vh
+            color: "#222222"
+            positions:
+              icon: off
+              name: inside
+            style:
+              top: 20%
+              left: 50%
+              position: absolute
+              transform: translate(-50%,-50%)
+              text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+          - type: state-label
+            entity: sensor.clean_room_progress
+            attribute: est_time_to_finish
+            prefix: "~ "
+            suffix: " minutter tilbage"
+            style:
+              top: 30%
+              left: 50%
+              position: absolute
+              transform: translate(-50%,-50%)
+              color: "#222222"
+              font-weight: bold
+              font-size: 2vh
+              text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white
+
+      - type: state-icon
+        entity: sensor.vacuum_battery
+        style:
+          transform: translate(0%,-50%)
+          position: absolute
+          top: 2vh
+          left: 80%
+          color: "#ffffff"
+          font-size: 2.5vh
+          --iron-icon-height: 2.3vh
+          --iron-icon-width: 2.3vh
+      - type: state-label
+        entity: sensor.vacuum_battery
+        style:
+          transform: translate(0%,-50%)
+          position: absolute
+          top: 2vh
+          left: 85%
+          color: "#ffffff"
+          font-size: 2.5vh
+          --iron-icon-height: 2.3vh
+          --iron-icon-width: 2.3vh
+
+      - type: icon
+        icon: mdi:broom
+        tap_action:
+          action: call-service
+          service: vacuum.start
+          service_data:
+            entity_id: vacuum.lynet_mcclean
+        style:
+          transform: translate(-50%,0%)
+          position: absolute
+          bottom: 0px
+          left: 50%
+          color: "#ffffff"
+          line-height: 2vw
+          --iron-icon-height: 3vh
+          --iron-icon-width: 3vh
+          padding-left: 50%
+          padding-right: 50%
+          border-color: rgb(34, 154, 210)
+          border-radius: 6px
+          background-color: rgba(34, 34, 34, 0.5)
+      - type: icon
+        icon: mdi:play
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.vacuum_room_start
+        style:
+          transform: translate(-50%,0%)
+          position: absolute
+          bottom: 0px
+          left: 10%
+          color: "#ffffff"
+          line-height: 2vw
+          --iron-icon-height: 3vh
+          --iron-icon-width: 3vh
+      - type: icon
+        icon: mdi:stop
+        tap_action:
+          action: call-service
+          service: vacuum.stop
+          service_data:
+            entity_id: vacuum.lynet_mcclean
+        style:
+          transform: translate(-50%,0%)
+          position: absolute
+          bottom: 0px
+          left: 30%
+          color: "#ffffff"
+          line-height: 2vw
+          --iron-icon-height: 3vh
+          --iron-icon-width: 3vh
+      - type: icon
+        icon: mdi:home-map-marker
+        tap_action:
+          action: call-service
+          service: vacuum.return_to_base
+          service_data:
+            entity_id: vacuum.lynet_mcclean
+        style:
+          transform: translate(-50%,0%)
+          position: absolute
+          bottom: 0px
+          left: 70%
+          color: "#ffffff"
+          line-height: 2vw
+          --iron-icon-height: 3vh
+          --iron-icon-width: 3vh
+      - type: icon
+        icon: mdi:wrench
+        tap_action:
+          action: call-service
+          service: script.turn_on
+          service_data:
+            entity_id: script.vacuum_service
+        style:
+          transform: translate(-50%,0%)
+          position: absolute
+          bottom: 0px
+          left: 90%
+          color: "#ffffff"
+          line-height: 2vw
+          --iron-icon-height: 3vh
+          --iron-icon-width: 3vh
+
+################################################################################
+####                              End of file                               ####
+################################################################################

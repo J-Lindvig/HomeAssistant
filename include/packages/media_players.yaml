@@ -1,0 +1,99 @@
+media_players:
+
+  group:
+    chromecasts:
+      name: Chromecasts
+      entities:
+        - media_player.stuens_tv
+        - media_player.cornelies_tv
+        - media_player.hjaltes_tv
+        - media_player.pigernes_tv
+        - media_player.sovetryne_tv
+
+  media_player:
+    - platform: androidtv
+      host: 192.168.0.50
+      name: XIAOMI TV Stick Stuen
+
+    - platform: universal
+      name: Vestel TV
+      children:
+        - media_player.stuens_tv
+      state_template: "{{ states('binary_sensor.vestel_tv') }}"
+      commands:
+        turn_on:
+          service: script.power_with_remote
+          data:
+            remote: remote.stuen_ir
+            device: Vestel TV
+            ping_sensor: binary_sensor.vestel_tv
+        turn_off:
+          service: script.power_with_remote
+          data:
+            remote: remote.stuen_ir
+            device: Vestel TV
+            ping_sensor: binary_sensor.vestel_tv
+        volume_up:
+          service: remote.send_command
+          data:
+            entity_id: remote.stuen_ir
+            device: Vestel TV
+            command: Volume Up
+        volume_down:
+          service: remote.send_command
+          data:
+            entity_id: remote.stuen_ir
+            device: Vestel TV
+            command: Volume Down
+        volume_mute:
+          service: script.mute_with_remote
+          data:
+            remote: remote.stuen_ir
+            device: Vestel TV
+            boolean: input_boolean.vestel_tv_on_mute
+      attributes:
+        is_volume_muted: input_boolean.vestel_tv_on_mute
+
+  script:
+    power_with_remote:
+      alias: "Power med en RM 3"
+      description: "Script til at tænde/slukke med en remote"
+      icon: mdi:power
+      sequence:
+        - service: remote.send_command
+          data:
+            entity_id: "{{ remote }}"
+            device: "{{ device }}"
+            command: Power
+        - delay: "00:00:30"
+        - service: homeassistant.update_entity
+          data:
+            entity_id: "{{ ping_sensor }}"
+
+    mute_with_remote:
+      alias: "Mute/Unmute med en RM 3"
+      description: "Script til at mute/unmute med en remote + toggler en boolean"
+      icon: mdi:volume-mute
+      sequence:
+        - service: remote.send_command
+          data:
+            entity_id: "{{ remote }}"
+            device: "{{ device }}"
+            command: Mute
+        - service: input_boolean.toggle
+          data:
+            entity_id: "{{ boolean }}"
+
+  input_boolean:
+    vestel_tv_on_mute:
+      name: Vestel TV er på mute via remote
+      icon: mdi:volume-mute
+
+  binary_sensor:
+    - platform: ping
+      host: 192.168.0.110
+      name: Vestel TV
+
+    - platform: ping
+      host: 192.168.0.170
+      name: LG TV

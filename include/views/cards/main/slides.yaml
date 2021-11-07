@@ -1,0 +1,40 @@
+#     _____ ___     ___                                    __    
+#    / ___// (_)___/ (_)___  ____ _   _________ __________/ /____
+#    \__ \/ / / __  / / __ \/ __ `/  / ___/ __ `/ ___/ __  / ___/
+#   ___/ / / / /_/ / / / / / /_/ /  / /__/ /_/ / /  / /_/ (__  ) 
+#  /____/_/_/\__,_/_/_/ /_/\__, /   \___/\__,_/_/   \__,_/____/  
+#                         /____/                                 
+#                                                     by J-Lindvig
+#     ___                _                        __    
+#    / _ \___ ___ ___ __(_)______ __ _  ___ ___  / /____
+#   / , _/ -_) _ `/ // / / __/ -_)  ' \/ -_) _ \/ __(_-<
+#  /_/|_|\__/\_, /\_,_/_/_/  \__/_/_/_/\__/_//_/\__/___/
+#  
+# state-switch, https://github.com/thomasloven/lovelace-state-switch
+
+type: custom:state-switch
+entity: input_select.cards_to_slide
+default: birthday
+transition: slide-left
+transition_time: 1000
+states:
+  birthday:
+    !include slides/birthday.yaml
+  christmas:
+    !include
+    - slides/countdown.yaml
+    - image_url: "/local/images/backgrounds/christmas_5x2.jpg"
+      countdown_text: "Juleaften"
+      countdown_entity: "sensor.annual_juleaften"
+  new_year:
+    !include
+    - slides/countdown.yaml
+    - image_url: "/local/images/backgrounds/new_year_5x2.jpg"
+      countdown_text: "Nytårsaften"
+      countdown_entity: "sensor.annual_nytarsaften"
+  weddingday:
+    !include
+    - slides/countdown.yaml
+    - image_url: "/local/images/backgrounds/bryllup_5x2.png"
+      countdown_text: "Bryllupsdag"
+      countdown_entity: "sensor.anniversary_bryllupsdag"

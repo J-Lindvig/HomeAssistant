@@ -1,0 +1,125 @@
+soccer:
+  rest:
+    - resource: http://rest.apptoo.dk/fuelfinder.json
+      sensor:
+        - name: OK 95
+          device_class: monetary
+          value_template: >
+            {% set fuelcompany = value_json.fuelprices | selectattr('company_name', 'eq', 'OK') | list | first %}
+            {{ fuelcompany['gas_95'] | float }}
+          json_attributes_path: "$.fuelprices[?(@.company_name == 'OK')]"
+          json_attributes:
+            - company_logo
+            - gas_95
+            - diesel
+            - last_update
+
+        - name: OK Diesel
+          device_class: monetary
+          value_template: >
+            {% set fuelcompany = value_json.fuelprices | selectattr('company_name', 'eq', 'OK') | list | first %}
+            {{ fuelcompany['diesel'] | float }}
+          json_attributes_path: "$.fuelprices[?(@.company_name == 'OK')]"
+          json_attributes:
+            - company_logo
+            - gas_95
+            - diesel
+            - last_update
+
+  sensor:
+    - platform: rest
+      name: Superligaen
+      resource: http://rest.apptoo.dk/soccer.json
+      value_template: "{{ value_json.leagues[0].league_name }}"
+      json_attributes_path: "$.leagues[0]"
+      json_attributes:
+        - scoreboard
+        - schedule
+
+    - platform: rest
+      name: Premier League
+      resource: http://rest.apptoo.dk/soccer.json
+      value_template: "{{ value_json.leagues[2].league_name }}"
+      json_attributes_path: "$.leagues[2]"
+      json_attributes:
+        - scoreboard
+        - schedule
+
+    # - platform: rest
+    #   name: OK 95 Single
+    #   resource: http://rest.apptoo.dk/fuelfinder.json
+    #   value_template: >
+    #     {# NAME OF THE FUEL COMPANY TO EXTRACT FROM #}
+    #     {% set company_name = "OK" %}
+    #     {# FUEL TYPE TO EXTRACT, "gas_95" OR "diesel" #}
+    #     {% set type = "gas_95" %}
+        
+    #     {# DO NOT TOUCH BELOW #}
+    #     {% set fuelcompany = value_json.fuelprices | selectattr('company_name', 'eq', company_name) | list | first %}
+    #     {{ fuelcompany[type] }}
+    #   json_attributes_path: "$.fuelprices[?(@.company_name == 'OK')]"
+    #   json_attributes:
+    #     - company_logo
+    #     - gas_95
+    #     - diesel
+    #     - last_update
+
+  shell_command:
+    parsehub_scrape: "curl -X POST -d api_key={{ api_key }} https://www.parsehub.com/api/v2/projects/{{ project_token }}/run"
+    soccer_upload: "source /config/shell/soccer_upload.sh"
+    parsehub_upload: "bash /config/shell/parsehub_upload.sh {{ project_token }} {{ filename }}"
+
+  automation:
+    - id: a8b72a983358401db7411412b7c03855
+      alias: "FuelfindeR.dk crape"
+      description: "EMPTY"
+      initial_state: true
+      mode: single
+      trigger:
+        - platform: time_pattern
+          minutes: 30
+        - platform: webhook
+          webhook_id: 7de6f7faf9a14a669d3756aab8a5abd7
+      action:
+        - choose:
+            - conditions: "{{ trigger.platform == 'webhook' }}"
+              sequence:
+                - service: shell_command.parsehub_upload
+                  data:
+                    project_token: !secret FUELFINDER_DK_TOKEN
+                    filename: fuelfinder.json
+
+          default:
+            - service: shell_command.parsehub_scrape
+              data:
+                api_key: !secret PARSEHUB_API_KEY
+                project_token: !secret FUELFINDER_DK_TOKEN
+  
+    - id: 4c3571524125428aa8b1eed545ac2588
+      alias: "Bold.dk scrape (/config/include/packages/soccer.yaml)"
+      description: "Scrape bold.dk"
+      initial_state: true
+      mode: single
+      trigger:
+        - platform: time_pattern
+          minutes: 40
+        - platform: webhook
+          webhook_id: 44854163446448d9b1ce1adf2412d84e
+      action:
+        - choose:
+            - conditions: "{{ trigger.platform == 'webhook' }}"
+              sequence:
+                - service: homeassistant.update_entity
+                  entity_id:
+                    - sensor.superligaen
+                    - sensor.premier_league
+                - service: shell_command.parsehub_upload
+                  data:
+                    project_token: !secret BOLD_DK_TOKEN
+                    filename: soccer.json
+
+          default:
+            - service: shell_command.parsehub_scrape
+              data:
+                api_key: !secret PARSEHUB_API_KEY
+                project_token: !secret BOLD_DK_TOKEN

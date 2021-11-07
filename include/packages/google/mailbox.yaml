@@ -1,0 +1,16 @@
+#mailbox_commands:
+  # script:
+  #   reset_mailbox:
+  #     alias: "Posten er hentet"
+  #     icon: mdi:mailbox-open-up
+  #     description: "Script til Google Assistant for at kunne nulstiller flaget om post"
+  #     mode: single
+  #     sequence:
+  #       - service: automation.trigger
+  #         data:
+  #           entity_id: automation.posten_er_hentet
+  #       - service: notify.mobile_app_jacobs_moto
+  #         data:
+  #           message: clear_notification
+  #           data:
+  #             tag: postkasse

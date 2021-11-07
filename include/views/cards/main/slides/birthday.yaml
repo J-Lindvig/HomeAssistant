@@ -1,0 +1,49 @@
+################################################################################
+#                      ____  _      __  __        __                           #
+#                     / __ )(_)____/ /_/ /_  ____/ /___ ___  __                #
+#                    / __  / / ___/ __/ __ \/ __  / __ `/ / / /                #
+#                   / /_/ / / /  / /_/ / / / /_/ / /_/ / /_/ /                 #
+#                  /_____/_/_/   \__/_/ /_/\__,_/\__,_/\__, /                  #
+#                                                  by J-Lindvig                #
+################################################################################
+# Created: 25/10/2020                                                          #
+################################################################################
+type: picture-elements
+image: /local/images/backgrounds/birthday_5x2.jpg
+elements:
+  - type: state-label
+    entity: sensor.next_birthday
+    attribute: name
+    style:
+      top: 15%
+      left: 50%
+      font-size: 1.8vw
+      color: white
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+      font-weight: bold
+
+  - type: state-label
+    entity: sensor.next_birthday
+    attribute: years_at_next_anniversary
+    suffix: " år"
+    style:
+      top: 45%
+      left: 50%
+      font-size: 5vh
+      color: white
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+      font-weight: bold
+
+  - type: state-label
+    entity: sensor.next_birthday
+    attribute: next_birthday
+    style:
+      top: 70%
+      left: 50%
+      font-size: 5vh
+      color: white
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+      font-weight: bold
+################################################################################
+####                              End of file                               ####
+################################################################################

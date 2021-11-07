@@ -1,0 +1,39 @@
+type: entities
+title: Batterier
+show_header_toggle: false
+entities:
+  - type: custom:auto-entities
+    card:
+      type: custom:bar-card
+      severity:
+        - color: Red
+          from: 0
+          to: 10
+        - color: Orange
+          from: 11
+          to: 30
+        - color: Green
+          from: 31
+          to: 100
+      positions:
+        icon: off
+        indicator: inside
+        name: outside
+        value: inside
+      height: 2vh
+      width: 50%
+    filter:
+      include:
+        - domain: sensor
+          attributes:
+            device_class: "battery"
+            unit_of_measurement: "%"
+          state: "< 50"
+      exclude:
+        - attributes:
+            is_charging: false
+        - attributes:
+            is_charging: true
+    sort:
+      method: state
+      numeric: true

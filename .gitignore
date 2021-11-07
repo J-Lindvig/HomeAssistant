@@ -1,0 +1,37 @@
+# Example .gitignore file for your config dir.
+# A * ensures that everything will be ignored.
+
+# You can whitelist files/folders with !, these will not be ignored.
+!*.yaml
+!.gitignore
+!*.md
+!www
+!shell
+!views
+!include
+!themes
+
+# Ignore folders.
+.storage
+.cloud
+.google.token
+tts
+neighbours
+
+# Ensure these files are ignored, otherwise your secret data/credentials will leak.
+ip_bans.yaml
+secrets.yaml
+shell_secrets.txt
+known_devices.yaml
+home-assistant.log
+home-assistant.log.1
+zigbee.db
+.db
+home-assistant_v2.db
+.uuid
+google_calendars.yaml
+edgeos.key
+.ps4-games*
+.sonoff.json
+library_users.txt
+googlecloud.json

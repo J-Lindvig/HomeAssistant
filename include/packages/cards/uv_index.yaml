@@ -1,0 +1,38 @@
+uv_index:
+  template:
+    - binary_sensor:
+        - name: show_uv_graph
+          unique_id: 360cb8b87ca144e7bff2d00cdd3e1bc3
+          state: "{{ states('sensor.max_uv_index') | float > states('sensor.uv_sun') | float }}"
+
+    - sensor:
+        - name: uv_sun
+          unique_id: 98dff5bcc1ae4d3e9dd851b5b3f9bc8f
+          state: 3.5
+          attributes:
+            # protection_start_time: >-
+            #   {{ state_attr('binary_sensor.protection_window', 'start_time').timestamp() | timestamp_custom('%R') }}
+            # protection_end_time: >-
+            #   {{ state_attr('binary_sensor.protection_window', 'end_time').timestamp() | timestamp_custom('%R') }}
+            next_rising: >-
+              {{ (strptime(state_attr('sun.sun', 'next_rising').replace('+00:00',''), '%Y-%m-%dT%H:%M:%S').timestamp() + 7200)  | timestamp_custom('%R') }}
+            next_setting: >-
+              {{ (strptime(state_attr('sun.sun', 'next_setting').replace('+00:00',''), '%Y-%m-%dT%H:%M:%S').timestamp() + 7200) | timestamp_custom('%R') }}
+
+  automation:
+    - alias: Opdater OpenUV halve time
+      id: 774835420164454d8bf5ae3e4248ddd3
+      trigger:
+        platform: time_pattern
+        minutes: "/30"
+      condition: "{{ is_state('sun.sun', 'above_horizon') }}"
+      action:
+        service: openuv.update_uv_index_data
+
+    - alias: Opdater OpenUV beskyttelsesvindue
+      id: 04797e2a44c64789a258903d526e03c5
+      trigger:
+        platform: time
+        at: "02:12:00"
+      action:
+        service: openuv.update_protection_data

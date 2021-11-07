@@ -1,0 +1,59 @@
+computers:
+
+  wake_on_lan:
+
+  switch:
+    - platform: wake_on_lan
+      name: PC-H-Lindvig
+      host: !secret PC_H_LINDVIG_HOST
+      mac: ! secret PC_H_LINDVIG_MAC
+      turn_off:
+        service: hassio.addon_stdin
+        data:
+          addon: core_rpc_shutdown
+          input: PC-H-Lindvig
+
+    - platform: wake_on_lan
+      name: Minecraft Server
+      host: !secret MINECRAFT_SERVER_HOST
+      mac: !secret MINECRAFT_SERVER_MAC
+      turn_off:
+        service: hassio.addon_stdin
+        data:
+          addon: a0d7b954_ssh
+          input: "ssh pi@192.168.0.122 sudo poweroff"
+
+    - platform: wake_on_lan
+      name: PC-J-Lindvig-Linux
+      host: !secret PC_J_LINDVIG_LINUX_HOST
+      mac: !secret PC_J_LINDVIG_LINUX_MAC
+      turn_off:
+        service: hassio.addon_stdin
+        data:
+          addon: a0d7b954_ssh
+          input: "ssh pi@192.168.0.121 sudo pm-suspend"
+
+    - platform: template
+      switches:
+        touchpanel_screen:
+          turn_on:
+            service: hassio.addon_stdin
+            data:
+              addon: a0d7b954_ssh
+              input: "ssh pi@192.168.0.100 sudo vbetool dpms on"
+          turn_off:
+            service: hassio.addon_stdin
+            data:
+              addon: a0d7b954_ssh
+              input: "ssh pi@192.168.0.100 sudo vbetool dpms off"
+
+  light:
+    - platform: switch
+      name: Touchpanel screen
+      entity_id: switch.touchpanel_screen
+
+  homeassistant:
+    customize:
+      switch.pc_h_lindvig:
+        friendly_name: "Hjaltes PC"
+        icon: mdi:desktop-tower

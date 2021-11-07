@@ -1,0 +1,15 @@
+browsers:
+
+  browser_mod:
+    devices:
+      d10fcc99-d71f93f1:
+        name: TouchPanel
+        camera: true
+
+      5219a1e9-bdcf1364:
+        name: J-Lindvig-Chromebook
+
+      fb92d5f1-b6b734e5:
+        name: PC-J-Lindvig-Linux
+    disable:
+      - all

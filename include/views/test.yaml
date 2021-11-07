@@ -1,0 +1,482 @@
+#    ______          __           _
+#   /_  __/__  _____/ /_   _   __(_)__ _      __
+#    / / / _ \/ ___/ __/  | | / / / _ \ | /| / /
+#   / / /  __(__  ) /_    | |/ / /  __/ |/ |/ /
+#  /_/  \___/____/\__/    |___/_/\___/|__/|__/
+#
+#                                    by J-Lindvig
+#     __ __                     _ ____  __            __
+#    / // /__ _______   _    __(_) / / / /  ___   ___/ /______ ____ ____  ___  ___
+#   / _  / -_) __/ -_) | |/|/ / / / / / _ \/ -_) / _  / __/ _ `/ _ `/ _ \/ _ \(_-<
+#  /_//_/\__/_/  \__/  |__,__/_/_/_/ /_.__/\__/  \_,_/_/  \_,_/\_, /\___/_//_/___/
+#                                                             /___/
+
+title: System
+icon: mdi:test-tube
+panel: true
+cards:
+
+  - type: custom:layout-card
+    layout: auto
+    column_num: 3
+    column_width: 33%
+    cards:
+
+      - !include cards/main/minecraft.yaml
+
+      - type: custom:slider-button-card
+        entity: light.sandbox
+        action_button:
+          tap_action:
+            action: toggle
+
+      - type: picture-elements
+        image: /local/images/backgrounds/blank.png
+        camera_image: camera.lynet_mcclean_camera
+        camera_view: true
+        elements:
+          - type: state-icon
+            entity: camera.lynet_mcclean_camera
+            icon: mdi:broom
+            style:
+              left: 27%
+              top: 57%
+              position: absolute
+              transform: translate(-50%, -50%)
+
+      - type: custom:vacuum-card
+        entity: vacuum.lynet_mcclean
+        map: camera.lynet_mcclean_camera
+        stats:
+          default:
+            - attribute: filter_left
+              unit: timer
+              subtitle: Filter
+            - attribute: side_brush_left
+              unit: timer
+              subtitle: Sidebørste
+            - entity_id: input_select.vacuum_room
+            - attribute: main_brush_left
+              unit: timer
+              subtitle: Hovedbørste
+            - attribute: sensor_dirty_left
+              unit: timer
+              subtitle: Sensorer
+          cleaning:
+            - attribute: cleaned_area
+              unit: m2
+              subtitle: Rengjorte m2
+            - attribute: cleaning_time
+              unit: minuter
+              subtitle: Rengjort i tid
+        actions:
+          - icon: mdi:chevron-left-circle
+            name: Forrige rum
+            service: input_select.select_previous
+            service_data:
+              entity_id: input_select.vacuum_room
+          - icon: mdi:chevron-right-circle
+            name: Næste rum
+            service: input_select.select_next
+            service_data:
+              entity_id: input_select.vacuum_room
+
+      - type: custom:sun-card
+        language: da
+
+      - type: markdown
+        content: |
+          {% set travel_sensor = "sensor.busmodaalborg" %}
+          {% set ts_format = "kl. %R" %}
+          {% set max_listings = 5 %}
+          {% set headers = ["", "Rute", "Afgang", "Planlagt afgang"] %}
+          {% set icon = "mdi:bus" %}
+          
+          <table width="100%">
+            <tr>
+          {%- for header in headers %}
+              <th align="left">{{ header }}</th>
+          {%- endfor %}
+            </tr>
+            <tr>
+              <td><ha-icon icon="{{ icon }}"></ha-icon></td>
+              <td>{{ state_attr(travel_sensor, "route") }}</td>
+              <td><span>{{ "nu" if states(travel_sensor) | int == 0 else "om "~states(travel_sensor)~" minut"~("ter" if states(travel_sensor) | int > 1)}}</span></td>
+              <td><span>{{ strptime(state_attr(travel_sensor, "scheduled_at"), "%d.%m.%y %H:%M").timestamp() | timestamp_custom(ts_format) }}{{ " (ny tid: "~strptime(state_attr(travel_sensor, "real_time_at"), "%d.%m.%y %H:%M").timestamp() | timestamp_custom("%R")~")" if state_attr(travel_sensor, "real_time_at") is not none }}</span></td>
+            </tr>
+          
+          {%- for departure in state_attr(travel_sensor, "next_departures") %}
+            {%- if loop.index < max_listings %}
+            <tr>
+              <td><ha-icon icon="{{ icon }}"></ha-icon></td>
+              <td>{{ departure.route }}</td>
+              <td><span>{{ "nu" if departure.due_in | int == 0 else "om "~departure.due_in~" minut"~("ter" if departure.due_in | int > 1)}}</span></td>
+              <td><span>{{ strptime(departure.due_at, "%d.%m.%y %H:%M").timestamp() | timestamp_custom(ts_format) }}{{ "(ny tid: "~strptime(departure.real_time_at, "%d.%m.%y %H:%M").timestamp() | timestamp_custom("%R")~")" if departure.real_time_at is defined }}</span></td>
+            </tr>
+            {%- endif %}
+          {%- endfor %}
+          </table>
+
+      - type: markdown
+        title: Busser
+        content: |
+          | Rute | Destination | Minutter |
+          |:-----|:------------|---------:|
+          {% for rejse in state_attr("sensor.111", "next_departures") -%}
+            {% if loop.index0 < 5 -%}
+            | {{ rejse.route }} | {{ rejse.direction }} | {{ rejse.due_in }} minut{{ 'ter' if rejse.due_in | int > 1 }} |
+            {%- endif %}
+          {% endfor %}
+
+      - type: markdown
+        title: Premier League
+        content: |
+          |      |   |      | Kampe | V | U | T | Mål | Points |
+          |-----:|---|------|:-----:|:-:|:-:|:-:|:---:|:------:|
+          {% for club in state_attr('sensor.premier_league', 'scoreboard') -%}
+            |{{ loop.index }}.|<img src="{{ club.club_logo }}" alt="{{ club.club_name }}" width="32"/>|{{ club.club_name }}|{{ club.matches_played }}|{{ club.matches_won }}|{{ club.matches_tie }}|{{ club.matches_lost }}|{{ club.goals | replace(" ", "") }}|{{ club.points }}|
+          {% endfor %}
+
+      - type: picture-elements
+        image: /local/images/backgrounds/blank.png
+        camera_image: camera.indgang_sd
+        camera_view: live
+        elements:
+          - type: icon
+            icon: mdi:arrow-top-left-thick
+            style:
+              left: 2.2vh
+              top: 3vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "left up"
+                inverted: true
+          - type: icon
+            icon: mdi:arrow-up-thick
+            style:
+              left: 4.2vh
+              top: 1.8vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "up"
+                inverted: true
+          - type: icon
+            icon: mdi:arrow-top-right-thick
+            style:
+              left: 6.2vh
+              top: 3vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "right up"
+                inverted: true
+
+          - type: icon
+            icon: mdi:arrow-left-thick
+            style:
+              left: 1vh
+              top: 5vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "left"
+                inverted: true
+          - type: icon
+            icon: mdi:arrow-right-thick
+            style:
+              left: 7.4vh
+              top: 5vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "right"
+                inverted: true
+
+          - type: icon
+            icon: mdi:arrow-bottom-left-thick
+            style:
+              left: 2.2vh
+              top: 7vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "left down"
+                inverted: true
+          - type: icon
+            icon: mdi:arrow-down-thick
+            style:
+              left: 4.2vh
+              top: 8.2vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "down"
+                inverted: true
+          - type: icon
+            icon: mdi:arrow-bottom-right-thick
+            style:
+              left: 6.2vh
+              top: 7vh
+            tap_action:
+              action: call-service
+              service: rest_command.ptz
+              service_data:
+                ip: "192.168.0.70"
+                direction: "right down"
+                inverted: true
+
+      - type: custom:stack-in-card
+        title: System
+        cards:
+          - type: custom:stack-in-card
+            mode: horizontal
+            cards:
+              - type: picture
+                image: /local/images/backgrounds/dc3217iye.png
+              - type: custom:stack-in-card
+                cards:
+                  - type: custom:mini-graph-card
+#                  name: System
+#                    icon: mdi:home-assistant
+                    hours_to_show: 2
+                    hour24: true
+                    points_per_hour: 12
+                    animate: true
+                    line_width: 2
+                    show:
+                      labels: false
+                    entities:
+                      - entity: sensor.memory_use_percent
+                        name: Memory
+                      - entity: sensor.processor_use_percent
+                        name: CPU
+                      - entity: sensor.processor_temperature
+                        name: Temperature
+          - type: custom:bar-card
+            entity: sensor.disk_use_percent
+
+      - type: custom:auto-entities
+        card:
+          type: grid
+          columns: 4
+        card_param: cards
+        filter:
+          include:
+            - group: group.faelles
+              options:
+                type: button
+
+      - type: custom:stack-in-card
+        mode: horizontal
+        cards:
+          - type: conditional
+            conditions:
+              - entity: sensor.affald
+                state: "1"
+            card:
+              type: button
+              entity: sensor.affald_hentes
+              show_state: true
+              show_icon: true
+              tap_action:
+                action: none
+              hold_action:
+                action: none
+          - type: conditional
+            conditions:
+              - entity: sensor.genbrug
+                state: "1"
+            card:
+              type: button
+              entity: sensor.genbrug_hentes
+              show_state: true
+              show_icon: true
+              tap_action:
+                action: none
+              hold_action:
+                action: none
+
+      - type: conditional
+        conditions:
+          - entity: binary_sensor.mail
+            state: "on"
+        card:
+          type: button
+          entity: binary_sensor.mail
+          show_state: false
+          show_icon: true
+          show_name: false
+          tap_action:
+            action: none
+          hold_action:
+            action: call-service
+            service: script.reset_mailbox
+
+      - type: custom:stack-in-card
+        title: System
+        cards:
+          - type: custom:stack-in-card
+            mode: horizontal
+            cards:
+              - type: gauge
+                entity: sensor.processor_use_percent
+                name: CPU
+                min: 0
+                max: 100
+                severity:
+                  green: 30
+                  yellow: 50
+                  red: 75
+              - type: gauge
+                entity: sensor.processor_temperature
+                name: Temperature
+                min: 0
+                max: 100
+                severity:
+                  green: 30
+                  yellow: 50
+                  red: 75
+              - type: gauge
+                entity: sensor.memory_use_percent
+                name: Memory
+                min: 0
+                max: 100
+                severity:
+                  green: 30
+                  yellow: 50
+                  red: 75
+          - type: custom:mini-graph-card
+            name: System
+            icon: mdi:raspberry-pi
+            hours_to_show: 2
+            hour24: true
+            points_per_hour: 12
+            animate: true
+            line_width: 2
+            show:
+              labels: false
+            entities:
+              - entity: sensor.memory_use_percent
+                name: Memory
+              - entity: sensor.processor_use_percent
+                name: CPU
+              - entity: sensor.processor_temperature
+                name: Temperature
+
+      # # Default view
+      # - type: entities
+      #   title: Touchscreen
+      #   show_header_toggle: false
+      #   entities:
+      #     - type: custom:fold-entity-row
+      #       head: automation.retur_til_default_view
+      #       padding: 0
+      #       entities:
+      #         - input_text.default_view_path
+      #         - type: custom:slider-entity-row
+      #           entity: input_number.default_view_timeout
+
+      # Computers
+      - type: entities
+        title: Computers
+        icon: mdi:desktop-tower
+        show_header_toggle: true
+        entities:
+          - switch.pc_h_lindvig
+
+      # # Postkasse
+      # - type: entities
+      #   title: Notifikationer
+      #   entities:
+      #     - type: custom:fold-entity-row
+      #       head: automation.postkasse
+      #       padding: 0
+      #       entities:
+      #         - type: custom:slider-entity-row
+      #           entity: input_number.mailbox_time_open
+      #     - type: divider
+      #     - automation.flaget_skal_hejses
+
+      # # Beskeder
+      # - type: entities
+      #   title: Beskeder
+      #   entities:
+      #     - type: custom:slider-entity-row
+      #       entity: input_number.announce_volume
+      #     - type: custom:fold-entity-row
+      #       head: automation.godmorgen
+      #       padding: 0
+      #       entities:
+      #         - type: custom:fold-entity-row
+      #           head: input_datetime.announce_at_time
+      #           padding: 0
+      #           entities:
+      #             - type: custom:time-picker-card
+      #               entity: input_datetime.announce_at_time
+      #               name: Vælg klokkeslæt
+      #               link_values: true
+      #               layout:
+      #                 name: inside
+      #                 align_controls: right
+      #     - type: divider
+      #     - type: custom:fold-entity-row
+      #       head: automation.toilet_meddelse
+      #       padding: 0
+      #       entities:
+      #         - input_text.toilet_string
+
+      # Windows
+      - type: custom:auto-entities
+        card:
+          type: entities
+          show_state: false
+        filter:
+          include:
+            - entity_id: "group.open_close_sensors"
+              options:
+                show_state: false
+                type: custom:fold-entity-row
+                padding: 0
+
+      # # Network
+      # - type: custom:auto-entities
+      #   card:
+      #     type: entities
+      #     title: Netværk
+      #     show_header_toggle: false
+      #     show_state: false
+      #   # entities:
+      #   #   - binary_sensor.router
+      #   #   - binary_sensor.main_switch
+      #   filter:
+      #     include:
+      #       - entity_id: binary_sensor.router
+      #       - entity_id: binary_sensor.main_switch
+      #       - entity_id: "group.access_points"
+      #         options:
+      #           type: custom:fold-entity-row
+      #       - entity_id: "group.rf_bridges"
+      #         options:
+      #           type: custom:fold-entity-row
+
+      # - type: custom:clock-card
+
+      # - !include cards/test/flag_card.yaml
+
+      # - type: custom:gui-sandbox

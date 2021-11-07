@@ -1,0 +1,51 @@
+candles:
+
+  homeassistant:
+    customize:
+      light.bloklys_kokken:
+        friendly_name: Køkken
+        icon: mdi:candle
+      light.bloklys_stuen:
+        friendly_name: Stuen
+        icon: mdi:candle
+      light.bloklys_gangen:
+        friendly_name: Gangen
+        icon: mdi:candle
+
+      # Anchor nodes
+      package.node_anchors:
+        on_off_keys: &on_off_keys
+          command_on: JgBQAAABLZMUExQSFBIUEhQTFBIUEhQSFDYUNhQ1FDYUNRQ2FDYUNRQ2FBIUEhQTFBIUEhQSFBMUEhQ1FTUUNhQ1FDYUNhQ1FAAFDQABLkkUAA0FAAAAAAAAAAA=
+          command_off: JgBYAAABLZQTExQSExMUExQSFBIUExMTFDUUNhQ2FDUUNhQ2EzYUNhQ2FBIUEhQ2FBITExMUFBITExQ2FDUUExM2FDYUNRQ2FAAFDQABLkgUAAxMAAEtSBMADQU=
+
+  light:
+    - platform: switch
+      name: Bloklys stuen
+      entity_id: switch.bloklys_stuen
+
+    - platform: switch
+      name: Bloklys køkken
+      entity_id: switch.bloklys_kokken
+
+    - platform: switch
+      name: Bloklys indgangen
+      entity_id: switch.bloklys_indgangen
+
+  switch:
+    - platform: broadlink
+      mac: !secret STUEN_IR_MAC
+      switches:
+        - name: Bloklys stuen
+          <<: *on_off_keys
+
+    - platform: broadlink
+      mac: !secret KØKKEN_IR_MAC
+      switches:
+        - name: Bloklys køkken
+          <<: *on_off_keys
+
+    - platform: broadlink
+      mac: !secret INDGANGEN_IR_MAC
+      switches:
+        - name: Bloklys indgangen
+          <<: *on_off_keys

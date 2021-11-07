@@ -1,0 +1,139 @@
+blueprint:
+  name: Light and sensors
+  description: Kommer
+  domain: automation
+
+  input:
+    sensor:
+      name: Sensor
+      description: The sensor which shall trigger the automation
+      selector:
+        entity:
+          domain: binary_sensor
+
+    light:
+      name: Light(s)
+      description: Light(s) to operate
+      selector:
+        target:
+
+    time_after:
+      name: Time Start
+      description: The earliest time to trigger
+      default: "07:00:00"
+      selector:
+        time:
+
+    time_before:
+      name: Time End
+      description: The latest time to trigger
+      default: "23:30:00"
+      selector:
+        time:
+
+    time_duration:
+      name: Duration of sensor
+      description: How long time should pass before trigger
+      default: "00:10:00"
+      selector:
+        time:
+
+    delay_min:
+      name: Delay minimum
+      description: How short delay
+      default: 60
+      selector:
+        number:
+          min: 0
+          max: 300
+          mode: slider
+          step: 10
+          unit_of_measurement: "seconds"
+
+    delay_max:
+      name: Delay maximum
+      description: How long delay
+      default: 300
+      selector:
+        number:
+          min: 10
+          max: 600
+          mode: slider
+          step: 10
+          unit_of_measurement: "seconds"
+
+mode: single
+max_exceeded: silent
+variables:
+  sensor: !input sensor
+  time_after: !input time_after
+  time_before: !input time_before
+  delay_min: !input delay_min
+  delay_max: !input delay_max
+
+trigger:
+  - platform: state
+    entity_id: !input sensor
+    for: !input time_duration
+
+  - platform: time
+    at:
+      - !input time_after
+      - !input time_before
+
+action:
+
+  # - service: persistent_notification.create
+  #   data:
+  #     title: Debug
+  #     notification_id: debug
+  #     message: |
+  #       {{ trigger.platform }}
+  #       delay: {{ delay }}
+
+  # If trigger is SENSOR or TIME
+  - choose:
+      # It is a sensor that triggered the automation AND time is between the specified time window
+      - conditions:
+          - "{{ trigger.platform == 'state' }}"
+          - condition: time
+            after: !input time_after
+            before: !input time_before
+        sequence:
+          # Wait (DELAY) to see if the sensor changes state, if not after timeout continue
+          - wait_template: "{{ is_state(sensor, 'trigger.from_state.state') }}"
+            timeout:
+              seconds: "{{ range(delay_min | int, delay_max | int) | random }}"
+            continue_on_timeout: true
+            # Only perform action if the wait timed out
+          - choose:
+              - conditions: "{{ not wait.completed }}"
+                sequence:
+                  - service: "homeassistant.turn_{{ trigger.to_state.state }}"
+                    target: !input light
+
+    # Time was the trigger
+    default:
+      - choose:
+          # It is morning AND the sensor is OFF
+          - conditions:
+              - "{{ (as_timestamp(trigger.now) | timestamp_custom('%H:%M:%S')) == time_after }}"
+              - "{{ is_state(sensor, 'off') }}"
+            sequence:
+              # Wait (DELAY) to see if the sensor turns off, if not after timeout continue
+              - wait_template: "{{ is_state(sensor, 'off') }}"
+                timeout:
+                  seconds: "{{ range(delay_min | int, delay_max | int) | random }}"
+                continue_on_timeout: true
+              # Only perform action if the wait timed out
+              - choose:
+                  - conditions: "{{ not wait.completed }}"
+                    sequence:
+                      - service: homeassistant.turn_on
+                        target: !input light
+
+        # It is NOT morning, delay and turn OFF
+        default:
+          - delay: "{{ range(delay_min | int, delay_max | int) | random }}"
+          - service: homeassistant.turn_off
+            target: !input light

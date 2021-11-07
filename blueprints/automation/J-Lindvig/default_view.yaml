@@ -1,0 +1,62 @@
+blueprint:
+  name: Default Lovelace view
+  description: |
+    # Default Lovelace view
+    This blueprint makes it easy to have a Lovelave interface which returns to a default view after a timeout.
+    
+    ## Requirements:
+    + browser_mod by Thomas Lovén (https://github.com/thomasloven/hass-browser_mod)
+    + Home Assistant v. 2021.2.0 as minimum (text selector)
+    
+    ## Use:
+    Find you must find the entity of the device to control. This is sadly not as easy as it could/should be, since Blueprints does not offer the possibility to sort entites by their attribute.
+    It gets a little easier if you specify a alias to the deviceID (https://github.com/thomasloven/hass-browser_mod#aliases)
+    
+    Second, you must enter the default path.
+    
+    Lastly you will need to select a timeout in seconds before the device navigates back to the default view.
+  source_url: https://github.com/J-Lindvig/HomeAssistant/blob/master/blueprints/automation/J-Lindvig/default_view.yaml
+  domain: automation
+
+  input:
+    device:
+      name: The device to operate
+      description: Choose the device you with to have a default view
+      selector:
+        entity:
+          domain: sensor
+
+    path_default:
+      name: Default view
+      description: Path of the default view ex. '/lovelace/0'
+      default: "/lovelace/0"
+      selector:
+        text:
+
+    timeout:
+      name: Time out
+      description: After this time out return to default view
+      default: 30
+      selector:
+        number:
+          min: 10
+          max: 300
+          step: 5
+          unit_of_measurement: seconds
+
+mode: restart
+max_exceeded: silent
+variables:
+  device: !input device
+  path_default: !input path_default
+  timeout: !input timeout
+trigger:
+- platform: state
+  entity_id: !input device
+  attribute: path
+action:
+  - delay: "{{ timeout }}"
+  - service: browser_mod.navigate
+    data:
+      deviceID: "{{ state_attr(device, 'deviceID') }}"
+      navigation_path: "{{ path_default }}"

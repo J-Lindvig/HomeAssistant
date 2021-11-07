@@ -1,0 +1,73 @@
+- platform: xiaomi_cloud_map_extractor
+  host: !secret S6_IP
+  token: !secret S6_TOKEN
+  username: !secret S6_USER
+  password: !secret S6_PASS
+  country: "de"
+  name: "Lynet McClean Camera"
+  draw: ['all']
+  colors:
+    color_map_inside: [32, 115, 185]
+    color_map_outside: [19, 87, 148]
+    color_map_wall: [100, 196, 254]
+    color_map_wall_v2: [93, 109, 126]
+    color_grey_wall: [93, 109, 126]
+    color_ignored_obstacle: [0, 0, 0, 127]
+    color_ignored_obstacle_with_photo: [0, 0, 0, 127]
+    color_obstacle: [0, 0, 0, 127]
+    color_obstacle_with_photo: [0, 0, 0, 127]
+    color_path: [147, 194, 238]
+    color_goto_path: [0, 255, 0]
+    color_predicted_path: [255, 255, 0, 0]
+    color_zones: [0xAD, 0xD8, 0xFF, 0x8F]
+    color_zones_outline: [0xAD, 0xD8, 0xFF]
+    color_virtual_walls: [255, 0, 0]
+    color_no_go_zones: [255, 33, 55, 127]
+    color_no_go_zones_outline: [255, 0, 0]
+    color_no_mop_zones: [163, 130, 211, 127]
+    color_no_mop_zones_outline: [163, 130, 211]
+    color_charger: [0x66, 0xfe, 0xda, 0x7f]
+    color_robo: [75, 235, 149]
+    color_unknown: [0, 0, 0]
+    color_scan: [0xDF, 0xDF, 0xDF]
+  attributes:
+    - room_numbers
+    - rooms
+    - vacuum_position
+    - goto
+    - goto_path
+    - goto_predicted_path
+    - vacuum_position
+    - vacuum_room
+
+# # KONTOR 1
+# - platform: ffmpeg
+#   name: Kontor 1 HD
+#   input: rtsp://admin:12345@192.168.0.70/0/av0
+# - platform: ffmpeg
+#   name: Kontor 1 SD
+#   input: rtsp://admin:12345@192.168.0.70/0/av1
+
+# # UDENDØRS
+# - platform: ffmpeg
+#   name: Udendørs HD
+#   input: rtsp://admin:12345@192.168.0.71/0/av0
+# - platform: ffmpeg
+#   name: Udendørs SD
+#   input: rtsp://admin:12345@192.168.0.71/0/av1
+
+# # KONTOR 2
+# - platform: ffmpeg
+#   name: Kontor 2 HD
+#   input: rtsp://admin:12345@192.168.0.72/0/av0
+# - platform: ffmpeg
+#   name: Kontor 2 SD
+#   input: rtsp://admin:12345@192.168.0.72/0/av1
+
+# # INDGANG
+# - platform: ffmpeg
+#   name: Indgang HD
+#   input: rtsp://admin:12345@192.168.0.73/0/av0
+# - platform: ffmpeg
+#   name: Indgang SD
+#   input: rtsp://admin:12345@192.168.0.73/0/av1

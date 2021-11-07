@@ -1,0 +1,25 @@
+################################################################################
+#                       __                    __                               #
+#                      / /   ____ _   _____  / /___ _________                  #
+#                     / /   / __ \ | / / _ \/ / __ `/ ___/ _ \                 #
+#                    / /___/ /_/ / |/ /  __/ / /_/ / /__/  __/                 #
+#                   /_____/\____/|___/\___/_/\__,_/\___/\___/                  #
+#                                                 by J-Lindvig                 #
+################################################################################
+# Created: 23/10/2020                                                          #
+################################################################################
+
+views:
+  - !include include/views/main.yaml
+#  - !include include/views/cctv.yaml
+  - !include include/views/room_lights.yaml
+#  - !include include/views/movies.yaml
+  - !include include/views/light_control.yaml
+  - !include include/views/system.yaml
+  - !include include/views/gauges.yaml
+  - !include include/views/weather.yaml
+  - !include include/views/grid.yaml
+  - !include include/views/test.yaml
+################################################################################
+####                              End of file                               ####
+################################################################################

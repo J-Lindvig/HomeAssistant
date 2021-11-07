@@ -1,0 +1,407 @@
+############################################################
+####             Vacuum Package by J-Lindvig            ####
+############################################################
+#
+# FUNCTIONS:
+# ----------------------------------------------------------
+# + Cleaning in specified room ( must be supported on vacuum)
+#   + Soon multiple rooms in one go.
+# + All-house cleaning
+# + Stop current operation
+# + Go back to the dock
+# + Go to a point for emptying the dustbin
+# + Adjust fanspeed and synchronize it with vacuum
+# + Dis/enable DND
+# + Adjust DND timers
+# + Show ( and soon reset ) maintenance
+#
+# PLUGINS:
+# ----------------------------------------------------------
+# - variable (https://github.com/snarky-snark/home-assistant-variables)
+#
+# SECRETS:
+# ----------------------------------------------------------
+# S50_IP, IP of the vacuum
+# S50_TOKEN, The Token from the vacuum
+# VACUUM_API, ex: "https://YOUR_HA_IP/api/services/vacuum/send_command"
+# VACUUM_API_TOKEN, ex: "Bearer YOUR_VERY_LONG_TOKEN"
+#
+# VARIABLES, SETTINGS & STRINGS
+# ----------------------------------------------------------
+# Search for the following keys and replace with your own values:
+#
+# "vacuum:", integration with the vacuum
+# "vacuum_room_ids", room ids separated with ","
+# "vacuum_room_size", room sizes separated with "," ( work in progress)
+# "cleaning_room_id", Id of the room being cleaned - initial 'null'
+# "vacuum_default_fanspeed", default fanspeed
+#
+# "vacuum.lynet_mcclean", the entity of the vacuum
+# "vacuum_lynet_mcclean", sensor entity connected to the vacuum
+#
+# "input_select.vacuum_room", list of strings with room names
+# "input_select.vacuum_power", list of string with fanspeeds
+# "params: [20000,30500]", the coordinates of the dustbin proximity
+# " er klar til at blive serviceret...", the TTS string of the announcement
+# for emptying the dustbin
+
+vacuum:
+
+  var:
+    # String with room numbers sychronized with the list of roomnames
+    vacuum_room_ids:
+      initial_value: "16,20,21,18,17,23,27,19,22,26,24"
+      restore: false
+
+    # String with room sizes sychronized with the list of roomnames
+    vacuum_room_size:
+      initial_value: "33,13,14,37,28,26,6,8,9,9,9"
+      restore: true
+
+    # ID of the room being cleaned - MUST be 'null' if idle
+    cleaning_room_id:
+      initial_value: "null"
+      restore: false
+
+    # default fan speed
+    vacuum_default_fanspeed:
+      initial_value: "102"
+      restore: false
+
+  input_select:
+    vacuum_room:
+      name: "Vælg rum"
+      icon: mdi:floor-plan
+      options:
+        - Køkken
+        - Studie værelse
+        - Soveværelse
+        - Stuen
+        - Indgang
+        - Gangen
+        - Lille badeværelse
+        - Stort badeværelse
+        - Willliams værelse
+        - Emilios værelse
+        - Colins værelse
+
+    vacuum_power:
+      name: "Vælg sugestyrke"
+      icon: mdi:fan
+      options:
+        - Stille
+        - Standard
+        - Turbo
+        - Max
+
+  sensor:
+    # Template sensors to aid in the use of the vacuum
+    - platform: template
+      sensors:
+        # How far along is the cleaning
+        clean_room_progress:
+          # entity_id:
+          #   - vacuum.lynet_mcclean
+          #   - var.cleaning_room_id
+          friendly_name_template: >-
+            {{ state_attr('input_select.vacuum_room', 'options')[states('var.cleaning_room_id') | int] }}
+          unique_id: dd13309c9bc545bca7b4f1d028031b48
+          value_template: >-
+            {%- set cleaned_area = state_attr('vacuum.lynet_mcclean', 'cleaned_area') | int %}
+            {%- set room_size = ( states('var.vacuum_room_size').split(',')[states('var.cleaning_room_id') | int] ) | int %}
+            {{ ((cleaned_area / room_size) * 100) | round() }}
+          unit_of_measurement: "%"
+          attribute_templates:
+            est_time_to_finish: >-
+              {%- set time_used = state_attr('vacuum.lynet_mcclean', 'cleaning_time') %}
+              {%- set est_total_time = ( time_used / ( state_attr('vacuum.lynet_mcclean', 'cleaned_area') / states('var.vacuum_room_size').split(',')[states('var.cleaning_room_id') | int] | int ) ) | round(0) %}
+              {{ est_total_time - time_used }}
+          availability_template: "{{ not is_state('var.cleaning_room_id', 'null') }}"
+
+        # Placeholder for the battery level and icon
+        vacuum_battery:
+          friendly_name: Batteri
+          unique_id: f0434768ecbc46158dae30600e0882c1
+          unit_of_measurement: "%"
+          value_template: "{{ state_attr('vacuum.lynet_mcclean', 'battery_level') }}"
+          icon_template: "{{ state_attr('vacuum.lynet_mcclean', 'battery_icon') }}"
+
+        # Placeholder for the suction setting
+        # Friendly_name as the current suction
+        vacuum_fan_speed:
+          friendly_name_template: "{{ state_attr('sensor.vacuum_lynet_mcclean', 'fan_speed') }}"
+          unique_id: 12e771786a844e569559a546f287a637
+          value_template: "{{ state_attr('sensor.vacuum_lynet_mcclean', 'fan_speed_index') }}"
+
+        # Very large and complex template which stores values
+        # and helper attributes
+        vacuum_lynet_mcclean:
+          friendly_name_template: >-
+            {{ state_attr("vacuum.lynet_mcclean", "friendly_name") }}
+          unique_id: b32f899e905b47e1abff57437ab04f4b
+          # Translates the state to Danish - Work in Progress
+          value_template: >-
+            {%- if is_state("vacuum.lynet_mcclean", "docked") -%}
+              I dock
+            {%- elif is_state("vacuum.lynet_mcclean", "cleaning") -%}
+              Støvsuger
+            {%- elif is_state("vacuum.lynet_mcclean", "paused") -%}
+              Pause
+            {%- elif is_state("vacuum.lynet_mcclean", "idle") -%}
+              Tomgang
+            {%- elif is_state("vacuum.lynet_mcclean", "Charger disconnected") -%}
+              Lader ikke
+            {%- else -%}
+              Ukendt
+            {%- endif -%}
+          attribute_templates:
+            # Helper for the index of the suction, ex. 0 for silent
+            fan_speed_index: >-
+              {%- for needle in state_attr('vacuum.lynet_mcclean', 'fan_speed_list') %}
+                {%- if needle == state_attr("vacuum.lynet_mcclean", "fan_speed") %}
+                  {{ loop.index0 }}
+                {% endif %}
+              {%- endfor %}
+            # The numeric state of the suction, ex. 101 for silent
+            fan_speed_num: >-
+              {%- for needle in state_attr('vacuum.lynet_mcclean', 'fan_speed_list') %}
+                {%- if needle == state_attr("vacuum.lynet_mcclean", "fan_speed") %}
+                  10{{ loop.index }}
+                {% endif %}
+              {%- endfor %}
+            # String with the current suction, ex. silent
+            fan_speed: >-
+              {% set ns = namespace(index=0) -%}
+              {%- for needle in state_attr('vacuum.lynet_mcclean', 'fan_speed_list') %}
+                {%- if needle == state_attr("vacuum.lynet_mcclean", "fan_speed") %}
+                  {% set ns.index = loop.index0 %}
+                {% endif %}
+              {%- endfor %}
+              {{ state_attr('input_select.vacuum_power', "options")[ns.index] }}
+            # Work in progress with working state
+            status: >-
+              {%- if is_state_attr("vacuum.lynet_mcclean", "status", "Charging") and is_state_attr("vacuum.lynet_mcclean", "battery_level", 100) -%}
+                Opladt
+              {%- elif is_state_attr("vacuum.lynet_mcclean", "status", "Charging") -%}
+                Oplader
+              {%- elif is_state_attr("vacuum.lynet_mcclean", "status", "Segment cleaning") -%}
+                Støvsuger i et rum
+              {%- elif is_state_attr("vacuum.lynet_mcclean", "status", "Returning home") -%}
+                Kører hjem
+              {%- elif is_state_attr("vacuum.lynet_mcclean", "status", "Cleaning") -%}
+                Støvsuger huset
+              {%- elif is_state_attr("vacuum.lynet_mcclean", "status", "Going to target") -%}
+                Kører hen til målet
+              {%- else -%}
+                {{ state_attr("vacuum.lynet_mcclean", "status") }}
+              {%- endif -%}
+
+  switch:
+    - platform: template
+      switches:
+        # Switch to turn DND "on" oŕ "off"
+        vacuum_dnd:
+          friendly_name: "DND støvsuger"
+          unique_id: 84ef164674df48218983198644cb20ea
+          value_template: "{{ state_attr('vacuum.lynet_mcclean', 'do_not_disturb') }}"
+          turn_on:
+            # Send the current DND times to turn DND on
+            service: script.vacuum_save_dnd
+          turn_off:
+            # Send the DND Off command
+            service: rest_command.vacuum_command
+            data:
+              entity: vacuum.lynet_mcclean
+              command: close_dnd_timer
+
+  input_datetime:
+    vacuum_dnd_start:
+      name: Vacuum DND start
+      has_date: false
+      has_time: true
+    vacuum_dnd_end:
+      name: Vacuum DND end
+      has_date: false
+      has_time: true
+
+  script:
+      # Save DND timer
+    vacuum_save_dnd:
+      alias: "Gem DND timer"
+      sequence:
+        - service: rest_command.vacuum_command
+          data:
+            entity: vacuum.lynet_mcclean
+            command: set_dnd_timer
+            # Prepare the time settings for the vacuum
+            # The params must follow this format:
+            # [start_hour, start_minute, end_hour, end_minute]
+            # but it cant process values starting with a zero, ex.
+            # [22, 0, 8, 0] instead of [22, 00, 08, 00].
+            # Therefore we need to do som work....
+            params: >-
+              {%- set start_h = states('input_datetime.vacuum_dnd_start')[1:2] if states('input_datetime.vacuum_dnd_start')[:2].startswith('0') else states('input_datetime.vacuum_dnd_start')[:2] -%}
+              {%- set start_m = states('input_datetime.vacuum_dnd_start')[4:-3] if states('input_datetime.vacuum_dnd_start')[3:-3].startswith('0') else states('input_datetime.vacuum_dnd_start')[3:-3] -%}
+              {%- set end_h = states('input_datetime.vacuum_dnd_end')[1:2] if states('input_datetime.vacuum_dnd_end')[:2].startswith('0') else states('input_datetime.vacuum_dnd_end')[:2] -%}
+              {%- set end_m = states('input_datetime.vacuum_dnd_end')[4:-3] if states('input_datetime.vacuum_dnd_end')[3:-3].startswith('0') else states('input_datetime.vacuum_dnd_end')[3:-3] -%}
+              {{ start_h }}, {{ start_m }}, {{ end_h }}, {{ end_m }}
+
+    # Start room-cleaning
+    vacuum_room_start:
+      alias: "Støvsug rum"
+      sequence:
+        - service: var.set
+          data:
+            entity_id: var.cleaning_room_id
+            value: >-
+              {%- for room in state_attr("input_select.vacuum_room", "options") -%}
+                {%- if room == states("input_select.vacuum_room") -%}
+                  {{ loop.index0 }}
+                {%- endif %}
+              {%- endfor %}
+        - service: rest_command.vacuum_command
+          data:
+            entity: vacuum.lynet_mcclean
+            command: app_segment_clean
+            # Find the selected room and use the index to find the room number
+            params: >-
+              {{ states("var.vacuum_room_ids").split(",")[states('var.cleaning_room_id') | int] }}
+        - delay: "00:00:05"
+        - service: homeassistant.update_entity
+          data:
+            entity_id: sensor.clean_room_progress
+
+        # Just in case we have a open popup - close it
+        - service: browser_mod.close_popup
+    
+    # Drive the vacuum near dustbin for service
+    vacuum_service:
+      alias: "Kør Lynet McClean ud i køkkenet"
+      sequence:
+        - service: vacuum.send_command
+          data:
+            entity_id: vacuum.lynet_mcclean
+            command: app_goto_target
+            params: [19000,28900]
+        - wait_template: "{{ is_state('vacuum.lynet_mcclean', 'idle') }}"
+
+        - service: script.say_something
+          data:
+            media_player: media_player.kokken
+            volume: "{{ (states('input_number.announce_volume') | float) / 100 }}"
+            message: "{{ state_attr('vacuum.lynet_mcclean', 'friendly_name') }} er klar til at blive serviceret..."
+
+  rest_command:
+    vacuum_command:
+      url: !secret VACUUM_API
+      method: POST
+      headers:
+        authorization: !secret VACUUM_API_TOKEN
+        accept: 'application/json'
+      payload: '{ "entity_id": "{{ entity }}", "command": "{{ command }}", "params": [{{ params }}] }'
+      content_type: 'application/json'
+
+  automation:
+    # The vacuum is done cleaning a room - status "Returning home"
+    # But only fire when we have issued the cleaning - room_id != null
+    # Reset the room_id
+    - alias: "Slut med støvsugning"
+      id: 1fa51c3c0bb2478aa9cd160e833ee162
+      trigger:
+        platform: template
+        value_template: >-
+          {% set status_lower = state_attr('vacuum.lynet_mcclean', 'status') | lower %}
+          {{
+            (status_lower == 'charging') or
+            (status_lower == 'returning') or
+            (status_lower == 'returning home')
+          }}
+      condition: "{{ not is_state('var.cleaning_room_id', 'null') }}"
+      action:
+        - service: var.set
+          data:
+            entity_id: var.cleaning_room_id
+            value: 'null'
+
+    # The DND has changed - send it to the vacuum
+    - alias: "Skift DND på støvsugeren"
+      id: 9f4790f300524acbac7abddb987f34cf
+      trigger:
+        platform: state
+        entity_id:
+          - input_datetime.vacuum_dnd_start
+          - input_datetime.vacuum_dnd_end
+      action:
+        - service: script.vacuum_save_dnd
+
+    # Send the new suction setting to the vacuum
+    - alias: "Skift sugestyrke på støvsugeren"
+      id: 99b2911581524306becce8b397c87aad
+      trigger:
+        # Trigger - when a suction setting is choosen
+        platform: state
+        entity_id: input_select.vacuum_power
+      action:
+        - service: vacuum.set_fan_speed
+          data:
+            entity_id: vacuum.lynet_mcclean
+            # Find the index of the selected option (index starting from 1)
+            # Append this digit to 10 - ex. 101
+            fan_speed: >-
+              {% for needle in state_attr("input_select.vacuum_power", "options") %}
+                {% if needle == states("input_select.vacuum_power") %}
+                  10{{ loop.index }}
+                {% endif %}
+              {%- endfor %}
+        - service: homeassistant.update_entity
+          data:
+            entity_id: sensor.vacuum_fan_speed
+
+    # We have changed the suction settings in the app
+    # and wish to match the new setting
+    - alias: "Match suge-menuen til støvsugeren"
+      id: 1044ecd648af4760a3672db6e2f8e50c
+      trigger:
+        # Trigger - new suction
+        - platform: state
+          entity_id: sensor.vacuum_fan_speed
+      action:
+        - service: input_select.select_option
+          data:
+            entity_id: input_select.vacuum_power
+            # Get the last digit of the vacuums settings ( ex. 103 = 3 )
+            # Substract 1 and use this value as index on the options
+            option: >-
+              {%- for needle in state_attr('vacuum.lynet_mcclean', 'fan_speed_list') %}
+                {%- if needle == state_attr("vacuum.lynet_mcclean", "fan_speed") %}
+                {{ state_attr("input_select.vacuum_power", "options")[ loop.index0] }}
+                {% endif %}
+              {%- endfor %}
+
+    # Set the defult settings at startup
+    - alias: "Indstil støvsugeren ved opstart"
+      id: d14d7f1f776c46e793692378317c88cb
+      trigger:
+        - platform: homeassistant
+          event: start
+      action:
+        # Get the DND start from the vacuum and set the timepicker
+        - service: input_datetime.set_datetime
+          data:
+            entity_id: input_datetime.vacuum_dnd_start
+            time: "{{ state_attr('vacuum.lynet_mcclean', 'do_not_disturb_start') }}"
+        # Get the DND end from the vacuum and set the timepicker
+        - service: input_datetime.set_datetime
+          data:
+            entity_id: input_datetime.vacuum_dnd_end
+            time: "{{ state_attr('vacuum.lynet_mcclean', 'do_not_disturb_end') }}"
+        # Send the default fanspeed to the vacuum
+        - service: vacuum.set_fan_speed
+          data:
+            entity_id: vacuum.lynet_mcclean
+            # Send default fan speed to vacuum
+            fan_speed: "{{ states('var.vacuum_default_fanspeed') | int }}"
+        - delay: "00:00:20"
+        - service: automation.trigger
+          data:
+            entity_id: automation.match_suge_menuen_til_stovsugeren

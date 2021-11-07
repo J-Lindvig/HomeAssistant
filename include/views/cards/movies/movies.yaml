@@ -1,0 +1,114 @@
+type: custom:stack-in-card
+mode: vertical
+cards:
+
+  - type: custom:card-templater
+    entities:
+      - input_select.movie_cover
+    card:
+      type: picture-elements
+      image_template: "{{ states('input_select.movie_cover') }}"
+      elements:
+        - type: icon
+          icon: mdi:chevron-left-box
+          style:
+            transform: translate(0%,-50%)
+            top: 50%
+            left: 2%
+            --iron-icon-height: 7vh
+            --iron-icon-width: 7vh
+            color: white
+            padding: 0.1vw
+            border-color: rgb(34, 154, 210)
+            background-color: rgba(34, 34, 34, 0.5)
+            border-radius: 10px
+          
+          tap_action:
+            action: call-service
+            service: input_select.select_previous
+            service_data:
+              entity_id: input_select.movie
+
+        - type: icon
+          icon: mdi:chevron-right-box
+          style:
+            transform: translate(0%,-50%)
+            top: 50%
+            right: 2%
+            --iron-icon-height: 7vh
+            --iron-icon-width: 7vh
+            color: white
+            padding: 0.1vw
+            border-color: rgb(34, 154, 210)
+            background-color: rgba(34, 34, 34, 0.5)
+            border-radius: 10px
+          
+          tap_action:
+            action: call-service
+            service: input_select.select_next
+            service_data:
+              entity_id: input_select.movie
+
+        - type: conditional
+          conditions:
+            - entity: input_select.movie_cover
+              state: "/local/images/covers/unknown.jpg"
+          elements:
+            - type: state-label
+              entity: input_select.movie
+              style:
+                top: 30%
+                left: 50%
+                font-size: 1.3vw
+                color: white
+                text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+                font-weight: bold
+
+  - type: custom:slider-entity-row
+    entity: input_select.movie_chapters
+    name: Kapitel
+  - type: horizontal-stack
+    cards:
+      - type: button
+        entity: script.play_pause_movie
+        icon: mdi:skip-previous
+        show_name: false
+        tap_action:
+          action: call-service
+          service: input_select.select_previous
+          service_data:
+            entity_id: input_select.movie_chapters
+    
+      - type: button
+        entity: script.play_pause_movie
+        icon: mdi:play-pause
+        show_name: false
+        tap_action:
+          action: call-service
+          service: script.play_pause_movie
+    
+      - type: button
+        entity: script.stop_movie
+        icon: mdi:stop
+        show_name: false
+        tap_action:
+          action: call-service
+          service: script.stop_movie
+    
+      - type: button
+        entity: script.play_pause_movie
+        icon: mdi:skip-next
+        show_name: false
+        tap_action:
+          action: call-service
+          service: input_select.select_next
+          service_data:
+            entity_id: input_select.movie_chapters
+    
+      - type: button
+        entity: script.load_movies
+        icon: mdi:reload
+        show_name: false
+        tap_action:
+          action: call-service
+          service: script.load_movies

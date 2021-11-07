@@ -1,0 +1,271 @@
+{# @Author: Jacob Lindvig Henriksen (J-Lindvig) #}
+
+{% set background = "/local/images/vacuum.png" %}
+
+{# PRIVATE BEGIN #}
+{# BANNER IN YAML WITH SIGNATURE #}
+{% set signature = "by J-Lindvig" %}
+{% set stamp = "Created: " ~ now().day  ~ '/' ~ now().month ~ '/' ~ now().year %}
+{% set banner = [
+"      __                     __     __  ___     ________               ",
+"     / /   __  ______  ___  / /_   /  |/  /____/ ____/ /__  ____ _____ ",
+"    / /   / / / / __ \/ _ \/ __/  / /|_/ / ___/ /   / / _ \/ __ `/ __ \\",
+"   / /___/ /_/ / / / /  __/ /_   / /  / / /__/ /___/ /  __/ /_/ / / / /",
+"  /_____/\__, /_/ /_/\___/\__/  /_/  /_/\___/\____/_/\___/\__,_/_/ /_/ ",
+"        /____/                                                         "
+  ] %}
+
+{%- macro print_banner() %}
+{{ "#".ljust(80, "#") }}
+{%- for line in banner %}
+{%- if not loop.last %}
+# {{ line.center(76) }} #
+{%- else %}
+# {{ (line[:-(signature | length)] ~ signature).center(76) }} #
+{% endif -%}
+{% endfor -%}
+{{ "#".ljust(80, "#") }}
+# {{ stamp.ljust(76," ") }} #
+{{ "#".ljust(80, "#") }}
+{%- endmacro %}
+{# PRIVATE END #}
+
+{# MACRO BEGIN #}
+{% macro banner_background() -%}
+          padding-left: 50%
+          padding-right: 50%
+          border-color: rgb(34, 154, 210)
+          border-radius: 6px
+          background-color: rgba(34, 34, 34, 0.5)
+{%- endmacro %}
+
+{% macro bottom_button(icon, x, service, entity) -%}
+      - type: icon
+        icon: {{ icon }}
+        tap_action:
+          action: call-service
+          service: {{ service }}
+          service_data:
+            entity_id: {{ entity }}
+        style:
+          transform: translate(-50%,0%)
+          position: absolute
+          bottom: 0px
+          left: {{ x }}
+          color: "#ffffff"
+          line-height: 2vw
+          --iron-icon-height: 3vh
+          --iron-icon-width: 3vh
+{%- endmacro %}
+
+{% macro top_icon(type, entity_or_icon, x) -%}
+      - type: {{ type }}
+        {{ 'icon: ' if 'mdi:' in entity_or_icon else 'entity: ' }}{{ entity_or_icon }}
+        style:
+          transform: translate(0%,-50%)
+          position: absolute
+          top: 2vh
+          left: {{ x }}
+          color: "#ffffff"
+          font-size: 2.5vh
+          --iron-icon-height: 2.3vh
+          --iron-icon-width: 2.3vh
+{%- endmacro %}
+
+{%- macro room_arrow(side) -%}
+          - type: icon
+            icon: mdi:chevron-{{ side }}-circle
+            style:
+              transform: translate(0%,-50%)
+              position: absolute
+              top: 6vh
+              {{ side }}: 10%
+              color: "#222222"
+              --iron-icon-height: 4vh
+              --iron-icon-width: 4vh
+            tap_action:
+              action: call-service
+              service: input_select.select_{{ 'previous' if 'left' in side else 'next' }}
+              service_data:
+                entity_id: input_select.vacuum_room
+{%- endmacro %}
+
+{%- macro vacuum_maintenance(name, entity, max) -%}
+          - entity: vacuum.lynet_mcclean
+            name: {{ name }}
+            attribute: {{ entity }}
+            max: {{ max }}
+            tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstillinger
+                large: false
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: custom:stack-in-card
+                  cards:
+                    - type: entities
+                      entities:
+                        - switch.vacuum_dnd
+                        - type: custom:stack-in-card
+                          mode: horizontal
+                          cards:
+                            - type: custom:time-picker-card
+                              entity: input_datetime.vacuum_dnd_start
+                              name: Start
+                            - type: custom:time-picker-card
+                              entity: input_datetime.vacuum_dnd_end
+                              name: Slut
+                deviceID:
+                  - this
+{%- endmacro %}
+{# MACRO END #}
+
+{{ print_banner() }}
+type: custom:stack-in-card
+cards:
+  - type: picture-elements
+    image: {{ background }}
+    elements:
+
+      - type: custom:bar-card
+        entity: sensor.vacuum_fan_speed
+        direction: up
+        entity_row: true
+        width: 6.5vw
+        height: 15vh
+        color: "#222222"
+        min: 0
+        max: 3
+        positions:
+          icon: off
+          name: inside
+          value: off
+        style:
+          top: 52%
+          right: 2.5%
+          position: absolute
+          transform: translate(0%,-50%)
+          font-size: 2.3vh
+          text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+        tap_action:
+          action: call-service
+          service: input_select.select_next
+          service_data:
+            entity_id: input_select.vacuum_power
+
+      - type: custom:bar-card
+        entities:
+          {{ vacuum_maintenance("Sensorer", "sensor_dirty_left", 30) }}
+          {{ vacuum_maintenance("Filter", "filter_left", 150) }}
+          {{ vacuum_maintenance("Børste", "main_brush_left", 300) }}
+          {{ vacuum_maintenance("Sidebørste", "side_brush_left", 200) }}
+        entity_row: true
+        width: 7vw
+        height: 3.3vh
+        color: "#222222"
+        positions:
+          icon: off
+          name: inside
+          value: off
+        style:
+          top: 50%
+          left: 0%
+          position: absolute
+          transform: translate(0%,-50%)
+          text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+
+      - type: state-label
+        entity: sensor.vacuum_lynet_mcclean
+        style:
+          transform: translate(-50%,0%)
+          position: absolute
+          top: 0px
+          left: 50%
+          color: "#ffffff"
+          font-size: 3vh
+          line-height: 2vh
+          text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+          {{ banner_background() }}
+
+      - type: conditional
+        conditions:
+          - entity: var.cleaning_room_id
+            state: "null"
+        elements:
+          {{ room_arrow("left") }}
+          {{ room_arrow("right") }}
+          - type: state-label
+            entity: input_select.vacuum_room
+            style:
+              top: 6vh
+              left: 50%
+              color: "#222222"
+              font-size: 4vh
+              font-weight: bold
+            tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Vælg rum
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  entities:
+                    - input_select.vacuum_room
+                deviceID:
+                  - this
+
+      - type: conditional
+        conditions:
+          - entity: var.cleaning_room_id
+            state_not: "null"
+        elements:
+          - type: custom:bar-card
+            entity: sensor.clean_room_progress
+            entity_row: true
+            width: 14vw
+            height: 4vh
+            color: "#222222"
+            positions:
+              icon: off
+              name: inside
+            style:
+              top: 20%
+              left: 50%
+              position: absolute
+              transform: translate(-50%,-50%)
+              text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+          - type: state-label
+            entity: sensor.clean_room_progress
+            attribute: est_time_to_finish
+            prefix: "~ "
+            suffix: " minutter tilbage"
+            style:
+              top: 30%
+              left: 50%
+              position: absolute
+              transform: translate(-50%,-50%)
+              color: "#222222"
+              font-weight: bold
+              font-size: 2vh
+              text-shadow: -1px 0 white, 0 1px white, 1px 0 white, 0 -1px white
+
+      {{ top_icon("state-icon", "sensor.vacuum_battery", "80%") }}
+      {{ top_icon("state-label", "sensor.vacuum_battery", "85%") }}
+
+      {{ bottom_button("mdi:broom", "50%", "vacuum.start", "vacuum.lynet_mcclean") }}
+          {{ banner_background() }}
+      {{ bottom_button("mdi:play", "10%", "script.turn_on", "script.vacuum_room_start") }}
+      {{ bottom_button("mdi:stop", "30%", "vacuum.stop", "vacuum.lynet_mcclean") }}
+      {{ bottom_button("mdi:home-map-marker", "70%", "vacuum.return_to_base", "vacuum.lynet_mcclean") }}
+      {{ bottom_button("mdi:wrench", "90%", "script.turn_on", "script.vacuum_service") }}
+
+{{ "#".ljust(80, "#") }}
+#### {{ "End of file".center(70) }} ####
+{{ "#".ljust(80, "#") }}

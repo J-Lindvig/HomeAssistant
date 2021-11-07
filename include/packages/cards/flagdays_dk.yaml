@@ -1,0 +1,256 @@
+flagdays_dk:
+############################################################
+####                Flagday by J-Lindvig                ####
+############################################################
+
+  shell_command:
+    flagdays_update: "source /config/shell/flagdays_dk.sh"
+
+  input_select:
+    flag_position:
+      name: Flagets position
+      options:
+        - nede
+        - halv
+        - oppe
+
+  template:
+    - sensor:
+        - name: next_flag_day
+          unique_id: bfe66582a1354fd2aa15c19a156fa8ca
+          icon: "{{ state_attr('sensor.flagdays_dk','icon') }}"
+          state: >-
+            {%- set days = states('sensor.flagdays_dk') | int %}
+            {% if days > 0 %}
+              {%- if days > 1 -%}
+                om {{ days }} dage
+              {% else %}
+                i morgen
+              {% endif -%}
+            {% else %}
+              i dag...!!!
+            {% endif %}
+          attributes:
+            entity_picture: "{{ state_attr('sensor.flagdays_dk','entity_picture') }}"
+            event: "{{ state_attr('sensor.flagdays_dk','event') }}"
+            days: "{{ states('sensor.flagdays_dk') }}"
+            flag_up_time: >-
+              {% set sunrise_ts = as_timestamp(state_attr('sun.sun', 'next_rising')) %}
+              {%- if (sunrise_ts | timestamp_custom('%-H', true) | int) < 8 %}
+                08:00
+              {% else %}
+                {{ sunrise_ts | timestamp_custom('%H:%M', true) }}
+              {% endif -%}
+            flag_down_ts: "{{ as_timestamp(state_attr('sun.sun', 'next_setting')) | int }}"
+            flag_down_time: "{{ state_attr('sensor.next_flag_day','flag_down_ts') | timestamp_custom('%H:%M', true) }}"
+            half_mast: >-
+              {%- if is_state_attr('sensor.flagdays_dk', 'half_mast_all_day', true) %}
+                true
+              {% elif is_state_attr('sensor.flagdays_dk', 'half_mast_end_time', false) %}
+                false
+              {% else %}
+                {{ state_attr('sensor.flagdays_dk', 'half_mast_end_time') }}
+              {% endif %}
+
+  # sensor:
+  #   - platform: template
+  #     sensors:
+  #       # Template for automations and Lovelace card
+  #       next_flag_day:
+  #         # The name of the event
+  #         friendly_name_template: "{{ state_attr('sensor.flagdays_dk','friendly_name') }}"
+  #         unique_id: bfe66582a1354fd2aa15c19a156fa8ca
+  #         value_template: >-
+  #           {%- set days = states('sensor.flagdays_dk') | int %}
+  #           {% if days > 0 %}
+  #             {%- if days > 1 -%}
+  #               om {{ days }} dage
+  #             {% else %}
+  #               i morgen
+  #             {% endif -%}
+  #           {% else %}
+  #             i dag...!!!
+  #           {% endif %}
+  #         icon_template: "{{ state_attr('sensor.flagdays_dk','icon') }}"
+  #         entity_picture_template: "{{ state_attr('sensor.flagdays_dk','entity_picture') }}"
+  #         attribute_templates:
+  #           days: "{{ states('sensor.flagdays_dk') }}"
+
+  #           flag_up_time: >-
+  #             {% set sunrise_ts = as_timestamp(state_attr('sun.sun', 'next_rising')) %}
+  #             {%- if (sunrise_ts | timestamp_custom('%-H', true) | int) < 8 %}
+  #               08:00
+  #             {% else %}
+  #               {{ sunrise_ts | timestamp_custom('%H:%M', true) }}
+  #             {% endif -%}
+
+  #           flag_down_ts: "{{ as_timestamp(state_attr('sun.sun', 'next_setting')) | int }}"
+
+  #           flag_down_time: "{{ state_attr('sensor.next_flag_day','flag_down_ts') | timestamp_custom('%H:%M', true) }}"
+
+  #           half_mast: >-
+  #             {%- if is_state_attr('sensor.flagdays_dk', 'half_mast_all_day', true) %}
+  #               true
+  #             {% elif is_state_attr('sensor.flagdays_dk', 'half_mast_end_time', false) %}
+  #               false
+  #             {% else %}
+  #               {{ state_attr('sensor.flagdays_dk', 'half_mast_end_time') }}
+  #             {% endif %}
+
+  script:
+    flag_notification:
+      sequence:
+        - service: script.notification_android
+          data:
+            service: notify.mobile_app_redmi_9t
+            title: "Besked fra din flagstang"
+            message: "{{ message }}"
+            icon_url: "{{ state_attr('sensor.next_flag_day', 'entity_picture') }}"
+            persistent: true
+            tag: flag_notification
+            channel: Flagstang
+            importance: max
+            chronometer: "{{ time_offset is defined }}"
+            when: >
+              {% if time_offset is defined %}
+                {{ ((now() | as_timestamp) + (time_offset | int)) | int }}
+              {% endif %}
+            actions: "{{ actions }}"
+
+    flag_clear_notification:
+      sequence:
+        - service: notify.mobile_app_redmi_9t
+          data:
+            message: clear_notification
+            data:
+              tag: flag_notification
+            
+
+  automation:
+    - id: 8b9b876269874ef7ba2dae67366e68ea
+      alias: Flagdage, scrape og aktioner
+      description: Samlet automation til alt omkring flagdage; scraping, flagdage og op/nedtagning m.m.
+      initial_state: true
+      mode: single
+      trigger:
+        - platform: time
+          at:
+            - "05:00"
+        - platform: homeassistant
+          event: start
+
+        - platform: template
+          value_template: "{{ states('sensor.time') == state_attr('sensor.next_flag_day', 'flag_up_time') }}"
+        - platform: template
+          value_template: "{{ states('sensor.time') == state_attr('sensor.next_flag_day', 'half_mast') }}"
+
+        - platform: sun
+          event: sunset
+          offset:
+            minutes: "-10"
+
+      action:
+        - variables:
+            platform: "{{ trigger.platform }}"
+            flag_day: "{{ ( state_attr('sensor.next_flag_day', 'days') | int ) == 0 }}"
+            half_mast: "{{ state_attr('sensor.next_flag_day', 'half_mast') }}"
+            half_mast_end_time_trigger: "{{ (trigger.to_state.state) if platform == 'template' else '' }}"
+            half_mast_option: "{{ state_attr('input_select.flag_position', 'options')[1] }}"
+            full_mast_option: "{{ state_attr('input_select.flag_position', 'options')[2] }}"
+            time_out: "{{ (trigger.offset[1:] | int) if platform == 'sun' else 600 }}"
+
+        - choose:
+            # IT IS A FLAGDAY AND IT IS MORNING OR END OF HALF MAST
+            - conditions: "{{ platform == 'template' and flag_day }}"
+              sequence:
+                - choose:
+                    # FROM HALF MAST TO THE TOP
+                    - conditions: "{{ half_mast_end_time_trigger == half_mast }}"
+                      sequence:
+                        - service: script.flag_notification
+                          data:
+                            message: "Det er nu tid til at flaget skal helt til tops."
+                            time_offset: "{{ time_out }}"
+                            actions:
+                              - action_title: "OK, flaget er hejst til tops"
+                                action_name: "flag_ok_half_mast"
+                              - action_title: "Annullér"
+                                action_name: "flag_cancel"
+                
+                        - wait_for_trigger:
+                            - platform: event
+                              event_type: mobile_app_notification_action
+                              event_data:
+                                action: "flag_ok_half_mast"
+                          timeout:
+                            seconds: "{{ time_out }}"
+                          continue_on_timeout: false
+
+                        - service: input_select.select_last
+                          data:
+                            entity_id: input_select.flag_position
+
+                  # HOIST THE FLAG
+                  default:
+                    - service: script.flag_notification
+                      data:
+                        message: |
+                          Husk at hejse flaget i anledning af {{ state_attr('sensor.next_flag_day', 'friendly_name') }}.
+                          {%- if not half_mast %}
+                            <br><br><b>HUSK</b>: Flaget skal være på halv {{ 'hele dagen.' if half_mast == 'true' else 'indtil ' + half_mast + ' hvorefter det skal hejses til tops.' }}
+                          {% endif %}
+                        actions:
+                          - action_title: "OK, flaget er hejst"
+                            action_name: "flag_toggle"
+                          - action_title: "Annullér"
+                            action_name: "flag_cancel"
+
+                    - wait_for_trigger:
+                      - platform: event
+                        event_type: mobile_app_notification_action
+                        event_data:
+                          action: "flag_toggle"
+                      timeout:
+                        seconds: "{{ time_out }}"
+                      continue_on_timeout: false
+
+                    # HOW HIGH MUST WE HOIST THE FLAG, HALF OR TO THE TOP
+                    - service: input_select.select_option
+                      data:
+                        entity_id: input_select.flag_position
+                        option: "{{ half_mast_option if half_mast else full_mast_option }}"
+
+                - service: script.flag_clear_notification
+
+            # IT IS TIME TO TAKE THE FLAG DOWN
+            - conditions: "{{ platform == 'sun' and flag_day }}"
+              sequence:
+                - service: script.flag_notification
+                  data:
+                    message: |
+                      Husk at tage flaget ned. Solen går ned kl. {{ state_attr('sensor.next_flag_day', 'flag_down_time') }}.
+                      {{ '<b>OBS</b>: Hejs først flaget helt til tops inden det tages ned.' if is_state('input_select.flag_position', half_mast_option) }}
+                    time_offset: "{{ time_out }}"
+                    actions:
+                      - action_title: "OK, flaget er taget ned"
+                        action_name: "flag_toggle"
+                      - action_title: "Annullér"
+                        action_name: "flag_cancel"
+        
+                - wait_for_trigger:
+                    - platform: event
+                      event_type: mobile_app_notification_action
+                      event_data:
+                        action: "flag_toggle"
+                  timeout:
+                    seconds: "{{ time_out * 60 }}"
+                  continue_on_timeout: false
+
+                - service: input_select.select_first
+                  data:
+                    entity_id: input_select.flag_position
+
+                - service: script.flag_clear_notification
+
+          default:
+            - service: shell_command.flagdays_update

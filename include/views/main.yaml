@@ -1,0 +1,52 @@
+################################################################################
+#                 __  ___      _          _       ___                          #
+#                /  |/  /___ _(_)___     | |     / (_)__ _      __             #
+#               / /|_/ / __ `/ / __ \    | | /| / / / _ \ | /| / /             #
+#              / /  / / /_/ / / / / /    | |/ |/ / /  __/ |/ |/ /              #
+#             /_/  /_/\__,_/_/_/ /_/     |__/|__/_/\___/|__/|__/               #
+#                                                     by J-Lindvig             #
+################################################################################
+# Created: 26/2/2021                                                           #
+################################################################################
+
+################################################################################
+#         ____                   _                                __           #
+#        / __ \___  ____ ___  __(_)_______  ____ ___  ___  ____  / /______     #
+#       / /_/ / _ \/ __ `/ / / / / ___/ _ \/ __ `__ \/ _ \/ __ \/ __/ ___/     #
+#      / _, _/  __/ /_/ / /_/ / / /  /  __/ / / / / /  __/ / / / /_(__  )      #
+#     /_/ |_|\___/\__, /\__,_/_/_/   \___/_/ /_/ /_/\___/_/ /_/\__/____/       #
+################################################################################
+# Layout-Card, https://github.com/thomasloven/lovelace-layout-card
+
+title: Skovtrolden
+icon: mdi:home-assistant
+panel: true
+cards:
+  - type: custom:layout-card
+    layout_type: vertical
+    layout_options:
+      max_cols: 4
+    cards:
+      - !include cards/main/sun.yaml
+#      - !include cards/main/transport.yaml
+#      - !include cards/main/library.yaml
+      - !include cards/room_lights/glance.yaml
+      - type: custom:layout-break
+#      - break
+
+      - !include cards/main/people_home.yaml
+      - !include cards/main/slides/clock.yaml
+      - !include cards/main/slides.yaml
+      - !include cards/main/vacuum.yaml
+      - type: custom:layout-break
+#      - break
+
+      - !include cards/main/garbage.yaml
+      - !include cards/weather/uv-index.yaml
+      - type: custom:layout-break
+
+      - type: vertical-stack
+        cards:
+          - type: picture
+            image: /local/images/headers/weather.jpg
+          - !include cards/weather/brobyvaerk.yaml

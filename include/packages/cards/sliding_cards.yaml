@@ -1,0 +1,23 @@
+sliding_cards:
+
+  input_select:
+    cards_to_slide:
+      name: Kort til skifte mellem
+      icon: mdi:play-box-outline
+      initial: birthday
+      options:
+        - birthday
+
+  automation:
+    - id: d68b778a6abe40ed9a1edce65e3adbac
+      alias: Næste slide
+      description: Skift til næste slide
+      mode: single
+      trigger:
+        - platform: time_pattern
+          seconds: /15
+      condition: "{{ state_attr('input_select.cards_to_slide', 'options') | length > 1 }}"
+      action:
+        - service: input_select.select_next
+          data:
+            entity_id: input_select.cards_to_slide

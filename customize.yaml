@@ -1,0 +1,3 @@
+light.indgang_loftlampe:
+  friendly_name: Loftlampe
+binary_sensor.switch_main: {}

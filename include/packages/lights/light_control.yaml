@@ -1,0 +1,57 @@
+light_control:
+
+  input_number:
+    light_timeout_day:
+      name: Lys timeout dag
+      icon: mdi:timer
+      initial: 10
+      min: 1
+      max: 30
+      step: 1
+      
+    light_timeout_night:
+      name: Lys timeout nat
+      icon: mdi:timer
+      initial: 5
+      min: 1
+      max: 30
+      step: 1
+
+    morningbath_length:
+      name: Tid lyset skal være tændt
+      icon: mdi:timer
+      initial: 30
+      min: 5
+      max: 45
+      step: 5
+
+    dim_high:
+      name: Normal lysstyrke
+      icon: mdi:weather-sunny
+      initial: 254
+      min: 0
+      max: 254
+      step: 1
+    
+    dim_low:
+      name: Laveste lysstyrke
+      icon: mdi:weather-night
+      initial: 10
+      min: 0
+      max: 254
+      step: 1
+
+  input_datetime:
+    morningbath_start:
+      name: Badetid start
+      icon: mdi:clock
+      has_date: false
+      has_time: true
+      initial: "06:15:00"
+
+    morningbath_end:
+      name: Badetid slut
+      icon: mdi:clock
+      has_date: false
+      has_time: true
+      initial: "07:45:00"

@@ -1,0 +1,30 @@
+fuel_scrape:
+  multiscrape:
+    - resource: https://www.home-assistant.io
+      scan_interval: 3600
+      sensor:
+        - unique_id: ha_latest_version
+          name: Latest version
+          select: ".current-version > h1:nth-child(1)"
+          value_template: '{{ (value.split(":")[1]) }}'
+        - unique_id: ha_release_date
+          icon: >-
+            {% if is_state('binary_sensor.ha_version_check', 'on') %}
+              mdi:alarm-light
+            {% else %}
+              mdi:bat
+            {% endif %}
+          name: Release date
+          select: ".release-date"
+
+    - resource: https://www.fuelfinder.dk/listprices.php
+      sensor:
+        - unique_id: fuelfinder
+          name: Fuelfinder
+          select: ".current-version > td:nth-child(4)"
+
+  sensor:
+    - platform: scrape
+      name: Fuelfinder Scrape
+      resource: https://www.fuelfinder.dk/listprices.php
+      select: ".current-version > td:nth-child(4)"

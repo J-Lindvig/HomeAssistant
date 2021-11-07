@@ -1,0 +1,224 @@
+# honeywell_fan:
+#   input_number:
+#     honeywell_timer:
+#       name: Sluk efter
+#       icon: mdi:timer
+#       unit_of_measurement: timer
+#       initial: 0
+#       min: 0
+#       max: 7.5
+#       step: 0.5
+
+#   input_select:
+#     honeywell_fan_speed:
+#       name: Hastighed
+#       icon: mdi:fan
+#       options:
+#         - Lav
+#         - Medium
+#         - Høj
+#         - Sovefunktion
+#       initial: Lav
+
+#   input_boolean:
+#     private_honeywell_state:
+#       name: Honeywell state
+
+#     private_honeywell_osc_state:
+#       name: Honeywell oscillating
+
+#     private_honeywell_cooling_state:
+#       name: Honeywell cooling
+
+#   automation:
+#     - alias: "Honeywell fan speed"
+#       id: 449e9d696e864b2e880ef8d4d4640c2d
+#       description: "Blæserhastighed - vælg ny og send kommandoen til blæseren x antal gange"
+#       initial_state: true
+#       mode: single
+#       trigger:
+#         platform: state
+#         entity_id: input_select.honeywell_fan_speed
+#       action:
+#         - service: remote.send_command
+#           data:
+#             entity_id: remote.hjalte_ir
+#             device: Honeywell Air Con
+#             command: Fan Speed
+#             num_repeats: >-
+#               {%- set ns = namespace(current_speed_idx = -1, new_speed_idx = -1) -%}
+              
+#               {%- for needle in state_attr('input_select.honeywell_fan_speed', 'options') %}
+#                 {%- if needle == trigger.to_state.state %}
+#                   {%- set ns.new_speed_idx = loop.index0 -%}
+#                 {% endif %}
+#               {%- endfor %}
+              
+#               {%- for needle in state_attr('input_select.honeywell_fan_speed', 'options') %}
+#                 {%- if needle == trigger.from_state.state %}
+#                   {%- set ns.current_speed_idx = loop.index0 -%}
+#                 {% endif %}
+#               {%- endfor %}
+  
+#               {%- if ns.new_speed_idx < ns.current_speed_idx %}
+#                 {{- (state_attr('input_select.honeywell_fan_speed', 'options') | length) - ns.current_speed_idx + ns.new_speed_idx }}
+#               {% else %}
+#                 {{- ns.new_speed_idx - ns.current_speed_idx }}
+#               {% endif %}
+
+#     - alias: "Honeywell timer"
+#       id: f1a4e480ae574ce6a258528adcc9a2b0
+#       description: "Blæsertimer  vælg ny timertid og send kommandoen til blæseren x antal gange"
+#       initial_state: true
+#       mode: single
+#       trigger:
+#         platform: state
+#         entity_id: input_number.honeywell_timer
+#       action:
+#         - service: remote.send_command
+#           data:
+#             entity_id: remote.hjalte_ir
+#             device: Honeywell Air Con
+#             command: Timer
+#             num_repeats: >-
+#               {%- set from = trigger.from_state.state | float %}
+#               {%- set to = trigger.to_state.state | float %}
+#               {%- set max = state_attr('input_number.honeywell_timer', 'max') %}
+#               {%- set step = state_attr('input_number.honeywell_timer', 'step') %}
+
+#               {%- if to < from %}
+#                 {{ ( ( max - from ) / step + to / step + 1 ) | int }}
+#               {% else %}
+#                 {{ ( ( to - from ) / step ) | int }}
+#               {% endif %}
+
+#   switch:
+#     - platform: template
+#       switches:
+#         honeywell_fan:
+#           friendly_name: "Ventilator"
+#           unique_id: 65c978e9e6254d1cb3e3e1ec54d61866
+#           value_template: "{{ is_state('input_boolean.private_honeywell_state', 'on') }}"
+#           turn_on:
+#             service: script.honeywell_fan_command_boolean
+#             data:
+#               remote: remote.hjalte_ir
+#               device: Honeywell Air Con
+#               command: Power
+#               boolean: input_boolean.private_honeywell_state
+#           turn_off:
+#             service: script.honeywell_fan_command_boolean
+#             data:
+#               remote: remote.hjalte_ir
+#               device: Honeywell Air Con
+#               command: Power
+#               boolean: input_boolean.private_honeywell_state
+#           icon_template: >-
+#             {%- if is_state('input_boolean.private_honeywell_state', 'off') %}
+#               mdi:fan-off
+#             {% else %}
+#               {%- for needle in state_attr('input_select.honeywell_fan_speed', 'options') %}
+#                 {%- if needle == states('input_select.honeywell_fan_speed') %}
+#                   {%- if loop.index == state_attr('input_select.honeywell_fan_speed', 'options') | length %}
+#                     mdi:sleep
+#                   {%- else %}
+#                     mdi:fan-speed-{{ loop.index }}
+#                   {% endif %}
+#                 {% endif %}
+#               {%- endfor %}
+#             {% endif %}
+
+#         honeywell_fan_osc:
+#           friendly_name: "Vifte"
+#           unique_id: cf9c58f97a424c4cb3ee8b1a083703ea
+#           value_template: "{{ is_state('input_boolean.private_honeywell_osc_state', 'on') }}"
+#           turn_on:
+#             service: script.honeywell_fan_command_boolean
+#             data:
+#               remote: remote.hjalte_ir
+#               device: Honeywell Air Con
+#               command: Fan Swing
+#               boolean: input_boolean.private_honeywell_osc_state
+#           turn_off:
+#             service: script.honeywell_fan_command_boolean
+#             data:
+#               remote: remote.hjalte_ir
+#               device: Honeywell Air Con
+#               command: Fan Swing
+#               boolean: input_boolean.private_honeywell_osc_state
+
+#         honeywell_fan_cool:
+#           friendly_name: "Køling"
+#           unique_id: 9a2ebe4f99c24bf3843a2b2be439af48
+#           value_template: "{{ is_state('input_boolean.private_honeywell_cooling_state', 'on') }}"
+#           turn_on:
+#             service: script.honeywell_fan_command_boolean
+#             data:
+#               remote: remote.hjalte_ir
+#               device: Honeywell Air Con
+#               command: Cooling
+#               boolean: input_boolean.private_honeywell_cooling_state
+#           turn_off:
+#             service: script.honeywell_fan_command_boolean
+#             data:
+#               remote: remote.hjalte_ir
+#               device: Honeywell Air Con
+#               command: Cooling
+#               boolean: input_boolean.private_honeywell_cooling_state
+#           icon_template: "mdi:snowflake{{ '-off' if is_state('input_boolean.private_honeywell_cooling_state', 'off') }}"
+
+#   script:
+#     honeywell_fan_command_boolean:
+#       alias: "Send kommando til Honeywell og opdater boolske input m.m."
+#       icon: mdi:remote
+#       description: "Sender en given kommando fra en given remote til en given blæser og ændrer en given boolean"
+#       fields:
+#         remote:
+#           description: "Fjernbetjeningen som kommandoen skal sendes fra"
+#           example: "remote.hjalte_ir"
+#         device:
+#           description: "Enheden som kommandoen skal sendes til"
+#           example: "Honeywell Air Con"
+#         command:
+#           description: "Kommandoen som skal sendes"
+#           example: "Power"
+#         boolean:
+#           description: "Den booleske kontakt som skal ændres"
+#           example: "input_boolean.private_honeywell_state"
+#       mode: single
+#       sequence:
+#         - service: input_boolean.toggle
+#           data:
+#             entity_id: "{{ boolean }}"
+
+#         - service: remote.send_command
+#           data:
+#             entity_id: "{{ remote }}"
+#             device: "{{ device }}"
+#             command: "{{ command }}"
+
+#         - service: "automation.turn_{{ states('input_boolean.private_honeywell_state') }}"
+#           data:
+#             entity_id:
+#               - automation.honeywell_fan_speed
+#               - automation.honeywell_timer
+
+#         - choose:
+#             - conditions: "{{ is_state('input_boolean.private_honeywell_state', 'off') }}"
+
+#               sequence:
+#                 - service: input_select.select_option
+#                   data:
+#                     entity_id: input_select.honeywell_fan_speed
+#                     option: "{{ state_attr('input_select.honeywell_fan_speed', 'options')[0] }}"
+
+#                 - service: input_number.set_value
+#                   data:
+#                     entity_id: input_number.honeywell_timer
+#                     value: "{{ state_attr('input_number.honeywell_timer', 'min') }}"
+
+#                 - service: input_boolean.turn_off
+#                   data:
+#                     entity_id:
+#                       - input_boolean.private_honeywell_osc_state
+#                       - input_boolean.private_honeywell_cooling_state

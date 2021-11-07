@@ -1,0 +1,62 @@
+blueprint:
+  name: Change view on sensor state
+  domain: automation
+
+  input:
+    pir_sensor:
+      name: The sensor to use as trigger
+      description: Choose the sensor that shall trigger the change
+      selector:
+        entity:
+          domain: binary_sensor
+
+    device:
+      name: The device to operate
+      description: Choose the device you with to have the changeing view
+      selector:
+        entity:
+          domain: sensor
+
+    sensor_path:
+      name: Sensor view path
+      description: The input_text containing the path of the view for the sensor ex. '/lovelace/7'
+      selector:
+        entity:
+          domain: input_text
+
+    timeout:
+      name: Time out
+      description: After this time out return to previous view
+      default: 30
+      selector:
+        number:
+          min: 10
+          max: 300
+          step: 5
+          unit_of_measurement: seconds
+
+mode: restart
+max_exceeded: silent
+variables:
+  device: !input device
+  sensor_path: !input sensor_path
+  timeout: !input timeout
+trigger:
+- platform: state
+  entity_id: !input pir_sensor
+  to: "on"
+action:
+  - variables:
+      return_path: "{{ state_attr(device, 'path') }}"
+
+  - service: browser_mod.navigate
+    data:
+      deviceID: "{{ state_attr(device, 'deviceID') }}"
+      navigation_path: "{{ states(sensor_path) }}"
+
+  - delay: "{{ timeout }}"
+
+  - service: browser_mod.navigate
+    data:
+      deviceID: "{{ state_attr(device, 'deviceID') }}"
+      navigation_path: "{{ return_path }}"

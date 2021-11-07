@@ -1,0 +1,1748 @@
+################################################################################
+#        __    _       __    __        ______            __             __     #
+#       / /   (_)___ _/ /_  / /_      / ____/___  ____  / /__________  / /     #
+#      / /   / / __ `/ __ \/ __/_____/ /   / __ \/ __ \/ __/ ___/ __ \/ /      #
+#     / /___/ / /_/ / / / / /_/_____/ /___/ /_/ / / / / /_/ /  / /_/ / /       #
+#    /_____/_/\__, /_/ /_/\__/      \____/\____/_/ /_/\__/_/   \____/_/        #
+#            /____/                                           by J-Lindvig     #
+################################################################################
+# Created: 8/3/2021                                                            #
+################################################################################
+
+type: custom:stack-in-card
+cards:
+  - type: entities
+    entities:
+      - input_select.room_light
+  - type: custom:state-switch
+    entity: input_select.room_light
+    states:
+    
+      Køkken:
+        type: glance
+        show_state: false
+        entities:
+          - entity: light.kaffebar
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Køkken
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.kaffebar
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.kokkenbord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.maleri
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.spisebord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.tavle
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Køkken
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.kaffebar
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.kokkenbord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.maleri
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.spisebord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.tavle
+                      toggle: true
+          - entity: light.kokkenbord
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Køkken
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.kaffebar
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.kokkenbord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.maleri
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.spisebord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.tavle
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Køkken
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.kaffebar
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.kokkenbord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.maleri
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.spisebord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.tavle
+                      toggle: true
+          - entity: light.maleri
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Køkken
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.kaffebar
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.kokkenbord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.maleri
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.spisebord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.tavle
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Køkken
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.kaffebar
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.kokkenbord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.maleri
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.spisebord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.tavle
+                      toggle: true
+          - entity: light.spisebord
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Køkken
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.kaffebar
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.kokkenbord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.maleri
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.spisebord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.tavle
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Køkken
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.kaffebar
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.kokkenbord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.maleri
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.spisebord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.tavle
+                      toggle: true
+          - entity: light.tavle
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Køkken
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.kaffebar
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.kokkenbord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.maleri
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.spisebord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.tavle
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Køkken
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.kaffebar
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.kokkenbord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.maleri
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.spisebord
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.tavle
+                      toggle: true
+    
+      Kontor:
+        type: glance
+        show_state: false
+        entities:
+          - entity: light.sandbox
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Kontor
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.sandbox
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Kontor
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.sandbox
+                      toggle: true
+    
+      Stuen:
+        type: glance
+        show_state: false
+        entities:
+          - entity: light.lille_sofa
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Stuen
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.lille_sofa
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stor_sofa
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stuelamper
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Stuen
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.lille_sofa
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stor_sofa
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stuelamper
+                      toggle: true
+          - entity: light.stor_sofa
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Stuen
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.lille_sofa
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stor_sofa
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stuelamper
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Stuen
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.lille_sofa
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stor_sofa
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stuelamper
+                      toggle: true
+          - entity: light.stuelamper
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Stuen
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.lille_sofa
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stor_sofa
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stuelamper
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Stuen
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.lille_sofa
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stor_sofa
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stuelamper
+                      toggle: true
+    
+      Studieværelse:
+        type: glance
+        show_state: false
+        entities:
+          - entity: light.cornelies_skrivebordslampe
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Studieværelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.cornelies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.gulvlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.studievaerelse_uplight
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Studieværelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.cornelies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.gulvlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.studievaerelse_uplight
+                      toggle: true
+          - entity: light.gulvlampe
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Studieværelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.cornelies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.gulvlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.studievaerelse_uplight
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Studieværelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.cornelies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.gulvlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.studievaerelse_uplight
+                      toggle: true
+          - entity: light.nathalies_skrivebordslampe
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Studieværelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.cornelies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.gulvlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.studievaerelse_uplight
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Studieværelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.cornelies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.gulvlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.studievaerelse_uplight
+                      toggle: true
+          - entity: light.studievaerelse_uplight
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Studieværelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.cornelies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.gulvlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.studievaerelse_uplight
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Studieværelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.cornelies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.gulvlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_skrivebordslampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.studievaerelse_uplight
+                      toggle: true
+    
+      Fælles:
+        type: glance
+        show_state: false
+        entities:
+          - entity: light.gangen
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Fælles
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.gangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.havegangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.indgang
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Fælles
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.gangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.havegangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.indgang
+                      toggle: true
+          - entity: light.havegangen
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Fælles
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.gangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.havegangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.indgang
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Fælles
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.gangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.havegangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.indgang
+                      toggle: true
+          - entity: light.indgang
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Fælles
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.gangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.havegangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.indgang
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Fælles
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.gangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.havegangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.indgang
+                      toggle: true
+    
+      Hjaltes værelse:
+        type: glance
+        show_state: false
+        entities:
+          - entity: light.hjaltes_loftlampe
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Hjaltes værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.hjaltes_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.hjaltes_nanoleaf
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Hjaltes værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.hjaltes_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.hjaltes_nanoleaf
+                      toggle: true
+          - entity: light.hjaltes_nanoleaf
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Hjaltes værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.hjaltes_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.hjaltes_nanoleaf
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Hjaltes værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.hjaltes_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.hjaltes_nanoleaf
+                      toggle: true
+    
+      Williams værelse:
+        type: glance
+        show_state: false
+        entities:
+          - entity: light.williams_lampe
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Williams værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.williams_lampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.williams_loftlampe
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Williams værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.williams_lampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.williams_loftlampe
+                      toggle: true
+          - entity: light.williams_loftlampe
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Williams værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.williams_lampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.williams_loftlampe
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Williams værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.williams_lampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.williams_loftlampe
+                      toggle: true
+    
+      Badeværelser:
+        type: glance
+        show_state: false
+        entities:
+          - entity: light.lille_badevaerelse
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Badeværelser
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.lille_badevaerelse
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stort_badevaerelse
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Badeværelser
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.lille_badevaerelse
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stort_badevaerelse
+                      toggle: true
+          - entity: light.stort_badevaerelse
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Badeværelser
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.lille_badevaerelse
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stort_badevaerelse
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Badeværelser
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.lille_badevaerelse
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.stort_badevaerelse
+                      toggle: true
+    
+      Emilios værelse:
+        type: glance
+        show_state: false
+        entities:
+          - entity: light.emilios_loftlampe
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Emilios værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.emilios_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.emilios_stjernelampe
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Emilios værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.emilios_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.emilios_stjernelampe
+                      toggle: true
+          - entity: light.emilios_stjernelampe
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Emilios værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.emilios_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.emilios_stjernelampe
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Emilios værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.emilios_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.emilios_stjernelampe
+                      toggle: true
+    
+      Colins værelse:
+        type: glance
+        show_state: false
+        entities:
+          - entity: light.colins_lampe
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Colins værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.colins_lampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_skylampe
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Colins værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.colins_lampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_skylampe
+                      toggle: true
+          - entity: light.colins_loftlampe
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Colins værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.colins_lampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_skylampe
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Colins værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.colins_lampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_skylampe
+                      toggle: true
+          - entity: light.colins_skylampe
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Colins værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.colins_lampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_skylampe
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Colins værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.colins_lampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_loftlampe
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.colins_skylampe
+                      toggle: true
+    
+      Pigernes stue:
+        type: glance
+        show_state: false
+        entities:
+          - entity: light.pigernes_stue_kuglelampe
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Pigernes stue
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.pigernes_stue_kuglelampe
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Pigernes stue
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.pigernes_stue_kuglelampe
+                      toggle: true
+    
+      Cornelies værelse:
+        type: glance
+        show_state: false
+        entities:
+          - entity: light.cornelies_gulvlampe
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Cornelies værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.cornelies_gulvlampe
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Cornelies værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.cornelies_gulvlampe
+                      toggle: true
+    
+      Nathalies værelse:
+        type: glance
+        show_state: false
+        entities:
+          - entity: light.nathalies_loftlamper
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Nathalies værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_loftlamper
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_sengelamper
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Nathalies værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_loftlamper
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_sengelamper
+                      toggle: true
+          - entity: light.nathalies_sengelamper
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Nathalies værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_loftlamper
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_sengelamper
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Nathalies værelse
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_loftlamper
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.nathalies_sengelamper
+                      toggle: true
+    
+      Bloklys:
+        type: glance
+        show_state: false
+        entities:
+          - entity: light.bloklys_gangen
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Bloklys
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_gangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_kokken
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_stuen
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Bloklys
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_gangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_kokken
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_stuen
+                      toggle: true
+          - entity: light.bloklys_kokken
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Bloklys
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_gangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_kokken
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_stuen
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Bloklys
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_gangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_kokken
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_stuen
+                      toggle: true
+          - entity: light.bloklys_stuen
+            tap_action:
+              action: toggle
+            hold_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Bloklys
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_gangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_kokken
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_stuen
+                      toggle: true
+            double_tap_action:
+              action: call-service
+              service: browser_mod.popup
+              service_data:
+                title: Indstilling af lys
+                style:
+                  border-radius: 20px
+                  --ha-card-border-radius: 20px
+                card:
+                  type: entities
+                  # The title of the room
+                  title: Bloklys
+                  show_header_toggle: true
+                  entities:
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_gangen
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_kokken
+                      toggle: true
+                    - type: custom:slider-entity-row
+                      entity: light.bloklys_stuen
+                      toggle: true
+    
+
+################################################################################
+####                              End of file                               ####
+################################################################################

@@ -1,0 +1,187 @@
+##################################################################################
+#     __  __                        ___              _      __              __   #
+#    / / / /___  ____ ___  ___     /   |  __________(_)____/ /_____ _____  / /_  #
+#   / /_/ / __ \/ __ `__ \/ _ \   / /| | / ___/ ___/ / ___/ __/ __ `/ __ \/ __/  #
+#  / __  / /_/ / / / / / /  __/  / ___ |(__  |__  ) (__  ) /_/ /_/ / / / / /_    #
+# /_/ /_/\____/_/ /_/ /_/\___/  /_/  |_/____/____/_/____/\__/\__,_/_/ /_/\__/    #
+#                                                                  by J-Lindvig  #
+##################################################################################
+# Created: 10/3/2021                                                             #
+##################################################################################
+
+#      ___
+#     /   |
+#    / /| |
+#   / ___ |
+#  /_/  |_|
+#
+automation manual: !include_dir_merge_list include/automations/
+automation ui: !include automations.yaml
+
+#     ______
+#    / ____/
+#   / /
+#  / /___
+#  \____/
+#
+config:
+camera: !include include/cameras.yaml
+
+#      ____
+#     / __ \
+#    / / / /
+#   / /_/ /
+#  /_____/
+#
+default_config:
+device_tracker: !include include/device_trackers.yaml
+
+#      ______
+#     / ____/
+#    / /_
+#   / __/
+#  /_/
+#
+ffmpeg:
+frontend:
+  themes: !include_dir_merge_named themes
+
+#     ______
+#    / ____/
+#   / / __
+#  / /_/ /
+#  \____/
+#
+google:
+  client_id: !secret GOOGLE_CLIENT_ID
+  client_secret: !secret GOOGLE_CLIENT_SECRET
+
+#      __  __
+#     / / / /
+#    / /_/ /
+#   / __  /
+#  /_/ /_/
+#
+homeassistant:
+  customize: !include_dir_merge_named include/customize/
+  packages: !include_dir_merge_named include/packages/
+
+http:
+  use_x_forwarded_for: true
+  trusted_proxies:
+    - 172.30.33.9
+    - 172.30.32.1
+    - 172.30.33.4
+    - 172.30.33.7
+
+#      __
+#     / /
+#    / /
+#   / /___
+#  /_____/
+#
+logger:
+  default: debug
+  logs:
+    homeassistant.components.onvif: debug
+    homeassistant.components.script: error
+    homeassistant.components.automation: error
+    homeassistant.core: fatal
+    homeassistant.helpers.service: critical
+    homeassistant.components.websocket_api.http.connection: critical
+    homeassistant.components.automation.webhook: critical
+    custom_components.alarmo: debug
+
+lovelace:
+  mode: yaml
+  resources: !include_dir_merge_list include/resources/
+
+lovelace_gen:
+
+#      ____
+#     / __ \
+#    / /_/ /
+#   / ____/
+#  /_/
+#
+panel_iframe:
+  guid_generator:
+    title: GUID Generator
+    icon: mdi:barcode
+    url: https://www.guidgenerator.com/online-guid-generator.aspx
+
+  tasmoadmin:
+    title: TasmoAdmin
+    icon: mdi:radio-tower
+    url: !secret TASMO_ADMIN_URL
+
+python_script:
+
+#      ____
+#     / __ \
+#    / /_/ /
+#   / _, _/
+#  /_/ |_|
+#
+recorder:
+  db_url: !secret MYSQL_URL
+  purge_keep_days: 7
+  auto_purge: true
+  exclude:
+    entities:
+      - sensor.time
+      - sensor.tid_naturlig
+      - sensor.date
+      - sensor.dato
+      - sensor.dato_ordenstal
+      - sensor.superligaen
+      - sensor.premier_league
+
+rest_command: !include_dir_merge_named include/rest_commands/
+
+#     _____
+#    / ___/
+#    \__ \
+#   ___/ /
+#  /____/
+#
+# Example configuration.yaml entry
+sensor:
+  - platform: season
+    name: "season meteorological"
+    type: meteorological
+
+  - platform: weather_data
+    name: Weather
+    forecast: 24
+    monitored_conditions:
+      - temperature
+      - symbol
+      - precipitation
+      - windSpeed
+      - pressure
+      - windDirection
+      - humidity
+      - fog
+      - cloudiness
+      - lowClouds
+      - mediumClouds
+      - highClouds
+      - dewpointTemperature
+
+shell_command: !include_dir_merge_named include/shell_commands/
+
+#
+#   /_  __/
+#    / /
+#   / /
+#  /_/
+#
+
+#
+#  | |  / /
+#  | | / /
+#  | |/ /
+#  |___/
+#
+var: !include_dir_merge_named include/variables/

@@ -1,0 +1,20 @@
+type: custom:stack-in-card
+title: Honeywell Blæser
+cards:
+  - type: entities
+    show_header_toggle: false
+    entities:
+      - switch.honeywell_fan
+
+  - type: conditional
+    conditions:
+      - entity: switch.honeywell_fan
+        state: "on"
+    card:
+      type: entities
+      show_header_toggle: false
+      entities:
+        - switch.honeywell_fan_osc
+        - switch.honeywell_fan_cool
+        - input_select.honeywell_fan_speed
+        - input_number.honeywell_timer

@@ -1,0 +1,48 @@
+#      ____       _       __                                   __
+#     / __ \_____(_)___  / /____  _____   _________ __________/ /
+#    / /_/ / ___/ / __ \/ __/ _ \/ ___/  / ___/ __ `/ ___/ __  / 
+#   / ____/ /  / / / / / /_/  __/ /     / /__/ /_/ / /  / /_/ /  
+#  /_/   /_/  /_/_/ /_/\__/\___/_/      \___/\__,_/_/   \__,_/   
+#                                                                
+#                                                     by J-lindvig
+
+type: custom:stack-in-card
+mode: horizontal
+title: Printer og Scanner
+cards:
+  - type: entities
+    state_color: true
+    entities:
+      - type: custom:multiple-entity-row
+        entity: binary_sensor.hp_3830_connectivity
+        name: HP 3830
+        icon: mdi:printer-wireless
+        state_color: true
+      - type: custom:multiple-entity-row
+        entity: sensor.hp_3830_printer
+        name: Printer
+        icon: mdi:file
+        unit: "sider"
+      - type: custom:multiple-entity-row
+        entity: sensor.hp_3830_scanner
+        name: Scanner
+        icon: mdi:scanner
+        unit: "sider"
+  - type: custom:bar-card
+    direction: up
+    columns: 4
+    width: 100%
+    height: 120px
+    positions:
+      icon: off
+      name: off
+      value: off
+    entities:
+      - entity: sensor.hp_3830_inkcartridge_black
+        color: black
+      - entity: sensor.hp_3830_inkcartridge_cyanmagentayellow
+        color: cyan
+      - entity: sensor.hp_3830_inkcartridge_cyanmagentayellow
+        color: magenta
+      - entity: sensor.hp_3830_inkcartridge_cyanmagentayellow
+        color: yellow

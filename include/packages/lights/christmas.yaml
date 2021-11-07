@@ -1,0 +1,35 @@
+christmas:
+  input_number:
+    christmas_lights_start_week:
+      name: Julebelysning start uge
+      min: 1
+      max: 52
+      step: 1
+
+    christmas_lights_end_week:
+      name: Julebelysning slut uge
+      min: 1
+      max: 52
+      step: 1
+
+  automation:
+    - alias: christmas_lights
+      id: f4bbae9b61654458b588d37ce29cd103
+      description: "Julelys tænd/sluk"
+      initial_state: true
+      mode: single
+      variables:
+        week: "{{ now().isocalendar()[1] | int }}"
+        week_start: "{{ states('input_number.christmas_lights_start_week') | int }}"
+        week_end: "{{ states('input_number.christmas_lights_end_week') | int }}"
+      trigger:
+        - platform: homeassistant
+          event: start
+        - platform: state
+          entity_id: sun.sun
+      condition: "{{ week_end <= week >= week_start }}"
+      action:
+        - service: "light.turn_{{ 'on' if is_state('sun.sun', 'below_horizon') else 'off' }}"
+          entity_id:
+            - light.julelys
+            - light.bloklys_indgangen

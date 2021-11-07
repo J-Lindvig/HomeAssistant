@@ -1,0 +1,161 @@
+room_groups_lights:
+  input_select:
+    room_light:
+      name: "Vælg rum"
+      icon: mdi:floor-plan
+      options:
+        - Køkken
+        - Kontor
+        - Stuen
+        - Studieværelse
+        - Gangen
+        - Indgang
+        - Hjaltes værelse
+        - Williams værelse
+        - Lille badeværelse
+        - Stort badeværelse
+        - Emilios værelse
+        - Colins værelse
+        - Pigernes stue
+        - Cornelies værelse
+        - Nathalies værelse
+        - Bloklys
+
+  light:
+    - platform: switch
+      name: Colins skylampe
+      entity_id: switch.colins_skylampe
+
+    - platform: switch
+      name: Colins lampe
+      entity_id: switch.colins_lampe
+
+    - platform: switch
+      name: Emilios stjernelampe
+      entity_id: switch.emilios_stjernelampe
+
+    - platform: switch
+      name: Pigernes stue kuglelampe
+      entity_id: switch.pigernes_stue_kuglelampe
+
+    - platform: switch
+      name: Nathalies sengelamper
+      entity_id: switch.nathalies_sengelamper
+
+    - platform: group
+      name: Gulvlampe
+      entities:
+        - light.gulvlampe_nederst
+        - light.gulvlampe_midterst
+        - light.gulvlampe_overst
+
+  group:
+    alle_rum:
+      name: Alle rum
+      entities:
+        - group.koekken
+        - group.kontor
+        - group.stuen
+        - group.studievaerelse
+        - group.faelles
+        - group.hjaltes_vaerelse
+        - group.williams_vaerelse
+        - group.badevaerelser
+        - group.emilios_vaerelse
+        - group.colins_vaerelse
+        - group.pigernes_stue
+        - group.cornelies_vaerelse
+        - group.nathalies_vaerelse
+        - group.bloklys
+
+    koekken:
+      name: Køkken
+      entities:
+        - light.spisebord
+        - light.kaffebar
+        - light.kokkenbord
+        - light.tavle
+        - light.maleri
+
+    kontor:
+      name: Kontor
+      entities:
+        - light.sandbox
+
+    stuen:
+      name: Stuen
+      entities:
+        - light.stor_sofa
+        - light.lille_sofa
+        - light.stuelamper
+
+    studievaerelse:
+      name: Studieværelse
+      entities:
+        - light.studievaerelse_uplight
+        - light.gulvlampe
+        - light.nathalies_skrivebordslampe
+        - light.cornelies_skrivebordslampe
+
+    faelles:
+      name: Fælles
+      icon: mdi:track-light
+      entities:
+        - light.gangen
+        - light.indgang
+        - light.havegangen
+
+    hjaltes_vaerelse:
+      name: Hjaltes værelse
+      entities:
+        - light.hjaltes_loftlampe
+        - light.hjaltes_nanoleaf
+
+    williams_vaerelse:
+      name: Williams værelse
+      entities:
+        - light.williams_lampe
+        - light.williams_loftlampe
+
+    badevaerelser:
+      name: Badeværelser
+      entities:
+        - light.lille_badevaerelse
+        - light.stort_badevaerelse
+
+    emilios_vaerelse:
+      name: Emilios værelse
+      entities:
+        - light.emilios_stjernelampe
+        - light.emilios_loftlampe
+
+    colins_vaerelse:
+      name: Colins værelse
+      entities:
+        - light.colins_lampe
+        - light.colins_loftlampe
+        - light.colins_skylampe
+
+    pigernes_stue:
+      name: Pigernes stue
+      entities:
+        - light.pigernes_stue_kuglelampe
+
+    cornelies_vaerelse:
+      name: Cornelies værelse
+      entities:
+        - light.cornelies_gulvlampe
+
+    nathalies_vaerelse:
+      name: Nathalies værelse
+      entities:
+        - light.nathalies_sengelamper
+        - light.nathalies_loftlamper
+
+    bloklys:
+      name: Bloklys
+      icon: mdi:candle
+      entities:
+        - light.bloklys_gangen
+        - light.bloklys_kokken
+        - light.bloklys_stuen

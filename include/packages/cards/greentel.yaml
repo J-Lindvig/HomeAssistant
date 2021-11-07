@@ -1,0 +1,40 @@
+greentel:
+  template:
+    - sensor:
+        - name: talk_hours_used
+          unique_id: 50f594f9dd804097b279c3ffe2ade5f0
+          state: "{{ state_attr('sensor.greentel', 'talk_hours_used') | default(0, true) }}"
+
+        - name: talk_hours_max
+          unique_id: 20fef93286234d39bba83bec32250b61
+          state: "{{ state_attr('sensor.greentel', 'talk_hours_max') }}"
+
+        - name: data_used
+          unique_id: 756a556bb2d241a2bd1537ce9e147806
+          state: "{{ state_attr('sensor.greentel', 'data_used') | default(0, true) }}"
+
+        - name: data_max
+          unique_id: 5d4ec306de9d4573a028e3050664ca07
+          state: "{{ state_attr('sensor.greentel', 'data_max') }}"
+
+        - name: modem_used_percent
+          unique_id: 5c88f5e3fdcd493dba5f6a09c08a4ca2
+          state: "{{ state_attr('sensor.greentel', 'modem_used') | default(0, true) }}"
+
+  shell_command:
+    greentel_scrape: "source /config/shell/greentel.sh; greentel_scrape"
+    greentel_get: "source /config/shell/greentel.sh; greentel_get"
+
+  automation:
+    - id: a84853b82b3e4b09ad354cb0ad13bde7
+      alias: "Greentel"
+      description: "Scrape forbrug fra Greentel"
+      initial_state: true
+      mode: single
+      trigger:
+        - platform: time_pattern
+          minutes: 45
+        - platform: webhook
+          webhook_id: fdad0b0c5b8448579dc9255e152bc45b
+      action:
+        - service: "shell_command.greentel_{{ 'scrape' if trigger.platform == 'time_pattern' else 'get' }}"

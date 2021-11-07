@@ -1,0 +1,36 @@
+type: custom:stack-in-card
+title: "Stuen"
+cards:
+  - type: custom:stack-in-card
+    mode: horizontal
+    cards:
+      - type: custom:stack-in-card
+        cards:
+          - type: custom:button-card
+            entity: light.sofalamper
+          - type: entities
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.sofalamper
+                hide_state: true
+                full_row: true
+      - type: custom:stack-in-card
+        cards:
+          - type: custom:button-card
+            entity: light.stuelamper
+          - type: entities
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.stuelamper
+                hide_state: true
+                full_row: true
+      - type: custom:stack-in-card
+        cards:
+          - type: custom:button-card
+            entity: light.lille_sofa
+          - type: entities
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.lille_sofa
+                hide_state: true
+                full_row: true

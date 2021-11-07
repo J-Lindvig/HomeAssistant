@@ -1,0 +1,213 @@
+gangen:
+  input_boolean:
+    private_taking_bath_large:
+      name: Stort badeværelse - bad
+    private_taking_bath_small:
+      name: Lille badeværelse - bad
+
+  group:
+    sensors_gangen:
+      name: Sensorer i gangen
+      entities:
+        - binary_sensor.gangen_sensor_1
+        - binary_sensor.gangen_sensor_2
+        - binary_sensor.gangen_sensor_3
+
+  automation:
+    - alias: "Stort badeværelse ON"
+      id: c71a6a3d1a7c44ae9ac4c4baba2c3555
+      initial_state: true
+      mode: restart
+      trigger:
+        - platform: state
+          entity_id: binary_sensor.stort_badevaerelse_sensor
+          to: "on"
+      condition: "{{ is_state('light.stort_badevaerelse', 'off') }}"
+      action:
+        - choose:
+            - conditions:
+                - condition: time
+                  after: input_datetime.morningbath_start
+                  before: input_datetime.morningbath_end
+              sequence:
+                - service: input_boolean.turn_on
+                  data:
+                    entity_id: input_boolean.private_taking_bath_large
+        - service: light.turn_on
+          data:
+            entity_id: light.stort_badevaerelse
+            brightness: >-
+              {%- if is_state("binary_sensor.night", "on") %}
+                {{ states("input_number.dim_low") | int }}
+              {%- else -%}
+                {{ states("input_number.dim_high") | int }}
+              {%- endif %}
+
+    - alias: "Stort badeværelse OFF"
+      id: a02b36fa7a7640b8acedb3a40de7616a
+      initial_state: true
+      mode: restart
+      trigger:
+        - platform: state
+          entity_id: binary_sensor.stort_badevaerelse_sensor
+          to: "off"
+      condition: "{{ is_state('light.stort_badevaerelse', 'on') }}"
+      action:
+        - choose:
+            - conditions:
+                - condition: state
+                  entity_id: input_boolean.private_taking_bath_large
+                  state: "on"
+              sequence:
+                - delay: "{{ states('input_number.morningbath_length') | multiply(60) | int }}"
+          default:
+            - delay: >-
+                {%- if is_state('binary_sensor.night', 'off') %}
+                  {{ states('input_number.light_timeout_day') | multiply(60) | int }}
+                {% else %}
+                  {{ states('input_number.light_timeout_night') | multiply(60) | int }}
+                {% endif %}
+
+        - service: light.turn_off
+          data:
+            entity_id: light.stort_badevaerelse
+        - service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.private_taking_bath_large
+
+    - alias: "Lille badeværelse ON"
+      id: c1c994c1fce94f869022d98a8f228174
+      initial_state: true
+      mode: restart
+      trigger:
+        - platform: state
+          entity_id: binary_sensor.lille_badevaerelse_sensor
+          to: "on"
+      condition: "{{ is_state('light.lille_badevaerelse', 'off') }}"
+      action:
+        - choose:
+            - conditions:
+                - condition: time
+                  after: input_datetime.morningbath_start
+                  before: input_datetime.morningbath_end
+              sequence:
+                - service: input_boolean.turn_on
+                  data:
+                    entity_id: input_boolean.private_taking_bath_small
+        - service: light.turn_on
+          data:
+            entity_id: light.lille_badevaerelse
+            brightness: >-
+              {%- if is_state("binary_sensor.night", "on") %}
+                {{ states("input_number.dim_low") | int }}
+              {%- else -%}
+                {{ states("input_number.dim_high") | int }}
+              {%- endif %}
+
+    - alias: "lille badeværelse OFF"
+      id: 527a4e38261747c4b0485a149ad0b141
+      initial_state: true
+      mode: restart
+      trigger:
+        - platform: state
+          entity_id: binary_sensor.lille_badevaerelse_sensor
+          to: "off"
+      condition: "{{ is_state('light.lille_badevaerelse', 'on') }}"
+      action:
+        - choose:
+            - conditions:
+                - condition: state
+                  entity_id: input_boolean.private_taking_bath_small
+                  state: "on"
+              sequence:
+                - delay: "{{ states('input_number.morningbath_length') | multiply(60) | int }}"
+          default:
+            - delay: >-
+                {%- if is_state('binary_sensor.night', 'off') %}
+                  {{ states('input_number.light_timeout_day') | multiply(60) | int }}
+                {% else %}
+                  {{ states('input_number.light_timeout_night') | multiply(60) | int }}
+                {% endif %}
+
+        - service: light.turn_off
+          data:
+            entity_id: light.lille_badevaerelse
+        - service: input_boolean.turn_off
+          data:
+            entity_id: input_boolean.private_taking_bath_small
+
+    - alias: "Tænd lys i gangen ved bevægelse"
+      id: c0584d9f00f3467684b2efc2ac09b015
+      initial_state: true
+      mode: restart
+      trigger:
+        - platform: state
+          entity_id:
+            - group.sensors_gangen
+          to: "on"
+      action:
+        - service: light.turn_on
+          data:
+            entity_id: light.gangen
+            brightness: >-
+              {%- if is_state("binary_sensor.night", "on") %}
+                {{ states("input_number.dim_low") | int }}
+              {%- else -%}
+                {{ states("input_number.dim_high") | int }}
+              {%- endif %}
+            transition: 1
+
+    - alias: "Sluk lys i gangen ved  ingen bevægelse"
+      id: 678abb2178d341f08c180e78ba5a8c0f
+      initial_state: true
+      mode: restart
+      trigger:
+        - platform: state
+          entity_id:
+            - group.sensors_gangen
+          to: "off"
+          for:
+            seconds: >-
+              {%- if is_state('binary_sensor.night', 'off') %}
+                {{ states('input_number.light_timeout_day') | multiply(60) | int }}
+              {% else %}
+                {{ states('input_number.light_timeout_night') | multiply(60) | int }}
+              {% endif %}
+      action:
+        - service: light.turn_off
+          data:
+            entity_id: light.gangen
+
+  script:
+    generic_sensor_dimmer:
+      alias: "Generic dimmer on sensor"
+      mode: parallel
+      description: "Script at til tænde/slukke lys med en bestemt lysstyrke"
+      fields:
+        sensor:
+          description: "Den sensor som der skal testes på"
+          example: "binary_sensor.lille_badevaerelse_sensor"
+        light:
+          description: "Entity på det lys som skal styres"
+          example: "light.gangen"
+      sequence:
+        - service: light.turn_on
+          data:
+            entity_id: "{{ light }}"
+            brightness: >-
+              {%- if is_state("binary_sensor.night", "on") %}
+                {{ states("input_number.dim_low") | int }}
+              {%- else -%}
+                {{ states("input_number.dim_high") | int }}
+              {%- endif %}
+            transition: 1
+        - wait_template: "{{ is_state(sensor, 'off') }}"
+        - delay: >-
+            {%- if is_state('binary_sensor.night', 'off') %}
+              {{ states('input_number.light_timeout_day') | multiply(60) | int }}
+            {% else %}
+              {{ states('input_number.light_timeout_night') | multiply(60) | int }}
+            {% endif %}
+        - service: light.turn_off
+          data:
+            entity_id: "{{ light }}"

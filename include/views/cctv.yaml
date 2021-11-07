@@ -1,0 +1,23 @@
+################################################################################
+#                            ___________________    __                         #
+#                           / ____/ ____/_  __/ |  / /                         #
+#                          / /   / /     / /  | | / /                          #
+#                         / /___/ /___  / /   | |/ /                           #
+#                         \____/\____/ /_/    |___/                            #
+#                                         by J-Lindvig                         #
+################################################################################
+# Created: 26/2/2021                                                           #
+################################################################################
+
+title: CCTV
+icon: mdi:cctv
+panel: true
+cards:
+  - type: custom:surveillance-card
+    thumb_interval: 15
+    update_interval: 2
+    cameras:
+      - entity: camera.indgang_hd
+      - entity: camera.kontor_1_hd
+      - entity: camera.kontor_2_hd
+      - entity: camera.udendors_hd

@@ -1,0 +1,28 @@
+type: custom:stack-in-card
+title: "Williams værelse"
+cards:
+  - type: custom:stack-in-card
+    mode: horizontal
+    cards:
+      - type: custom:stack-in-card
+        cards:
+          - type: custom:button-card
+            entity: light.williams_gulvlampe
+          - type: entities
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.williams_gulvlampe
+                hide_state: true
+                full_row: true
+      - type: custom:stack-in-card
+        cards:
+          - type: custom:button-card
+            entity: light.williams_uplight
+          - type: entities
+            entities:
+              - type: custom:slider-entity-row
+                entity: light.williams_uplight
+                hide_state: true
+                full_row: true
+      - type: custom:button-card
+        color_type: blank-card

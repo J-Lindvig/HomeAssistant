@@ -1,0 +1,29 @@
+#      __  ___           _                    _             
+#     /  |/  /___ _   __(_)__  _____   _   __(_)__ _      __
+#    / /|_/ / __ \ | / / / _ \/ ___/  | | / / / _ \ | /| / /
+#   / /  / / /_/ / |/ / /  __(__  )   | |/ / /  __/ |/ |/ / 
+#  /_/  /_/\____/|___/_/\___/____/    |___/_/\___/|__/|__/  
+#                                                           
+#                                                by J-Lindvig
+#     ___                _                        __    
+#    / _ \___ ___ ___ __(_)______ __ _  ___ ___  / /____
+#   / , _/ -_) _ `/ // / / __/ -_)  ' \/ -_) _ \/ __(_-<
+#  /_/|_|\__/\_, /\_,_/_/_/  \__/_/_/_/\__/_//_/\__/___/
+#             /_/                                       
+# lovelace Gen, https://github.com/thomasloven/hass-lovelace_gen
+# Layout Card,https://github.com/thomasloven/lovelace-layout-card
+
+title: Film
+icon: mdi:filmstrip-box-multiple
+panel: true
+cards:
+  - type: custom:layout-card
+    layout: vertical
+    column_num: 3
+    column_width: 33%
+    cards:
+      - !include cards/movies/movie_selection.yaml
+      - break
+      - !include cards/movies/movies.yaml
+      - break
+      - !include cards/movies/chromecast.yaml

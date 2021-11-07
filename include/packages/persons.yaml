@@ -1,0 +1,76 @@
+persons:
+
+  utility_meter:
+    jacob_daily_steps:
+      name: daglig skridt Jacob
+      source: sensor.redmi_9t_steps_sensor
+      cycle: daily
+
+    steps_test:
+      name: Steps test
+      source: input_number.steps_test
+      cycle: daily
+
+  group:
+    family:
+      name: Familie
+      icon: mdi:account-group
+      entities:
+        - person.jacob
+        - person.rikke
+        - person.cornelie
+        - person.nathalie
+        - person.hjalte
+
+  automation:
+    - alias: "Sluk lys tomt værelse"
+      id: f48394e4a44346deb9af6441ddff2396
+      description: "Sluk lyset i et værelse når personen som bor i værelset er hjemmefra"
+      mode: queued
+      trigger:
+        platform: state
+        entity_id:
+          - person.jacob
+          - person.cornelie
+          - person.nathalie
+          - person.hjalte
+        to: "not_home"
+      action:
+        - service: light.turn_off
+          target:
+            area_id: >-
+              {%- if trigger.entity_id == "person.jacob" %}
+                kontor
+              {%- elif trigger.entity_id == "person.cornelie" %}
+                cornelies_vaerelse
+              {%- elif trigger.entity_id == "person.nathalie" %}
+                nathalies_vaerelse
+              {%- else %}
+                hjaltes_vaerelse
+              {% endif %}
+
+    - alias: "Sluk lys tomt hus"
+      id: 58796333cd0b4e709b96f7da406bd57e
+      description: "Når alle er ude - sluk alt lys, cirkulationspumpen og touchkærm - modsat når der kommer nogen hjem"
+      trigger:
+        - platform: state
+          entity_id: group.family
+      action:
+        - choose:
+            - conditions: "{{ is_state('group.family', 'not_home') }}"
+              sequence:
+                # Sluk lyset
+                - service: light.turn_off
+                  data:
+                    entity_id: all
+                - service: homeassistant.turn_off
+                  data:
+                    entity_id:
+                      - switch.pump
+
+          default:
+            - service: homeassistant.turn_on
+              data:
+                entity_id:
+                  - switch.pump
+                  - light.touchpanel

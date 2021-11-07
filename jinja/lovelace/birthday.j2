@@ -1,0 +1,88 @@
+{# @Author: Jacob Lindvig Henriksen (J-Lindvig) #}
+
+{% set background = "/local/images/backgrounds/birthday_5x2.jpg" %}
+
+{# PRIVATE BEGIN #}
+{# BANNER IN YAML WITH SIGNATURE #}
+{% set signature = "by J-Lindvig" %}
+{% set stamp = "Created: " ~ now().day  ~ '/' ~ now().month ~ '/' ~ now().year %}
+{% set banner = [
+"      ____  _      __  __        __           ",
+"     / __ )(_)____/ /_/ /_  ____/ /___ ___  __",
+"    / __  / / ___/ __/ __ \/ __  / __ `/ / / /",
+"   / /_/ / / /  / /_/ / / / /_/ / /_/ / /_/ / ",
+"  /_____/_/_/   \__/_/ /_/\__,_/\__,_/\__, /  ",
+"                                     /____/   "
+] %}
+
+{%- macro print_banner() %}
+{{ "#".ljust(80, "#") }}
+{%- for line in banner %}
+{%- if not loop.last %}
+# {{ line.center(76) }} #
+{%- else %}
+# {{ (line[:-(signature | length)] ~ signature).center(76) }} #
+{% endif -%}
+{% endfor -%}
+{{ "#".ljust(80, "#") }}
+# {{ stamp.ljust(76," ") }} #
+{{ "#".ljust(80, "#") }}
+{%- endmacro %}
+{# PRIVATE END #}
+
+{% macro element_style(top, left, fontsize) -%}
+      top: {{ top }}
+      left: {{ left }}
+      font-size: {{ fontsize }}
+      color: white
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+      font-weight: bold
+{%- endmacro %}
+
+{{ print_banner() }}
+type: picture-elements
+image: {{ background }}
+elements:
+  - type: custom:state-attribute-element
+    entity: sensor.next_birthday
+    attribute: friendly_name
+    style:
+      {{ element_style("15%", "50%", "1.8vw") }}
+
+  - type: custom:state-attribute-element
+    entity: sensor.next_birthday
+    attribute: years_at_next_anniversary
+    suffix: " år"
+    style:
+      {{ element_style("45%", "50%", "5vh") }}
+
+  - type: state-label
+    entity: sensor.next_birthday
+    style:
+      {{ element_style("70%", "50%", "5vh") }}
+    tap_action:
+      action: call-service
+      service: browser_mod.popup
+      service_data:
+        title: Kommende begivenheder
+        style:
+          border-radius: 20px
+          --ha-card-border-radius: 20px
+        card:
+          type: custom:auto-entities
+          card:
+            type: entities
+            show_header_toggle: false
+          filter:
+            include:
+              - domain: sensor
+                name: "*dag"
+          sort:
+            method: state
+            numeric: true
+            first: 1
+            count: 8
+
+{{ "#".ljust(80, "#") }}
+#### {{ "End of file".center(70) }} ####
+{{ "#".ljust(80, "#") }}

@@ -1,0 +1,81 @@
+tts_tools:
+
+  # Wavenet voices
+  tts:
+    - platform: google_cloud
+      # Rename service to come before the builtin TTS
+      # See this issue:
+      # https://github.com/home-assistant/core/issues/35142
+      service_name: aaa_google_cloud_say
+      key_file: googlecloud.json
+      voice: da-DK-Wavenet-A
+      speed: 0.7
+      profiles:
+        - small-bluetooth-speaker-class-device
+      text_type: ssml
+
+  # Volume from GUI
+  input_number:
+    announce_volume:
+      name: Lydstyrke
+      icon: mdi:volume-high
+      initial: 80
+      min: 10
+      max: 100
+      step: 10
+
+  script:
+    say_something:
+      alias: "Say Something"
+      icon: mdi:text-to-speech
+      description: "Generic TTS service"
+      fields:
+        media_player:
+          description: "Den medieafspiller hvor der skal afspilles"
+          example: "media_player.kokken"
+        message:
+          description: "Den besked som som afspilles"
+          example: "Dette er en fed besked"
+        volume:
+          description: "Den volume som der skal afspilles med"
+          example: 0.8
+      variables:
+        tts_service: "tts.aaa_google_cloud_say"
+        saved_volume: ""
+      sequence:
+
+        # Store the current volume in a variable
+        - variables:
+            saved_volume: "{{ state_attr(media_player, 'volume_level') }}"
+
+        # Set the new volume
+        - service: media_player.volume_set
+          data:
+            entity_id: "{{ media_player }}"
+            volume_level: >-
+              {% if volume | float > 1 %}
+                {{ ( volume | float ) / 100 }}
+              {% else %}
+                {{ volume }}
+              {% endif %}
+
+        # Say the message
+        - service: "{{ tts_service }}"
+          data:
+            entity_id: "{{ media_player }}"
+            message: "{{ message }}"
+
+        # A workaround.....
+        # Wait 2 seconds for the media_player to start playing
+        # Wihtout this the script would continue and resetting
+        # the volume back to its previous state
+        - delay: 2
+
+        # Wait till we are done saying the message
+        - wait_template: "{{ not is_state(media_player, 'playing') }}"
+
+        # Reset the volume
+        - service: media_player.volume_set
+          data:
+            entity_id: "{{ media_player}}"
+            volume_level: "{{ saved_volume | float }}"

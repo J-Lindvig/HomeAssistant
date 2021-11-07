@@ -1,0 +1,274 @@
+blueprint:
+  name: deCONZ - IKEA remote All-In-One remote with actions
+  description: |
+    This blueprint utilize a IKEA five button (puck) remote to control a group of lights individually.
+    
+    REQUIREMENTS:
+    ------------------------------------------------------------------------------------------------------------------------------------------------------
+    Since we need to store the current light choosen between each activation af the automation, we are in need af of placeholder.
+    For this we are using a counter. This can be configured in the or YAML.
+    Example:
+
+    counter:
+      idx_livingroom:
+
+    The counter only needs a enity_id - the rest is handled by the blueprint.
+
+    HOW THE REMOTE WORKS:
+    ------------------------------------------------------------------------------------------------------------------------------------------------------
+    LEFT AND RIGHT:
+    With a short press on either the left/right arrow, you will be able to switch between the light in the group. The current selected light give a short flash indicating your selection.
+    Long press is assignable to any action(s).
+    
+    DIM UP OR DOWN:
+    Short press will in/decrease brightness with the specified step in percent and short transition time.
+    Long pres will in/decrease brightness continuesly using a transition time stating how long a dim from 0 to 100% shoiuld take.
+    
+    POWER:
+    Short press toggles the selected light
+    Long press turns on ALL lights in the group at 100%
+
+    HOW THE AUTOMATION WORKS:
+    ------------------------------------------------------------------------------------------------------------------------------------------------------
+    We listen on "deconz_event" and extract the numeric representation of the pressed button and duration.
+
+    The counter is updated with the ID of the current light.
+    Secondly we choose the appropriate action from the given event.
+    
+    USING THE BLUEPRINT IN YAML MODE:
+    ------------------------------------------------------------------------------------------------------------------------------------------------------
+    If you decide to make the automation directly in YAML it would look like this:
+
+    automation:
+      - alias: Kitchen and Livingroom
+        description: The All-in-One remote formuse in the kitchen and the livingroom.
+        use_blueprint:
+          path: J-Lindvig/all_in_one_remote.yaml
+          input:
+            long_press_transition: '30'
+            remote: c08819d98af8b341299ea47c702e9a37
+            counter: counter.all_in_one_test_id
+            short_press_transition: '0.5'
+            dim_step_pct: '20'
+              lights:
+                entity_id:
+                  - light.dining_table
+                  - light.kitchen_sink
+                  - light.livingroom
+  source_url: https://github.com/J-Lindvig/HomeAssistant/blob/master/blueprints/automation/J-Lindvig/all_in_one_remote.yaml
+  domain: automation
+
+  input:
+    lights:
+      name: Light(s)
+      description: Choose the lights you wish to control
+      selector:
+        target:
+          entity:
+            domain: light
+    
+    remote:
+      name: Remote
+      description: IKEA five button remote to use
+      selector:
+        device:
+          integration: deconz
+          manufacturer: IKEA of Sweden
+          model: TRADFRI remote control
+    
+    counter:
+      name: ID holder
+      description: "The counter holding the ID of the current light"
+      selector:
+        entity:
+          domain: counter
+
+    dim_step_pct:
+      name: Step
+      description: Step, in percent, to de- or increase brightness
+      default: 20
+      selector:
+        number:
+          min: 5.0
+          max: 100.0
+          mode: slider
+          step: 5.0
+          unit_of_measurement: "%"
+
+    short_press_transition:
+      name: Transition short
+      description: Transtion time used when doing a short press
+      default: 0.5
+      selector:
+        number:
+          min: 0.0
+          max: 2.0
+          mode: slider
+          step: 0.1
+          unit_of_measurement: "seconds"
+
+    long_press_transition:
+      name: Transition long
+      description: Transtion time used when doing a long press (0 - 100%)
+      default: 30
+      selector:
+        number:
+          min: 5.0
+          max: 50.0
+          mode: slider
+          step: 1.0
+          unit_of_measurement: "seconds"
+
+    button_left_long:
+      name: Left button - long press
+      description: Action to run on long left button press
+      default: []
+      selector:
+        action: {}
+
+    button_right_long:
+      name: Right button - long press
+      description: Action to run on long right button press
+      default: []
+      selector:
+        action: {}
+
+mode: restart
+max_exceeded: silent
+variables:
+  lights: !input lights
+  counter: !input counter
+  idx: 0
+  dim_step_pct: !input dim_step_pct
+  dim_step: 0
+  prev_state: ""
+  prev_brightness: 0
+  short_press_transition: !input short_press_transition
+  long_press_transition: !input long_press_transition
+trigger:
+- platform: event
+  event_type: deconz_event
+  event_data:
+    device_id: !input remote
+action:
+# EXTRACT OR CALCULATE SOME OF THE VARIABLES
+- variables:
+    event: "{{ trigger.event.data.event }}"
+    lights: "{{ lights['entity_id'] }}"
+    idx: "{{ states(counter) }}"
+    dim_step: "{{ (254 / (long_press_transition | int)) | round(0, 'floor') }}"
+
+# SET THE MAXIMUM OF THE COUNTER TO THE LENGTH OF THE LIGHTS
+- service: counter.configure
+  data:
+    entity_id: "{{ counter}}"
+    maximum: "{{ lights | length - 1 }}"
+
+# PERFORM A ACTION BASED ON THE EVENT
+- choose:
+  # LEFT OR RIGHT
+  # Find the previous or next light and give it a short flash
+  - conditions: "{{ event in (4002, 5002) }}"
+    sequence:
+      - variables:
+          idx: >-
+            {%- if event == 4002 -%}
+              {{ (idx - 1) if idx > 0 else state_attr(counter, 'maximum') }}
+            {%- else -%}
+              {{ (idx + 1) if idx < state_attr(counter, 'maximum') else 0 }}
+            {%- endif %}
+          prev_state: "{{ states(lights[idx]) }}"
+      - service: counter.configure
+        data:
+          entity_id: "{{ counter }}"
+          value: "{{ idx }}"
+          initial: "{{ idx }}"
+
+      # Turn on the light and save the brightness of the light
+      - service: light.turn_on
+        data:
+          entity_id: "{{ lights[idx] }}"
+      - variables:
+          prev_brightness: "{{ state_attr(lights[idx], 'brightness') | int }}"
+
+      # Flash the light - HA style
+      - repeat:
+          count: 2
+          sequence:
+            - delay:
+                milliseconds: 500
+            - service: light.turn_off
+              data:
+                entity_id: "{{ lights[idx] }}"
+            - delay:
+                milliseconds: 500
+            - service: light.turn_on
+              data:
+                entity_id: "{{ lights[idx] }}"
+                brightness_pct: 100
+
+      # Restore previous brightness
+      - service: light.turn_on
+        data:
+          entity_id: "{{ lights[idx] }}"
+          brightness: "{{ prev_brightness | int }}"
+
+      # Take a second and restore previous state
+      - delay: 1
+      - service: "light.turn_{{ prev_state }}"
+        data:
+          entity_id: "{{ lights[idx] }}"
+
+  # SHORT PRESS POWER
+  # Toggle the choosen light
+  - conditions: "{{ event == 1002 }}"
+    sequence:
+      - service: light.toggle
+        data:
+          entity_id: "{{ lights[idx] }}"
+
+  # LONG PRESS POWER
+  # Turn on all lights at 100%
+  - conditions: "{{ event == 1001 }}"
+    sequence:
+      - service: light.turn_on
+        target: !input lights
+        data:
+          brightness_pct: 100
+
+  # SHORT PRESS UP OG DOWN (DIMMING IN STEPS)
+  # Dim the choosen light up or down
+  - conditions: "{{ event in (2002, 3002) }}"
+    sequence:
+      - service: light.turn_on
+        data:
+          entity_id: "{{ lights[idx] }}"
+          brightness_step_pct: "{{ ( dim_step_pct | int ) if event == 2002 else (0 - ( dim_step_pct | int )) }}"
+          transition: "{{ short_press_transition }}"
+
+  # LONG PRESS UP OR DOWN (FLOW DIMMING) - HA STYLE...!!!
+  - conditions: "{{ event in (2001, 3001) }}"
+    sequence:
+
+      # Turn on the light
+      - service: light.turn_on
+        data:
+          entity_id: "{{ lights[idx] }}"
+
+      # While pressing the button in/decrease the brightness with the calculated dim_step
+      - repeat:
+          while: []
+          sequence:
+            - service: light.turn_on
+              data:
+                entity_id: "{{ lights[idx] }}"
+                brightness: "{{ state_attr(lights[idx], 'brightness') + (0 - dim_step if event == 3001 else dim_step) }}"
+            - delay: 1
+
+  # LONG PRESS LEFT
+  - conditions: "{{ event == 4001 }}"
+    sequence: !input button_left_long
+
+  # LONG PRESS RIGHT
+  - conditions: "{{ event == 5001 }}"
+    sequence: !input button_right_long

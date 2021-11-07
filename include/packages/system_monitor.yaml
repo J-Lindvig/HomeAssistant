@@ -1,0 +1,109 @@
+systemmonitor:
+
+  binary_sensor:
+    - platform: ping
+      name: Router
+      host: 192.168.0.1
+
+    - platform: ping
+      name: Switch Main
+      host: 192.168.0.2    
+
+    - platform: ping
+      name: Switch PoE
+      host: 192.168.0.3
+
+    - platform: ping
+      name: Switch Kontor
+      host: 192.168.0.4
+
+    - platform: ping
+      name: AP Hjalte
+      host: 192.168.0.6
+
+    - platform: ping
+      name: AP Pigernes stue
+      host: 192.168.0.7
+
+    - platform: ping
+      name: AP Køkken
+      host: 192.168.0.8
+
+    - platform: ping
+      name: AP Stuen
+      host: 192.168.0.9
+
+    - platform: ping
+      name: NAS
+      host: 192.168.0.10
+
+    - platform: ping
+      name: HP 3833
+      host: 192.168.0.20
+
+    - platform: ping
+      name: RF Kontor
+      host: 192.168.0.31
+
+    - platform: ping
+      name: RF Indgang
+      host: 192.168.0.32
+
+    - platform: ping
+      name: RF Pigernes stue
+      host: 192.168.0.33
+
+  sensor:
+    - platform: systemmonitor
+      resources:
+        - type: last_boot
+        - type: processor_use
+        - type: memory_use_percent
+        - type: disk_use_percent
+          arg: /
+        - type: swap_use_percent
+
+    - platform: command_line
+      name: Processor Temperature
+      command: "cat /sys/class/thermal/thermal_zone2/temp"
+      unit_of_measurement: "°C"
+      value_template: "{{ value | multiply(0.001) | round(1) }}"
+
+    - platform: command_line
+      name: YAML linier
+      command: "wc -l `find -name '*.yaml'` | grep 'total' | cut -d't' -f1 | xargs"
+      scan_interval: 3600
+
+    - platform: command_line
+      name: YAML filer
+      command: "find | grep -c '\\.yaml$'"
+      scan_interval: 3600
+
+  homeassistant:
+    customize:
+      binary_sensor.router:
+        icon: mdi:router-network
+      binary_sensor.switch_main:
+        icon: mdi:switch
+      binary_sensor.switch_poe:
+        icon: mdi:switch
+      binary_sensor.switch_kontor:
+        icon: mdi:switch
+      binary_sensor.ap_hjalte:
+        icon: mdi:access-point-network
+      binary_sensor.ap_pigernes_stue:
+        icon: mdi:access-point-network
+      binary_sensor.ap_kokken:
+        icon: mdi:access-point-network
+      binary_sensor.ap_stuen:
+        icon: mdi:access-point-network
+      binary_sensor.nas:
+        icon: mdi:nas
+      binary_sensor.hp_3833:
+        icon: mdi:binary_sensor.hp_3833
+      binary_sensor.rf_kontor:
+        icon: mdi:radio-tower
+      binary_sensor.rf_indgang:
+        icon: mdi:radio-tower
+      binary_sensor.rf_pigernes_stue:
+        icon: mdi:radio-tower

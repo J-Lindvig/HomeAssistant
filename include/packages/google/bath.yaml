@@ -1,0 +1,17 @@
+bath:
+  script:
+    bath_large:
+      alias: "Bad Stort"
+      description: "Bad Stort badeværelse"
+      sequence:
+        - service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.private_taking_bath_large
+
+    bath_small:
+      alias: "Bad Lille"
+      description: "Bad Lillet badeværelse"
+      sequence:
+        - service: input_boolean.turn_on
+          data:
+            entity_id: input_boolean.private_taking_bath_small

@@ -1,0 +1,68 @@
+{# @Author: Jacob Lindvig Henriksen (J-Lindvig) #}
+{% set views = {
+  10: "main.yaml",
+  20: "room_lights.yaml",
+  30: "movies.yaml",
+  40: "light_control.yaml",
+  50: "system.yaml",
+  60: "gauges.yaml",
+  70: "weather.yaml",
+  80: "test.yaml"
+} %}
+{% set path = "views" %}
+{% set title = "Skovtrolden" %}
+
+{% set configs = {
+  "custom_header": {
+    "locale": "da-DK",
+    "compact_mode": true
+  }
+} %}
+
+
+{# PRIVATE BEGIN #}
+{# BANNER IN YAML WITH SIGNATURE #}
+{% set signature = "by J-Lindvig" %}
+{% set stamp = "Created: "~now().day~'/'~now().month~'/'~now().year %}
+{% set banner = [
+  "      __                    __              ",
+  "     / /   ____ _   _____  / /___ _________ ",
+  "    / /   / __ \ | / / _ \/ / __ `/ ___/ _ \\",
+  "   / /___/ /_/ / |/ /  __/ / /_/ / /__/  __/",
+  "  /_____/\____/|___/\___/_/\__,_/\___/\___/ ",
+  "                                            "
+] %}
+
+{%- macro print_banner() %}
+{{ "#".ljust(80, "#") }}
+{%- for line in banner %}
+{%- if not loop.last %}
+# {{ line.center(76) }} #
+{%- else %}
+# {{ (line[:-(signature | length)] ~ signature).center(76) }} #
+{% endif -%}
+{% endfor -%}
+{{ "#".ljust(80, "#") }}
+# {{ stamp.ljust(76," ") }} #
+{{ "#".ljust(80, "#") }}
+{%- endmacro %}
+{# PRIVATE END #}
+
+{{ print_banner() }}
+
+{% for header in configs -%}
+{{ header }}:
+  {% for element in configs[header] -%}
+  {{ element }}: {{ configs[header][element] }}
+  {% endfor %}
+{% endfor -%}
+title: {{ title }}
+
+views:
+{%- for idx in views | sort if idx > 0 %}
+  - !include {{ path }}/{{ views[idx] -}}
+{% endfor %}
+
+{{ "#".ljust(80, "#") }}
+#### {{ "End of file".center(70) }} ####
+{{ "#".ljust(80, "#") }}

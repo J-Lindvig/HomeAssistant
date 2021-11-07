@@ -1,0 +1,57 @@
+################################################################################
+#          ____                   __     ______  __  __                        #
+#         / __ \___  ____  ____  / /__  / ____ \/ / / /___  ____ ___  ___      #
+#        / /_/ / _ \/ __ \/ __ \/ / _ \/ / __ `/ /_/ / __ \/ __ `__ \/ _ \     #
+#       / ____/  __/ /_/ / /_/ / /  __/ / /_/ / __  / /_/ / / / / / /  __/     #
+#      /_/    \___/\____/ .___/_/\___/\ \__,_/_/ /_/\____/_/ /_/ /_/\___/      #
+#                      /_/             \____/                 by J-Lindvig     #
+################################################################################
+# Created: 21/10/2020                                                          #
+################################################################################
+type: custom:stack-in-card
+mode: horizontal
+cards:
+  - type: picture-entity
+    entity: person.jacob
+    image: /api/image/serve/af1410210ca6d4b819bb188d8bd2fad1/512x512
+    show_name: False
+    show_state: False
+    state_filter:
+      "home": brightness(110%) saturate(1.2)
+      "not_home": brightness(50%) grayscale(100%)
+     
+  - type: picture-entity
+    entity: person.rikke
+    image: /api/image/serve/3f3f5347347471e34ac0a2d0228fcef2/512x512
+    show_name: False
+    show_state: False
+    state_filter:
+      "home": brightness(110%) saturate(1.2)
+      "not_home": brightness(50%) grayscale(100%)
+     
+  - type: picture-entity
+    entity: person.cornelie
+    image: /api/image/serve/8a9870116d1aa5c378e2a1695337ba80/512x512  
+    show_name: False
+    show_state: False
+    state_filter:
+      "home": brightness(110%) saturate(1.2)
+      "not_home": brightness(50%) grayscale(100%)
+     
+  - type: picture-entity
+    entity: person.nathalie
+    image: /api/image/serve/d5c987c43b388e3806a636452b52a094/512x512
+    show_name: False
+    show_state: False
+    state_filter:
+      "home": brightness(110%) saturate(1.2)
+      "not_home": brightness(50%) grayscale(100%)
+     
+  - type: picture-entity
+    entity: person.hjalte
+    image: /api/image/serve/6287e820ab516ef85f58b2018dee2016/512x512
+    show_name: False
+    show_state: False
+    state_filter:
+      "home": brightness(110%) saturate(1.2)
+      "not_home": brightness(50%) grayscale(100%)

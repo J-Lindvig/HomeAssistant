@@ -1,0 +1,79 @@
+################################################################################
+#                              ________           __                           #
+#                             / ____/ /___  _____/ /__                         #
+#                            / /   / / __ \/ ___/ //_/                         #
+#                           / /___/ / /_/ / /__/ ,<                            #
+#                           \____/_/\____/\___/_/|_|                           #
+#                                         by J-Lindvig                         #
+################################################################################
+# Created: 25/10/2020                                                          #
+################################################################################
+type: picture-elements
+image: /local/images/backgrounds/night_5x2.jpg
+elements:
+  - type: state-label
+    entity: sensor.dato_og_tid_dk
+    attribute: time_hhmm
+    style:
+      top: 45%
+      left: 50%
+      font-size: 5vw
+      color: white
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+      font-weight: bold
+
+  - type: state-label
+    entity: sensor.dato_og_tid_dk
+    style:
+      top: 75%
+      left: 50%
+      font-size: 1vw
+      color: white
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+      font-weight: bold
+
+  - type: icon
+    icon: mdi:weather-sunset-up
+    style:
+      top: 10%
+      left: 10%
+      font-size: 1vw
+      color: white
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+      font-weight: bold
+
+  - type: state-label
+    entity: sensor.dato_og_tid_dk
+    attribute: sunrise
+    style:
+      top: 20%
+      left: 10%
+      font-size: 1vw
+      color: white
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+      font-weight: bold
+
+  - type: icon
+    icon: mdi:weather-sunset-down
+    style:
+      top: 10%
+      left: 90%
+      font-size: 1vw
+      color: white
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+      font-weight: bold
+
+  - type: state-label
+    entity: sensor.dato_og_tid_dk
+    attribute: sunset
+    style:
+      top: 20%
+      left: 90%
+      font-size: 1vw
+      color: white
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+      font-weight: bold
+      
+################################################################################
+####                              End of file                               ####
+################################################################################

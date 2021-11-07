@@ -1,0 +1,66 @@
+type: picture-elements
+image: /local/images/backgrounds/minecraft.jpg
+elements:
+
+  - type: custom:text-element
+    text: "game.minicraft.dk"
+    style:
+      top: 10%
+      left: 50%
+      position: absolute
+      transform: translate(-50%,-50%)
+      font-size: 3vh
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+
+  - type: custom:mini-graph-card
+    entities:
+      - entity: sensor.minicraft_latency_time
+    hours_to_show: 1
+    points_per_hour: 12
+    line_color: black
+    height: 50
+    show:
+      name: false
+      icon: false
+      state: false
+      fill: false
+      labels: true
+    card_mod:
+      style: |
+        ha-card {
+          --ha-card-background: "rgba(0, 0, 0, 0.3)";
+          box-shadow: none;
+          color: var(--primary-color);
+        }
+        .header {
+          display: none !important;
+        }
+    style:
+      width: 100%
+      top: 90%
+      left: 0%
+      position: absolute
+      transform: translate(0%,-50%)
+
+  - type: custom:bar-card
+    entity: sensor.minicraft_players_online
+    name: Online
+    unit_of_measurement: ' '
+    entity_row: true
+    width: 22vw
+    height: 4vh
+    color: black
+    min: 0
+    max: 20
+    limit_value: true
+    positions:
+      icon: off
+      indicator: off
+      value: inside
+      name: inside
+      minmax: inside
+    style:
+      top: 70%
+      left: 0%
+      position: absolute
+      transform: translate(0%,-50%)

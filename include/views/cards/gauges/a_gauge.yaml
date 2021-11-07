@@ -1,0 +1,36 @@
+# lovelace_gen
+#     ______                     _         ______                                              __
+#    / ____/__  ____  ___  _____(_)____   / ____/___ ___  ______ ____     _________ __________/ /
+#   / / __/ _ \/ __ \/ _ \/ ___/ / ___/  / / __/ __ `/ / / / __ `/ _ \   / ___/ __ `/ ___/ __  / 
+#  / /_/ /  __/ / / /  __/ /  / / /__   / /_/ / /_/ / /_/ / /_/ /  __/  / /__/ /_/ / /  / /_/ /  
+#  \____/\___/_/ /_/\___/_/  /_/\___/   \____/\__,_/\__,_/\__, /\___/   \___/\__,_/_/   \__,_/   
+#                                                        /____/                                  
+#                                                                                     by J-Lindvig
+
+type: custom:gauge-card
+entity: {{ entity }}
+{% if attribute %}
+attribute: {{ attribute }}
+{% endif %}
+{% if title %}
+title: {{ title }}
+{% endif %}
+{% if measurement %}
+measurement: {{ measurement }}
+{% else %}
+measurement: ""
+{% endif %}
+{% if min %}
+min: {{ min }}
+{% endif %}
+{% if max %}
+max: {{ max }}
+{% endif %}
+{%- if severity_list -%}
+{% set severity_list = severity_list.split(",") %}
+{% set yellow = (max / 100) * severity_list[1] | int -%}
+severity:
+  red: {{ (max / 100) * severity_list[0] | int }}
+  yellow: {{ yellow }}
+  green: {{ yellow + 0.1 }}
+{% endif %}

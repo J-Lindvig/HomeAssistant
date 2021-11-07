@@ -1,0 +1,90 @@
+- id: '1608410519916'
+  alias: Motion Indgang CCTV
+  description: Tænd lyset i indgangen ved bevægelse opfanget af kameraet
+  trigger:
+  - platform: webhook
+    webhook_id: d718eb3cc3fa4b089aa71c37fbbb4373
+  condition: []
+  action:
+  - service: light.turn_on
+    data: {}
+    entity_id: light.indgang
+  mode: restart
+- id: '1608411733721'
+  alias: Birthday Update
+  description: Opdater nedtællingen til kommende fødselsdage én gang i døgnet
+  trigger:
+  - platform: time
+    at: 00:01:00
+  condition: []
+  action:
+  - service: homeassistant.update_entity
+    data: {}
+    entity_id: sensor.next_birthday
+  mode: single
+- id: '1609276615971'
+  alias: Boot
+  description: Indlæs diverse lister m.m. ved opstart
+  trigger:
+  - platform: homeassistant
+    event: start
+  condition: []
+  action:
+  - service: shell_command.var_set_values
+    data: {}
+  - service: shell_command.select_set_options
+    data: {}
+  - service: shell_command.text_set_values
+    data: {}
+  - service: rest_command.set_options_fix
+    data:
+      payload: "{\"entity_id\":\"input_select.chromecasts\",\"options\":[ {%- for\
+        \ chromecast in state_attr('group.chromecasts','entity_id') -%}\n  \"{{ state_attr(chromecast,\
+        \ 'friendly_name') }}\"\n  {{- ',' if not loop.last -}}\n{% endfor %}]}"
+  - service: rest_command.set_options_fix
+    data:
+      payload: "{\"entity_id\":\"input_select.chromecasts_entities\",\"options\":[\
+        \ {%- for chromecast in state_attr('group.chromecasts','entity_id') -%}\n\
+        \  \"{{ chromecast }}\"\n  {{- ',' if not loop.last -}}\n{% endfor %}]}"
+  mode: single
+- id: '1609532873074'
+  alias: Pengekassen
+  description: Pengekassen er blevet åbnet
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.pengekasse
+    from: 'off'
+  condition: []
+  action:
+  - service: notify.mobile_app_jacobs_moto
+    data:
+      title: OBS
+      message: Pengekassen er blevet åbnet
+      data:
+        channel: Pengekasse
+        importance: high
+  mode: single
+- id: '1611953530386'
+  alias: Touchpanel - Default View
+  description: ''
+  use_blueprint:
+    path: J-Lindvig/default_view.yaml
+    input:
+      device: sensor.touchpanel
+- id: '1635184751394'
+  alias: coffee
+  description: ''
+  trigger:
+  - platform: time
+    at: input_datetime.coffee_start
+  - platform: time
+    at: input_datetime.coffee_end
+  condition:
+  - condition: state
+    entity_id: input_boolean.coffee_holiday
+    state: 'off'
+  action:
+  - service: switch.turn_{{ 'on' if trigger.entity_id == 'input_datetime.coffee_start'
+      else 'off' }}
+    entity_id: switch.coffee
+  mode: single

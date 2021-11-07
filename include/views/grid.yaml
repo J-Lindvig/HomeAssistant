@@ -1,0 +1,191 @@
+type: custom:grid-layout
+title: grid
+icon: mdi:grid
+layout:
+  grid-template-columns: repeat(4, 1fr)
+  grid-template-rows: masonry
+  grid-auto-flow: column
+  grid-template-areas: |
+    "header1 header2 header3 header4"
+    ". . . ."
+    ". . . ."
+    "footer footer footer footer"
+cards:
+  # HEADERS
+  - type: picture
+    image: /local/images/headers/weather.jpg
+    view_layout:
+      grid-area: header1
+  - type: custom:stack-in-card
+    mode: horizontal
+    cards:
+      - type: picture-entity
+        entity: person.jacob
+        image: /api/image/serve/af1410210ca6d4b819bb188d8bd2fad1/512x512
+        show_name: False
+        show_state: False
+        state_filter:
+          "home": brightness(110%) saturate(1.2)
+          "not_home": brightness(50%) grayscale(100%)
+         
+      - type: picture-entity
+        entity: person.rikke
+        image: /api/image/serve/3f3f5347347471e34ac0a2d0228fcef2/512x512
+        show_name: False
+        show_state: False
+        state_filter:
+          "home": brightness(110%) saturate(1.2)
+          "not_home": brightness(50%) grayscale(100%)
+         
+      - type: picture-entity
+        entity: person.cornelie
+        image: /api/image/serve/2cf187b250d9b1ed7f178604c759b6ba/512x512
+        show_name: False
+        show_state: False
+        state_filter:
+          "home": brightness(110%) saturate(1.2)
+          "not_home": brightness(50%) grayscale(100%)
+         
+      - type: picture-entity
+        entity: person.nathalie
+        image: /api/image/serve/d5c987c43b388e3806a636452b52a094/512x512
+        show_name: False
+        show_state: False
+        state_filter:
+          "home": brightness(110%) saturate(1.2)
+          "not_home": brightness(50%) grayscale(100%)
+         
+      - type: picture-entity
+        entity: person.hjalte
+        image: /api/image/serve/6287e820ab516ef85f58b2018dee2016/512x512
+        show_name: False
+        show_state: False
+        state_filter:
+          "home": brightness(110%) saturate(1.2)
+          "not_home": brightness(50%) grayscale(100%)
+    view_layout:
+      grid-area: header2
+  - type: picture
+    image: /local/images/headers/fynbus.jpg
+    view_layout:
+      grid-area: header3
+  - type: picture
+    image: /local/images/headers/ffv.jpg
+    view_layout:
+      grid-area: header4
+
+  - !include cards/main/sun.yaml
+  - !include cards/weather/brobyvaerk.yaml
+
+  # - type: entities
+  #   entities:
+  #     - entity: light.sandbox
+  #   title: "1"
+  #   show_header_toggle: false
+  #   view_layout:
+  #     grid-area: header1
+  - type: entities
+    entities:
+      - entity: light.sandbox
+    title: "2"
+    show_header_toggle: false
+    view_layout:
+      grid-area: footer
+  # - type: entities
+  #   entities:
+  #     - entity: light.sandbox
+  #   title: "3"
+  #   show_header_toggle: false
+  #   view_layout:
+  #     grid-area: sidebar
+  # - type: entities
+  #   entities:
+  #     - light.sandbox
+  #     - light.sandbox
+  #     - light.sandbox
+  #   title: "4"
+  #   show_header_toggle: false
+  #   view_layout:
+  #     grid-area: main
+  # - type: picture
+  #   title: 1
+  #   image: /local/images/headers/weather.jpg
+  #   view_layout:
+  #         grid-area: header
+
+  # - type: picture
+  #   image: /local/images/headers/fynbus.jpg
+
+  # - type: picture
+  #   layout:
+  #     grid-area: 4/1/1/1
+  #   image: /local/images/headers/ffv.jpg
+
+
+  # - type: custom:stack-in-card
+  #   mode: horizontal
+  #   layout:
+  #     grid-area: header1
+  #   cards:
+  #     - type: picture-entity
+  #       entity: person.jacob
+  #       image: /api/image/serve/af1410210ca6d4b819bb188d8bd2fad1/512x512
+  #       show_name: False
+  #       show_state: False
+  #       state_filter:
+  #         "home": brightness(110%) saturate(1.2)
+  #         "not_home": brightness(50%) grayscale(100%)
+         
+  #     - type: picture-entity
+  #       entity: person.rikke
+  #       image: /api/image/serve/3f3f5347347471e34ac0a2d0228fcef2/512x512
+  #       show_name: False
+  #       show_state: False
+  #       state_filter:
+  #         "home": brightness(110%) saturate(1.2)
+  #         "not_home": brightness(50%) grayscale(100%)
+         
+  #     - type: picture-entity
+  #       entity: person.cornelie
+  #       image: /api/image/serve/2cf187b250d9b1ed7f178604c759b6ba/512x512
+  #       show_name: False
+  #       show_state: False
+  #       state_filter:
+  #         "home": brightness(110%) saturate(1.2)
+  #         "not_home": brightness(50%) grayscale(100%)
+         
+  #     - type: picture-entity
+  #       entity: person.nathalie
+  #       image: /api/image/serve/d5c987c43b388e3806a636452b52a094/512x512
+  #       show_name: False
+  #       show_state: False
+  #       state_filter:
+  #         "home": brightness(110%) saturate(1.2)
+  #         "not_home": brightness(50%) grayscale(100%)
+         
+  #     - type: picture-entity
+  #       entity: person.hjalte
+  #       image: /api/image/serve/6287e820ab516ef85f58b2018dee2016/512x512
+  #       show_name: False
+  #       show_state: False
+  #       state_filter:
+  #         "home": brightness(110%) saturate(1.2)
+  #         "not_home": brightness(50%) grayscale(100%)
+
+  # - type: custom:rejseplanen-card
+  #   entity: sensor.busser_fra_marsk_billesvej
+  #   show_scheduled_time: true
+  #   max_entries: 10
+  #   layout:
+  #     grid-area: transport
+
+  # - type: custom:weather-card
+  #   name: Brobyværk
+  #   entity: weather.brobyvaerk
+  #   current: true
+  #   details: false
+  #   forecast: true
+  #   hourly_forecast: false
+  #   number_of_forecasts: 5
+  #   layout:
+  #     grid-area: main

@@ -1,0 +1,88 @@
+# lovelace_gen
+#     ______                  __      __                                           __
+#    / ____/___  __  ______  / /_____/ /___ _      ______     _________ __________/ /
+#   / /   / __ \/ / / / __ \/ __/ __  / __ \ | /| / / __ \   / ___/ __ `/ ___/ __  / 
+#  / /___/ /_/ / /_/ / / / / /_/ /_/ / /_/ / |/ |/ / / / /  / /__/ /_/ / /  / /_/ /  
+#  \____/\____/\__,_/_/ /_/\__/\__,_/\____/|__/|__/_/ /_/   \___/\__,_/_/   \__,_/   
+#                                                                                    
+#                                                                          by J-Lindvig
+#     ___                _                        __    
+#    / _ \___ ___ ___ __(_)______ __ _  ___ ___  / /____
+#   / , _/ -_) _ `/ // / / __/ -_)  ' \/ -_) _ \/ __(_-<
+#  /_/|_|\__/\_, /\_,_/_/_/  \__/_/_/_/\__/_//_/\__/___/
+#             /_/                                       
+# Lovelace Gen, https://github.com/thomasloven/hass-lovelace_gen
+# Text Element, https://github.com/custom-cards/text-element
+
+# Since we are using 3 different cards for the same sensor,
+# then we are using a macro for the style section.
+# But this is YAML and the whitespace is important,
+# so we call the macro with a number of indents (ws).
+{% macro state_style(ws) %}
+{{"  "*ws}}style:
+{{"  "*ws}}  top: 60%
+{{"  "*ws}}  left: 50%
+{{"  "*ws}}  font-size: 1.8vw
+{{"  "*ws}}  color: white
+{{"  "*ws}}  font-weight: bold
+{{"  "*ws}}  text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+{% endmacro %}
+
+# This card takes 3 variables:
+# + image_url
+# + countdown_text
+# + countdown_entity
+type: picture-elements
+image: "{{ image_url }}"
+elements:
+  - type: custom:text-element
+    text: "{{ countdown_text }}"
+    style:
+      top: 15%
+      left: 50%
+      font-size: 4vh
+      color: white
+      font-weight: bold
+      text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black
+
+  # Since the conditional card can only test for state equals,
+  # then we need to nest several condition cards
+  #
+  # Is state == 0 ( today )
+  - type: conditional
+    conditions:
+      - entity: "{{ countdown_entity }}"
+        state: "0"
+    elements:
+      - type: custom:text-element
+        text: "i dag!!!"
+      # Call the macro with current amount of indentation ( 4 )
+        {{ state_style(4) }}
+
+  # OK, it is not today....
+  - type: conditional
+    conditions:
+      - entity: "{{ countdown_entity }}"
+        state_not: "0"
+    elements:
+      # Is it tomorrow?
+      - type: conditional
+        conditions:
+          - entity: "{{ countdown_entity }}"
+            state: "1"
+        elements:
+          - type: custom:text-element
+            text: "i morgen"
+            {{ state_style(6) }}
+  
+      # If it not today or tomorrow, then it is in the future.
+      - type: conditional
+        conditions:
+          - entity: "{{ countdown_entity }}"
+            state_not: "1"
+        elements:
+          - type: state-label
+            prefix: "om "
+#            suffix: " dage"
+            entity: "{{ countdown_entity }}"
+            {{ state_style(6) }}

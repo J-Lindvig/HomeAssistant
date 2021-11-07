@@ -1,0 +1,57 @@
+vestel_tv_commands:
+  script:
+    vestel_tv_settop:
+      alias: "Skift til TV-boks"
+      description: "Tryk på input og dernæst tast 1"
+      icon: mdi:set-top-box
+      sequence:
+        - service: remote.send_command
+          data:
+            entity_id: remote.stuen_ir
+            device: Vestel TV
+            delay_secs: 1
+            command:
+              - Input
+              - 1
+
+    vestel_tv_chromecast:
+      alias: "Skift til Chromecast"
+      description: "Tryk på input og dernæst tast 2"
+      icon: mdi:google-chrome
+      sequence:
+        - service: remote.send_command
+          data:
+            entity_id: remote.stuen_ir
+            device: Vestel TV
+            delay_secs: 1
+            command:
+              - Input
+              - 2
+
+    vestel_tv_bluray:
+      alias: "Skift til bluray"
+      description: "Tryk på input og dernæst tast 3"
+      icon: mdi:disc-player
+      sequence:
+        - service: remote.send_command
+          data:
+            entity_id: remote.stuen_ir
+            device: Vestel TV
+            delay_secs: 1
+            command:
+              - Input
+              - 3
+
+    vestel_tv_wii:
+      alias: "Skift til Wii"
+      description: "Tryk på input og dernæst tast 5"
+      icon: mdi:nintendo-wii
+      sequence:
+        - service: remote.send_command
+          data:
+            entity_id: remote.stuen_ir
+            device: Vestel TV
+            delay_secs: 1
+            command:
+              - Input
+              - 5  

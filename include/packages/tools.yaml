@@ -1,0 +1,97 @@
+tools:
+
+  sensor:
+  # Own public IPv4 address
+  - platform: dnsip
+
+  shell_command:
+    shell_test: "source /config/shell/tools.sh; shell_test"
+
+  rest_command:
+    set_options_fix:
+      url: !secret DYNAMIC_LIST_URL
+      method: POST
+      headers:
+        authorization: !secret API_TOKEN
+        accept: "application/json"
+        content-type: "application/json"
+      payload: '{{ payload }}'
+
+    set_state:
+      url: "http://192.168.0.12:8123/api/states/{{ entity }}"
+      method: POST
+      headers:
+        authorization: !secret API_TOKEN
+        accept: "application/json"
+        content-type: "application/json"
+      payload: "{{ payload }}"
+
+  script:
+    vlookup:
+      alias: "VLOOKUP"
+      icon: mdi:google-spreadsheet
+      description: "Find a Needle in a Haystack and return a value on the same index from another Haystack"
+      fields:
+        haystack:
+          description: "The list we are looking through"
+          example: "A,B,C"
+        result_list:
+          description: "The list from where the result is taken from."
+          example: "A1, B1, C1"
+      sequence:
+        - service: input_select.select_option
+          data:
+            # From which list should we select the new value
+            entity_id: "{{ result_list }}"
+            # Go through every options (needles) in the haystack
+            # If the current needle is equal the selected option - we have found the right element
+            # Select the option in result_list at the same index 
+            option: >-
+              {% for needle in state_attr(haystack, "options") %}
+                {% if needle == states(haystack) %}
+                  {{ state_attr(result_list, "options")[loop.index0] }}
+                {% endif %}
+              {%- endfor %}
+
+    notification_android:
+      alias: Android notifikationer med actions
+      icon: mdi:android-debug-bridge
+      description: Med dette script er det nemt at sende notifikationer til en Android enhed.
+      sequence:
+        - service: "{{ service }}"
+          data:
+            title: "{{ title }}"
+            message: |
+              {{ message }}
+            data:
+              icon_url: "{{ icon_url }}"
+              image: "{{ image }}"
+              sticky: "{{ sticky }}"
+              persistent: "{{ persistent }}"
+              tag: "{{ tag }}"
+              channel: "{{ channel }}"
+              importance: "{{ high }}"
+              chronometer: "{{ chronometer }}"
+              when: "{{ when }}"
+              actions: >
+                {% set ns = namespace(actions = []) %}
+                {% for a_action in actions %}
+                {% set action = {
+                  "action": a_action.action_name,
+                  "title": a_action.action_title
+                } %}
+                {% set ns.actions = ns.actions + [action] %}
+                {% endfor %}
+                {{ ns.actions }}
+
+    # # Generic loop
+    # loop:
+    #   alias: "Generic Loop"
+    #   sequence:
+    #     - service: system_log.write
+    #       data:
+    #         message: 'Generic loop: {{ delay }}'
+    #         level: error
+    #     - delay: >-
+    #         {{ delay }}
+    #     - service: "{{ caller }}"
