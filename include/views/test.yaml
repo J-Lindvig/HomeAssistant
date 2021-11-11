@@ -129,6 +129,26 @@ cards:
           {% endfor %}
 
       - type: markdown
+        title: Brændstofpriser
+        content: |
+          {% set fuel_companies = [
+            'sensor.1_2_3_diesel',
+            'sensor.circle_k_diesel',
+            'sensor.f24_diesel',
+            'sensor.go_on_diesel',
+            'sensor.ingo_diesel',
+            'sensor.oil_tank_go_diesel',
+            'sensor.ok_diesel',
+            'sensor.q8_diesel',
+            'sensor.shell_diesel'
+          ] %}
+          | Selskab | Diesel |
+          |:--------|-------:|
+          {% for company in fuel_companies -%}
+            |<img src="{{ state_attr(company, 'company_logo') }}"/>|{{ states(company) }}|
+          {% endfor %}
+
+      - type: markdown
         title: Premier League
         content: |
           |      |   |      | Kampe | V | U | T | Mål | Points |

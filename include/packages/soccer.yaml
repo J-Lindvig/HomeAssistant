@@ -4,6 +4,8 @@ soccer:
       sensor:
         - name: OK 95
           device_class: monetary
+          force_update: true
+          unit_of_measurement: "kr."
           value_template: >
             {% set fuelcompany = value_json.fuelprices | selectattr('company_name', 'eq', 'OK') | list | first %}
             {{ fuelcompany['gas_95'] | float }}
@@ -16,10 +18,124 @@ soccer:
 
         - name: OK Diesel
           device_class: monetary
+          force_update: true
+          unit_of_measurement: "kr."
           value_template: >
             {% set fuelcompany = value_json.fuelprices | selectattr('company_name', 'eq', 'OK') | list | first %}
             {{ fuelcompany['diesel'] | float }}
           json_attributes_path: "$.fuelprices[?(@.company_name == 'OK')]"
+          json_attributes:
+            - company_logo
+            - gas_95
+            - diesel
+            - last_update
+
+        - name: Q8 Diesel
+          device_class: monetary
+          force_update: true
+          unit_of_measurement: "kr."
+          value_template: >
+            {% set fuelcompany = value_json.fuelprices | selectattr('company_name', 'eq', 'Q8') | list | first %}
+            {{ fuelcompany['diesel'] | float }}
+          json_attributes_path: "$.fuelprices[?(@.company_name == 'Q8')]"
+          json_attributes:
+            - company_logo
+            - gas_95
+            - diesel
+            - last_update
+
+        - name: F24 Diesel
+          device_class: monetary
+          force_update: true
+          unit_of_measurement: "kr."
+          value_template: >
+            {% set fuelcompany = value_json.fuelprices | selectattr('company_name', 'eq', 'F24') | list | first %}
+            {{ fuelcompany['diesel'] | float }}
+          json_attributes_path: "$.fuelprices[?(@.company_name == 'F24')]"
+          json_attributes:
+            - company_logo
+            - gas_95
+            - diesel
+            - last_update
+
+        - name: Circle K Diesel
+          device_class: monetary
+          force_update: true
+          unit_of_measurement: "kr."
+          value_template: >
+            {% set fuelcompany = value_json.fuelprices | selectattr('company_name', 'eq', 'Circle K') | list | first %}
+            {{ fuelcompany['diesel'] | float }}
+          json_attributes_path: "$.fuelprices[?(@.company_name == 'Circle K')]"
+          json_attributes:
+            - company_logo
+            - gas_95
+            - diesel
+            - last_update
+
+        - name: 1-2-3 Diesel
+          device_class: monetary
+          force_update: true
+          unit_of_measurement: "kr."
+          value_template: >
+            {% set fuelcompany = value_json.fuelprices | selectattr('company_name', 'eq', '1-2-3') | list | first %}
+            {{ fuelcompany['diesel'] | float }}
+          json_attributes_path: "$.fuelprices[?(@.company_name == '1-2-3')]"
+          json_attributes:
+            - company_logo
+            - gas_95
+            - diesel
+            - last_update
+
+        - name: OIL! tank & go Diesel
+          device_class: monetary
+          force_update: true
+          unit_of_measurement: "kr."
+          value_template: >
+            {% set fuelcompany = value_json.fuelprices | selectattr('company_name', 'eq', 'OIL! tank & go') | list | first %}
+            {{ fuelcompany['diesel'] | float }}
+          json_attributes_path: "$.fuelprices[?(@.company_name == 'OIL! tank & go')]"
+          json_attributes:
+            - company_logo
+            - gas_95
+            - diesel
+            - last_update
+
+        - name: ingo Diesel
+          device_class: monetary
+          force_update: true
+          unit_of_measurement: "kr."
+          value_template: >
+            {% set fuelcompany = value_json.fuelprices | selectattr('company_name', 'eq', 'ingo') | list | first %}
+            {{ fuelcompany['diesel'] | float }}
+          json_attributes_path: "$.fuelprices[?(@.company_name == 'ingo')]"
+          json_attributes:
+            - company_logo
+            - gas_95
+            - diesel
+            - last_update
+
+        - name: Go-on Diesel
+          device_class: monetary
+          force_update: true
+          unit_of_measurement: "kr."
+          value_template: >
+            {% set fuelcompany = value_json.fuelprices | selectattr('company_name', 'eq', 'Go-on') | list | first %}
+            {{ fuelcompany['diesel'] | float }}
+          json_attributes_path: "$.fuelprices[?(@.company_name == 'Go-on')]"
+          json_attributes:
+            - company_logo
+            - gas_95
+            - diesel
+            - last_update
+
+        - name: Shell Diesel
+          device_class: monetary
+          force_update: true
+          unit_of_measurement: "kr."
+          value_template: >
+            {% set fuelcompany = value_json.fuelprices | selectattr('company_name', 'eq', 'Shell') | list | first %}
+            {{ fuelcompany['diesel'] | float }}
+          json_attributes_path: "$.fuelprices[?(@.company_name == 'Shell')]"
           json_attributes:
             - company_logo
             - gas_95
@@ -45,24 +161,24 @@ soccer:
         - scoreboard
         - schedule
 
-    # - platform: rest
-    #   name: OK 95 Single
-    #   resource: http://rest.apptoo.dk/fuelfinder.json
-    #   value_template: >
-    #     {# NAME OF THE FUEL COMPANY TO EXTRACT FROM #}
-    #     {% set company_name = "OK" %}
-    #     {# FUEL TYPE TO EXTRACT, "gas_95" OR "diesel" #}
-    #     {% set type = "gas_95" %}
+    - platform: rest
+      name: OK 95 Single
+      resource: http://rest.apptoo.dk/fuelfinder.json
+      value_template: >
+        {# NAME OF THE FUEL COMPANY TO EXTRACT FROM #}
+        {% set company_name = "OK" %}
+        {# FUEL TYPE TO EXTRACT, "gas_95" OR "diesel" #}
+        {% set type = "gas_95" %}
         
-    #     {# DO NOT TOUCH BELOW #}
-    #     {% set fuelcompany = value_json.fuelprices | selectattr('company_name', 'eq', company_name) | list | first %}
-    #     {{ fuelcompany[type] }}
-    #   json_attributes_path: "$.fuelprices[?(@.company_name == 'OK')]"
-    #   json_attributes:
-    #     - company_logo
-    #     - gas_95
-    #     - diesel
-    #     - last_update
+        {# DO NOT TOUCH BELOW #}
+        {% set fuelcompany = value_json.fuelprices | selectattr('company_name', 'eq', company_name) | list | first %}
+        {{ fuelcompany[type] }}
+      json_attributes_path: "$.fuelprices[?(@.company_name == 'OK')]"
+      json_attributes:
+        - company_logo
+        - gas_95
+        - diesel
+        - last_update
 
   shell_command:
     parsehub_scrape: "curl -X POST -d api_key={{ api_key }} https://www.parsehub.com/api/v2/projects/{{ project_token }}/run"
@@ -71,15 +187,27 @@ soccer:
 
   automation:
     - id: a8b72a983358401db7411412b7c03855
-      alias: "FuelfindeR.dk crape"
+      alias: "Fuelfinder.dk scrape"
       description: "EMPTY"
       initial_state: true
       mode: single
       trigger:
+        # - platform: time_pattern
+        #   minutes: 30
         - platform: time_pattern
-          minutes: 30
+          minutes: 15
         - platform: webhook
           webhook_id: 7de6f7faf9a14a669d3756aab8a5abd7
+      condition:
+        alias: "Mellem 11:15 og 17:15"
+        condition: time
+        # At least one of the following is required.
+        after: "11:15:00"
+        before: "17:15:00"
+        # weekday:
+        #   - mon
+        #   - wed
+        #   - fri
       action:
         - choose:
             - conditions: "{{ trigger.platform == 'webhook' }}"
@@ -88,6 +216,11 @@ soccer:
                   data:
                     project_token: !secret FUELFINDER_DK_TOKEN
                     filename: fuelfinder.json
+                - delay: 5
+                - service: homeassistant.update_entity
+                  entity_id:
+                    - sensor.ok_95
+                    - sensor.ok_diesel
 
           default:
             - service: shell_command.parsehub_scrape
