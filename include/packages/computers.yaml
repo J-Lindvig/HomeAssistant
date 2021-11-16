@@ -6,7 +6,7 @@ computers:
     - platform: wake_on_lan
       name: PC-H-Lindvig
       host: !secret PC_H_LINDVIG_HOST
-      mac: ! secret PC_H_LINDVIG_MAC
+      mac: !secret PC_H_LINDVIG_MAC
       turn_off:
         service: hassio.addon_stdin
         data:

@@ -60,7 +60,7 @@ garbage:
               i morgen
             {%- else -%}
               {% set ts = as_timestamp(state_attr('sensor.affald', 'next_date')) | int %}
-              om {{ state_attr('sensor.affald', 'days') }} dage ({{- state_attr('sensor.dato_og_tid_dk', 'weekdays_short')[ts | timestamp_custom('%w') | int ] }}dag den {{ ts | timestamp_custom('%-d.') }} {{ state_attr('sensor.dato_og_tid_dk', 'months')[ts | timestamp_custom('%-m') | int ] }})
+              om {{ state_attr('sensor.affald', 'days') }} dage ({{- state_attr('sensor.dato_og_tid_dk', 'weekdays_short')[ts | timestamp_custom('%w') | int ] }}dag den {{ ts | timestamp_custom('%-d.') }} {{ state_attr('sensor.dato_og_tid_dk', 'months')[ts | timestamp_custom('%-m') | int - 1] }})
             {%- endif -%}
           attributes:
             days: >-
@@ -75,7 +75,7 @@ garbage:
               i morgen
             {%- else -%}
               {% set ts = as_timestamp(state_attr('sensor.genbrug', 'next_date')) | int %}
-              om {{ state_attr('sensor.genbrug', 'days') }} dage ({{- state_attr('sensor.dato_og_tid_dk', 'weekdays_short')[ts | timestamp_custom('%w') | int ] }}dag den {{ ts | timestamp_custom('%-d.') }} {{ state_attr('sensor.dato_og_tid_dk', 'months')[ts | timestamp_custom('%-m') | int ] }})
+              om {{ state_attr('sensor.genbrug', 'days') }} dage ({{- state_attr('sensor.dato_og_tid_dk', 'weekdays_short')[ts | timestamp_custom('%w') | int ] }}dag den {{ ts | timestamp_custom('%-d.') }} {{ state_attr('sensor.dato_og_tid_dk', 'months')[ts | timestamp_custom('%-m') | int - 1] }})
             {%- endif -%}
           attributes:
             days: >-
