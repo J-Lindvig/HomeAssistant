@@ -1,0 +1,18 @@
+soccer:
+  rest:
+    - resource: http://rest.apptoo.dk/soccer.json
+      sensor:
+        - name: Superligaen
+          force_update: true
+          value_template: "{{ value_json.leagues[0].league_name }}"
+          json_attributes_path: "$.leagues[0]"
+          json_attributes:
+            - scoreboard
+            - schedule
+
+        - name: Premier League
+          value_template: "{{ value_json.leagues[2].league_name }}"
+          json_attributes_path: "$.leagues[2]"
+          json_attributes:
+            - scoreboard
+            - schedule

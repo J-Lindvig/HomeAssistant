@@ -1,0 +1,31 @@
+dmi_tts:
+  rest:
+    - resource: http://rest.apptoo.dk/dmi_tts.json
+      sensor:
+        - name: DMI Landsudsigt
+          force_update: true
+          value_template: Fyn
+          json_attributes:
+            - title
+            - last_update
+            - forecast
+
+        - name: DMI Fyn
+          force_update: true
+          value_template: Fyn
+          json_attributes_path: "$.region_forecast[?(@.region_name == 'Fyn')]"
+          json_attributes:
+            - region_name
+            - title
+            - last_update
+            - forecast
+
+        - name: DMI ALT
+          force_update: true
+          value_template: DMI ALT
+          json_attributes:
+            - title
+            - last_update
+            - forecast
+            - regions
+            - region_forecast
