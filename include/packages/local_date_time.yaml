@@ -97,6 +97,11 @@ local_date_time:
                 state_attr('sensor.dato_og_tid_dk', 'advents_ts')[3] | timestamp_custom('%d-%m-%Y')
               ] %}
               {{ advents_dates }}
+              
+            1_advent: "{{ state_attr('sensor.dato_og_tid_dk', 'advents_dates')[0] }}"
+            2_advent: "{{ state_attr('sensor.dato_og_tid_dk', 'advents_dates')[1] }}"
+            3_advent: "{{ state_attr('sensor.dato_og_tid_dk', 'advents_dates')[2] }}"
+            4_advent: "{{ state_attr('sensor.dato_og_tid_dk', 'advents_dates')[3] }}"
 
             weekdays_short: >
               {% set weekdays_short = ['Søn','Man','Tirs','Ons','Tors','Fre','Lør'] %}
