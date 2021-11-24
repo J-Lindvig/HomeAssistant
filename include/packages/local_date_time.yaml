@@ -78,6 +78,28 @@ local_date_time:
             # Year
             year: "{{ state_attr('sensor.dato_og_tid_dk', 'ts') | timestamp_custom('%Y') }}"
 
+            advents_ts: >
+              {% set christmas_date = as_datetime( (now().year | string) + "-12-24T12:00:00" ) %}
+              {% set christmas_delta = 21 + as_timestamp(christmas_date) | timestamp_custom("%w") | int %}
+              {% set advents_ts = [
+                as_timestamp(christmas_date - timedelta( days = christmas_delta )),
+                as_timestamp(christmas_date - timedelta( days = (christmas_delta - 7))),
+                as_timestamp(christmas_date - timedelta( days = (christmas_delta - 14))),
+                as_timestamp(christmas_date - timedelta( days = (christmas_delta - 21)))
+              ] %}
+              {{ advents_ts }}
+
+            advents_dates: >
+              {% set christmas_date = as_datetime( (now().year | string) + "-12-24T12:00:00" ) %}
+              {% set christmas_delta = 21 + as_timestamp(christmas_date) | timestamp_custom("%w") | int %}
+              {% set advents_dates = [
+                as_timestamp(christmas_date - timedelta( days = christmas_delta )) | timestamp_custom('%d-%m-%Y'),
+                as_timestamp(christmas_date - timedelta( days = (christmas_delta - 7)) ) | timestamp_custom('%d-%m-%Y'),
+                as_timestamp(christmas_date - timedelta( days = (christmas_delta - 14)) ) | timestamp_custom('%d-%m-%Y'),
+                as_timestamp(christmas_date - timedelta( days = (christmas_delta - 21)) ) | timestamp_custom('%d-%m-%Y')
+              ] %}
+              {{ advents_dates }}
+
             weekdays_short: >
               {% set weekdays_short = ['Søn','Man','Tirs','Ons','Tors','Fre','Lør'] %}
               {{ weekdays_short }}

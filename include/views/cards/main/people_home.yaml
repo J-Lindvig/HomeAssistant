@@ -19,6 +19,7 @@ cards:
     state_filter:
       "home": brightness(110%) saturate(1.2)
       "not_home": brightness(50%) grayscale(100%)
+      "Søbo": brightness(50%) grayscale(100%)
      
   - type: picture-entity
     entity: person.rikke

@@ -45,6 +45,9 @@ device_tracker: !include include/device_trackers.yaml
 ffmpeg:
 frontend:
   themes: !include_dir_merge_named themes
+  extra_module_url:
+    - /hacsfiles/lovelace-card-mod/card-mod.js
+
 
 #     ______
 #    / ____/
@@ -97,6 +100,14 @@ lovelace:
   resources: !include_dir_merge_list include/resources/
 
 lovelace_gen:
+
+nest:
+  client_id: !secret NEST_CLIENT_ID
+  client_secret: !secret NEST_CLIENT_SECRET
+  # "Project ID" in the Device Access Console
+  project_id: !secret NEST_PROJECT_ID
+  # Provide the full path exactly as shown under "Subscription name" in Google Cloud Console
+  subscriber_id: !secret NEST_SUBSCRIBER_ID
 
 #      ____
 #     / __ \

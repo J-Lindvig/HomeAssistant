@@ -88,3 +88,23 @@
       else 'off' }}
     entity_id: switch.coffee
   mode: single
+- id: '1637511922649'
+  alias: Hoveddør
+  description: ''
+  trigger:
+  - platform: device
+    device_id: 3ec11e64d8472fa46fd657f596fee5bc
+    domain: nest
+    type: camera_person
+  condition: []
+  action:
+  - service: browser_mod.popup
+    data:
+      title: Hoveddør
+      card:
+        type: picture-entity
+        entity: camera.hoveddor
+        camera_view: live
+      deviceID:
+      - this
+  mode: single

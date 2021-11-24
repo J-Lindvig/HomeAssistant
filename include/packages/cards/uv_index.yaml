@@ -15,9 +15,9 @@ uv_index:
             # protection_end_time: >-
             #   {{ state_attr('binary_sensor.protection_window', 'end_time').timestamp() | timestamp_custom('%R') }}
             next_rising: >-
-              {{ (strptime(state_attr('sun.sun', 'next_rising').replace('+00:00',''), '%Y-%m-%dT%H:%M:%S').timestamp() + 7200)  | timestamp_custom('%R') }}
+              {{ as_timestamp(state_attr('sun.sun', 'next_rising')) | timestamp_custom('%R') }}
             next_setting: >-
-              {{ (strptime(state_attr('sun.sun', 'next_setting').replace('+00:00',''), '%Y-%m-%dT%H:%M:%S').timestamp() + 7200) | timestamp_custom('%R') }}
+              {{ as_timestamp(state_attr('sun.sun', 'next_setting')) | timestamp_custom('%R') }}
 
   automation:
     - alias: Opdater OpenUV halve time

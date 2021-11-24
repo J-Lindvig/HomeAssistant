@@ -1,26 +1,6 @@
 transport:
   template:
     - sensor:
-        - name: bil_mod_margarita_og_rolf
-          unique_id: 28eff7df076e45c59c2a9294e931ed15
-          state: >-
-            {{ states('sensor.margarita_og_rolf') }} minutter ({{ state_attr('sensor.margarita_og_rolf', 'distance' ) | round }} km. af {{ state_attr('sensor.margarita_og_rolf', 'route') }})
-          attributes:
-            sort_value_minutes: "{{ states('sensor.margarita_og_rolf') }}"
-            days: >-
-              {% set ts = as_timestamp(state_attr('calendar.farmor_og_farfar', 'start_time')) | int %}
-              {{ ((ts - as_timestamp(now()) | int) / ( 60 * 60 * 24 )) | round(0, 'ceil') }}
-
-        - name: bil_mod_herstedvester
-          unique_id: fe9c6f4519154bdf903d0dfeaed1a6af
-          state: >-
-            {{ states('sensor.herstedvester_faengsel') }} minutter ({{ state_attr('sensor.herstedvester_faengsel', 'distance' ) | round }} km. af {{ state_attr('sensor.herstedvester_faengsel', 'route') }})
-          attributes:
-            sort_value_minutes: "{{ states('sensor.herstedvester_faengsel') }}"
-            days: >-
-              {% set ts = as_timestamp(state_attr('calendar.herstedvester', 'start_time')) | int %}
-              {{ ((ts - as_timestamp(now()) | int) / ( 60 * 60 * 24 )) | round(0, 'ceil') }}
-
         - name: bus_mod_glamsbjerg
           unique_id: a0b3c4b2c4664974ab948e3a1d3d8c09
           state: >-
