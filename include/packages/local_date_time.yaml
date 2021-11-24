@@ -1,17 +1,24 @@
 local_date_time:
   template:
     - sensor:
+          # NAME OF THE SENSOR
+          # IF ALTERED HERE, PLEASE CHANGE IT EVERYWHERE IN THE CODE.
         - name: Dato og tid DK
+
           unique_id: 3943972da1534b20ba4a969fff72d4c6
+
+          # STATE OF THE SENSOR, EX:
+          # ONSDAG DEN 24. NOVEMBER 2021
           state: "{{ state_attr('sensor.dato_og_tid_dk', 'weekday') }} den {{ state_attr('sensor.dato_og_tid_dk', 'date') }}. {{ state_attr('sensor.dato_og_tid_dk', 'month') }} {{ state_attr('sensor.dato_og_tid_dk', 'year') }}"
+
           attributes:
-            # TS - Timestamp for use in the following attributes
+            # CURRENT TIMESTAMP FOR USE IN MANY OF THE FOLLOWING ATTRIBUTES
             ts: "{{ now().timestamp() }}"
 
-            # Date of today, without leading zeros if below 10
+            # CURRENT DATE, WITHOUT LEADING ZEROS
             date: "{{ state_attr('sensor.dato_og_tid_dk', 'ts') | timestamp_custom('%-d.') | int }}"
 
-            # Date in spoken language wth numbers as ordinals
+            # DATE IN TTS FORMAT WITH NUMBERS AS ORDINALS
             date_tts: >-
               {# EXTRACT TODAYS DATE #}
               {%- set date = state_attr('sensor.dato_og_tid_dk', 'date') | int %}
@@ -64,23 +71,29 @@ local_date_time:
                 {{ number_ordinal["a" ~ date[1]] }} {{ number_ordinal["and"] }} {{ number_ordinal[date[0] ~ "x"] }} 
               {% endif -%}
 
+            # MONTHS, LIST OF MONTHS IN DANISH
             months: >
               {% set months = ['Januar','Februar','Marts','April','Maj','Juni','Juli','August','September','Oktober','November','December'] %}
               {{ months }}
 
-            # Month, get the name of the month from a list
+            # CURRENT MONTH
             month: >-
+              {# USE THE NUMBER OF THE MONTH - 1 AS INDEX IN THE LIST MONTHS TO RETREIVE THE NAME OF THE CURRENT MONTH #}
               {{ state_attr('sensor.dato_og_tid_dk', 'months')[ state_attr('sensor.dato_og_tid_dk', 'ts') | timestamp_custom('%-m') | int - 1 ] }}
 
-            # Month_short, cut the Month from the 3rd char
+            # CURRENT MONTH IN SHORT FORM (FIRST 3 LETTERS)
             month_short: "{{ state_attr('sensor.dato_og_tid_dk', 'month')[0:3] }}"
 
-            # Year
-            year: "{{ state_attr('sensor.dato_og_tid_dk', 'ts') | timestamp_custom('%Y') }}"
+            # CURRENT YEAR
+            year: "{{ now().year }}"
 
+            # CHRISTMAS ADVENT SUNDAYS AS LIST OF TIMESTAMPS
             advents_ts: >
+              {# CREATE A DATE OBJECT FROM A STRING WITH THE DATE OF CHRISTMAS THIS YEAR #}
               {% set christmas_date = as_datetime((now().year | string) + "-12-24T00:00:00" ) %}
+              {# GET THE NUMBER OF THE WEEKDAY AND ADD IT TO THE NUMBER 21 (3 WEEKS) TO USE A DELTA #}
               {% set christmas_delta = 21 + as_timestamp(christmas_date) | timestamp_custom("%w") | int %}
+              {# CREATE A LIST OF ADVENTS SUNDAYS TIMESTAMPS #}
               {% set advents_ts = [
                 as_timestamp(christmas_date - timedelta( days = christmas_delta )),
                 as_timestamp(christmas_date - timedelta( days = (christmas_delta - 7))),
@@ -89,6 +102,7 @@ local_date_time:
               ] %}
               {{ advents_ts }}
 
+            # CHRISTMAS ADVENT SUNDAYS AS LIST OF STRINGS WITH DATES (DD-MM-YYYY)
             advents_dates: >
               {% set advents_dates = [
                 state_attr('sensor.dato_og_tid_dk', 'advents_ts')[0] | timestamp_custom('%d-%m-%Y'),
@@ -97,27 +111,32 @@ local_date_time:
                 state_attr('sensor.dato_og_tid_dk', 'advents_ts')[3] | timestamp_custom('%d-%m-%Y')
               ] %}
               {{ advents_dates }}
-              
+
+            # CHRISTMAS ADVENT SUNDAYS AS SINGLE ATTRIBUTES
             1_advent: "{{ state_attr('sensor.dato_og_tid_dk', 'advents_dates')[0] }}"
             2_advent: "{{ state_attr('sensor.dato_og_tid_dk', 'advents_dates')[1] }}"
             3_advent: "{{ state_attr('sensor.dato_og_tid_dk', 'advents_dates')[2] }}"
             4_advent: "{{ state_attr('sensor.dato_og_tid_dk', 'advents_dates')[3] }}"
 
+            # WEEKDAYS, LIST OF IN SHORT FORM
+            # STARTING WITH SUNDAY FOR EASIER IMPLEMENTATION WITH CALCULATIONS
             weekdays_short: >
               {% set weekdays_short = ['Søn','Man','Tirs','Ons','Tors','Fre','Lør'] %}
               {{ weekdays_short }}
 
-            # Weekday, get weekday_short and append "dag"
+            # CURRENT WEEKDAY IN DANISH
             weekday: "{{ state_attr('sensor.dato_og_tid_dk', 'weekday_short')~'dag' }}"
 
-            # Weekday_short, get the name of the day from a list
+            # CURRENT WEEKDAY IN SHORT FORM
+            # USE THE NUMBER OF THE CURRENT WEEKDAY AS INDEX IN THE LIST OF WEEKDAYS
             weekday_short: >-
+              {# USE THE NUMBER OF THE WEEKDAY AS INDEX IN THE LIST OF #}
               {{ state_attr('sensor.dato_og_tid_dk', 'weekdays_short')[ state_attr('sensor.dato_og_tid_dk', 'ts') | timestamp_custom('%w') | int ] -}}
 
-            # Next sunsrise in HH:MM format
+            # SUNRISE, NEXT IN HH:MM FORMAT
             sunrise: "{{ state_attr('sun.sun', 'next_rising') | as_timestamp | timestamp_custom('%H:%M') }}"
-            
-            # Next sunrise in TTS
+
+            # SUNRISE, NEXT AS TTS
             sunrise_tts: >-
               {#
                 EXTRACT H, M & S FROM THE CURRENT TIME AND STORE THEM IN SEPARATE VARIABLES:
@@ -158,10 +177,10 @@ local_date_time:
                 {{ 60 - M }} minut{{ "ter" if 60 - M > 1 }} i {{ 1 if H == 12 else H + 1 }} om {{ ns.time_name }}
               {%- endif -%}
 
-            # Next sunset in HH:MM format
+            # SUNSET, NEXT IN HH:MM FORMAT
             sunset: "{{ state_attr('sun.sun', 'next_setting') | as_timestamp | timestamp_custom('%H:%M') }}"
 
-            # Next sunset in TTS
+            # SUNSET, NEXT as TTS
             sunset_tts: >-
               {#
                 EXTRACT H, M & S FROM THE CURRENT TIME AND STORE THEM IN SEPARATE VARIABLES:
@@ -202,13 +221,15 @@ local_date_time:
                 {{ 60 - M }} minut{{ "ter" if 60 - M > 1 }} i {{ 1 if H == 12 else H + 1 }} om {{ ns.time_name }}
               {%- endif -%}
 
-            # Time in HH:MM:SS format
+            # CURRENT TIME IN HH:MM:SS FORMAT
             time: "{{ state_attr('sensor.dato_og_tid_dk', 'ts') | timestamp_custom('%H:%M:%S') }}"
 
-            # Time in HH:MM format
+            # CURRENT TIME IN HH:MM FORMAT
             time_hhmm: "{{ state_attr('sensor.dato_og_tid_dk', 'ts') | timestamp_custom('%H:%M') }}"
 
+            # TIME NAMES, LIST OF IN DANSIH
             time_names: >-
+              {# KEY/VALUE LIST WITH TIME AS KEY AND NAME OF THE TIME AS VALUE #}
               {%- set time_names = {
                 0: "natten",
                 6: "morgenen",
@@ -219,7 +240,7 @@ local_date_time:
               } %}
               {{ time_names }}
 
-            # Time in spoken language with names of the current time of day
+            # TIME AS TTS
             time_tts: >-
               {#
                 EXTRACT H, M & S FROM THE CURRENT TIME AND STORE THEM IN SEPARATE VARIABLES:
