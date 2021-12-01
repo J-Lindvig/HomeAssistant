@@ -87,6 +87,9 @@ local_date_time:
             # CURRENT YEAR
             year: "{{ now().year }}"
 
+            # WEEK NUMBER
+            weeknumber: "{{ state_attr('sensor.dato_og_tid_dk', 'ts') | timestamp_custom('%W') | int }}"
+
             # CHRISTMAS ADVENT SUNDAYS AS LIST OF TIMESTAMPS
             advents_ts: >
               {# CREATE A DATE OBJECT FROM A STRING WITH THE DATE OF CHRISTMAS THIS YEAR #}

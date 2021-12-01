@@ -1,0 +1,14 @@
+toogoodtogo:
+  sensor:
+    - platform: tgtg
+      username: !secret TGTG_USERNAME
+      password: !secret TGTG_PASSWORD
+      access_token: !secret TGTG_ACCESS_TOKEN
+      refresh_token: !secret TGTG_REFRESH_TOKEN
+      user_id: !secret TGTG_USER_ID
+      scan_interval: 900
+      item:
+        # Dagli'Brugsen - Nr. Broby (Brød & Dagligvarer)
+        -  3021
+        # Byens Bager - Broby
+        -  1633
