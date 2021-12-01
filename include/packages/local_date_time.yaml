@@ -1,7 +1,7 @@
 local_date_time:
   template:
     - sensor:
-          # NAME OF THE SENSOR
+          # NAME OF THE SENSOR: dato_og_tid_dk
           # IF ALTERED HERE, PLEASE CHANGE IT EVERYWHERE IN THE CODE.
         - name: Dato og tid DK
 
@@ -88,7 +88,7 @@ local_date_time:
             year: "{{ now().year }}"
 
             # WEEK NUMBER
-            weeknumber: "{{ state_attr('sensor.dato_og_tid_dk', 'ts') | timestamp_custom('%W') | int }}"
+            weeknumber: "{{ now().isocalendar().week }}"
 
             # CHRISTMAS ADVENT SUNDAYS AS LIST OF TIMESTAMPS
             advents_ts: >

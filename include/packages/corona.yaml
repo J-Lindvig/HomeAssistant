@@ -1,0 +1,52 @@
+corona:
+  rest:
+    - resource: https://www.dr.dk/tjenester/corona-api/sognedata-current-bulk
+      sensor:
+        - name: Corona Data Opdateret
+          device_class: timestamp
+          value_template: "{% for v in value_json[0] if v[0:8] == 'incidens' %}{{strptime(v[10:20], '%d-%m-%Y') + timedelta(hours=14) if loop.first}}{% endfor %}"
+
+        - name: Corona Incidens Sønder Broby
+          value_template: "{% for s in value_json if s.sogn == 'Sønder Broby' %}{% if loop.first %}{% for v in s if v[0:8] == 'incidens' %}{{s[v]| replace(',', '.') | float if loop.first}}{% endfor %}{% endif %}{% endfor %}"
+          json_attributes_path: $.data[?(@.sogn=='Sabro')]
+
+        - name: Corona Smittede Sønder Broby
+          value_template: "{% for s in value_json if s.sogn == 'Sønder Broby' %}{% if loop.first %}{% for v in s if v[0:8] == 'smittede' %}{{s[v]| int if loop.first}}{% endfor %}{% endif %}{% endfor %}"
+
+        - name: Corona Positivprocent Sønder Broby
+          value_template: "{% for s in value_json if s.sogn == 'Sønder Broby' %}{% if loop.first %}{% for v in s if v[0:14] == 'positivprocent' %}{{s[v]| replace(',', '.') | float if loop.first}}{% endfor %}{% endif %}{% endfor %}"
+          unit_of_measurement: "%"
+
+        - name: Corona Vaccinerede Sønder Broby
+          value_template: "{% for s in value_json if s.sogn == 'Sønder Broby' %}{% if loop.first %}{% for v in s if v[0:23] == 'andel færdigvaccinerede' %}{{s[v]| replace(',', '.') | float if loop.first}}{% endfor %}{% endif %}{% endfor %}"
+          unit_of_measurement: "%"
+
+      binary_sensor:
+        - name: Corona Anbefalinger Sønder Broby
+          device_class: problem
+          value_template: "{% for s in value_json if s.sogn == 'Sønder Broby' %}{% if loop.first %}{{s.status != 'Under grænseværdier'}}{% endif %}{% endfor %}"
+
+    # - resource: https://atlas.jifo.co/api/connectors/c1308a3e-c21f-4aef-8e9b-8c8f9cc9a6b3
+    #   sensor:
+    #     - name: Corona Incidens Aarhus Kommune
+    #       value_template: "{% for s in value_json.data[0] if s|first == 'Aarhus' %}{% if loop.first %}{{s[1]}}{% endif %}{%endfor%}"
+
+    #     - name: Corona Smittede Aarhus Kommune
+    #       value_template: "{% for s in value_json.data[0] if s|first == 'Aarhus' %}{% if loop.first %}{{s[6].split(' ')[0]}}{% endif %}{%endfor%}"
+
+  homeassistant:
+    customize_glob:
+      "sensor.corona_data_opdateret":
+        icon: mdi:clock-outline
+
+      "sensor.corona_incidens_*":
+        icon: mdi:virus
+
+      "sensor.corona_smittede_*":
+        icon: mdi:emoticon-sick-outline
+
+      "sensor.corona_positivprocent_*":
+        icon: mdi:percent
+
+      "sensor.corona_vaccinerede_*":
+        icon: mdi:needle
