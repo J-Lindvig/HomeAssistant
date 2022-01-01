@@ -15,6 +15,10 @@
 #   / ___ |
 #  /_/  |_|
 #
+aula:
+  username: !secret AULA_USERNAME
+  password: !secret AULA_PASSWORD
+  notifications: false
 automation manual: !include_dir_merge_list include/automations/
 automation ui: !include automations.yaml
 
@@ -76,6 +80,8 @@ http:
     - 172.30.32.1
     - 172.30.33.4
     - 172.30.33.7
+    - 172.30.33.6
+    - 127.0.0.1
 
 #      __
 #     / /
@@ -84,16 +90,12 @@ http:
 #  /_____/
 #
 logger:
-  default: debug
+  default: fatal
   logs:
-    homeassistant.components.onvif: debug
-    homeassistant.components.script: error
-    homeassistant.components.automation: error
     homeassistant.core: fatal
     homeassistant.helpers.service: critical
     homeassistant.components.websocket_api.http.connection: critical
     homeassistant.components.automation.webhook: critical
-    custom_components.alarmo: debug
 
 lovelace:
   mode: yaml
@@ -127,6 +129,9 @@ panel_iframe:
     url: !secret TASMO_ADMIN_URL
 
 python_script:
+pyscript:
+  allow_all_imports: true
+  hass_is_global: true
 
 #      ____
 #     / __ \

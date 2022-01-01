@@ -6,11 +6,6 @@ persons:
       source: sensor.redmi_9t_steps_sensor
       cycle: daily
 
-    steps_test:
-      name: Steps test
-      source: input_number.steps_test
-      cycle: daily
-
   group:
     family:
       name: Familie

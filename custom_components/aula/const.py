@@ -1,0 +1,5 @@
+DOMAIN = "aula"
+AULA_LOGIN_URL = "https://login.aula.dk/auth/login.php?type=unilogin"
+AULA_LOGIN_OK_URL = "https://www.aula.dk:443/portal/"
+API = "https://www.aula.dk/api/v12"
+CREDITS = "Original idé: Morten Helmstedt (https://helmstedt.dk), first implementation: Jonas Boye (https://github.com/JBoye)."

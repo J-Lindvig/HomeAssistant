@@ -1,6 +1,39 @@
 transport:
   template:
     - sensor:
+        - name: dynamic travel time
+          unique_id: 08420e6f28e54d45b49de95436047abf
+          state: >-
+            {# PARAMETERS TO BE CHANGED #}
+            {% set calendar = 'calendar.jacob_lindvig_gmail_com' %}
+            {% set work_keyword = 'Arbejde' %}
+            {% set travel_sensor = 'sensor.waze_travel_time_arbejde' %}
+            {% set off_state = 'off' %}
+            {% set time_before = 300 %}
+
+            {# EXTRACTIONS OF VARIABLES #}
+            {# EXTRACT DATE AND TIME OF WORK #}
+            {% set work_datetime_str = state_attr(calendar, 'start_time') %}
+            {# EXTRACT THE DATE OF WORK #}
+            {% set work_date_str = work_datetime_str.split(' ')[0] %}
+            {# EXTRACT TODAYS DATE AS STRING #}
+            {% set today_date_str = (now() ~ '').split(' ')[0] %}
+
+            {# MAGIC BELOW #}
+            {# IS THE EVENT TODAY AND IS IT MARKED WITH THE KEYWORD #}
+            {% if work_date_str == today_date_str and is_state_attr(calendar, 'message', work_keyword) %}
+              {# CALCULATE THE DEPATURE TIME AND OUTPUT IT AS HH:MM #}
+              {{
+                (
+                  (work_datetime_str | as_timestamp()) -
+                  time_before -
+                  (( states(travel_sensor) | float ) * 60)
+                ) | timestamp_custom('%H:%M') 
+              }}
+            {% else %}
+              {{ off_state }}
+            {% endif %}
+
         - name: bus_mod_glamsbjerg
           unique_id: a0b3c4b2c4664974ab948e3a1d3d8c09
           state: >-

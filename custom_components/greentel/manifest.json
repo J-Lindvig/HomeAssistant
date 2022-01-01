@@ -1,0 +1,10 @@
+{
+    "domain": "greentel",
+    "name": "Greentel API",
+    "documentation": "",
+    "dependencies": [],
+    "codeowners": ["Jacob Lindvig Henriksen"],
+    "requirements": ["beautifulsoup4", "html.parser"],
+    "iot_class": "cloud_polling",
+    "version": "1.3"
+}
