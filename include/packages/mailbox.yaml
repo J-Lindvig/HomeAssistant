@@ -1,12 +1,4 @@
 mailbox:
-  # Timer for how long the mailbox must be held open to avoid false positives
-  input_number:
-    mailbox_time_open:
-      name: Åben tid
-      icon: mdi:timer
-      min: 1
-      max: 5
-      step: 1
 
   # The switch controlling whether we have emptied the mailbox
   input_boolean:
@@ -45,8 +37,6 @@ mailbox:
         - platform: state
           entity_id: binary_sensor.mailbox
           to: "on"
-          for:
-            seconds: "{{ states('input_number.mailbox_time_open') | int }}"
         - platform: event
           event_type: mobile_app_notification_action
           event_data:

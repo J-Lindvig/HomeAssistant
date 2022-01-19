@@ -1,110 +1,110 @@
-transport:
-  template:
-    - sensor:
-        - name: dynamic travel time
-          unique_id: 08420e6f28e54d45b49de95436047abf
-          state: >-
-            {# PARAMETERS TO BE CHANGED #}
-            {% set calendar = 'calendar.jacob_lindvig_gmail_com' %}
-            {% set work_keyword = 'Arbejde' %}
-            {% set travel_sensor = 'sensor.waze_travel_time_arbejde' %}
-            {% set off_state = 'off' %}
-            {% set time_before = 300 %}
+# transport:
+#   template:
+#     - sensor:
+#         - name: dynamic travel time
+#           unique_id: 08420e6f28e54d45b49de95436047abf
+#           state: >-
+#             {# PARAMETERS TO BE CHANGED #}
+#             {% set calendar = 'calendar.jacob_lindvig_gmail_com' %}
+#             {% set work_keyword = 'Arbejde' %}
+#             {% set travel_sensor = 'sensor.waze_travel_time_arbejde' %}
+#             {% set off_state = 'off' %}
+#             {% set time_before = 300 %}
 
-            {# EXTRACTIONS OF VARIABLES #}
-            {# EXTRACT DATE AND TIME OF WORK #}
-            {% set work_datetime_str = state_attr(calendar, 'start_time') %}
-            {# EXTRACT THE DATE OF WORK #}
-            {% set work_date_str = work_datetime_str.split(' ')[0] %}
-            {# EXTRACT TODAYS DATE AS STRING #}
-            {% set today_date_str = (now() ~ '').split(' ')[0] %}
+#             {# EXTRACTIONS OF VARIABLES #}
+#             {# EXTRACT DATE AND TIME OF WORK #}
+#             {% set work_datetime_str = state_attr(calendar, 'start_time') %}
+#             {# EXTRACT THE DATE OF WORK #}
+#             {% set work_date_str = work_datetime_str.split(' ')[0] %}
+#             {# EXTRACT TODAYS DATE AS STRING #}
+#             {% set today_date_str = (now() ~ '').split(' ')[0] %}
 
-            {# MAGIC BELOW #}
-            {# IS THE EVENT TODAY AND IS IT MARKED WITH THE KEYWORD #}
-            {% if work_date_str == today_date_str and is_state_attr(calendar, 'message', work_keyword) %}
-              {# CALCULATE THE DEPATURE TIME AND OUTPUT IT AS HH:MM #}
-              {{
-                (
-                  (work_datetime_str | as_timestamp()) -
-                  time_before -
-                  (( states(travel_sensor) | float ) * 60)
-                ) | timestamp_custom('%H:%M') 
-              }}
-            {% else %}
-              {{ off_state }}
-            {% endif %}
+#             {# MAGIC BELOW #}
+#             {# IS THE EVENT TODAY AND IS IT MARKED WITH THE KEYWORD #}
+#             {% if work_date_str == today_date_str and is_state_attr(calendar, 'message', work_keyword) %}
+#               {# CALCULATE THE DEPATURE TIME AND OUTPUT IT AS HH:MM #}
+#               {{
+#                 (
+#                   (work_datetime_str | as_timestamp()) -
+#                   time_before -
+#                   (( states(travel_sensor) | float ) * 60)
+#                 ) | timestamp_custom('%H:%M') 
+#               }}
+#             {% else %}
+#               {{ off_state }}
+#             {% endif %}
 
-        - name: bus_mod_glamsbjerg
-          unique_id: a0b3c4b2c4664974ab948e3a1d3d8c09
-          state: >-
-            {{ states('sensor.bus_851u_glamsbjerg') }} minut{% if states('sensor.bus_851u_glamsbjerg') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.bus_851u_glamsbjerg', 'due_at').split(' ')[1] }})
-          attributes:
-            sort_value_minutes: "{{ state_attr('sensor.bus_851u_glamsbjerg', 'due_in') }}"
+#         - name: bus_mod_glamsbjerg
+#           unique_id: a0b3c4b2c4664974ab948e3a1d3d8c09
+#           state: >-
+#             {{ states('sensor.bus_851u_glamsbjerg') }} minut{% if states('sensor.bus_851u_glamsbjerg') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.bus_851u_glamsbjerg', 'due_at').split(' ')[1] }})
+#           attributes:
+#             sort_value_minutes: "{{ state_attr('sensor.bus_851u_glamsbjerg', 'due_in') }}"
 
-        - name: bus_mod_faaborg
-          unique_id: 613c677d60cb48128a6f56b843358205
-          state: >-
-            {{ states('sensor.bus_111_faaborg') }} minut{% if states('sensor.bus_111_faaborg') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.bus_111_faaborg', 'due_at').split(' ')[1] }})
-          attributes:
-            sort_value_minutes: "{{ state_attr('sensor.bus_111_faaborg', 'due_in') }}"
+#         - name: bus_mod_faaborg
+#           unique_id: 613c677d60cb48128a6f56b843358205
+#           state: >-
+#             {{ states('sensor.bus_111_faaborg') }} minut{% if states('sensor.bus_111_faaborg') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.bus_111_faaborg', 'due_at').split(' ')[1] }})
+#           attributes:
+#             sort_value_minutes: "{{ state_attr('sensor.bus_111_faaborg', 'due_in') }}"
 
-        - name: bus_mod_odense
-          unique_id: 9855ea5267e148b9acc278ee97c1a927
-          state: >-
-            {{ states('sensor.bus_111_odense') }} minut{% if states('sensor.bus_111_odense') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.bus_111_odense', 'due_at').split(' ')[1] }})
-          attributes:
-            sort_value_minutes: "{{ state_attr('sensor.bus_111_odense', 'due_in') }}"
+#         - name: bus_mod_odense
+#           unique_id: 9855ea5267e148b9acc278ee97c1a927
+#           state: >-
+#             {{ states('sensor.bus_111_odense') }} minut{% if states('sensor.bus_111_odense') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.bus_111_odense', 'due_at').split(' ')[1] }})
+#           attributes:
+#             sort_value_minutes: "{{ state_attr('sensor.bus_111_odense', 'due_in') }}"
 
-        - name: bus_mod_odense_110
-          unique_id: e0f1b996e5e64849a9db39fa735bbd7e
-          state: >-
-            {{ states('sensor.bus_110_odense') }} minut{% if states('sensor.bus_110_odense') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.bus_110_odense', 'due_at').split(' ')[1] }})
-          attributes:
-            sort_value_minutes: "{{ state_attr('sensor.bus_110_odense', 'due_in') }}"
+#         - name: bus_mod_odense_110
+#           unique_id: e0f1b996e5e64849a9db39fa735bbd7e
+#           state: >-
+#             {{ states('sensor.bus_110_odense') }} minut{% if states('sensor.bus_110_odense') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.bus_110_odense', 'due_at').split(' ')[1] }})
+#           attributes:
+#             sort_value_minutes: "{{ state_attr('sensor.bus_110_odense', 'due_in') }}"
 
-        - name: bus_mod_assens_110
-          unique_id: 4f56e330030c4b138a8e259456e5c920
-          state: >-
-            {{ states('sensor.bus_110_assens') }} minut{% if states('sensor.bus_110_assens') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.bus_110_assens', 'due_at').split(' ')[1] }})
-          attributes:
-            sort_value_minutes: "{{ state_attr('sensor.bus_110_assens', 'due_in') }}"
+#         - name: bus_mod_assens_110
+#           unique_id: 4f56e330030c4b138a8e259456e5c920
+#           state: >-
+#             {{ states('sensor.bus_110_assens') }} minut{% if states('sensor.bus_110_assens') | int > 1 %}ter{%- endif %} ({{ state_attr('sensor.bus_110_assens', 'due_at').split(' ')[1] }})
+#           attributes:
+#             sort_value_minutes: "{{ state_attr('sensor.bus_110_assens', 'due_in') }}"
 
-  sensor:
-    - platform: rejseplanen
-      name: Bus 110 Odense
-      stop_id: 430276300
-      direction:
-        - "Odense"        
-      route: "Bus 110"
+#   sensor:
+#     - platform: rejseplanen
+#       name: Bus 110 Odense
+#       stop_id: 430276300
+#       direction:
+#         - "Odense"        
+#       route: "Bus 110"
 
-    - platform: rejseplanen
-      name: Bus 110 Assens
-      stop_id: 430276300
-      direction:
-        - "Assens"
-      route: "Bus 110"
+#     - platform: rejseplanen
+#       name: Bus 110 Assens
+#       stop_id: 430276300
+#       direction:
+#         - "Assens"
+#       route: "Bus 110"
 
-    - platform: rejseplanen
-      name: Busser fra Marsk Billesvej
-      stop_id: 430268500
+#     - platform: rejseplanen
+#       name: Busser fra Marsk Billesvej
+#       stop_id: 430268500
 
-    - platform: rejseplanen
-      name: Bus 111 Odense
-      stop_id: 430268500
-      direction:
-        - "Odense"
-      route: "Bus 111"
+#     - platform: rejseplanen
+#       name: Bus 111 Odense
+#       stop_id: 430268500
+#       direction:
+#         - "Odense"
+#       route: "Bus 111"
 
-    - platform: rejseplanen
-      name: Bus 111 Faaborg
-      stop_id: 430268500
-      direction:
-        - "Faaborg"
-      route: "Bus 111"
+#     - platform: rejseplanen
+#       name: Bus 111 Faaborg
+#       stop_id: 430268500
+#       direction:
+#         - "Faaborg"
+#       route: "Bus 111"
 
-    - platform: rejseplanen
-      name: Bus 851U Glamsbjerg
-      stop_id: 430269400
-      route: "Bus 851U"
-      direction:
-        - "Vestfyns Uddannelsescenter"
+#     - platform: rejseplanen
+#       name: Bus 851U Glamsbjerg
+#       stop_id: 430269400
+#       route: "Bus 851U"
+#       direction:
+#         - "Vestfyns Uddannelsescenter"

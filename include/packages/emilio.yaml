@@ -1,0 +1,79 @@
+emilio:
+
+  input_text:
+    emilio_title:
+      name: 'Emilio title'
+      initial: 'Emilio er kommet hjem'
+    emilio_message:
+      name: 'Emilio message'
+      initial: 'Emilio skal hentes ved havelågen'
+
+  input_datetime:
+    school_start:
+      name: Skoledagens start
+      has_date: false
+      has_time: true
+      initial: '07:40'
+    school_end:
+      name: Skoledagens slutning
+      has_date: false
+      has_time: true
+      initial: '16:00'
+
+  automation:
+    id: dad947c64f4043e0be717059e2e850ac
+    alias: Emilio er hjemme
+    mode: single
+    description: 'Notifikation ved Emilios hjemkomst'
+    trigger:
+      - platform: event
+        event_type: deconz_event
+        event_data:
+          unique_id: "84:2e:14:ff:fe:f8:1d:59"
+          device_id: "6f92bdbd5a6f1f1c3341d9a7c0779aff"
+    condition:
+      - condition: time
+        after: input_datetime.school_start
+        before: input_datetime.school_end
+        weekday:
+          - mon
+          - tue
+          - wed
+          - thu
+          - fri
+    action:
+      - service: notify.mobile_app_redmi_9t
+        data:
+          title: "{{ states('input_text.emilio_title') }}"
+          message: "{{ states('input_text.emilio_message') }}"
+          data:
+            sticky: true
+            tag: emilio_er_hjemme
+            ttl: 0
+            importance: high
+      - service: notify.mobile_app_rikke_iphone
+        data:
+          title: "{{ states('input_text.emilio_title') }}"
+          message: "{{ states('input_text.emilio_message') }}"
+          data:
+            tag: emilio_er_hjemme
+            push:
+              sound:
+                name: default
+                critical: 1
+                volume: 1
+      - service: script.say_something
+        data:
+          media_player: media_player.kokken
+          message: "{{ states('input_text.emilio_title') }}"
+          volume: 100
+      - service: script.say_something
+        data:
+          media_player: media_player.stuen
+          message: "{{ states('input_text.emilio_title') }}"
+          volume: 100
+      - service: script.say_something
+        data:
+          media_player: media_player.indgang
+          message: "{{ states('input_text.emilio_title') }}"
+          volume: 100

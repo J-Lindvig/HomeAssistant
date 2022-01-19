@@ -1,21 +1,33 @@
-from homeassistant.const import CONF_PHONE_NO, CONF_PASSWORD
+import logging
 
-from .greentel import GreentelClient
-from .const import DOMAIN
+from .api import greentelClient
+from .const import (
+    DOMAIN,
+    CONF_CLIENT,
+    CONF_PASSWORD,
+    CONF_PHONENUMBER,
+    CONF_PLATFORM,
+    CONF_SEPARATE_DATA_SENSORS,
+)
+
+_LOGGER: logging.Logger = logging.getLogger(__package__)
+_LOGGER = logging.getLogger(__name__)
 
 async def async_setup(hass, config):
     conf = config.get(DOMAIN)
     if conf is None:
         return True
 
-    greentelClient  = GreentelClient(conf.get(CONF_PHONE_NO), conf.get(CONF_PASSWORD))
+    # Initialize the Client
+    client  = greentelClient(conf.get(CONF_PHONENUMBER), conf.get(CONF_PASSWORD))
     hass.data[DOMAIN] = {
-        "greentelClient": greentelClient
+        CONF_CLIENT: client,
+        CONF_SEPARATE_DATA_SENSORS: conf.get(CONF_SEPARATE_DATA_SENSORS)
     }
 
     # Add sensors
     hass.async_create_task(
-        hass.helpers.discovery.async_load_platform('sensor', DOMAIN, conf, config)
+        hass.helpers.discovery.async_load_platform(CONF_PLATFORM, DOMAIN, conf, config)
     )
 
     # Initialization was successful.

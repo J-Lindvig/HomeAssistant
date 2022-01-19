@@ -378,30 +378,30 @@ vacuum:
                 {% endif %}
               {%- endfor %}
 
-    # Set the defult settings at startup
-    - alias: "Indstil støvsugeren ved opstart"
-      id: d14d7f1f776c46e793692378317c88cb
-      trigger:
-        - platform: homeassistant
-          event: start
-      action:
-        # Get the DND start from the vacuum and set the timepicker
-        - service: input_datetime.set_datetime
-          data:
-            entity_id: input_datetime.vacuum_dnd_start
-            time: "{{ state_attr('vacuum.lynet_mcclean', 'do_not_disturb_start') }}"
-        # Get the DND end from the vacuum and set the timepicker
-        - service: input_datetime.set_datetime
-          data:
-            entity_id: input_datetime.vacuum_dnd_end
-            time: "{{ state_attr('vacuum.lynet_mcclean', 'do_not_disturb_end') }}"
-        # Send the default fanspeed to the vacuum
-        - service: vacuum.set_fan_speed
-          data:
-            entity_id: vacuum.lynet_mcclean
-            # Send default fan speed to vacuum
-            fan_speed: "{{ states('var.vacuum_default_fanspeed') | int }}"
-        - delay: "00:00:20"
-        - service: automation.trigger
-          data:
-            entity_id: automation.match_suge_menuen_til_stovsugeren
+    # # Set the defult settings at startup
+    # - alias: "Indstil støvsugeren ved opstart"
+    #   id: d14d7f1f776c46e793692378317c88cb
+    #   trigger:
+    #     - platform: homeassistant
+    #       event: start
+    #   action:
+    #     # Get the DND start from the vacuum and set the timepicker
+    #     - service: input_datetime.set_datetime
+    #       data:
+    #         entity_id: input_datetime.vacuum_dnd_start
+    #         time: "{{ state_attr('vacuum.lynet_mcclean', 'do_not_disturb_start') }}"
+    #     # Get the DND end from the vacuum and set the timepicker
+    #     - service: input_datetime.set_datetime
+    #       data:
+    #         entity_id: input_datetime.vacuum_dnd_end
+    #         time: "{{ state_attr('vacuum.lynet_mcclean', 'do_not_disturb_end') }}"
+    #     # Send the default fanspeed to the vacuum
+    #     - service: vacuum.set_fan_speed
+    #       data:
+    #         entity_id: vacuum.lynet_mcclean
+    #         # Send default fan speed to vacuum
+    #         fan_speed: "{{ states('var.vacuum_default_fanspeed') | int }}"
+    #     - delay: "00:00:20"
+    #     - service: automation.trigger
+    #       data:
+    #         entity_id: automation.match_suge_menuen_til_stovsugeren

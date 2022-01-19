@@ -5,55 +5,52 @@ countdowns:
       - name: "Jacob fødselsdag"
         date: "1975-03-24"
         id_prefix: "birthday_"
-        date_format: "%-d-%-m-%Y"
         unit_of_measurement: "dage"
+
       - name: Rikke fødselsdag
         date: "1976-10-03"
         id_prefix: "birthday_"
-        date_format: "%-d-%-m-%Y"
         unit_of_measurement: "dage"
+
       - name: Cornelie & Nathalie fødselsdag
         date: "2003-08-22"
         id_prefix: "birthday_"
-        date_format: "%-d-%-m-%Y"
         unit_of_measurement: "dage"
+
       - name: Hjalte fødselsdag
         date: "2007-03-22"
         id_prefix: "birthday_"
-        date_format: "%-d-%-m-%Y"
         unit_of_measurement: "dage"
+
       - name: Emilio fødselsdag
         date: "2014-09-17"
         id_prefix: "birthday_"
-        date_format: "%-d-%-m-%Y"
         unit_of_measurement: "dage"
+
       - name: Colin fødselsdag
         date: "2016-04-23"
         id_prefix: "birthday_"
-        date_format: "%-d-%-m-%Y"
         unit_of_measurement: "dage"
+
       - name: William fødselsdag
         date: "2020-01-18"
         id_prefix: "birthday_"
-        date_format: "%-d-%-m-%Y"
         unit_of_measurement: "dage"
 
       # Anniversaties
       - name: Bryllupsdag
         date: "2003-07-01"
-        date_format: "%-d-%-m-%Y"
         unit_of_measurement: "dage"
 
       # Annual events
       - name: Juleaften
         date: "12-24"
         id_prefix: "annual_"
-        date_format: "%-d-%-m-%Y"
         unit_of_measurement: "dage"
+
       - name: Nytårsaften
         date: "12-31"
         id_prefix: "annual_"
-        date_format: "%-d-%-m-%Y"
         unit_of_measurement: "dage"
 
   group:

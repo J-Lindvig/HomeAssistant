@@ -16,11 +16,11 @@ cards:
         cards:
           - !include
             - a_gauge.yaml
-            - entity: "sensor.greentel"
+            - entity: "sensor.greentel_familiemedlem_eu"
               measurement: ""
               title: "Timer tilbage"
-              attribute: "talk_left"
-              max: 35
+              attribute: "talk used"
+              max: 720000
               severity_list: "10, 30"
       - type: vertical-stack
         title: Data

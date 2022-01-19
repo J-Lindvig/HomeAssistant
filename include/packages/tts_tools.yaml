@@ -33,12 +33,24 @@ tts_tools:
         media_player:
           description: "Den medieafspiller hvor der skal afspilles"
           example: "media_player.kokken"
+          selector:
+            entity:
+              domain: media_player
         message:
           description: "Den besked som som afspilles"
           example: "Dette er en fed besked"
+          selector:
+            text:
         volume:
           description: "Den volume som der skal afspilles med"
-          example: 0.8
+          example: 80
+          selector:
+            number:
+              min: 0
+              max: 100
+              step: 10
+              unit_of_measurement: '%'
+              mode: slider
       variables:
         tts_service: "tts.aaa_google_cloud_say"
         saved_volume: ""
@@ -65,13 +77,10 @@ tts_tools:
             entity_id: "{{ media_player }}"
             message: "{{ message }}"
 
-        # A workaround.....
-        # Wait 2 seconds for the media_player to start playing
-        # Wihtout this the script would continue and resetting
-        # the volume back to its previous state
-        - delay: 2
+        # Wait till we are playing the message
+        - wait_template: "{{ is_state(media_player, 'playing') }}"
 
-        # Wait till we are done saying the message
+        # Wait till we are done playing the message
         - wait_template: "{{ not is_state(media_player, 'playing') }}"
 
         # Reset the volume

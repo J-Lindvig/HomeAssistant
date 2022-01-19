@@ -51,8 +51,10 @@ outdoor:
           entity_id: sun.sun
       action:
         - service: "light.turn_{{ 'on' if is_state('sun.sun', 'below_horizon') else 'off' }}"
-          entity_id:
-            - light.husnummer
+          data:
+            entity_id:
+              - light.husnummer
+            brightness: 255
 
     - alias: "Havelåge/hoveddør - tænd lys"
       id: eac2ec3db544404ea24ba0f3884ca2eb

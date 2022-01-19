@@ -4,9 +4,6 @@ tools:
   # Own public IPv4 address
   - platform: dnsip
 
-  shell_command:
-    shell_test: "source /config/shell/tools.sh; shell_test"
-
   rest_command:
     set_options_fix:
       url: !secret DYNAMIC_LIST_URL
@@ -83,15 +80,3 @@ tools:
                 {% set ns.actions = ns.actions + [action] %}
                 {% endfor %}
                 {{ ns.actions }}
-
-    # # Generic loop
-    # loop:
-    #   alias: "Generic Loop"
-    #   sequence:
-    #     - service: system_log.write
-    #       data:
-    #         message: 'Generic loop: {{ delay }}'
-    #         level: error
-    #     - delay: >-
-    #         {{ delay }}
-    #     - service: "{{ caller }}"

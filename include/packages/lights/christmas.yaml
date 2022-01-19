@@ -27,7 +27,7 @@ christmas:
           event: start
         - platform: state
           entity_id: sun.sun
-      condition: "{{ week_end <= week >= week_start }}"
+      condition: "{{ not( week_end < week < week_start ) }}"
       action:
         - service: "light.turn_{{ 'on' if is_state('sun.sun', 'below_horizon') else 'off' }}"
           entity_id:

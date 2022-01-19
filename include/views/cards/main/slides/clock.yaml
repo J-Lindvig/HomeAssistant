@@ -12,8 +12,8 @@ type: picture-elements
 image: /local/images/backgrounds/night_5x2.jpg
 elements:
   - type: state-label
-    entity: sensor.dato_og_tid_dk
-    attribute: time_hhmm
+    entity: sensor.time_date_dk
+    attribute: time
     style:
       top: 45%
       left: 50%
@@ -23,7 +23,7 @@ elements:
       font-weight: bold
 
   - type: state-label
-    entity: sensor.dato_og_tid_dk
+    entity: sensor.time_date_dk
     style:
       top: 75%
       left: 50%
@@ -43,8 +43,8 @@ elements:
       font-weight: bold
 
   - type: state-label
-    entity: sensor.dato_og_tid_dk
-    attribute: sunrise
+    entity: sensor.time_date_dk
+    attribute: sun_next_rising
     style:
       top: 20%
       left: 10%
@@ -64,8 +64,8 @@ elements:
       font-weight: bold
 
   - type: state-label
-    entity: sensor.dato_og_tid_dk
-    attribute: sunset
+    entity: sensor.time_date_dk
+    attribute: sun_next_setting
     style:
       top: 20%
       left: 90%

@@ -38,7 +38,7 @@ camera: !include include/cameras.yaml
 #  /_____/
 #
 default_config:
-device_tracker: !include include/device_trackers.yaml
+  device_tracker: !include include/device_trackers.yaml
 
 #      ______
 #     / ____/
@@ -52,7 +52,6 @@ frontend:
   extra_module_url:
     - /hacsfiles/lovelace-card-mod/card-mod.js
 
-
 #     ______
 #    / ____/
 #   / / __
@@ -62,6 +61,11 @@ frontend:
 google:
   client_id: !secret GOOGLE_CLIENT_ID
   client_secret: !secret GOOGLE_CLIENT_SECRET
+
+greentel:
+  phonenumber: 25563311
+  password: Kar2ffel!
+  separate_data_sensors: true
 
 #      __  __
 #     / / / /
@@ -90,10 +94,15 @@ http:
 #  /_____/
 #
 logger:
-  default: fatal
+  default: debug
   logs:
+    custom_components.iphonedetect: debug
+    custom_components.greentel: debug
+    custom_components.time_date_dk: debug
     homeassistant.core: fatal
     homeassistant.helpers.service: critical
+    homeassistant.components.ping: debug
+    homeassistant.components.ping.device_tracker: debug
     homeassistant.components.websocket_api.http.connection: critical
     homeassistant.components.automation.webhook: critical
 
@@ -129,9 +138,6 @@ panel_iframe:
     url: !secret TASMO_ADMIN_URL
 
 python_script:
-pyscript:
-  allow_all_imports: true
-  hass_is_global: true
 
 #      ____
 #     / __ \
@@ -193,6 +199,7 @@ shell_command: !include_dir_merge_named include/shell_commands/
 #   / /
 #  /_/
 #
+time_date_dk:
 
 #
 #  | |  / /

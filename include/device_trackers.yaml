@@ -1,17 +1,19 @@
 #### Iponedetect
-# IP addresses known being iOS
 - platform: iphonedetect
   consider_home: 600
+  scan_interval: 5
   new_device_defaults:
     track_new_devices: true
   hosts:
-    rikke_telefon: 192.168.0.130
-    rikke_ur: 192.168.0.131
-    cornelie_telefon: 192.168.0.150
-    nathalie_telefon: 192.168.0.160
+    rikke_telefon_ios: 192.168.0.130
+    rikke_ur_ios: 192.168.0.131
+    cornelie_telefon_ios: 192.168.0.150
+    nathalie_telefon_ios: 192.168.0.160
 
 #### Ping
 - platform: ping
+  new_device_defaults:
+    track_new_devices: true
   hosts:
     jacob_telefon_ping: 192.168.0.120
     rikke_telefon_ping: 192.168.0.130
