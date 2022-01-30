@@ -62,3 +62,30 @@
       deviceID:
       - this
   mode: single
+- id: '1643061074521'
+  alias: Flagdag
+  description: Samlet automation til alt omkring flagdage
+  trigger:
+  - platform: template
+    value_template: '{{ is_state_attr(''sensor.flagdays'', ''flag_up_time_trigger'',
+      states(''sensor.time'')) }}'
+    id: Flag Up Time Trigger
+  - platform: template
+    value_template: '{{ is_state_attr(''sensor.flagdays'', ''flag_down_time_trigger'',
+      states(''sensor.time'')) }}'
+    id: Flag Down Time Trigger
+  - platform: template
+    value_template: '{{ is_state_attr(''sensor.flagdays'', ''half_mast_end_time_trigger'',
+      states(''sensor.time'')) }}'
+    id: Half Mast End Time Trigger
+  condition:
+  - condition: state
+    entity_id: sensor.flagdays
+    state: '0'
+  action:
+  - choose: []
+    default:
+    - service: notify.mobile_app_redmi_9t
+      data:
+        title: Husk at hejse flaget
+  mode: single

@@ -1,1 +1,21 @@
-#sandbox:
+sandbox:
+  template:
+    - sensor:
+        - name: Bluetooth
+          unique_id: 7fe0d75533cd472181516d3fcb6332b8
+          state: >-
+            {% set connected_devices = state_attr('sensor.redmi_9t_bluetooth_connection', 'connected_paired_devices')[1:-1].split(',') %}
+            {% set paired_devices = state_attr('sensor.redmi_9t_bluetooth_connection', 'paired_devices')[1:-1].split(',') %}
+            {% set device_names = {
+              'FF:FC:33:54:04:36': 'Høretelefoner',
+              'EN_ANDEN_MAC_ADDR': 'En anden lækker enhed'
+            } %}
+
+            {% for device in connected_devices -%}
+              {% if device in paired_devices %}
+                {{ device_names[device] }} er tilsluttet
+              {% elif loop.last %}
+                Intet tilsluttet.
+              {%- endif %}
+            {%- endfor %}
+          icon:

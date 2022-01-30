@@ -1,5 +1,4 @@
 outdoor:
-
   group:
     outdoor_sensors:
       name: Udendørs sensorer
@@ -48,17 +47,17 @@ outdoor:
       mode: single
       trigger:
         - platform: state
-          entity_id: sun.sun
+          entity_id: binary_sensor.night
       action:
-        - service: "light.turn_{{ 'on' if is_state('sun.sun', 'below_horizon') else 'off' }}"
+        - service: light.turn_on
           data:
             entity_id:
               - light.husnummer
-            brightness: 255
+            brightness: "{{ 255 if is_state('binary_sensor.night', 'on') else 0 }}"
 
-    - alias: "Havelåge/hoveddør - tænd lys"
+    - alias: "Havelåge/hoveddør - tænd/sluk lys"
       id: eac2ec3db544404ea24ba0f3884ca2eb
-      description: "Tænd lyset ved husnummeret og havegangen når havelågen eller døren åbnes når det er mørkt"
+      description: "Tænd/sluk lyset ved husnummeret og havegangen når havelågen eller døren åbnes når det er mørkt"
       initial_state: true
       mode: single
       trigger:
@@ -66,7 +65,7 @@ outdoor:
           entity_id:
             - group.outdoor_sensors
           to: "on"
-      condition: "{{ is_state('sun.sun', 'below_horizon') }}"
+      condition: "{{ is_state('binary_sensor.night', 'on') }}"
       action:
         - service: light.turn_on
           data:
@@ -81,17 +80,12 @@ outdoor:
             entity_id: timer.arrived_night
             duration: "{{ states('input_number.timeout_arrived_night') | multiply(60) | int }}"
 
-    - alias: "Havelåge/hoveddør - sluk lys"
-      id: f645942dd8454ea881b223ed369c8867
-      description: "Sluk havegang m.m. efter timeout"
-      initial_state: true
-      mode: single
-      trigger:
-        platform: event
-        event_type: timer.finished
-        event_data:
-          entity_id: timer.arrived_night
-      action:
+        - wait_for_trigger:
+            - platform: event
+              event_type: timer.finished
+              event_data:
+                entity_id: timer.arrived_night
+
         - service: light.turn_off
           data:
             entity_id:

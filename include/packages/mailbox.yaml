@@ -1,8 +1,7 @@
 mailbox:
-
   # The switch controlling whether we have emptied the mailbox
   input_boolean:
-    private_mailbox:
+    mailbox_sticky:
       name: Postkasse boolean
       initial: off
       icon: mdi:mailbox-up
@@ -11,8 +10,8 @@ mailbox:
     - binary_sensor:
         - name: mail
           unique_id: e1b0b3f411604f0485b71eba425dc53e
-          icon: "mdi:mailbox{{ '-up' if is_state('input_boolean.private_mailbox', 'on') }}"
-          state: "{{ states('input_boolean.private_mailbox') }}"
+          icon: "mdi:mailbox{{ '-up' if is_state('input_boolean.mailbox_sticky', 'on') }}"
+          state: "{{ states('input_boolean.mailbox_sticky') }}"
 
   script:
     reset_mailbox:
@@ -45,12 +44,12 @@ mailbox:
         - choose:
             - conditions:
                 - "{{ trigger.platform == 'state' }}"
-                - "{{ is_state('input_boolean.private_mailbox', 'off') }}"
+                - "{{ is_state('input_boolean.mailbox_sticky', 'off') }}"
               sequence:
                 - service: input_boolean.turn_on
                   data:
-                    entity_id: input_boolean.private_mailbox
-  
+                    entity_id: input_boolean.mailbox_sticky
+
                 - service: script.notification_android
                   data:
                     service: notify.mobile_app_redmi_9t
@@ -68,7 +67,7 @@ mailbox:
           default:
             - service: input_boolean.turn_off
               data:
-                entity_id: input_boolean.private_mailbox
+                entity_id: input_boolean.mailbox_sticky
             - service: notify.mobile_app_redmi_9t
               data:
                 message: clear_notification

@@ -11,5 +11,5 @@ browsers:
 
       fb92d5f1-b6b734e5:
         name: PC-J-Lindvig-Linux
-#    disable:
-#      - all
+    # disable:
+    #   - all

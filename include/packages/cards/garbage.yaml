@@ -1,53 +1,53 @@
 garbage:
-############################################################
-####                Garbage by J-Lindvig                ####
-############################################################
+  ############################################################
+  ####                Garbage by J-Lindvig                ####
+  ############################################################
 
-#### PLUGINS NEEDED ####
-# Garbage-Collection, https://github.com/bruxy70/Garbage-Collection
+  #### PLUGINS NEEDED ####
+  # Garbage-Collection, https://github.com/bruxy70/Garbage-Collection
 
-  garbage_collection:
-    sensors:
-      # Garbage ordinary pickup
-      - name: Affald normal
-        frequency: odd-weeks
-        collection_days:
-          - wed
-        move_country_holidays: DK
-        expire_after: "12:00"
-        hidden: true
-        exclude_dates:
-          - "2020-12-30"
+  # garbage_collection:
+  #   sensors:
+  #     # Garbage ordinary pickup
+  #     - name: Affald normal
+  #       frequency: odd-weeks
+  #       collection_days:
+  #         - wed
+  #       move_country_holidays: DK
+  #       expire_after: "12:00"
+  #       hidden: true
+  #       exclude_dates:
+  #         - "2020-12-30"
 
-      # Garbage extra summer pickup
-      - name: Affald sommer
-        frequency: even-weeks
-        first_month: jul
-        last_month: aug
-        collection_days:
-          - wed
-        move_country_holidays: DK
-        expire_after: "12:00"
-        hidden: true
+  #     # Garbage extra summer pickup
+  #     - name: Affald sommer
+  #       frequency: even-weeks
+  #       first_month: jul
+  #       last_month: aug
+  #       collection_days:
+  #         - wed
+  #       move_country_holidays: DK
+  #       expire_after: "12:00"
+  #       hidden: true
 
-      # Garbage group
-      - name: Affald
-        frequency: group
-        entities:
-          - sensor.affald_normal
-          - sensor.affald_sommer
+  #     # Garbage group
+  #     - name: Affald
+  #       frequency: group
+  #       entities:
+  #         - sensor.affald_normal
+  #         - sensor.affald_sommer
 
-      # Recycle pickup
-      - name: Genbrug
-        frequency: even-weeks
-        collection_days:
-          - thu
-        move_country_holidays: DK
-        expire_after: "16:00"
-        exclude_dates:
-          - "2020-12-31"
-        include_dates:
-          - "2020-12-30"
+  #     # Recycle pickup
+  #     - name: Genbrug
+  #       frequency: even-weeks
+  #       collection_days:
+  #         - thu
+  #       move_country_holidays: DK
+  #       expire_after: "16:00"
+  #       exclude_dates:
+  #         - "2020-12-31"
+  #       include_dates:
+  #         - "2020-12-30"
 
   template:
     - sensor:

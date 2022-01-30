@@ -47,6 +47,21 @@ default_config:
 #  /_/
 #
 ffmpeg:
+
+flagdays_dk:
+  offset: 10
+  flags:
+    - grønland
+    - færø
+    - pride
+  events:
+    - name: Jacob fødselsdag
+      date: "24-03-1975"
+    - name: Rikke Fødselsdag
+      date: "03-10-1976"
+    - name: Pride måned
+      date: "01-08-2000"
+
 frontend:
   themes: !include_dir_merge_named themes
   extra_module_url:
@@ -63,8 +78,8 @@ google:
   client_secret: !secret GOOGLE_CLIENT_SECRET
 
 greentel:
-  phonenumber: 25563311
-  password: Kar2ffel!
+  phonenumber: !secret GREENTEL_PHONENUMBER
+  password: !secret GREENTEL_PASSWORD
   separate_data_sensors: true
 
 #      __  __
@@ -94,11 +109,11 @@ http:
 #  /_____/
 #
 logger:
-  default: debug
+  default: error
   logs:
-    custom_components.iphonedetect: debug
     custom_components.greentel: debug
     custom_components.time_date_dk: debug
+    custom_components.flagdays_dk: debug
     homeassistant.core: fatal
     homeassistant.helpers.service: critical
     homeassistant.components.ping: debug
@@ -112,6 +127,12 @@ lovelace:
 
 lovelace_gen:
 
+#      _   __
+#     / | / /
+#    /  |/ /
+#   / /|  /
+#  /_/ |_/
+#
 nest:
   client_id: !secret NEST_CLIENT_ID
   client_secret: !secret NEST_CLIENT_SECRET
@@ -192,6 +213,11 @@ sensor:
       - dewpointTemperature
 
 shell_command: !include_dir_merge_named include/shell_commands/
+
+stream:
+  ll_hls: true
+  part_duration: 0.75 # Range of 0.2 to 1.5
+  segment_duration: 6 # Range of 2 to 10
 
 #
 #   /_  __/
