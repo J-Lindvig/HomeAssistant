@@ -13,7 +13,7 @@ By completing the numerous steps in this guide, you will end up having:
 The remote must be reset and free of any existing groups. Furthermore custom key bindings in Home Assistant will not function in a fail-safe situation.
 ### Tools needed
  1. a browser
- 2. access to curl` command, preferably in a SSH session or similar
+ 2. access to curl command, preferably in a SSH session or similar
 ### Steps
 Here are the steps we need to perform:
  1. Open Phoscon for direct API calls
