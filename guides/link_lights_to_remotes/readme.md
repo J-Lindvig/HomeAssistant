@@ -50,6 +50,7 @@ Therefore we need to open Phoscon and authourize our fictive app.
 5. Let us hurry back to our SSH session and press enter.
 	If everything worked as it should you will have result like this below:
 ![enter image description here](https://github.com/J-Lindvig/HomeAssistant/raw/master/guides/link_lights_to_remotes/images/deconz_token.png)
+
 I have redacted some of my token.
 
 ## Exctract groups from Phoscon
