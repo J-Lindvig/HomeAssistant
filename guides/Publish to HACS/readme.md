@@ -7,3 +7,4 @@ I am not an affiliate of HACS or Home Assistant and my guide is simply how I do 
     1. If not please start with a [signup](https://github.com/signup?ref_cta=Sign+up&ref_loc=header+logged+out&ref_page=%2F&source=header-home)
 2. Create a repository new **public** repository in Github account.
     1. Add a **License** optional but recommended. For help in choosing the rigth license, I refer to [choosealicense.com](https://choosealicense.com/)
+d
