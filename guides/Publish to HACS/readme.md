@@ -24,4 +24,6 @@ In the frontpage of your newly created repository, click *About* and fill in:
 </figure>
 
 ### readme.md
-ddd
+It is required for your repository to have a readme.md containing information on how to install, config and use the integration.
+Help in formatting the readme.md can be found in this [cheatsheet](https://www.markdownguide.org/cheat-sheet/).
+The file is **only** used in HACS
