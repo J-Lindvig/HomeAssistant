@@ -6,17 +6,17 @@ blueprint:
     REQUIREMENTS:
     -----------------------------------------------------------------------------------------------------------------------------------------------------
     Since we need to store the current light chosen between each activation of the automation, we need a placeholder.
-    For this we are using an input_number helper.
+    For this we are using a counter helper.
 
-    Create one in Settings > Devices & services > Helpers > Create helper > Number
+    Create one in Settings > Devices & services > Helpers > Create helper > Counter
     -or else-
     Can be configured in the YAML:
     Example
     ```yml
-    input_number:
+    counter:
       idx_livingroom:
     ```
-    The input only needs an entity_id - the rest is handled by the blueprint.
+    The counter only needs an entity_id - the rest is handled by the blueprint.
 
     HOW THE REMOTE WORKS:
     ------------------------------------------------------------------------------------------------------------------------------------------------------
@@ -36,7 +36,7 @@ blueprint:
     ------------------------------------------------------------------------------------------------------------------------------------------------------
     We listen on "deconz_event" and extract the numeric representation of the pressed button and duration.
 
-    The input_number is updated with the ID of the current light.
+    The counter is updated with the ID of the current light.
     Secondly we choose the appropriate action from the given event.
 
     USING THE BLUEPRINT IN YAML MODE:
@@ -51,7 +51,7 @@ blueprint:
           input:
             long_press_transition: '30'
             remote: c08819d98af8b341299ea47c702e9a37
-            counter: input_number.all_in_one_test_id
+            counter: counter.all_in_one_test_id
             short_press_transition: '0.5'
             dim_step_pct: '20'
               lights:
@@ -82,11 +82,11 @@ blueprint:
           multiple: false
     counter:
       name: ID holder
-      description: The input_number holding the ID of the current light
+      description: The counter holding the ID of the current light
       selector:
         entity:
           domain:
-          - input_number
+          - counter
           multiple: false
           reorder: false
     dim_step_pct:
@@ -178,7 +178,7 @@ action:
             {{ (idx + 1) if idx < (lights | length - 1) else 0 }}
           {%- endif %}
         prev_state: "{{ states(lights[idx]) }}"
-    - service: input_number.set_value
+    - service: counter.set_value
       target:
         entity_id: "{{ counter }}"
       data:
