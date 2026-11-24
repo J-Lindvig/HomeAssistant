@@ -6,12 +6,16 @@ blueprint:
     REQUIREMENTS:
     -----------------------------------------------------------------------------------------------------------------------------------------------------
     Since we need to store the current light chosen between each activation of the automation, we need a placeholder.
-    For this we are using an input_number helper. Create one in Settings > Helpers with min 0, max 99, step 1, or else it can be configured in the or YAML.
-    Example:
+    For this we are using an input_number helper.
 
+    Create one in Settings > Devices & services > Helpers > Create helper > Number
+    -or else-
+    Can be configured in the YAML:
+    Example
+    ```yml
     input_number:
       idx_livingroom:
-
+    ```
     The input only needs an entity_id - the rest is handled by the blueprint.
 
     HOW THE REMOTE WORKS:
